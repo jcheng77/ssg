@@ -5,10 +5,10 @@ class Choice
   include ObjectIdHelper
   include VisibleToHelper
 
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end
-  
+#  after_initialize do |o|
+#    o.mark_id! # mark the _id with the mark byte
+#  end
+#  
   TYPE_LIKE=:LIK
   TYPE_WISH=:WSH
   TYPE_RECOMMEND=:RCM
