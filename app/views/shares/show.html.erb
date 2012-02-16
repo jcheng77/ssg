@@ -218,7 +218,7 @@
                 <div class="btn_left"><a class="add_wish_btn" href="javascript:void(0);">+想买</a></div>
                 
                 <%= form_for(@comment) do |f| %>
-                <%=f.hidden_field :object_id%>
+                <%=f.hidden_field :object_id_type%>
                 <div class="btn"><a class="add_cmt_btn" href="javascript:$('form')[0].submit();" class="">添加评论</a></div>
                 <%= f.text_area :comment, rows: 5, id: "comment_content_text"%>
                 <%end%>

@@ -18,6 +18,6 @@ class Seller
   
   # comments
   def comments
-    Comment.where(object_id: self._id)
+    Comment.where(object_id_type: self._id)
   end
 end

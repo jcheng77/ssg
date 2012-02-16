@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user._id
 
     if @comment.save
-      redirect_to share_path @comment.object_id
+      redirect_to share_path @comment.object_id_type
     else
       redirect_to items_path
     end
@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     if @comment && @comment.destroy
-      redirect_to share_path @comment.object_id 
+      redirect_to share_path @comment.object_id_type 
     else
       redirect_to items_path  
     end
