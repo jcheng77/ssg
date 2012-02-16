@@ -7,5 +7,5 @@ production:
       key:    "1408937818"
       secret: "613b940d9fe14180aa01ce294e1ddf8a"
       url:    "http://ixiangmai.com"
-      callback: "http://ssgclound.heroku.com/syncs/sina/callback"
+      callback: "http://ssgcloud.heroku.com/syncs/sina/callback"
 
