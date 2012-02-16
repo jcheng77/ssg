@@ -1,11 +1,11 @@
 development:
       key:    "1408937818"
       secret: "613b940d9fe14180aa01ce294e1ddf8a"
-      url:    "http://www.tuixiangmai.com"
+      url:    "http://www.ixiangmai.com"
       callback: "http://localhost:3000/syncs/sina/callback"
 production:
       key:    "1408937818"
       secret: "613b940d9fe14180aa01ce294e1ddf8a"
-      url:    "http://www.tamaila.com"
-      callback: "http://www.tamaila.com/syncs/sina/callback"
+      url:    "http://ixiangmai.com"
+      callback: "http://ssgclound.heroku.com/syncs/sina/callback"
 
