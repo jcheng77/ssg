@@ -108,15 +108,15 @@ class SyncsController < ApplicationController
     access_token = results[:access_token]
     token_secret = results[:access_token_secret]
 
-    userhash = return_user_hash(client)
+    userhash = return_user_hash(wb.client)
 
 ## -------------
 ##  print key-value pair of the returned user object
 ##  userhash.each_key {|key| logger.info "#{key} => #{userhash[key]}"}
 ## -------------
     
-    friendhash = store_friends(client)
-    extract_friends_list(friendhash)
+#    friendhash = store_friends(client)
+#    extract_friends_list(friendhash)
    
     # The hash key of returned json object from QQ weibo is different from the one returned from Sina weibo.
     # So the ids and names needs to be extracted from the json object
@@ -125,12 +125,12 @@ class SyncsController < ApplicationController
     end
 
     if access_token && token_secret
-      oauth_token_key = build_oauth_token_key(client.name,client.oauth_token)
-      Rails.cache.write(oauth_token_key, client.dump)
+      oauth_token_key = build_oauth_token_key(wb.client.name,wb.client.oauth_token)
+      Rails.cache.write(oauth_token_key, wb.client.dump)
       session[:oauth_token_key] = oauth_token_key
 
       # 发微博
-      client.add_status('Login @ '+Time.new.to_s)
+      wb.client.add_status('Login @ '+Time.new.to_s)
       #wb.client.add_status('Login @ '+Time.new.to_s)
       
       exists = User.where(userid: userinfo["id"].to_s ).first
