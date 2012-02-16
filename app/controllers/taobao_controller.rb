@@ -36,7 +36,7 @@ class TaobaoController < ApplicationController
   end
   
   # taobao callback (TOP style)
-  # sample: http://www.tamaila.com/taobao/callback?top_appkey=...&top_parameters=...&top_session=...&sign=...&timestamp=...&top_sign=...
+  # sample: http://www.ssg.com/taobao/callback?top_appkey=...&top_parameters=...&top_session=...&sign=...&timestamp=...&top_sign=...
   def callback
   end
   

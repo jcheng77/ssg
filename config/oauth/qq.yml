@@ -6,6 +6,6 @@ development:
 production:
       key:    "801078737"
       secret: "d8cf504891096c77e920178ae32afc67"
-      url:    "http://www.tamaila.com"
-      callback: "http://www.tamaila.com/syncs/sina/callback"
+      url:    "http://www.ssg.com"
+      callback: "http://www.ssg.com/syncs/sina/callback"
 
