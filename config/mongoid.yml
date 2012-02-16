@@ -1,0 +1,27 @@
+# config/mongo.yml
+
+defaults: &defaults
+  host: 127.0.0.1
+  port: 27017
+
+development:
+  <<: *defaults
+  database: tb
+  autocreate_indexes: true
+
+test:
+  <<: *defaults
+  database: tb_test
+  autocreate_indexes: true
+
+# set these environment variables on your prod server
+production:
+  host: mongoc2.grandcloud.cn
+  port: 10004
+#  host: staff.mongohq.com
+#  port: 10082
+#  host: ds029187.mongolab.com
+#  port: 29187
+  database: tamaila
+  username: tamaila
+  password: tamaila

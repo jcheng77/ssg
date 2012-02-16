@@ -1,0 +1,336 @@
+/*image view start*/
+.grid_9 {
+  width: 330px !important;  
+}
+
+.grid_10 {
+  box-shadow: 0 3px 5px rgba(34, 25, 25, 0.4);
+  padding-bottom: 10px;
+}
+
+.grid_4 {
+  box-shadow: 0 3px 5px rgba(34, 25, 25, 0.4);
+  padding-bottom: 15px;
+  width: 155px !important;
+}
+
+.share_img_view {
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  text-align: center;
+  box-shadow: 0 3px 5px rgba(34, 25, 25, 0.4);
+  height: 330px;
+  line-height: 326px;
+  text-align: center;
+  width: 330px;
+  background: #FFFFFF;
+}
+
+.share_img_view img {
+  border: solid 1px #EAEAEA;
+  width: 300px;
+}
+
+/*image view end*/
+
+/*share content start*/
+#share_content {
+  margin: 10px;
+}
+
+#share_content .avatar {
+  float: left;
+}
+
+#share_content .avatar img{
+  float: left;
+  height: 40px;
+  width: 40px;
+  margin-left: 0;
+  border: solid 1px #DDDDDD;
+}
+
+#share_content .avatar .avatar_right {
+  float: left;
+  margin-left: 3px;
+  width: 240px;
+  overflow: hidden;
+}
+
+#share_content .avatar .share_total {
+  float: left;
+  margin-left: 3px;
+  width: 80px;
+  overflow: hidden;
+  text-align: right;
+}
+
+#share_content .avatar .share_total a:hover {
+  color: #00AEEF;
+}
+
+#share_content .avatar .avatar_right div {
+  margin: 2px 0px 3px 0px;
+}
+
+#share_content .title {
+  font-size: 16px;
+  margin: 5px 0 3px;
+}
+
+#share_content .description {
+  color: #888888;
+  padding-top: 3px;
+}
+
+.item_rating_container div {
+  float: left;
+  margin-top: 2px;
+}
+
+.item_rating_container div.label {
+  margin-top: 4px;
+}
+
+#share_content .item_info_position {
+  margin-top: 3px;
+}
+
+.separator {
+  margin: 8px 0 5px 0;
+}
+
+#share_content .the_same_shares {
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  height: 30px;
+  padding: 3px;
+}
+
+#share_content .the_same_shares .the_same_shares_label {
+  float: left;
+  width: 60px;
+  border-right: 1px solid #DDDDDD;
+  padding-right: 5px;
+}
+
+#share_content .the_same_shares li.the_same_shares_item {
+  float: left;
+  margin-left: 5px;
+}
+
+#share_content .the_same_shares li.the_same_shares_item img{
+  width: 30px;
+  height: 30px;
+  border: 1px solid #DDDDDD;
+}
+
+#share_content .the_same_shares li.the_same_shares_item .img_hover {
+  border: 1px solid #00AEEF;
+}
+
+#share_content .item_comment {
+  background: #F0F0F0;
+  float: left;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+
+#share_content .item_comment .comment_avatar {
+  float: left;
+}
+
+#share_content .item_comment .comment_content {
+  float: right;
+  margin-top: 3px;
+  width: 340px;
+  color: #888888;
+}
+
+#share_content .item_comment .avatar {
+  padding-top: 7px;
+  padding-left: 5px;
+}
+
+#share_content .item_comment .avatar img {
+  width: 30px;
+  height: 30px;
+  
+}
+
+#share_content .item_comment .avatar .avatar_right div {
+  margin: 0px;
+}
+
+#share_content .item_comment_add {
+  padding-bottom: 5px;
+}
+
+#share_content .item_comment_add textarea {
+  height: 60px;
+  margin-bottom: 5px;
+  width: 365px;
+  font-size: 12px;
+  color: #888888;
+  padding: 3px 0px 0px 3px;
+}
+
+#share_content .item_comment_add a.add_cmt_btn,
+#share_content .item_comment_add a.add_like_btn,
+#share_content .item_comment_add a.add_wish_btn {
+  background: #7BCC00;
+  border-radius: 3px 3px 3px 3px;
+  font-size: 12px;
+  padding: 5px 8px;
+  text-align: center;
+}
+
+#share_content .item_comment_add a.add_like_btn {
+  background: #FF6699;
+}
+
+#share_content .item_comment_add a.add_wish_btn {
+  background: #00AEEF;
+}
+
+#share_content .item_comment_add a.add_cmt_btn:hover,
+#share_content .item_comment_add a.add_like_btn:hover,
+#share_content .item_comment_add a.add_wish_btn:hover {
+  color: #EEEEEE;
+}
+
+#share_content .item_comment_add .btn,
+#share_content .item_comment_add .btn_left {
+  float: right;
+  margin-bottom: 15px;
+  margin-right: 3px;
+  margin-top: 8px;
+}
+
+#share_content .item_comment_add .btn_left {
+  float: left;
+  margin-right: 8px;
+}
+
+
+.status .liked_info,
+.status .wish_info {
+  float: left;
+}
+
+.status .liked_info .liked_img {
+  background: url(../images/likebg.gif) no-repeat scroll 0 -25px transparent;
+  width: 20px;
+  float: left;
+}
+
+.status .liked_info .liked_num {
+  float: left;
+  margin-top: -1px;
+  
+}
+
+.status .wish_info .wish_img {
+  float: left;
+}
+
+.status .wish_info .wish_img img {
+  width: 13px;
+  float: left;
+  margin-left: 15px;
+}
+
+.status .wish_info .wish_num {
+  float: left;
+  margin-left: 3px;
+  margin-top: -1px;
+}
+
+/*share content end*/
+
+/*tastemate start*/
+#tastemate_content {
+  margin: 10px;
+}
+
+#tastemate_content .title{
+  font-size: 14px;
+}
+
+#tastemate_content .sub_title{
+  color: #888888;
+}
+
+#tastemate_content .tastemate_item {
+  padding-top: 10px;
+}
+
+#tastemate_content .tastemate_item img {
+  float: left;
+  width: 30px;
+}
+
+#tastemate_content .tastemate_item .avatar_right {
+  float: left;
+  margin-left: 5px;
+  margin-top: -3px;
+}
+
+.un_follow_home {
+  width: 70px;
+}
+
+/*tastemate end*/
+
+/*suggest shares start*/
+#suggest_shares {
+  width: 320px;
+  box-shadow: 0 3px 5px rgba(34, 25, 25, 0.4);
+  padding-left: 10px;
+  padding-top: 10px;
+  float: left;
+}
+
+#suggest_shares .suggest_shares_title {
+  margin-bottom: 10px;
+}
+
+#suggest_shares .suggest_shares_item {
+  float: left;
+  font-size: 10px;
+  width: 155px;
+  margin-bottom: 15px;
+}
+
+#suggest_shares .suggest_shares_item img.suggest_item_img {
+  float: left;
+  border: 1px solid #BBBBBB;
+  padding: 1px;
+  width: 40px;
+  height: 40px;
+}
+
+#suggest_shares .suggest_shares_item .suggest_shares_item_right {
+  float: left;
+}
+
+#suggest_shares .suggest_shares_item .suggest_shares_item_right .title {
+  width: 100px;
+  margin-left: 5px;
+  overflow: hidden;
+}
+
+#suggest_shares .suggest_shares_item .suggest_shares_item_right .status {
+  width: 100px;
+  margin-top: 3px;
+  margin-left: 3px;
+}
+
+#suggest_shares .suggest_shares_item .suggest_shares_item_right .status .wish_info img {
+  margin-left: 10px;
+}
+/*suggest shares end*/

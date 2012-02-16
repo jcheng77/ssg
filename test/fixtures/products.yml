@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  birth_date: 2011-12-18
+  de_tail: 1.5
+
+two:
+  title: MyString
+  birth_date: 2011-12-18
+  de_tail: 1.5

@@ -1,0 +1,18 @@
+<form action="/taobao/edit">
+	<table>
+		<tr>
+			<td>
+				<img src="<%=@product["pic_url"]%>" width="310">
+			</td>
+			<td>
+				<h2><a href="<%=@product["detail_url"]%>"><%=@product["title"].encoding%></a></h2>
+				<br/>
+				
+			</td>
+		</tr>
+	</table>
+</form>
+
+<pre><%=@json_str.encoding%></pre>
+< %= link_to 'Show', @product %> |
+< %= link_to 'Back', products_path %>

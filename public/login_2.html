@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pinterest / Login</title>
+        
+        <link rel="icon" href="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/favicon.png" type="image/x-icon" />
+        <link rel="apple-touch-icon-precomposed" href="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/ipad_touch_icon.png" />
+        <link rel="stylesheet" href="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/css/pinboard_0de45344.css" type="text/css" media="all"/>        
+    </head>
+    
+
+    <h1 id="login_logo"><a href="/"></a></h1>
+
+    <div class="social_buttons">
+        <div class="inset">
+            <a class="fb login_button" href="/facebook/">
+                <div class="logo_wrapper"><span class="logo"></span></div>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+        <div class="inset">
+            <a class="tw login_button" href="/twitter/">
+                <div class="logo_wrapper"><span class="logo"></span></div>
+                <span>Login with Twitter</span>
+            </a>
+        </div>
+    </div>
+
+    <img class="login_bar" src="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/login_bar.png" alt="Horizontal Rule" />
+
+    
+    
+
+    <form class="Form FancyForm AuthForm" action="/login/" method="POST" accept-charset="utf-8">
+        <ul>
+
+            <li>
+                <input id="id_email" name="email" type="text" />
+                <label>Email Address</label>
+                <span class="fff"></span>
+
+                
+            </li>
+
+            <li>
+                <input id="id_password" name="password" type="password" />
+                <label>Password</label>
+                <span class="fff"></span>
+
+                
+            </li>
+
+            
+
+            <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='c1a0cbf5d719b30a4012f423def269fd' /></div>
+
+        </ul>
+
+        <div class="non_inputs">
+            <a href="#" class="Button WhiteButton Button18" onclick="$('.AuthForm').submit(); return false"><strong>Login</strong><span></span></a>
+            <a id="resetPassword" class="colorless" href="#">Forgot your password?</a>
+            <a id="backToLogin" class="colorless" href="#">Back to Login?</a>
+        </div>
+
+    </form><!-- .Form.FancyForm.AuthForm -->
+
+</html>

@@ -1,0 +1,98 @@
+
+<div id="createShare_main">
+  <div class="container_24">
+    <div class="clear"></div>
+    <div class="grid_24 main_content">
+        <div class="grid_4">
+      &nbsp;
+        </div>
+        <div class="grid_19" id="select_share_btn" style="display:<%=@share.source ? 'block':'none'%>;">
+      <a href="javascript:void(0);" id="select_again_btn">返回重新选择</a>
+        </div>
+        <div class="grid_4">
+      &nbsp;
+        </div>
+        <div id="select_view" style="display:<%=@share.source ? 'none':'block'%>;">
+      <div class="grid_24" id="select_from_buy_list">
+          <div class="select_sub_title_1">从淘宝购买记录分享<span class="secondary_color">（推荐）</span></div>
+          <div class="description">
+        <div class="text_12 dark_color">分享真实的购买记录，让朋友买到更靠谱的东西</div>
+        <!--div class="text_12 dark_color">越多朋友的购买可能会给你带来越多的返利</div-->
+        <div class="text_12 dark_color">您还没有同步淘宝的购买记录 <a href="javascript:void(0)" class="secondary_color text_10">了解更多</a></div>
+        <div class="gotoSync"><a href="javascript:void(0)" id="select_from_buy_list_sync">现在就去淘宝同步购买纪录</a></div>
+          </div>
+      </div>
+      <div class="clear_both">&nbsp;</div>
+      <div class="separator">&nbsp;</div>
+      
+      <div class="grid_24" id="input_buy_url" id="taobao_url">
+          <div class="select_sub_title"><span class="dark_color text_12">或&nbsp;</span>输入淘宝商品链接</div>
+          <div>
+            <input type="text" placeholder="在这里输入淘宝商品链接地址" id="taobao_url" value="http://item.taobao.com/item.htm?id=484075"/>
+            <a href="javascript:void(0);" id="input_buy_url_next" class="secondary_color">下一步</a>
+          </div>
+      </div>
+      <div class="clear_both">&nbsp;</div>
+      <div class="separator">&nbsp;</div>
+      
+      <div class="grid_24" id="select_from_sys">
+          <div class="select_from_sys_contaniner">
+        <div class="select_sub_title"><span class="dark_color text_12">或&nbsp;</span>搜索要分享的商品</div>
+        <div><input type="text" id="search_item_input" placeholder="在这里输入搜索关键字"/><a href="javascript:void(0)" id="select_from_sys_next" class="secondary_color">下一步</a></div>
+        
+        
+        <div id="searched_results" style="display:none;">
+            <ul>
+          <a href="javascript:void(0);" class="search_item_link">
+              <li class="searched_item">
+            <img src="http://img04.taobaocdn.com/bao/uploaded/i4/T1e9yAXnVTXXai4lU8_101513.jpg_40x40.jpg"/>
+            <div class="searched_item_desc">
+                进口女装2011新款韩版毛衣
+            </div>
+              </li>
+          </a>
+          <a href="javascript:void(0);" class="search_item_link">
+              <li class="searched_item">
+            <img src="http://img03.taobaocdn.com/bao/uploaded/i3/T11fCDXj8JXXaZYyvX_115525.jpg_40x40.jpg"/>
+            <div class="searched_item_desc">
+                2011新款冬装韩版女装简约打底裙
+            </div>
+              </li>
+          </a>
+          <a href="javascript:void(0);" class="search_item_link">
+              <li class="searched_item">
+            <img src="http://img02.taobaocdn.com/bao/uploaded/i2/T1qIyoXltRXXaC1MwW_023516.jpg_40x40.jpg"/>
+            <div class="searched_item_desc">
+                外出防风必备 2011秋冬新款OL修身中长款
+            </div>
+              </li>
+          </a>
+          <a href="javascript:void(0);" class="search_item_link">
+              <li class="searched_item">
+            <img src="http://img02.taobaocdn.com/bao/uploaded/i2/T1YfSMXkRrXXciqkI__110225.jpg_40x40.jpg"/>
+            <div class="searched_item_desc">
+                2011新款冬装韩版女装宽松打底衫
+            </div>
+              </li>
+          </a>
+          <a href="javascript:void(0);" class="search_item_link">
+              <li class="searched_item">
+            <img src="http://img02.taobaocdn.com/bao/uploaded/i2/T15CuaXmpjXXXXQ.Z._084013.jpg_40x40.jpg"/>
+            <div class="searched_item_desc">
+                2011新款夏装韩版女装字母印花长款
+            </div>
+              </li>
+          </a>
+          
+            </ul>
+        </div>
+          </div>
+      </div>
+      <div class="clear_both">&nbsp;</div>
+        </div>
+        
+<%= render 'form' %>
+
+    </div>
+  </div>
+</div>

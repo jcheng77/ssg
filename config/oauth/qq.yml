@@ -1,0 +1,11 @@
+development:
+      key:    "801078737"
+      secret: "d8cf504891096c77e920178ae32afc67"
+      url:    "http://www.tml.com"
+      callback: "http://localhost:3000/syncs/qq/callback"
+production:
+      key:    "801078737"
+      secret: "d8cf504891096c77e920178ae32afc67"
+      url:    "http://www.tamaila.com"
+      callback: "http://www.tamaila.com/syncs/sina/callback"
+

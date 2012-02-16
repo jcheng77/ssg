@@ -1,0 +1,38 @@
+<h2>Listing users</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>Nick Name</th>
+    <th>Action</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user._id %></td>
+    <td><%= user.full_name %></td>
+    <td><%= user.nick_name %></td>
+    
+    <td>
+    	<%= link_to 'Show', user %>
+    	<%= link_to 'Edit', edit_user_path(user) %>
+    	<%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %>
+    	|
+    	<%if current_user._id!=user._id%>
+	    	<%= link_to 'Loin', select_user_path(user) %>
+	    	<% if current_user.following?(user._id)%>
+        <%= link_to 'Unfollow', unfollow_user_path(user) %>
+	    	<%else%>
+        <%= link_to 'Follow', follow_user_path(user) %>
+	    	<%end%>
+    	<%end%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path , :class=>'btn primary'%>
+<%= link_to 'Shared with me', dashboard_users_path, :class=>'btn' %>

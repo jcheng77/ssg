@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+	<title>TA买啦－首页</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/960_24_col.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/text.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/tamaila-common.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="css/tamaila-index.css" type="text/css" media="screen"/>
+	<script src="js/jquery-1.7.1.js" type="text/javascript"></script>
+	<script src="js/tamaila-1.0-index.js" type="text/javascript"></script>
+</head>
+
+
+<body onload="Tamaile.initPage();">
+<div id="header">
+	<div class="container_24">
+		<div class="clear"></div>
+		<div class="grid_4 logo">
+			<p><a href="index.html">TA买啦</a></p>
+		</div>
+	</div>
+</div>
+
+<div id="index_instruction">
+	<div class="container_24">
+		<div class="clear"></div>
+		<div class="grid_24 instruction_content">
+			<div class="grid_16 instruction_left">
+				<div class="instruction_left_content">
+					<div>朋友的分享，值得信任的推荐</div>
+					<div>秀自己买的商品，与朋友分享购物的乐趣</div>
+					<div>基于已有社交网络，无需注册，自动建立朋友关系</div>
+					<div>根据爱好，将朋友归入不同圈子</div>
+					<div>强大而快速的搜索过滤机制，快速找到想要买的东西</div>
+				</div>
+			</div>
+			
+			<div class="grid_7">
+				<div id="loginBox">
+          <%= form_tag sessions_path do %>
+           <p>
+          <%= label_tag :email %><br />
+           <%= text_field_tag :email, params[:email] %>
+          </p>
+          <p>
+          <%= label_tag :password %><br />
+              <%= password_field_tag :password %> </p>
+          <p class="button"><%= submit_tag "Log in" %></p> 
+          <% end %>
+
+					<div class="loginBtn">
+					</div>
+					<div class="loginRight">
+            <div class="createNew"> <%= link_to '快速创建帐号' , :controller => "home" , :action => "register" %> </div>
+						<div class="forgetPwd"><a href="#" onclick="return false;">忘记密码？</a></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<div id="index_main">
+	<div class="container_24 outerbox">
+		<div class="grid_24 container">
+			<ul>
+				<li><img id="img_1" src=""/></li>
+				<li><img id="img_2" src=""/></li>
+				<li><img id="img_3" src=""/></li>
+				<li><img id="img_4" src=""/></li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+<div id="footer">
+	<div class="container_24">
+		<div class="clear"></div>
+		<div class="grid_24 footer_content">
+			<div>Copyright by TA买啦 2011-2012 tamaila.com, all rights reserved</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

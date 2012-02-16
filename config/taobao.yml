@@ -1,0 +1,21 @@
+default: &default
+  api_key: 12012322
+  secret_key: sandbox2a5bea25d1bc06ccd23123121daf
+  auth_url: https://oauth.tbsandbox.com/authorize
+  token_url: https://oauth.tbsandbox.com/token
+  rest_url: http://gw.api.tbsandbox.com/router/rest
+  callback_url: http://0.0.0.0:3000/auth/callback
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  secret_key: 42ab2d12a5bea25d1bc06ccd23123121daf
+  auth_url: https://oauth.taobao.com/authorize
+  token_url: https://oauth.taobao.com/token
+  rest_url: http://gw.api.taobao.com/router/rest
+  callback_url: http://yourdomain.com/auth/callback

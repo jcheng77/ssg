@@ -1,0 +1,36 @@
+<h2>Add Comment</h2>
+
+  <p>
+  <b>&nbsp; &nbsp; Shared by:</b> <%=@share.user.full_name%> (<%=@share.user.nick_name%>)
+  <b>&nbsp; &nbsp; Ratings:</b> <%=@share.product_rating%>/<%=@share.service_rating%>
+  <b>&nbsp; &nbsp; Comments:</b> <%=@share.comments.length%>  
+  <br/>
+  <b>&nbsp; &nbsp; Source:</b> <%= @share.source %><br/>
+  <b>&nbsp; &nbsp; Price:</b> <%= @share.price %><br/>
+  <b>&nbsp; &nbsp; Visible To:</b> <%=@share.visible_to_nick_str%> <%=@share.visible_to_self ? "private":""%><br/>
+  <b>&nbsp; &nbsp; Comment:</b> <%=@share.comment%>
+  </p>
+  
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <fieldset>
+    <%=f.hidden_field :object_id%>
+    <b>&nbsp; &nbsp; My Comment:</b><br/>
+    &nbsp; &nbsp; <%= f.text_area :comment, rows: 5%>
+  </fieldset>
+  <%= f.submit :class=>'btn primary'%>
+<% end %>
+
+<%= link_to 'Item', @share.item , :class=>'btn'%>
+<%= link_to 'Back', @share , :class=>'btn'%>

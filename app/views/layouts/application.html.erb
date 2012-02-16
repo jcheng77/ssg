@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>无托帮</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/960_24_col.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/text.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/tamaila-common.css" type="text/css" media="screen"/>
+    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'myshares')%>
+      <link rel="stylesheet" href="/css/tamaila-home.css" type="text/css" media="screen"/>
+    <%end%>
+    <%if current_page?(:controller => 'users', :action => 'myshares') %>
+      <link rel="stylesheet" href="/css/tamaila-myShares.css" type="text/css" media="screen"/>
+    <%end%>
+    <%if current_page?(:controller => 'shares', :action => 'show') %>
+      <link rel="stylesheet" href="/css/tamaila-viewShare.css" type="text/css" media="screen"/>
+    <%end%>
+    <!-- <%=current_page?(:controller => 'items', :action => 'new')%>-->
+    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'edit') %>
+      <link rel="stylesheet" href="/css/tamaila-createShare.css" type="text/css" media="screen"/>
+    <%end%>
+    
+    
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script src="/js/jquery.raty.min.js" type="text/javascript"></script>
+    <script src="/js/tamaila-1.0-common.js" type="text/javascript"></script>
+    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'myshares') %>
+      <script src="/js/tamaila-1.0-home.js" type="text/javascript"></script>
+    <%end%>
+    <%if current_page?(:controller => 'users', :action => 'myshares') %>
+      <script src="/js/tamaila-1.0-myShares.js" type="text/javascript"></script>
+    <%end%>
+    <%if current_page?(:controller => 'shares', :action => 'show') %>
+      <script src="/js/tamaila-1.0-viewShare.js" type="text/javascript"></script>
+    <%end%>
+    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'edit') %>
+      <script src="/js/tamaila-1.0-createShare.js" type="text/javascript"></script>
+    <%end%>
+</head>
+
+
+<body onload="">
+<div id="header">
+  <div class="container_24">
+    <div class="clear"></div>
+          
+    <div class="grid_3 logo">
+      <p><a href="/index.html">无托邦</a></p>
+    </div>
+    <div class="grid_2 header_link">
+      <p <%=current_page?(:controller => 'users', :action => 'dashboard') ? "class='selected_l'" : ''%>><%= link_to '我的首页', dashboard_users_path %></p>
+    </div>
+    <div class="grid_3 header_link">
+      <p <%=current_page?(:controller => 'users', :action => 'myshares') ? "class='selected_l'" : ''%>><%= link_to '我的分享', myshares_users_path %></p>
+    </div>
+    <div class="grid_2 header_link">
+      <p <%=current_page?(:controller => 'users') ? "class='selected_l'" : ''%>><%= link_to '用户', users_path %></p>
+    </div>
+    <div class="grid_3 header_link">
+      <p <%=current_page?(:controller => 'items') ? "class='selected_l'" : ''%>><%= link_to '商品', items_path %></p>
+    </div>
+    <div class="grid_8 header_search">
+      <div><input type="text" placeholder="我感兴趣的内容或人..."/></div>
+    </div>
+    <div class="grid_2 my_account">
+      <%if current_user %>
+      <ul class="my_ul">
+        <li class="my_li"><a href="javascript:void(0);"><%=current_user.full_name%></a></li>
+        <ul class="my_menu" style="display:none;">
+          <li class="my_menu_item"><a href="myAccount.html">帐号设置</a></li>
+          <li class="separator">&nbsp;</li>
+          <li class="my_menu_item log_out"> <%= link_to "退出", logout_path %> </li>
+        </ul>
+      </ul>
+      <%else%>
+      <div class="loginBtn">
+        <a href="javascript:void(0);" id="index_login">登&nbsp;录</a>
+      </div>
+      <%end%>
+    </div>
+    
+  </div>
+</div>
+
+
+  <%= yield %>
+
+
+<div id="footer">
+  <div class="container_24">
+    <div class="clear"></div>
+    <div class="grid_24 footer_content">
+      <div>Copyright by 无托邦 2011-2012 tamaile.com, all rights reserved</div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
