@@ -130,8 +130,6 @@ class SyncsController < ApplicationController
       session[:oauth_token_key] = oauth_token_key
 
       # 发微博
-      wb.client.add_status('Login @ '+Time.new.to_s)
-      #wb.client.add_status('Login @ '+Time.new.to_s)
       
       exists = User.where(userid: userinfo["id"].to_s ).first
       if exists.nil?
