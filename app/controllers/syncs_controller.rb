@@ -24,9 +24,12 @@ class SyncsController < ApplicationController
 
 
     if access_token && token_secret
-      oauth_token_key = build_oauth_token_key(wb.client.name,wb.client.oauth_token)
-      Rails.cache.write(oauth_token_key, wb.client.dump)
-      session[:oauth_token_key] = oauth_token_key
+#      oauth_token_key = build_oauth_token_key(wb.client.name,wb.client.oauth_token)
+#      Rails.cache.write(oauth_token_key, wb.client.dump)
+      session[:client] = wb.client
+#      session[:oauth_token_key] = oauth_token_key
+      session[:access_token] = access_token
+      session[:token_secret] = token_secret
 
       exists = User.where(userid: userinfo["id"].to_s ).first
       if exists.nil?

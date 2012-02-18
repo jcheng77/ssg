@@ -23,6 +23,9 @@ class User
   field :dob, type: Date # date actually
   field :preference, type: Array # predefined tags used to filter item list
   field :tags, type: Array # system generated tags for this user, according to his/her share/like
+  field :access_token, type: String
+  field :token_secret, type: String
+
 
 
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i

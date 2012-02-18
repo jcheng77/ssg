@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    Weibo.new('sina').add_status(session[:oauth_token_key],'I was so stupid....') 
+#    Weibo.new('sina').add_status(session[:access_token],session[:token_secret],'I was so stupid....') 
+    session[:client].add_status('i was so stupid...')
     session[:current_user_id] = nil
     redirect_to root_url
   end

@@ -125,14 +125,12 @@ class Weibo
     end
   end
 
-  def add_status(token,message)
-    @client = OauthChina::Sina.load(Rails.cache.read(token))
-    # 发微博
-    @client.add_status('Logout @ '+Time.new.to_s)
-
-#    user = User.where(userid: userid.to_s).first
-#    load_from_db(user.access_token,user.token_secret)
-#    @client.add_status(message)
+  def add_status(access_token,token_secret,message)
+#    @client = OauthChina::Sina.load(Rails.cache.read(token))
+#    # 发微博
+#    @client.add_status('Logout @ '+Time.new.to_s)
+    load_from_db(access_token,token_secret)
+    @client.add_status(message)
   end
 
 
