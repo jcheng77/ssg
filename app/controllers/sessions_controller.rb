@@ -14,11 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    client = OauthChina::Sina.load(Rails.cache.read(session[:oauth_token_key]))
-    # 发微博
-    client.add_status('Logout @ '+Time.new.to_s)
-      
-    
+    Weibo.new('sina').add_status(session[:oauth_token_key],'I was so stupid....') 
     session[:current_user_id] = nil
     redirect_to root_url
   end

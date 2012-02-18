@@ -20,7 +20,6 @@ gem 'therubyracer'
 gem 'mongo_session_store-rails3'
 gem 'devise', '1.4.7'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
-#gem 'devise-mongo_mapper', :path => '/home/tshi/UbuntuOne/tamaila/github/devise-mongo_mapper'
 
 gem 'oauth'
 gem 'oauth_china'
