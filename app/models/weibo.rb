@@ -3,7 +3,7 @@ class Weibo
   def initialize(type)
    @type = type 
   end
-  
+
   def init_client
     case @type
     when 'sina'
@@ -35,9 +35,9 @@ class Weibo
   def load_from_db(access_token,token_secret)
     case @type
     when 'sina'
-    @client = OauthChina::Sina.load(:access_token => access_token,:token_secret => token_secret)
+    @client = OauthChina::Sina.load(:access_token => access_token,:access_token_secret => token_secret)
     when 'qq'
-    @client = OauthChina::Qq.load(:access_token => access_token,:token_secret => token_secret)
+    @client = OauthChina::Qq.load(:access_token => access_token,:access_token_secret => token_secret)
     end
   end
 
@@ -126,9 +126,6 @@ class Weibo
   end
 
   def add_status(access_token,token_secret,message)
-#    @client = OauthChina::Sina.load(Rails.cache.read(token))
-#    # 发微博
-#    @client.add_status('Logout @ '+Time.new.to_s)
     load_from_db(access_token,token_secret)
     @client.add_status(message)
   end
