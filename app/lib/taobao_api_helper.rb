@@ -15,11 +15,12 @@ module TaobaoApiHelper
   # eg. method: 'taobao.user.get'
   #     map: parameters
   def TaobaoApiHelper.call_taobao (url, method, params)
-    app_key = '12443313'
-    app_sec = '8697a9888bf3a4b3d1c9dff28d4890e9' #production
-    app_sec = 'sandbox88bf3a4b3d1c9dff28d4890e9' #sandbox
+    app_key = '12483819'
+    app_sec = 'ef1f67fba35584ee3cbf63cd093e6ddd' #production
+    app_sec = 'sandboxba35584ee3cbf63cd093e6ddd' #sandbox
     #app_key = 'test'
     #app_sec = 'test'
+
     p = {
       'method' => method, #'taobao.user.get',
       #'session' => 'sandbox88bf3a4b3d1c9dff28d4890e9'

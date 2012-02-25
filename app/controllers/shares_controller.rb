@@ -12,10 +12,10 @@ class SharesController < ApplicationController
     @share = Share.find(params[:id])
     
     @comment = Comment.new
-    @comment.object_id_type =@share._id
+    @comment.object_id =@share._id
     
     @choice = Choice.new
-    @choice.object_id_type =@share._id
+    @choice.object_id =@share._id
   end
 
   # GET /users/new
@@ -27,7 +27,7 @@ class SharesController < ApplicationController
   def edit
     @share = Share.find(params[:id])
     @comment = Comment.new
-    @comment.object_id_type =@share._id
+    @comment.object_id =@share._id
   end
 
   # GET /users/1/edit
@@ -35,7 +35,7 @@ class SharesController < ApplicationController
     @share = Share.find(params[:id])
     @choice = Choice.new
     @choice.type = params[:type] ? params[:type].to_sym : Choice::TYPE_LIKE
-    @choice.object_id_type =@share._id
+    @choice.object_id =@share._id
     
     #redirect_to :action => "show", :id => @share
   end

@@ -1,7 +1,7 @@
 #require "mongo_session_store/mongo_mapper"
 #ActionController::Base.session_store = :mongo_mapper_store
 #require "mongo_session_store/mongoid"
-Tb::Application.config.session_store = :mongoid_store
+Ssg::Application.config.session_store = :mongoid_store
 
 # Be sure to restart your server when you modify this file.
 

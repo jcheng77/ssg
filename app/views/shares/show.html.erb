@@ -218,7 +218,7 @@
                 <div class="btn_left"><a class="add_wish_btn" href="javascript:void(0);">+想买</a></div>
                 
                 <%= form_for(@comment) do |f| %>
-                <%=f.hidden_field :object_id_type%>
+                <%=f.hidden_field :object_id%>
                 <div class="btn"><a class="add_cmt_btn" href="javascript:$('form')[0].submit();" class="">添加评论</a></div>
                 <%= f.text_area :comment, rows: 5, id: "comment_content_text"%>
                 <%end%>
@@ -249,9 +249,9 @@
               
               <div class="tastemate_item clear_both">
             <div class="avatar">
-                <img src="/images/avatars/rockyin.jpg"/>
+                <img src="/images/avatars/3.jpg"/>
                 <div class="avatar_right">
-              <div class=""><span>永远的黑石头</span></div>
+              <div class=""><span>黑头</span></div>
               <div class="secondary_color un_follow_home"><a href="javascript:void(0)">+到我的圈子</a></div> 
                 </div>
             </div>
@@ -259,9 +259,9 @@
               
               <div class="tastemate_item clear_both">
             <div class="avatar">
-                <img src="/images/avatars/xuesong.jpg"/>
+                <img src="/images/avatars/2.jpg"/>
                 <div class="avatar_right">
-              <div class=""><span>大青压雪松</span></div>
+              <div class=""><span>大青</span></div>
               <div class="secondary_color un_follow_home"><a href="javascript:void(0)">+到我的圈子</a></div> 
                 </div>
             </div>
@@ -269,9 +269,9 @@
               
               <div class="tastemate_item clear_both">
             <div class="avatar">
-                <img src="/images/avatars/stanford.png"/>
+                <img src="/images/avatars/1.png"/>
                 <div class="avatar_right">
-              <div class=""><span>最后的恐龙S丹佛</span></div>
+              <div class=""><span>最后的恐龙</span></div>
               <div class="secondary_color un_follow_home"><a href="javascript:void(0)">+到我的圈子</a></div> 
                 </div>
             </div>

@@ -6,12 +6,12 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: tb
+  database: ssg
   autocreate_indexes: true
 
 test:
   <<: *defaults
-  database: tb_test
+  database: ssg_test
   autocreate_indexes: true
 
 # set these environment variables on your prod server

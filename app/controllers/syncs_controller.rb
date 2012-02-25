@@ -28,17 +28,17 @@ class SyncsController < ApplicationController
 #      Rails.cache.write(oauth_token_key, wb.client.dump)
       session[:client] = wb.client
 #      session[:oauth_token_key] = oauth_token_key
-      session[:access_token] = access_token
-      session[:token_secret] = token_secret
+#      session[:access_token] = access_token
+#      session[:token_secret] = token_secret
 
 
-      exists = User.where(userid: userinfo["id"].to_s ).update_all(:access_token => access_token, :token_secret => token_secret) 
+      exists = User.where(userid: userinfo["id"].to_s ).first
       if exists.nil?
-      user = User.create({ :userid => userinfo["id"]}, :access_token => access_token, :token_secret => token_secret)
+      user = User.create({ :userid => userinfo["id"]}, :access_token => access_token, :token_secret => token_secret , :pic => userinfo[:profile_image_url])
       session[:current_user_id] = user._id
       redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => userinfo["name"]
       else
-      #session[:current_user_id] = exists._id
+      session[:current_user_id] = exists._id
       redirect_to dashboard_users_path
       end
       

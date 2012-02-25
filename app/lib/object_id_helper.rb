@@ -12,19 +12,19 @@ module ObjectIdHelper
     self[:_id] = id
   end
   
-  def find_object(object_id_type)
-    return nil if !object_id_type
+  def find_object(object_id)
+    return nil if !object_id
     
-    mark_byte = object_id_type.data[MARK_POS]
+    mark_byte = object_id.data[MARK_POS]
     
     case(mark_byte)
-      when Choice::MARK_BYTE then return Choice.find object_id_type
-      when Comment::MARK_BYTE then return Comment.find object_id_type
-      when Item::MARK_BYTE then return Item.find object_id_type
-      when Seller::MARK_BYTE then return Seller.find object_id_type
-      when Share::MARK_BYTE then return Share.find object_id_type
-      when User::MARK_BYTE then return User.find object_id_type
-      else raise "Invalid ObjectId: #{object_id_type}"
+      when Choice::MARK_BYTE then return Choice.find object_id
+      when Comment::MARK_BYTE then return Comment.find object_id
+      when Item::MARK_BYTE then return Item.find object_id
+      when Seller::MARK_BYTE then return Seller.find object_id
+      when Share::MARK_BYTE then return Share.find object_id
+      when User::MARK_BYTE then return User.find object_id
+      else raise "Invalid ObjectId: #{object_id}"
     end
   end
   

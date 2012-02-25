@@ -1,4 +1,4 @@
-Tb::Application.routes.draw do
+Ssg::Application.routes.draw do
   get 'test' => 'users#test'
   
   resources :items do

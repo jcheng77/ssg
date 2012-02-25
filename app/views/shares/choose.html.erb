@@ -25,7 +25,7 @@
   <% end %>
   
   <fieldset>
-    <%=f.hidden_field :object_id_type%>
+    <%=f.hidden_field :object_id%>
     <b>&nbsp; &nbsp; Type:</b>
     <%= radio_button_tag "choice[type]", Choice::TYPE_LIKE, @choice.type==Choice::TYPE_LIKE.to_s %>Like
     <%= radio_button_tag "choice[type]", Choice::TYPE_WISH, @choice.type==Choice::TYPE_WISH.to_s %>Wish

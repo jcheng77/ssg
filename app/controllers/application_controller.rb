@@ -35,14 +35,14 @@ class ApplicationController < ActionController::Base
   def current_user
     begin
       @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
-      return @current_user? @current_user : User.new
-    rescue
-      return User.new
+ #     return @current_user? @current_user : User.new
+ #   rescue
+ #     return User.new
     end
   end
   
   # return true if user_signed_in
-  def user_signed_in?
-    true
-  end
+#  def user_signed_in?
+#    true
+#  end
 end

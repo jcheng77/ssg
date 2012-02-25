@@ -25,6 +25,7 @@ class User
   field :tags, type: Array # system generated tags for this user, according to his/her share/like
   field :access_token, type: String
   field :token_secret, type: String
+  field :pic,type: String
 
 
 
@@ -71,7 +72,7 @@ class User
   def shared_with_me
     hash = Hash.new
     Notification.where(receiver_id: self._id, type: Notification::TYPE_SHARE).each do |n|
-      share = Share.find(n.object_id_type)
+      share = Share.find(n.object_id)
       if share
         if hash.has_key? share.item
           hash[share.item] << share
