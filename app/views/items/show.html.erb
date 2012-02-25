@@ -16,7 +16,6 @@
 %>
 	<hr size="1" />
 	<p>
-	<b>&nbsp; &nbsp; Shared by:</b> <%=share.user.full_name%> (<%=share.user.nick_name%>)
   <b>&nbsp; &nbsp; Ratings:</b> <%=share.product_rating%>/<%=share.service_rating%>
   <b>&nbsp; &nbsp; Comments:</b> <%= link_to share.comments.length, share %> <%= link_to 'Add Comment', edit_share_path(share)%>
 	<br/>
