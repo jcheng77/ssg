@@ -26,6 +26,6 @@ class Comment
   
   # object
   def object
-    find_object self.object_id
+    find_object self.object_id_type
   end
 end
