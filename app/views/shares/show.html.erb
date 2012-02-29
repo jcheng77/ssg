@@ -179,9 +179,9 @@
                 <div class="the_same_shares_label">他/她分享了同一商品</div>
                 <ul class="">
                   <%@share.item.shares.each do |share|%>
-                    <%if share!=@share%>
+                    <%if share =@share%>
                     <li class="the_same_shares_item">
-                      <a href="<%=url_for share %>" title="<%=share.user.full_name%>"><img class="the_same_shares_item_img" src="<%=share.user.avatar%>"/></a>
+                      <a href="<%=url_for share %>" title="<%=share.user.nick_name%>"><img class="the_same_shares_item_img" src="<%=share.user.avatar%>"/></a>
                     </li>
                     <%end%>
                   <%end%>
