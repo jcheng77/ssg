@@ -25,7 +25,6 @@ class User
   field :tags, type: Array # system generated tags for this user, according to his/her share/like
   field :access_token, type: String
   field :token_secret, type: String
-  field :pic,type: String
 
 
 

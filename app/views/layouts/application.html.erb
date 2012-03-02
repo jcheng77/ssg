@@ -67,8 +67,8 @@
     <div class="grid_2 my_account">
       <%if current_user %>
       <ul class="my_ul">
-        <li class="my_li"><a href="javascript:void(0);"><%=current_user.nick_name%></a> <%= image_tag current_user.pic  %> 
-</li>
+        <li class="my_li"><a href="javascript:void(0);"><%=current_user.nick_name%></a> <%= image_tag image_path(current_user.avatar) %> 
+      </li>
                 <ul class="my_menu" style="display:none;">
           <li class="my_menu_item"><a href="myAccount.html">帐号设置</a></li>
           <li class="separator">&nbsp;</li>
