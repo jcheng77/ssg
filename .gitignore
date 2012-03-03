@@ -38,6 +38,7 @@ Thumbs.db
 log/
 tmp/
 .idea
+ssg.iml
 .bundle
 db/*.sqlite3
 log/*.log

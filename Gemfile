@@ -15,7 +15,7 @@ gem 'nestful'
 gem 'topsdk'
 gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'therubyracer'
+gem 'therubyracer', :platforms => :ruby
 #gem "mongo_mapper-rails3", :require => "mongo_mapper"
 gem 'mongo_session_store-rails3'
 gem 'devise', '1.4.7'

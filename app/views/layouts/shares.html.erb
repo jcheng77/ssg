@@ -1,0 +1,13 @@
+<% content_for :container do %>
+    <div class="subnav">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#">所有分享</a></li>
+            <li class=""><a href="#">我喜欢的</a></li>
+            <li class=""><a href="#">我推荐的</a></li>
+            <li class=""><a href="#">好友推荐</a></li>
+            <li class=""><a href="#">私下的分享</a></li>
+        </ul>
+    </div>
+    <%= yield %>
+<% end %>
+<%= render :template => 'layouts/new_application' %>

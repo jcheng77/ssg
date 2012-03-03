@@ -4,6 +4,7 @@ class Share
   include Mongoid::Document
   include ObjectIdHelper
   include VisibleToHelper
+  include CommentableHelper
 
   after_initialize do |o|
     o.mark_id! # mark the _id with the mark byte
@@ -20,14 +21,10 @@ class Share
   field :anonymous, type: Boolean #false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
 
+  acts_as_commentable
   belongs_to :item, index: true
   belongs_to :user, index: true
   belongs_to :seller, index: true
-
-  # comments
-  def comments
-    Comment.where(object_id: self._id)
-  end
   
   # likes
   def likes

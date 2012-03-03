@@ -9,6 +9,7 @@ require 'iconv'
 
 
 class TaobaoController < ApplicationController
+  layout 'application'
   #layout 'taobao'
   #skip_before_filter :verify_authenticity_token
 

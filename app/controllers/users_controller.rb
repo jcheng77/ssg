@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout 'application'
   #before_filter :authenticate_user!
   
   # GET /users

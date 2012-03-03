@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  
+  layout 'application'
   # GET /users
   # GET /users.json
   # localhost:3000/users/index
@@ -24,10 +24,9 @@ class CommentsController < ApplicationController
   # POST /users.json
   def create
     @comment = Comment.new(params[:comment])
-    @comment.user_id = current_user._id
 
-    if @comment.save
-      redirect_to share_path @comment.object_id
+    if @comment.save!
+      redirect_to @comment.root
     else
       redirect_to items_path
     end
