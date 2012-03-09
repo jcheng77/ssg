@@ -130,6 +130,10 @@ class Weibo
     @client.add_status(message)
   end
 
+  def upload_image(access_token,token_secret,message,image_path)
+    load_from_db(access_token,token_secret)
+    @client.upload_image(message,image_path)
+  end
 
   private
 

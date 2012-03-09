@@ -17,8 +17,8 @@ class SyncsController < ApplicationController
     results = wb.client.dump
 
 
-    access_token = results[:access_token]
-    token_secret = results[:access_token_secret]
+    access_token = session[:access_token] = results[:access_token]
+    token_secret = session[:token_secret] = results[:access_token_secret]
 
     userinfo = wb.get_user_info_hash
 
