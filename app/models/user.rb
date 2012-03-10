@@ -43,7 +43,7 @@ class User
   validates_uniqueness_of :nick_name
   validates_format_of :email, :with => email_regexp, :on => :update
  
-  before_save :encrypt_password
+  before_save :encrypt_password, :save_fullname
 
 
   #------------------------------------
@@ -177,5 +177,8 @@ class User
     end
   end
 
+  def save_fullname
+    self.full_name ||= self.nick_name
+  end
 
 end
