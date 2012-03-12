@@ -9,8 +9,9 @@ module TaobaoApiHelper
   EMPTY_JSON=JSON.parse('{}')
   REST_URL = 'http://gw.api.tbsandbox.com/router/rest'
   AUTH_URL = 'http://container.api.tbsandbox.com/container'
-  SESSION  = '6101a04ef7531fe8aaa7dd4050a231779fa39ea0896d155175978269'
-  
+  #SESSION  = '6101a04ef7531fe8aaa7dd4050a231779fa39ea0896d155175978269'
+  SESSION = '6102218e988d186f62837ec8fd1370c7abe7c8772a0207065753053'
+
   # simple api wrap
   # eg. method: 'taobao.user.get'
   #     map: parameters

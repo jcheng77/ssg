@@ -29,7 +29,7 @@ Ssg::Application.routes.draw do
 
   resources :comments
   resources :choices
-  resources :taobao
+#  resources :taobao
   resources :sessions
 
   match "login" => "sessions#new" , :as => :login
@@ -38,6 +38,7 @@ Ssg::Application.routes.draw do
   match "home/index" => "home#index" , :as => :home
   match "syncs/:type/new" => "syncs#new", :as => :sync_new
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
+#  match "taobao/callback" => "taobao#callback", :as => :taobao_callback
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

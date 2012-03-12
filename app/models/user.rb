@@ -26,6 +26,8 @@ class User
   field :access_token, type: String
   field :token_secret, type: String
 
+  field :session_key, type: String
+
 
 
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i

@@ -18,7 +18,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'therubyracer', :platforms => :ruby
 #gem "mongo_mapper-rails3", :require => "mongo_mapper"
 gem 'mongo_session_store-rails3'
-gem 'devise', '1.4.7'
+#gem 'devise', '1.4.7'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
 #
 gem 'pry', :group => :development
