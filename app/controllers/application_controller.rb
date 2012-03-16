@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
   
   def call_taobao (method, map)
-    app_key = 'test' #'12443313'
-    app_sec = 'test' #'sandbox88bf3a4b3d1c9dff28d4890e9'
+    app_key = '12483819' #'12443313'
+    app_sec = 'ef1f67fba35584ee3cbf63cd093e6ddd' #'sandbox88bf3a4b3d1c9dff28d4890e9'
     p = {
       'format' => 'json',
       'method' => method, #'taobao.user.get',
@@ -25,8 +25,10 @@ class ApplicationController < ActionController::Base
     p = p.merge map
     p["sign"] = Digest::MD5.hexdigest(app_sec + p.sort.flatten.join + app_sec).upcase
 
-    url = URI.parse('http://gw.api.tbsandbox.com/router/rest')
+    #url = URI.parse('http://gw.api.tbsandbox.com/router/rest')
+    url = URI.parse('http://gw.api.taobao.com/router/rest')
     resp  = Net::HTTP.post_form(url, p)
+    binding.pry
     return resp.body
     #Nestful.get 'http://gw.api.tbsandbox.com/router/rest', :params => p
   end

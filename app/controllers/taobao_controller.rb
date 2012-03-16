@@ -12,19 +12,22 @@ class TaobaoController < ApplicationController
   layout 'application'
   #layout 'taobao'
   #skip_before_filter :verify_authenticity_token
+  AUTH_URL = 'http://container.api.taobao.com/container?'
+  app_key = '12483819' 
 
   def new
     #params[:itemId]
     #@json_str = call_taobao "taobao.user.get", "fields" => "user_id,uid,nick", "nick"=> "andyy_tan"
-    #13012180181 
+    #
     #@json_str = call_taobao "taobao.user.get", {"nick"=> "andyy_tan", "fields" => "user_id,uid,nick"}
-    @json_str = call_taobao "taobao.item.get", {"num_iid"=> "246883", "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"}
+    @json_str = call_taobao "taobao.item.get", {"num_iid"=> "14252575572", "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"}
     @product = JSON.parse(@json_str)["item_get_response"]["item"]
 
-    @json_str=@json_str.force_encoding('UTF-8')[100..141] << '啊'
-    @json_str.force_encoding('ASCII-8BIT')
+    #@json_str=@json_str.force_encoding('UTF-8')[100..141] << '啊'
+    #@json_str.force_encoding('ASCII-8BIT')
+    @json_str.force_encoding('UTF-8')
     respond_to do |format|
-      format.html  index.html.erb
+      format.html  #index.html.erb
       format.json { render json: @product }
     end
   end
@@ -36,6 +39,14 @@ class TaobaoController < ApplicationController
     end
   end
   
+  def authorize
+   p = {
+      'appkey' => '12483819',
+      'encode' => 'utf-8'
+   }
+   redirect_to AUTH_URL + urlencode(p)
+  end
+
   def callback
     #str = params['top_appkey'] + params["top_parameters"] + params["top_session"] + ENV['TAOBAO_APP_SECRET']
     str = params['top_appkey'] + params["top_parameters"] + params["top_session"] + 'ef1f67fba35584ee3cbf63cd093e6ddd'
@@ -68,6 +79,10 @@ class TaobaoController < ApplicationController
 #      raise RuntimeError, "Invalid signature"
 #    end 
    end 
+
+  def urlencode(params)
+    params.to_a.collect! { |k, v| "#{k.to_s}=#{v.to_s}" }.join("&") 
+  end 
 
 
   # taobao callback (TOP style)
