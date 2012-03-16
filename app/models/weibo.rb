@@ -127,7 +127,7 @@ class Weibo
 
   def add_status(access_token,token_secret,message)
     load_from_db(access_token,token_secret)
-    @client.add_status(message)
+    @client.add_status(access_token,token_secret,message)
   end
 
   def upload_image(access_token,token_secret,message,image_path)

@@ -27,6 +27,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @share = Share.new
+    @item_imgs = Array.new
 
     @id=  params[:id] #246883
 
@@ -35,9 +36,13 @@ class ItemsController < ApplicationController
       @json_obj = JSON.parse(@json_str)
       if(@json_obj["item_get_response"])
         product = @json_obj["item_get_response"]["item"]
+
+        @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
+        binding.pry
         @item = Item.new({
           :title => product['title'],
-          :image => product['pic_url'],
+          #:image => product['pic_url'],
+          :image => @item_imgs[0]
         })
         @share = Share.new({
           :source => product['num_iid'],
