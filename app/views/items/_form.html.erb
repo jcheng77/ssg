@@ -2,17 +2,15 @@
 <%= form_for(@item) do |f| %>
       <div class="grid_9">
           <div class="share_img_view">
-            <% img1,img2,img3,img4,img5 = @item_imgs %>
-        <img id="share_img_src" src="<%= img1 %>" />
+        <img id="share_img_src" src="<%= @item_imgs.first if @item_imgs %>" />
         <%= hidden_field_tag "item[image]", @item.image %>
           </div>
           <div class="share_img_others">
+            <% @item_imgs.each do |img| %>
         <ul>
-            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img2 + "_40x40.jpg" %>"/></li></a>
-            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img3 + "_40x40.jpg" %>"/></li></a>
-            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img4 + "_40x40.jpg" %>"/></li></a>
-            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img5 + "_40x40.jpg" %>"/></li></a>
+            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img + "_40x40.jpg" %>"/></li></a>
         </ul>
+      <% end %>
           </div>
       </div>
       <div class="grid_11">

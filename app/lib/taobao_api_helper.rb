@@ -7,7 +7,8 @@ require 'json'
 
 module TaobaoApiHelper
   EMPTY_JSON=JSON.parse('{}')
-  REST_URL = 'http://gw.api.tbsandbox.com/router/rest'
+  #REST_URL = 'http://gw.api.tbsandbox.com/router/rest'
+  REST_URL = 'http://gw.api.taobao.com/router/rest'
   AUTH_URL = 'http://container.api.tbsandbox.com/container'
   #SESSION  = '6101a04ef7531fe8aaa7dd4050a231779fa39ea0896d155175978269'
   SESSION = '6102218e988d186f62837ec8fd1370c7abe7c8772a0207065753053'
@@ -15,10 +16,11 @@ module TaobaoApiHelper
   # simple api wrap
   # eg. method: 'taobao.user.get'
   #     map: parameters
-  def TaobaoApiHelper.call_taobao (url, method, params)
+  def call_taobao ( method, params)
     app_key = '12483819'
     app_sec = 'ef1f67fba35584ee3cbf63cd093e6ddd' #production
-    app_sec = 'sandboxba35584ee3cbf63cd093e6ddd' #sandbox
+    #app_sec = 'sandboxba35584ee3cbf63cd093e6ddd' #sandbox
+
     #app_key = 'test'
     #app_sec = 'test'
 
@@ -49,41 +51,41 @@ module TaobaoApiHelper
 
   # item detail
   # eg. item_id: '246883'
-  def TaobaoApiHelper.get_item (item_id)
+  def get_item (item_id)
     params = {
       "num_iid"=> item_id,
       "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"
     }
 
-    json = call_taobao REST_URL, "taobao.item.get", params
+    json = call_taobao "taobao.item.get", params
     return json["item_get_response"]["item"] if json!=EMPTY_JSON
   end
 
   # shopping history
-  def TaobaoApiHelper.get_bought_trades
+  def get_bought_trades
     params = {
       'session' => SESSION,
       "fields" => "seller_nick,buyer_nick,title,type,created,sid,tid,seller_rate,buyer_rate,can_rate,status,payment,discount_fee,adjust_fee,post_fee,total_fee,pay_time,end_time,modified,consign_time,buyer_obtain_point_fee,point_fee,real_point_fee,received_payment,commission_fee,pic_path,num_iid,num,price,cod_fee,cod_status,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,receiver_address,receiver_zip,receiver_mobile,receiver_phone,orders"
     }
 
-    json = call_taobao REST_URL, "taobao.trades.bought.get", params
+    json = call_taobao  "taobao.trades.bought.get", params
     return json["trades_bought_get_response"]["trades"]["trade"] if json!=EMPTY_JSON
   end
 
   # get taobaoke link
-  def TaobaoApiHelper.convert_items_taobaoke(item_id)
+  def convert_items_taobaoke(item_id)
     params = {
       "num_iids"=> item_id,
       'nick' => 'bigfatsea',
       "fields" => "num_iid,title,nick,pic_url,price,click_url,commission,ommission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume"
     }
 
-    json = call_taobao REST_URL, "taobao.taobaoke.items.convert", params
+    json = call_taobao "taobao.taobaoke.items.convert", params
     return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"] if json!=EMPTY_JSON
   end
   
   # get the rating/comment of your shopping history
-  def TaobaoApiHelper.get_traderates
+  def get_traderates
     params = {
       'session' => SESSION,
       'rate_type' => 'give',
@@ -91,13 +93,13 @@ module TaobaoApiHelper
       "fields" => "tid,oid,role,nick,result,created,rated_nick,item_title,item_price,content,reply"
     }
 
-    json = call_taobao REST_URL, "taobao.traderates.get", params
+    json = call_taobao "taobao.traderates.get", params
     return json["traderates_get_response"]["trade_rates"]["trade_rate"] if json!=EMPTY_JSON
   end
   
   # get item categories
   # eg. parent_cid: 50011999, cids: 18957,19562,
-  def TaobaoApiHelper.get_itemcats(parent_cid, cids)
+  def get_itemcats(parent_cid, cids)
     params = {
       "fields" => "cid, parent_cid, name, is_parent, status, sort_order"
     }
@@ -108,32 +110,32 @@ module TaobaoApiHelper
       params['cids']=cids
     end
 
-    json = call_taobao REST_URL, "taobao.itemcats.get", params
+    json = call_taobao "taobao.itemcats.get", params
     return json["itemcats_get_response"]["item_cats"]["item_cat"] if json!=EMPTY_JSON
   end
   
   # get item properties
   # eg. cid: 50011999
-  def TaobaoApiHelper.get_itemprops(cid)
+  def get_itemprops(cid)
     params = {
       'cid' => cid,
       "fields" => "pid,name,must,multi,prop_values"
     }
     
-    json = call_taobao REST_URL, "taobao.itemprops.get", params
+    json = call_taobao "taobao.itemprops.get", params
     return json["itemprops_get_response"]["item_props"]["item_prop"] if json!=EMPTY_JSON
   end
 
   # get taobaoke report
   # eg. date: 20090520
-  def TaobaoApiHelper.get_report_taobaoke(date)
+  def get_report_taobaoke(date)
     params = {
       'date' => date,
       'session' => SESSION,
       "fields" => "trade_id,pay_time,pay_price,num_iid,outer_code,commission_rate,commission,seller_nick,pay_time,app_key"
     }
     
-    json = call_taobao REST_URL, "taobao.taobaoke.report.get", params
+    json = call_taobao "taobao.taobaoke.report.get", params
     return json["taobaoke_report_get_response"]["taobaoke_report"]["taobaoke_report_members"]["taobaoke_report_member"] if json!=EMPTY_JSON
   end
 end
