@@ -37,12 +37,12 @@ class ItemsController < ApplicationController
       if(@json_obj["item_get_response"])
         product = @json_obj["item_get_response"]["item"]
 
-        @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         binding.pry
+        @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @item = Item.new({
           :title => product['title'],
           #:image => product['pic_url'],
-          :image => @item_imgs[0]
+          :image => @item_imgs.first
         })
         @share = Share.new({
           :source => product['num_iid'],
