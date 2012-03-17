@@ -2,6 +2,10 @@ class ItemsController < ApplicationController
   layout 'application'
   # GET /items
   # GET /items.json
+  
+  include TaobaoApiHelper
+
+
   def index
     @items = Item.all
 
@@ -32,12 +36,9 @@ class ItemsController < ApplicationController
     @id=  params[:id] #246883
 
     if @id
-      @json_str = call_taobao "taobao.item.get", {"num_iid"=> @id, "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"}
-      @json_obj = JSON.parse(@json_str)
-      if(@json_obj["item_get_response"])
-        product = @json_obj["item_get_response"]["item"]
+      product = get_item @id
+      if product 
 
-        binding.pry
         @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @item = Item.new({
           :title => product['title'],
