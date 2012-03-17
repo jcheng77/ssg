@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title><%= t 'application.name' %></title>
-    <%= stylesheet_link_tag '/bootstrap/css/bootstrap.min.css' %>
-    <%= stylesheet_link_tag '/bootstrap/css/bootstrap-responsive.min.css' %>
     <%= stylesheet_link_tag 'application' %>
     <%= yield :stylesheets %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag '/bootstrap/js/bootstrap.min.js' %>
     <%= yield :javascripts %>
     <%= csrf_meta_tags %>
 </head>

@@ -33,7 +33,7 @@ module CommentableHelper
   module LocalInstanceMethods
     # Display only root comments, no children/replies
     def root_comments
-      self.comments.all
+      self.comments.all.desc(:created_time)
     end
 
     # Display all comments

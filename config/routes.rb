@@ -1,6 +1,6 @@
 Ssg::Application.routes.draw do
   get 'test' => 'users#test'
-  
+
   resources :items do
     member do
       get 'add'
@@ -27,18 +27,23 @@ Ssg::Application.routes.draw do
     end
   end
 
-  resources :comments
+  resources :comments do
+    member do
+      get 'vote'
+    end
+  end
+
   resources :choices
-#  resources :taobao
+  #  resources :taobao
   resources :sessions
 
-  match "login" => "sessions#new" , :as => :login
-  match "logout" => "sessions#destroy" , :as => :logout
-  match "home/account" => "home#account" , :as => :account
-  match "home/index" => "home#index" , :as => :home
+  match "login" => "sessions#new", :as => :login
+  match "logout" => "sessions#destroy", :as => :logout
+  match "home/account" => "home#account", :as => :account
+  match "home/index" => "home#index", :as => :home
   match "syncs/:type/new" => "syncs#new", :as => :sync_new
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
-#  match "taobao/callback" => "taobao#callback", :as => :taobao_callback
+  #  match "taobao/callback" => "taobao#callback", :as => :taobao_callback
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

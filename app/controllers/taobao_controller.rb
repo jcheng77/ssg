@@ -9,7 +9,7 @@ require 'iconv'
 
 
 class TaobaoController < ApplicationController
-  layout 'application'
+  layout 'application1'
   #layout 'taobao'
   #skip_before_filter :verify_authenticity_token
   AUTH_URL = 'http://container.api.taobao.com/container?'

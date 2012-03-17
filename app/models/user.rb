@@ -2,6 +2,7 @@ class User
   MARK_BYTE = 1 # see ObjectIdHelper.mark_id
 
   include Mongoid::Document
+  include Mongo::Voter
   include ObjectIdHelper
   
   #devise :registerable, :database_authenticatable, :recoverable

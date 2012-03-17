@@ -1,5 +1,5 @@
 class ChoicesController < ApplicationController
-  layout 'application'
+  layout 'application1'
   # GET /users
   # GET /users.json
   # localhost:3000/users/index

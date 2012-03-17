@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  layout 'application'
+  layout 'application1'
   # GET /users
   # GET /users.json
   # localhost:3000/users/index
@@ -9,6 +9,13 @@ class CommentsController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+  end
+
+  # GET /comments/1/vote
+  def vote
+    comment = Comment.find(params[:id])
+    current_user.vote comment, :up
+    redirect_to comment.root
   end
 
   # GET /users/new
@@ -25,10 +32,10 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
 
-    if @comment.save!
+    if @comment.save
       redirect_to @comment.root
     else
-      redirect_to items_path
+      redirect_to @comment.root
     end
   end
 

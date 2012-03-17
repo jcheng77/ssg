@@ -1,5 +1,6 @@
 class SharesController < ApplicationController
   layout 'application'
+
   # GET /users
   # GET /users.json
   # localhost:3000/users/index
@@ -10,7 +11,6 @@ class SharesController < ApplicationController
   # GET /users/1.json
   def show
     @share = Share.find(params[:id])
-
     @comment = @share.comments.new
     @comment.user_id = current_user._id
 

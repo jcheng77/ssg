@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  layout 'application'
+  layout 'application1'
   # GET /items
   # GET /items.json
   def index

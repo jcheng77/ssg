@@ -3,6 +3,7 @@ class Comment
 
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
+  include Mongo::Voteable
   include ObjectIdHelper
 
   after_initialize do |o|
@@ -26,7 +27,9 @@ class Comment
   belongs_to :commentable, :polymorphic => true
   has_many :comments, :as => :commentable, :dependent => :destroy
 
-  # validates_presence_of :user_id, :content, :allow_nil => false
+  voteable self, :up => 1, :down => -1
+
+  validates_presence_of :user_id, :content, :allow_nil => false
 
   # Get uer object.
   def user

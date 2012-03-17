@@ -1,5 +1,5 @@
 class SyncsController < ApplicationController
-  layout 'application'
+  layout 'application1'
 
   def new
     wb = Weibo.new(params[:type])
