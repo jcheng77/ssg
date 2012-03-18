@@ -28,16 +28,16 @@ class Share
   
   # likes
   def likes
-    Choice.where(object_id: self._id, type: Choice::TYPE_LIKE)
+    Choice.where(object_id_type: self._id, type: Choice::TYPE_LIKE)
   end
   
   # wishes
   def wishes
-    Choice.where(object_id: self._id, type: Choice::TYPE_WISH)
+    Choice.where(object_id_type: self._id, type: Choice::TYPE_WISH)
   end
   
   # recommends
   def recommends
-    Choice.where(object_id: self._id, type: Choice::TYPE_RECOMMEND)
+    Choice.where(object_id_type: self._id, type: Choice::TYPE_RECOMMEND)
   end
 end

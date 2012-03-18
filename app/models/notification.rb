@@ -22,11 +22,11 @@ class Notification
   field :type, type:String # e.g. share with me/comment to my share or comment/at/followed me/recommended to me
   field :checked, type:Boolean # if this notification has been checked
 
-  index :object_id
+  index :object_id_type
   index :receiver_id
   
   def object
-    find_object(object_id);
+    find_object(object_id_type);
   end
   
   def sender
