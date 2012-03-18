@@ -45,3 +45,5 @@ log/*.log
 tmp/
 .sass-cache/
 
+
+app/lib/taobao_api_helper.rb
