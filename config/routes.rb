@@ -12,7 +12,8 @@ Ssg::Application.routes.draw do
   resources :users do
     collection do
       get 'dashboard'
-      get 'myshares'
+      get 'my_shares'
+      get 'friends'
     end
     member do
       get 'select'

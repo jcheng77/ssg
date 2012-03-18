@@ -20,20 +20,20 @@ module CommentableHelper
     # Helper method to lookup for comments for a given object.
     # This method is equivalent to obj.comments.
     def find_comments_for(obj)
-      Comment.where(:commentable_id => obj._id, :commentable_type => obj.class).desc(:created_time)
+      Comment.where(:commentable_id => obj._id, :commentable_type => obj.class).desc(:created_at)
     end
 
     # Lookup comments for the mixin commentable type written by a given user.
     # NOT equivalent to Comment.find_comments_for_user.
     def find_comments_by_user(user)
-      Comment.where(:user_id => user._id, :commentable_type => self).desc(:created_time)
+      Comment.where(:user_id => user._id, :commentable_type => self).desc(:created_at)
     end
   end
 
   module LocalInstanceMethods
     # Display only root comments, no children/replies
     def root_comments
-      self.comments.all.desc(:created_time)
+      self.comments.all.desc(:created_at)
     end
 
     # Display all comments
@@ -43,7 +43,7 @@ module CommentableHelper
 
     # Sort comments by date
     def comments_ordered_by_created
-      Comment.where(:commentable_id => id, :commentable_type => self.class.name).desc(:created_time)
+      Comment.where(:commentable_id => id, :commentable_type => self.class.name).desc(:created_at)
     end
 
     # Defaults the submitted time.

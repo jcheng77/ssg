@@ -14,22 +14,32 @@ class UsersController < ApplicationController
     end
   end
 
-  # my dashboard   
+  # GET /users/dashboard
   def dashboard
     @user = current_user
 
     respond_to do |format|
-      format.html # dashboard.html.erb
+      format.html { render layout: 'application' } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
-  
-  # my shares   
-  def myshares
+
+  # GET /users/friends
+  def friends
     @user = current_user
 
     respond_to do |format|
-      format.html # myshares.html.erb
+      format.html { render layout: 'application' } # friends.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/my_shares
+  def my_shares
+    @user = current_user
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
     end
   end
