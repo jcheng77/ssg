@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x180" alt="">
+
+            <div class="caption">
+                <ul class="nav nav-pills info" style="font-size: 12px;">
+                    <li><a href="#"><strong>210</strong><span>关注</span></a></li>
+                    <li><a href="#"><strong>100</strong><span>粉丝</span></a></li>
+                    <li><a href="#"><strong>20</strong><span>分享</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
+            <li><%= link_to "所有分享", dashboard_users_path %></li>
+            <li class="active"><%= link_to "我的分享", my_shares_users_path %></li>
+            <li><a href="#">好友的分享</a></li>
+            <li><a href="#">热门推荐</a></li>
+        </ul>
+    </div>
+    <div class="span10">
+        <div class="row" style="margin-left: 0px;">
+            <ul class="nav nav-pills well category">
+                <li class="active"><a href="#">书籍</a></li>
+                <li><a href="#">应用</a></li>
+                <li><a href="#">数码</a></li>
+                <li><a href="#">户外</a></li>
+                <li><a href="#">服饰</a></li>
+                <li><a href="#">化妆品</a></li>
+                <li><a href="#">居家</a></li>
+                <li><a href="#">其它</a></li>
+            </ul>
+        </div>
+        <ul class="tag">
+            <li><a href="#">酷玩</a></li>
+            <li><a href="#">数码</a></li>
+            <li><a href="#">玩具</a></li>
+            <li><a href="#">涂鸦</a></li>
+            <li><a href="#">创意</a></li>
+            <li><a href="#">印章</a></li>
+            <li><a href="#">趣味</a></li>
+            <li><a href="#">人偶</a></li>
+        </ul>
+        <div class="page-header"><h4>分享</h4></div>
+        <div class="row" style="margin-left: 0px;">
+            <% @user.shares.all.each do |share| %>
+                <div class="row item-block">
+                    <%= link_to share do %>
+                        <h4><%= share.item.title %></h4>
+                    <% end %>
+
+                    <div class="pull-left item-left">
+                        <%= image_tag share.item.image, :width => '300' %>
+
+                        <div class="btn-group">
+                            <a class="btn" href="#">想买</a>
+                            <a class="btn" href="#">推荐</a>
+                            <a class="btn" href="#">买过</a>
+                        </div>
+                    </div>
+                    <div class="pull-right item-right">
+                        <div class="item-info">
+                            <p class="row user-block">
+                                <%= image_tag share.user.avatar, width: 50, class: "pull-left" %>
+                                <span class="user-block-info">
+									<a href="#"><%= share.user.full_name %></a>
+								</span>
+                            </p>
+
+                            <p><%= share.comment %></p>
+
+                            <p>价格：<%= share.price %>元 <a href="#">去淘宝购买</a></p>
+                        </div>
+                        <form>
+                            <textarea class="input-xlarge" rows="1" placeholder="我来评两句"></textarea>
+                            <button type="submit" class="btn btn-primary">评论</button>
+                        </form>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

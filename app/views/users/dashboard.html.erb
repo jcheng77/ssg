@@ -1,103 +1,118 @@
-<div id="ms_main">
-  <div class="container_24">
-    <div class="clear"></div>
-    <div class="grid_24 main_content">
-      <div class="grid_6">
-        <%= render 'left_filter' %>
-      </div>
-      <div class="grid_18">
-        <div id="ms_menu">
-          <div id="ms_menu_item_0" class="ms_menu_item selected_m">
-              <a href="#" onclick="return false;" title="所有分享">所有分享</a>
-          </div>
-          
-          <div id="ms_menu_item_1" class="ms_menu_item">
-              <a href="#" onclick="return false;" title="我喜欢的分享">我喜欢的</a>
-          </div>
-          
-          <div id="ms_menu_item_2" class="ms_menu_item">
-              <a href="#" onclick="return false;" title="我推荐的分享">我推荐的</a>
-          </div>
-          
-          <div id="ms_menu_item_3" class="ms_menu_item">
-              <a href="#" onclick="return false;" title="好友推荐给我的分享">好友推荐</a>
-          </div>
-          
-          <div id="ms_menu_item_4" class="ms_menu_item">
-              <a href="#" onclick="return false;" title="私下的分享">私下的分享</a>
-          </div>
+<div class="row">
+    <div class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x180" alt="">
 
-          <div id="" class="share_btn">
-              <%= link_to '我要分享', new_item_path %>
-          </div>
-        </div>
-        <div class="clear"></div>
-        
-        <%
-        @user.shared_with_me.keys.each_index do |index|
-          next if index%3!=0
-        %>
-        <ul>
-        <%
-          item_of_three = @user.shared_with_me.keys.slice(index, 3)
-          item_of_three.each do |item|
-            share = @user.shared_with_me[item].first
-        %>
-          <li class="item">
-              <div class="inner_border" onclick="location.href='<%=url_for share %>'">
-            <img class="snapshot" src="<%=share.item.image %>" />
-            <div class="image_text">
-              <div class="title">
-                <div class="avatar">
-                  <img src="<%=share.user.avatar%>"/>
-                  <div class="avatar_right text_10">
-                    <div><%=share.user.full_name%></div>
-                    <div class="secondary_color">自己</div> 
-                  </div>
-                </div>
-                <div class="general_info">
-                  <div class="liked_info">
-                    <div class="liked_img">&nbsp;</div>
-                    <div class="liked_num text_10"><a href="javascript:void(0);" title="有<%=share.likes.length%>人喜欢"><%=share.likes.length%></a></div>
-                  </div>
-                  
-                  <div class="wish_info">
-                    <div class="wish_img"><img src="/images/present_pencil.png"/></div>
-                    <div class="wish_num text_10"><a href="javascript:void(0);" title="有<%=share.wishes.length%>人想买"><%=share.wishes.length%></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="description">
-                <div class="desc_header">
-                  <div class="line1"> 
-                    <div class="desc_title text_12"><%=share.item.title%></div>
-                    <div class="desc_date text_10">2011/11/24</div>
-                  </div>
-                  <div class="line2">
-                    <div id="fixed_rating_star">&nbsp;</div>
-                  </div>
-                </div>
-                <div class="desc_body text_10">
-                  <div class="desc_content">
-                    <%=share.comment%>
-                  </div>
-                  <div class="item_comment">
-                    <div class="item_comment_img"><img src="/images/comment.png" /></div>
-                    <div class="item_comment_num"><a href="javascript:void(0);" title="有<%=share.comments.length%>条评论"><%=share.comments.length%></a></div>
-                  </div>
-                </div>
-              </div>
+            <div class="caption">
+                <ul class="nav nav-pills info" style="font-size: 12px;">
+                    <li><a href="#"><strong>210</strong><span>关注</span></a></li>
+                    <li><a href="#"><strong>100</strong><span>粉丝</span></a></li>
+                    <li><a href="#"><strong>20</strong><span>分享</span></a></li>
+                </ul>
             </div>
-              </div>
-          </li>
-        <%
-          end # loop of three
-        %>
+        </div>
+        <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
+            <li class="active"><%= link_to "所有分享", dashboard_users_path %></li>
+            <li><%= link_to "我的分享", my_shares_users_path %></li>
+            <li><a href="#">好友的分享</a></li>
+            <li><a href="#">热门推荐</a></li>
         </ul>
-        <%
-        end # outter loop
-        %>
-      </div>
     </div>
-  </div>
+    <div class="span10">
+        <div class="row" style="margin-left: 0px;">
+            <ul class="nav nav-pills well category">
+                <li class="active"><a href="#">书籍</a></li>
+                <li><a href="#">应用</a></li>
+                <li><a href="#">数码</a></li>
+                <li><a href="#">户外</a></li>
+                <li><a href="#">服饰</a></li>
+                <li><a href="#">化妆品</a></li>
+                <li><a href="#">居家</a></li>
+                <li><a href="#">其它</a></li>
+            </ul>
+        </div>
+        <ul class="tag">
+            <li><a href="#">酷玩</a></li>
+            <li><a href="#">数码</a></li>
+            <li><a href="#">玩具</a></li>
+            <li><a href="#">涂鸦</a></li>
+            <li><a href="#">创意</a></li>
+            <li><a href="#">印章</a></li>
+            <li><a href="#">趣味</a></li>
+            <li><a href="#">人偶</a></li>
+        </ul>
+        <div class="page-header"><h4>分享</h4></div>
+        <div class="row" style="margin-left: 0px;">
+            <div class="row item-block">
+                <h4>休闲卡通印花圆领长袖T恤</h4>
+
+                <div class="pull-left item-left">
+
+                    <img src="http://placehold.it/300x300">
+
+                    <div class="btn-group">
+                        <a class="btn" href="#">想买</a>
+                        <a class="btn" href="#">推荐</a>
+                        <a class="btn" href="#">买过</a>
+                    </div>
+                </div>
+                <div class="pull-right item-right">
+                    <div class="item-info">
+                        <p class="row user-block">
+                            <img src="http://placehold.it/50x50" class="pull-left">
+								<span class="user-block-info">
+									<a href="#">jcheng无敌</a>
+								</span>
+                        </p>
+
+                        <p>进口女装2011新款秋冬装韩国正品代购，休闲卡通印花圆领长袖T恤。超值！
+                            衬衫质量很好，穿着很舒服。这家店的服务也很好，不仅店主热情，服务周到，
+                            发货迅速，而且还能打折喔。。。
+                        </p>
+
+                        <p>价格：55元 <a href="#">去淘宝购买</a></p>
+                    </div>
+                    <form>
+                        <textarea class="input-xlarge" rows="1" placeholder="我来评两句"></textarea>
+                        <button type="submit" class="btn btn-primary">评论</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row item-block">
+                <h4>休闲卡通印花圆领长袖T恤</h4>
+
+                <div class="pull-left item-left">
+
+                    <img src="http://placehold.it/300x300">
+
+                    <div class="btn-group">
+                        <a class="btn" href="#">想买</a>
+                        <a class="btn" href="#">推荐</a>
+                        <a class="btn" href="#">买过</a>
+                    </div>
+                </div>
+                <div class="pull-right item-right">
+                    <div class="item-info">
+                        <p class="row user-block">
+                            <img src="http://placehold.it/50x50" class="pull-left">
+								<span class="user-block-info">
+									<a href="#">jcheng无敌</a>
+								</span>
+                        </p>
+
+                        <p>进口女装2011新款秋冬装韩国正品代购，休闲卡通印花圆领长袖T恤。超值！
+                            衬衫质量很好，穿着很舒服。这家店的服务也很好，不仅店主热情，服务周到，
+                            发货迅速，而且还能打折喔。。。
+                        </p>
+
+                        <p>价格：55元 <a href="#">去淘宝购买</a></p>
+                    </div>
+                    <form>
+                        <textarea class="input-xlarge" rows="1" placeholder="我来评两句"></textarea>
+                        <button type="submit" class="btn btn-primary">评论</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

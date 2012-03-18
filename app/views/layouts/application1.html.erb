@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/css/960_24_col.css" type="text/css" media="screen">
     <link rel="stylesheet" href="/css/text.css" type="text/css" media="screen">
     <link rel="stylesheet" href="/css/ssg-common.css" type="text/css" media="screen"/>
-    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'myshares')%>
+    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'my_shares')%>
       <link rel="stylesheet" href="/css/ssg-home.css" type="text/css" media="screen"/>
     <%end%>
-    <%if current_page?(:controller => 'users', :action => 'myshares') %>
+    <%if current_page?(:controller => 'users', :action => 'my_shares') %>
       <link rel="stylesheet" href="/css/ssg-myShares.css" type="text/css" media="screen"/>
     <%end%>
     <%if current_page?(:controller => 'shares', :action => 'show') %>
@@ -26,10 +26,10 @@
     <script src="/js/jquery.easing.1.3.js" type="text/javascript"></script>
     <script src="/js/jquery.raty.min.js" type="text/javascript"></script>
     <script src="/js/ssg-1.0-common.js" type="text/javascript"></script>
-    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'myshares') %>
+    <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'my_shares') %>
       <script src="/js/ssg-1.0-home.js" type="text/javascript"></script>
     <%end%>
-    <%if current_page?(:controller => 'users', :action => 'myshares') %>
+    <%if current_page?(:controller => 'users', :action => 'my_shares') %>
       <script src="/js/ssg-1.0-myShares.js" type="text/javascript"></script>
     <%end%>
     <%if current_page?(:controller => 'shares', :action => 'show') %>
@@ -53,7 +53,7 @@
       <p <%=current_page?(:controller => 'users', :action => 'dashboard') ? "class='selected_l'" : ''%>><%= link_to '我的首页', dashboard_users_path %></p>
     </div>
     <div class="grid_3 header_link">
-      <p <%=current_page?(:controller => 'users', :action => 'myshares') ? "class='selected_l'" : ''%>><%= link_to '我的分享', myshares_users_path %></p>
+      <p <%=current_page?(:controller => 'users', :action => 'my_shares') ? "class='selected_l'" : ''%>><%= link_to '我的分享', my_shares_users_path %></p>
     </div>
     <div class="grid_2 header_link">
       <p <%=current_page?(:controller => 'users') ? "class='selected_l'" : ''%>><%= link_to '用户', users_path %></p>

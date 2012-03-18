@@ -31,11 +31,11 @@
         <% @share.root_comments.each do |comment| %>
             <div class="comment-block">
                 <div class="thumbnail row comment-main">
-                    <img src="http://placehold.it/50x50" class="pull-left">
+                    <%= image_tag @share.user.avatar, width: 50, class: "pull-left" %>
 
                     <div class="pull-right comment-info">
                         <p>
-                            <a href="#"><%= comment.user.full_name %></a><span><%= comment.created_time.to_s :db %></span>
+                            <a href="#"><%= comment.user.full_name %></a><span><%= comment.created_at.to_s :db %></span>
                         </p>
 
                         <p><%= comment.content %></p>
@@ -53,11 +53,11 @@
                 <div class="child-comments" style="display: none;">
                     <% comment.child_comments.each do |child_comment| %>
                         <div class="thumbnail row comment-sub">
-                            <img src="http://placehold.it/50x50" class="pull-left">
+                            <%= image_tag @share.user.avatar, width: 50, class: "pull-left" %>
 
                             <div class="pull-right comment-info">
                                 <p>
-                                    <a href="#"><%= child_comment.user.full_name %></a><span><%= child_comment.created_time.to_s :db %></span>
+                                    <a href="#"><%= child_comment.user.full_name %></a><span><%= child_comment.created_at.to_s :db %></span>
                                 </p>
 
                                 <p><%= child_comment.content %></p>
@@ -93,7 +93,7 @@
         <% end %>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top: 30px; margin-left: 0px;">
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
     <ul class="thumbnails">
         <li class="span3">
