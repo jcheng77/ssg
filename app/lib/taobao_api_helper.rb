@@ -40,6 +40,8 @@ module TaobaoApiHelper
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
     binding.pry
+    json = JSON.parse(resp.body)
+    #binding.pry
     if(json['error_response'])
       puts json
       return EMPTY_JSON
@@ -322,5 +324,5 @@ end
 #TestTaobaoApiHelper.get_report_taobaoke
 
 CommissionHelper.commission_calculator.each do |x,y|
-  print x,": ",y,"\n"
+  # print x,": ",y,"\n"
 end
