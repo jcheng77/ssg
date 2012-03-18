@@ -74,7 +74,7 @@ class User
   def shared_with_me
     hash = Hash.new
     Notification.where(receiver_id: self._id, type: Notification::TYPE_SHARE).each do |n|
-      share = Share.find(n.object_id)
+      share = Share.find(n.object_id_type)
       if share
         if hash.has_key? share.item
           hash[share.item] << share
