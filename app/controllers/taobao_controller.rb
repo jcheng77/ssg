@@ -9,7 +9,10 @@ require 'iconv'
 
 
 class TaobaoController < ApplicationController
-  layout 'application1'
+
+  include TaobaoApiHelper
+
+  layout 'application'
   #layout 'taobao'
   #skip_before_filter :verify_authenticity_token
   AUTH_URL = 'http://container.api.taobao.com/container?'
@@ -21,11 +24,9 @@ class TaobaoController < ApplicationController
     #
     #@json_str = call_taobao "taobao.user.get", {"nick"=> "andyy_tan", "fields" => "user_id,uid,nick"}
     @json_str = call_taobao "taobao.item.get", {"num_iid"=> "14252575572", "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"}
+    @json_str.force_encoding('UTF-8')
     @product = JSON.parse(@json_str)["item_get_response"]["item"]
 
-    #@json_str=@json_str.force_encoding('UTF-8')[100..141] << '啊'
-    #@json_str.force_encoding('ASCII-8BIT')
-    @json_str.force_encoding('UTF-8')
     respond_to do |format|
       format.html  #index.html.erb
       format.json { render json: @product }
@@ -50,6 +51,7 @@ class TaobaoController < ApplicationController
   def callback
     #str = params['top_appkey'] + params["top_parameters"] + params["top_session"] + ENV['TAOBAO_APP_SECRET']
     str = params['top_appkey'] + params["top_parameters"] + params["top_session"] + 'ef1f67fba35584ee3cbf63cd093e6ddd'
+    session[:taobao_session_key] = params["top_session"]
     md5 = Digest::MD5.digest(str)
     sign = Base64.encode64(md5).strip
 
@@ -73,19 +75,19 @@ class TaobaoController < ApplicationController
       redirect_to users_url, :notice => "authorized failed!!!! #{access_token} #{token_secret}"
     end
  
-#      session[:current_user] = top_params['visitor_nick']
-#      redirect_to dashboard_users_path
-#    else
-#      raise RuntimeError, "Invalid signature"
-#    end 
    end 
+
+
+  def purchases
+    json = get_bought_trades session[:taobao_session_key]
+    redirect_to dashboard_users_path
+  end
+  
+  protected 
 
   def urlencode(params)
     params.to_a.collect! { |k, v| "#{k.to_s}=#{v.to_s}" }.join("&") 
   end 
 
-
-  # taobao callback (TOP style)
-  # sample: http://www.ssg.com/taobao/callback?top_appkey=...&top_parameters=...&top_session=...&sign=...&timestamp=...&top_sign=...
   
 end
