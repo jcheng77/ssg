@@ -11,7 +11,7 @@ module TaobaoApiHelper
   REST_URL = 'http://gw.api.taobao.com/router/rest'
   AUTH_URL = 'http://container.api.tbsandbox.com/container'
   #SESSION  = '6101a04ef7531fe8aaa7dd4050a231779fa39ea0896d155175978269'
-  SESSION = '6102218e988d186f62837ec8fd1370c7abe7c8772a0207065753053'
+  #SESSION = '6102218e988d186f62837ec8fd1370c7abe7c8772a0207065753053'
 
   # simple api wrap
   # eg. method: 'taobao.user.get'
@@ -62,9 +62,9 @@ module TaobaoApiHelper
   end
 
   # shopping history
-  def get_bought_trades
+  def get_bought_trades(session_key)
     params = {
-      'session' => SESSION,
+      'session' => session_key,
       "fields" => "seller_nick,buyer_nick,title,type,created,sid,tid,seller_rate,buyer_rate,can_rate,status,payment,discount_fee,adjust_fee,post_fee,total_fee,pay_time,end_time,modified,consign_time,buyer_obtain_point_fee,point_fee,real_point_fee,received_payment,commission_fee,pic_path,num_iid,num,price,cod_fee,cod_status,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,receiver_address,receiver_zip,receiver_mobile,receiver_phone,orders"
     }
 
@@ -76,7 +76,7 @@ module TaobaoApiHelper
   def convert_items_taobaoke(item_id)
     params = {
       "num_iids"=> item_id,
-      'nick' => 'bigfatsea',
+      'nick' => 'jackie_f_cheng',
       "fields" => "num_iid,title,nick,pic_url,price,click_url,commission,ommission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume"
     }
 
@@ -322,5 +322,5 @@ end
 #TestTaobaoApiHelper.get_report_taobaoke
 
 CommissionHelper.commission_calculator.each do |x,y|
-  print x,": ",y,"\n"
+  p x,": ",y,"\n"
 end
