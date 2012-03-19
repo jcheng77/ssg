@@ -43,6 +43,8 @@ ssg.iml
 db/*.sqlite3
 log/*.log
 tmp/
+tags
+tags/
 .sass-cache/
 
 
