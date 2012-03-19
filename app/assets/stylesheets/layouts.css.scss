@@ -94,7 +94,7 @@ body {
 }
 
 .item-info {
-    height: 300px;
+    margin-bottom: 20px;
 }
 
 .user-block {
@@ -231,5 +231,18 @@ body {
     li {
         display: inline;
         margin-right: 20px;
+    }
+}
+
+.tag-block {
+    list-style-type: none;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    line-height: 35px;
+    
+    li {
+        display: inline;
+        margin-left: 2px;
+        margin-right: 2px;
     }
 }

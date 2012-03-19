@@ -68,7 +68,7 @@ class TaobaoController < ApplicationController
       redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => top_params["visitor_nick"]
       else
       session[:current_user_id] = exists._id
-      redirect_to dashboard_users_path
+      redirect_to dashboard_user_path(current_user)
       end
       
     else
@@ -80,7 +80,7 @@ class TaobaoController < ApplicationController
 
   def purchases
     json = get_bought_trades session[:taobao_session_key]
-    redirect_to dashboard_users_path
+    redirect_to dashboard_user_path(current_user)
   end
   
   protected 

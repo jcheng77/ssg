@@ -24,16 +24,18 @@
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li><%= link_to "我的首页", dashboard_users_path %></li>
-                    <li><%= link_to "去逛逛", shares_path %></li>
-                    <li><%= link_to "我的圈子", friends_users_path %></li>
+                    <li><%= link_to "我的首页", dashboard_user_path(current_user) %></li>
+                    <li><%= link_to "去逛逛", my_shares_user_path(current_user) %></li>
+                    <li><%= link_to "我的圈子", friends_user_path(current_user) %></li>
                 </ul>
                 <form class="navbar-search pull-left" action="">
                     <input type="text" class="search-query span2" placeholder="搜索宝贝">
                 </form>
                 <ul class="nav pull-right">
+                    <li class="divider-vertical"></li>
                     <li><a href="#">帐号</a></li>
                 </ul>
+                <%= link_to "我要分享", new_item_path, class: "btn btn-warning pull-right" %>
             </div>
         </div>
     </div>

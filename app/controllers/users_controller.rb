@@ -14,9 +14,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/dashboard
+  # GET /users/1/dashboard
   def dashboard
-    @user = current_user
+    @user = User.find(params[:id])
 
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
@@ -24,9 +24,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/friends
+  # GET /users/1/friends
   def friends
-    @user = current_user
+    @user = User.find(params[:id])
 
     respond_to do |format|
       format.html { render layout: 'application' } # friends.html.erb
@@ -34,9 +34,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/my_shares
+  # GET /users/1/my_shares
   def my_shares
-    @user = current_user
+    @user = User.find(params[:id])
 
     respond_to do |format|
       format.html { render layout: 'application' } # my_shares.html.erb

@@ -34,7 +34,7 @@ class SyncsController < ApplicationController
       redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => userinfo["name"]
       else
       session[:current_user_id] = exists._id
-      redirect_to dashboard_users_path
+      redirect_to dashboard_user_path(current_user)
       end
       
     else

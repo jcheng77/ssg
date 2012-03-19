@@ -25,6 +25,16 @@
                 </ul>
             </div>
         </div>
+        <div class="page-header"><h4>标签</h4></div>
+        <ul class="tag-block">
+            <% @share.item.tags_each do |tag| %>
+                <li><button class="btn btn-info"><%= tag %></button></li>
+            <% end %>
+        </ul>
+        <%= form_tag add_tag_share_path(@share), class: "well form-inline" do -%>
+            <%= text_field_tag 'tag' %>
+            <%= submit_tag "添加标签", class: "btn btn-info" %>
+        <% end -%>
     </div>
     <div class="span8">
         <div class="page-header"><h4>大家的评论</h4></div>

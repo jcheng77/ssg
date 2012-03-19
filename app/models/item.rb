@@ -3,6 +3,7 @@ class Item
 
   include Mongoid::Document
   include ObjectIdHelper
+  include TaggableHelper
 
   after_initialize do |o|
     o.mark_id! # mark the _id with the mark byte
@@ -16,6 +17,7 @@ class Item
   field :image, type: String # title picture
   field :tags, type: Array # string[]
 
+  acts_as_taggable
   has_many :shares
   
   # comments

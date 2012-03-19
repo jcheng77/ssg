@@ -30,6 +30,21 @@ class SharesController < ApplicationController
     @comment.object_id_type = @share._id
   end
 
+  # POST /users/1/add_tag
+  def add_tag
+    @share = Share.find(params[:id])
+    tag = params[:tag]
+
+    unless tag.blank?
+      @share.add_tag tag
+      @share.item.add_tag tag
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @share }
+    end
+  end
+
   # GET /users/1/edit
   def choose
     @share = Share.find(params[:id])

@@ -10,12 +10,10 @@ Ssg::Application.routes.draw do
   #devise_for :users
 
   resources :users do
-    collection do
+    member do
       get 'dashboard'
       get 'my_shares'
       get 'friends'
-    end
-    member do
       get 'select'
       get 'follow'
       get 'unfollow'
@@ -25,6 +23,7 @@ Ssg::Application.routes.draw do
   resources :shares do
     member do
       get 'choose'
+      post 'add_tag'
     end
   end
 

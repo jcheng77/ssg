@@ -12,8 +12,8 @@
             </div>
         </div>
         <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
-            <li><%= link_to "所有分享", dashboard_users_path %></li>
-            <li class="active"><%= link_to "我的分享", my_shares_users_path %></li>
+            <li><%= link_to "所有分享", dashboard_user_path(current_user) %></li>
+            <li class="active"><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
             <li><a href="#">好友的分享</a></li>
             <li><a href="#">热门推荐</a></li>
         </ul>
@@ -43,7 +43,7 @@
         </ul>
         <div class="page-header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <% @user.shares.all.each do |share| %>
+            <% @user.shares.desc(:created_at).each do |share| %>
                 <div class="row item-block">
                     <%= link_to share do %>
                         <h4><%= share.item.title %></h4>

@@ -50,16 +50,16 @@
       <p><a href="/index.html">i享买</a></p>
     </div>
     <div class="grid_2 header_link">
-      <p <%=current_page?(:controller => 'users', :action => 'dashboard') ? "class='selected_l'" : ''%>><%= link_to '我的首页', dashboard_users_path %></p>
+      <p><%= link_to '我的首页', dashboard_user_path(current_user) %></p>
     </div>
     <div class="grid_3 header_link">
-      <p <%=current_page?(:controller => 'users', :action => 'my_shares') ? "class='selected_l'" : ''%>><%= link_to '我的分享', my_shares_users_path %></p>
+      <p><%= link_to '我的分享', my_shares_user_path(current_user) %></p>
     </div>
     <div class="grid_2 header_link">
-      <p <%=current_page?(:controller => 'users') ? "class='selected_l'" : ''%>><%= link_to '用户', users_path %></p>
+      <p><%= link_to '用户', users_path %></p>
     </div>
     <div class="grid_3 header_link">
-      <p <%=current_page?(:controller => 'items') ? "class='selected_l'" : ''%>><%= link_to '商品', items_path %></p>
+      <p><%= link_to '商品', items_path %></p>
     </div>
     <div class="grid_8 header_search">
       <div><input type="text" placeholder="我感兴趣的内容或人..."/></div>
