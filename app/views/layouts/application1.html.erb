@@ -50,10 +50,10 @@
       <p><a href="/index.html">i享买</a></p>
     </div>
     <div class="grid_2 header_link">
-      <p><%= link_to '我的首页', dashboard_user_path(current_user) %></p>
+      <p><%= link_to '我的首页', current_user ? dashboard_user_path(current_user) : "#" %></p>
     </div>
     <div class="grid_3 header_link">
-      <p><%= link_to '我的分享', my_shares_user_path(current_user) %></p>
+      <p><%= link_to '我的分享', current_user ? my_shares_user_path(current_user) : "#" %></p>
     </div>
     <div class="grid_2 header_link">
       <p><%= link_to '用户', users_path %></p>

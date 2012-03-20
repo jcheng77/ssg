@@ -1,0 +1,5 @@
+<% if @success %>
+$("#<%= escape_javascript "#{@comment._id}-vote-num" %>").html("<%= escape_javascript "#{@comment.votes_point}" %>");
+<% else %>
+alert("您已经顶过这个评论了！");
+<% end %>

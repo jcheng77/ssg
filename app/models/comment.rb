@@ -39,6 +39,11 @@ class Comment
     parent.is_a?(self.class) ? parent.parent : parent
   end
 
+  def is_root?
+    parent = self.parent
+    parent.is_a?(self.class) ? false : true
+  end
+
   # Get the parent object of the comment.
   def parent
     self.commentable
@@ -52,7 +57,7 @@ class Comment
 
   # Get only the direct child comments
   def child_comments
-    self.comments.all
+    self.comments.all.desc(:created_at)
   end
 
   protected

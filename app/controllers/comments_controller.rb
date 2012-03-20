@@ -13,9 +13,13 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/vote
   def vote
-    comment = Comment.find(params[:id])
-    current_user.vote comment, :up
-    redirect_to comment.root
+    @comment = Comment.find(params[:id])
+    @success = current_user.vote @comment, :up
+
+    respond_to do |format|
+      format.html { redirect_to @comment.root }
+      format.js # vote.js.erb
+    end
   end
 
   # GET /users/new
@@ -26,16 +30,15 @@ class CommentsController < ApplicationController
   # GET /users/1/edit
   def edit
   end
-  
+
   # POST /users
   # POST /users.json
   def create
     @comment = Comment.new(params[:comment])
-
-    if @comment.save
-      redirect_to @comment.root
-    else
-      redirect_to @comment.root
+    @comment.save
+    respond_to do |format|
+      format.html { redirect_to @comment.root }
+      format.js { render @comment.is_root? ? "create_root" : "create_child" }
     end
   end
 
@@ -49,9 +52,9 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     if @comment && @comment.destroy
-      redirect_to share_path @comment.object_id 
+      redirect_to share_path @comment.object_id
     else
-      redirect_to items_path  
+      redirect_to items_path
     end
   end
 end

@@ -1,0 +1,7 @@
+<% if @comment.persisted? %>
+$("#<%= escape_javascript "#{@comment.parent._id}-child-comments" %>").prepend("<%= escape_javascript render(:partial => "comments/child_comment", :object => @comment) %>");
+$("#<%= escape_javascript "#{@comment.parent._id}-child-comments textarea" %>").val("");
+$("#<%= escape_javascript "#{@comment.parent._id}-child-num" %>").html("<%= escape_javascript "#{@comment.parent.child_comments.size}" %>");
+<% else %>
+alert("评论失败！");
+<% end %>

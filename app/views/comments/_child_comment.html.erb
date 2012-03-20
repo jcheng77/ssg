@@ -1,0 +1,16 @@
+<div class="thumbnail row comment-sub">
+    <%= image_tag child_comment.user.avatar, width: 50, class: "pull-left" %>
+
+    <div class="pull-right comment-info">
+        <p>
+            <a href="#"><%= child_comment.user.full_name %></a><span><%= child_comment.created_at.to_s :db %></span>
+        </p>
+
+        <p><%= child_comment.content %></p>
+        <ul class="the-icons">
+            <%= link_to vote_comment_path(child_comment), remote: true do %>
+                <li><i class="icon-star"></i> <small id="<%= "#{child_comment._id}-vote-num" %>"><%= child_comment.votes_point %></small></li>
+            <% end %>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<% if @comment.persisted? %>
+$("#comments-header").after("<%= escape_javascript render(:partial => "comments/comment", :object => @comment) %>");
+$("textarea").val("");
+$(".comment-block").first().each(function() {
+    var block = this;
+    $(".link-child-comments", block).click(function() {
+        $(".child-comments", block).fadeToggle("slow", "linear");
+    });
+});
+<% else %>
+alert("评论失败！");
+<% end %>
