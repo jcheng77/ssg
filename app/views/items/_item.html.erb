@@ -1,0 +1,21 @@
+<li class="span3">
+    <div class="thumbnail">
+        <%= image_tag item.image, width: 260 %>
+
+        <div class="caption">
+            <h5><%= item.title %></h5>
+
+            <p>标签：<%= item.tags %></p>
+
+            <div class="row user-comment">
+                <%= image_tag share.user.avatar, :width => '50', class: "pull-left" %>
+
+                <div class="pull-right user-comment-info">
+                    <p><%= link_to share.user.full_name, my_shares_user_path(share.user) %></p>
+
+                    <p><%= share.basic_comment_content %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

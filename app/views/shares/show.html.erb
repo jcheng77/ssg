@@ -1,9 +1,9 @@
 <% content_for :javascripts do %>
     <script type="text/javascript">
-        $(function() {
-            $(".comment-block").each(function() {
+        $(function () {
+            $(".comment-block").each(function () {
                 var block = this;
-                $(".link-child-comments", block).click(function() {
+                $(".link-child-comments", block).click(function () {
                     $(".child-comments", block).fadeToggle("slow", "linear");
                 });
             });
@@ -20,15 +20,17 @@
             <div class="caption">
                 <ul class="nav nav-pills info" style="font-size: 16px;">
                     <li><a href="#"><strong>210</strong><span>推荐</span></a></li>
-                    <li><a href="#"><strong>100</strong><span>收藏</span></a></li>
-                    <li><a href="#"><strong>20</strong><span>分享</span></a></li>
+                    <li><a href="#"><strong>100</strong><span>愿望</span></a></li>
+                    <li><a href="#"><strong>20</strong><span>背包</span></a></li>
                 </ul>
             </div>
         </div>
         <div class="page-header"><h4>标签</h4></div>
         <ul class="tag-block">
             <% @share.item.tags_each do |tag| %>
-                <li><button class="btn btn-info"><%= tag %></button></li>
+                <li>
+                    <button class="btn btn-info"><%= tag %></button>
+                </li>
             <% end %>
         </ul>
         <%= form_tag add_tag_share_path(@share), class: "well form-inline" do -%>
@@ -55,110 +57,8 @@
 <div class="row" style="margin-top: 30px; margin-left: 0px;">
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
     <ul class="thumbnails">
-        <li class="span3">
-            <div class="thumbnail">
-                <img src="http://placehold.it/260x220">
-
-                <div class="caption">
-                    <h5>休闲卡通印花圆领长袖T恤</h5>
-
-                    <p>很好，很强大！</p>
-
-                    <div class="row user-comment">
-                        <img src="http://placehold.it/50x50" class="pull-left">
-
-                        <div class="pull-right user-comment-info">
-                            <p><a href="#">jcheng无敌</a></p>
-
-                            <p>这个商品真的很不错！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <img src="http://placehold.it/260x220">
-
-                <div class="caption">
-                    <h5>休闲卡通印花圆领长袖T恤</h5>
-
-                    <p>很好，很强大！</p>
-
-                    <div class="row user-comment">
-                        <img src="http://placehold.it/50x50" class="pull-left">
-
-                        <div class="pull-right user-comment-info">
-                            <p><a href="#">jcheng无敌</a></p>
-
-                            <p>这个商品真的很不错！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <img src="http://placehold.it/260x220">
-
-                <div class="caption">
-                    <h5>休闲卡通印花圆领长袖T恤</h5>
-
-                    <p>很好，很强大！</p>
-
-                    <div class="row user-comment">
-                        <img src="http://placehold.it/50x50" class="pull-left">
-
-                        <div class="pull-right user-comment-info">
-                            <p><a href="#">jcheng无敌</a></p>
-
-                            <p>这个商品真的很不错！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <img src="http://placehold.it/260x220">
-
-                <div class="caption">
-                    <h5>休闲卡通印花圆领长袖T恤</h5>
-
-                    <p>很好，很强大！</p>
-
-                    <div class="row user-comment">
-                        <img src="http://placehold.it/50x50" class="pull-left">
-
-                        <div class="pull-right user-comment-info">
-                            <p><a href="#">jcheng无敌</a></p>
-
-                            <p>这个商品真的很不错！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <img src="http://placehold.it/260x220">
-
-                <div class="caption">
-                    <h5>休闲卡通印花圆领长袖T恤</h5>
-
-                    <p>很好，很强大！</p>
-
-                    <div class="row user-comment">
-                        <img src="http://placehold.it/50x50" class="pull-left">
-
-                        <div class="pull-right user-comment-info">
-                            <p><a href="#">jcheng无敌</a></p>
-
-                            <p>这个商品真的很不错！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
+        <% @share.items_with_any_same_tags.each do |item| %>
+            <%= render :partial => "items/item", :object => item, :locals => { :share => item.shares.first } %>
+        <% end %>
     </ul>
 </div>

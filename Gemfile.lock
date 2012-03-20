@@ -69,6 +69,7 @@ GEM
     mime-types (1.17.2)
     mongo (1.5.2)
       bson (= 1.5.2)
+    mongo_followable (0.2.4)
     mongo_session_store-rails3 (3.0.4)
       actionpack (>= 3.0)
       mongo
@@ -76,7 +77,6 @@ GEM
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
-    mongoid_followable (0.1.9)
     mongoid_taggable (0.1.7)
     multi_json (1.0.4)
     nestful (0.0.8)
@@ -163,9 +163,9 @@ DEPENDENCIES
   chosen-rails
   coffee-rails (~> 3.1.1)
   jquery-rails
+  mongo_followable
   mongo_session_store-rails3
   mongoid
-  mongoid_followable (~> 0.1.9)
   mongoid_taggable
   nestful
   oauth

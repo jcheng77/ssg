@@ -3,13 +3,15 @@
 
     <div class="pull-right comment-info">
         <p>
-            <a href="#"><%= child_comment.user.full_name %></a><span><%= child_comment.created_at.to_s :db %></span>
+            <%= link_to child_comment.user.full_name, my_shares_user_path(child_comment.user) %><span><%= child_comment.created_at.to_s :db %></span>
         </p>
 
         <p><%= child_comment.content %></p>
         <ul class="the-icons">
             <%= link_to vote_comment_path(child_comment), remote: true do %>
-                <li><i class="icon-star"></i> <small id="<%= "#{child_comment._id}-vote-num" %>"><%= child_comment.votes_point %></small></li>
+                <li><i class="icon-star"></i>
+                    <small id="<%= "#{child_comment._id}-vote-num" %>"><%= child_comment.votes_point %></small>
+                </li>
             <% end %>
         </ul>
     </div>

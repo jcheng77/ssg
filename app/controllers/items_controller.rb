@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   layout 'application1'
   # GET /items
   # GET /items.json
-  
+
   include TaobaoApiHelper
 
 
@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -33,40 +33,40 @@ class ItemsController < ApplicationController
     @share = Share.new
     @item_imgs = Array.new
 
-    @id=  params[:id] #246883
+    @id = params[:id] #246883
 
     if @id
       product = get_item @id
-      if product 
+      if product
 
         @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @item = Item.new({
-          :title => product['title'],
-          #:image => product['pic_url'],
-          :image => @item_imgs.first
-        })
+                             :title => product['title'],
+                             #:image => product['pic_url'],
+                             :image => @item_imgs.first
+                         })
         @share = Share.new({
-          :source => product['num_iid'],
-          #:seller => product['nick'],
-          :price => product['price'],
-        })
+                               :source => product['num_iid'],
+                               #:seller => product['nick'],
+                               :price => product['price'],
+                           })
       end
-    end    
+    end
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }
     end
   end
-  
+
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
     @share = Share.first(conditions: {item_id: @item._id, user_id: current_user._id})
-    
+
     if !@share
       s = Share.first(conditions: {item_id: @item._id})
-      @share=Share.new
+      @share = Share.new
       @share.source = s.source
     end
   end
@@ -98,35 +98,6 @@ class ItemsController < ApplicationController
       end
     end
   end
-  
-  def save_item
-    user = current_user
-    @share = Share.first(conditions: {source: params[:share][:source]})
-    
-    if @share
-      @item = Item.first(conditions: {_id: @share.item_id})
-    elsif
-      @item = Item.new(params[:item])
-    end
-    
-    if @share
-      return false if !@item.update_attributes(params[:item])
-    else
-      return false if !@item.save
-    end
-    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
-    if @share
-      return false if !@share.update_attributes(params[:share])
-    elsif
-      @share = Share.new(params[:share])
-      @share.item_id = @item._id
-      @share.user_id = user._id
-      return false if !@share.save
-      
-      user.notify_my_share(@share)
-    end
-    return true
-  end
 
   # DELETE /items/1
   # DELETE /items/1.json
@@ -138,5 +109,37 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url }
       format.json { head :ok }
     end
+  end
+
+  protected
+
+  def save_item
+    user = current_user
+    @share = Share.first(conditions: {source: params[:share][:source]})
+
+    if @share
+      @item = Item.first(conditions: {_id: @share.item_id})
+    else
+      @item = Item.new(params[:item])
+    end
+
+    if @share
+      return false if !@item.update_attributes(params[:item])
+    else
+      return false if !@item.save
+    end
+    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
+    if @share
+      return false if !@share.update_attributes(params[:share])
+    else
+      @share = Share.new(params[:share])
+      @share.item_id = @item._id
+      @share.user_id = user._id
+      return false if !@share.save
+      @share.create_basic_comment(params[:share][:comment])
+
+      user.notify_my_share(@share)
+    end
+    return true
   end
 end

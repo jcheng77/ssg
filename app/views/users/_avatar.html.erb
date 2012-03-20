@@ -1,0 +1,11 @@
+<div class="thumbnail">
+    <%= image_tag big_avatar_url(avatar.avatar), :width => '160' %>
+
+    <div class="caption">
+        <ul class="nav nav-pills info" style="font-size: 12px;">
+            <li><a href="#"><strong>210</strong><span>关注</span></a></li>
+            <li><a href="#"><strong>100</strong><span>粉丝</span></a></li>
+            <li><a href="#"><strong><%= avatar.shares.size %></strong><span>分享</span></a></li>
+        </ul>
+    </div>
+</div>

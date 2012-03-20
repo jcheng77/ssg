@@ -1,16 +1,6 @@
 <div class="row">
     <div class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x180" alt="">
-
-            <div class="caption">
-                <ul class="nav nav-pills info" style="font-size: 12px;">
-                    <li><a href="#"><strong>210</strong><span>关注</span></a></li>
-                    <li><a href="#"><strong>100</strong><span>粉丝</span></a></li>
-                    <li><a href="#"><strong>20</strong><span>分享</span></a></li>
-                </ul>
-            </div>
-        </div>
+        <%= render :partial => "avatar", :object => @user %>
         <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
             <li class="active"><%= link_to "所有分享", dashboard_user_path(current_user) %></li>
             <li><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
