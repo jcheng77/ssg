@@ -19,10 +19,6 @@ module TaobaoApiHelper
   def call_taobao ( method, params)
     app_key = '12483819'
     app_sec = 'ef1f67fba35584ee3cbf63cd093e6ddd' #production
-    #app_sec = 'sandboxba35584ee3cbf63cd093e6ddd' #sandbox
-
-    #app_key = 'test'
-    #app_sec = 'test'
 
     p = {
       'method' => method, #'taobao.user.get',
@@ -54,7 +50,7 @@ module TaobaoApiHelper
   def get_item (item_id)
     params = {
       "num_iid"=> item_id,
-      "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"
+      "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"
     }
 
     json = call_taobao "taobao.item.get", params
