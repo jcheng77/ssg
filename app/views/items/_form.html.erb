@@ -1,62 +1,66 @@
 <div id="create_view" style="display:<%=@share.source ? 'block':'none'%>;">
-<%= form_for(@item) do |f| %>
-      <div class="grid_9">
-          <div class="share_img_view">
-        <img id="share_img_src" src="<%= @item_imgs.first if @item_imgs %>" />
-        <%= hidden_field_tag "item[image]", @item.image %>
-          </div>
-          <div class="share_img_others">
-            <% @item_imgs.each do |img| %>
-        <ul>
-            <a href="javascript:void(0);"><li class="img_others_item"><img src="<%= img + "_40x40.jpg" %>"/></li></a>
-        </ul>
-      <% end %>
-          </div>
-      </div>
-      <div class="grid_11">
-          <div class="input_field" style="margin-top:0px;">
-        <label for="title">标题：</label>
-        <input type="text" name="item[title]" id="title" value="<%=@item.title%>"/>
-          </div>
-          <div class="input_field">
-        <label for="price">价格：</label>
-        <input type="text" name="share[price]" id="price" value="<%=@share.price%>"/>
-          </div>
-          <div class="input_field">
-        <label class="rating_comp_label" for="rating">评分：</label>
-        <div id="rating_comp" stars="<%=@share.product_rating%>" scoreName="share[product_rating]"></div>
-          </div>
-          <div class="input_field">
-        <label class="top_label" for="desc">描述：</label>
-        <%= text_area_tag "share[comment]", @share.basic_comment_content, :id => 'desc'%>
-          </div>
-          <div class="input_field">
-        <label for="category">分类：</label>
-        <select name="category">
-            <option value="1">女装鞋包</option>
-            <option value="2">美容护肤</option>
-            <option value="3">数码设备</option>
-            <option value="4">精美礼品</option>
-            <option value="5">男装鞋包</option>
-            <option value="6">家用电器</option>
-            <option value="7">家居装饰</option>
-            <option value="8">户外运动</option>
-            <option value="9">文化玩乐</option>
-            <option value="10">母婴用品</option>
-            <option value="11">其   它</option>
-        </select>
-          </div>
-          <div class="input_field">
-        <label class="top_label" for="tags">标签：</label>
-        <textarea id="tags" name="tags"></textarea>
-          </div>
-          
-          <div class="submit_field">
-        <%= hidden_field_tag "share[user_id]", current_user._id %>
-        <%= hidden_field_tag "share[source]", @share.source%>
-        <div class="submit_link"><a class="submit_btn" href="javascript:$('form')[0].submit();void(0);">提交分享</a></div>
-        <div class="share_wb_link"><input type="checkbox" checked/><span>分享到新浪微博</span></div>
-          </div>
-      </div>
-<% end %>
+    <%= form_for(@item) do |f| %>
+        <div class="grid_9">
+            <div class="share_img_view">
+                <img id="share_img_src" src="<%= @item_imgs.first if @item_imgs %>"/>
+                <%= hidden_field_tag "item[image]", @item.image %>
+            </div>
+            <div class="share_img_others">
+                <% @item_imgs.each do |img| %>
+                    <ul>
+                        <a href="javascript:void(0);">
+                            <li class="img_others_item"><img src="<%= img + "_40x40.jpg" %>"/></li>
+                        </a>
+                    </ul>
+                <% end %>
+            </div>
+        </div>
+        <div class="grid_11">
+            <div class="input_field" style="margin-top:0px;">
+                <label for="title">标题：</label>
+                <input type="text" name="item[title]" id="title" value="<%= @item.title %>"/>
+            </div>
+            <div class="input_field">
+                <label for="price">价格：</label>
+                <input type="text" name="share[price]" id="price" value="<%= @share.price %>"/>
+            </div>
+            <div class="input_field">
+                <label class="rating_comp_label" for="rating">评分：</label>
+
+                <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
+            </div>
+            <div class="input_field">
+                <label class="top_label" for="desc">描述：</label>
+                <%= text_area_tag "share[comment]", @share.basic_comment_content, :id => 'desc' %>
+            </div>
+            <div class="input_field">
+                <label for="category">分类：</label>
+                <select name="category">
+                    <option value="1">女装鞋包</option>
+                    <option value="2">美容护肤</option>
+                    <option value="3">数码设备</option>
+                    <option value="4">精美礼品</option>
+                    <option value="5">男装鞋包</option>
+                    <option value="6">家用电器</option>
+                    <option value="7">家居装饰</option>
+                    <option value="8">户外运动</option>
+                    <option value="9">文化玩乐</option>
+                    <option value="10">母婴用品</option>
+                    <option value="11">其 它</option>
+                </select>
+            </div>
+            <div class="input_field">
+                <label class="top_label" for="tags">标签：</label>
+                <textarea id="tags" name="tags"></textarea>
+            </div>
+
+            <div class="submit_field">
+                <%= hidden_field_tag "share[user_id]", current_user._id %>
+                <%= hidden_field_tag "share[source]", @share.source %>
+                <div class="submit_link"><a class="submit_btn" href="javascript:$('form')[0].submit();void(0);">提交分享</a>
+                </div>
+                <div class="share_wb_link"><input type="checkbox" checked/><span>分享到新浪微博</span></div>
+            </div>
+        </div>
+    <% end %>
 </div>

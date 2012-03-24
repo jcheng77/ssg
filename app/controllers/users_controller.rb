@@ -57,20 +57,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def follow
-    
-    @user = current_user
-    @user.follow(params[:id])
-
-    redirect_to :action => "index"
-#    redirect_to :action => "show", :id => @user
   end
   
   def unfollow
-    @user = current_user
-    @user.unfollow(params[:id])
-
-    redirect_to :action => "index"
-#   redirect_to :action => "show", :id => @user
   end
   
   # GET /users/1

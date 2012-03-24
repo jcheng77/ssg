@@ -14,7 +14,7 @@
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
         <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
-            <li><%= link_to "所有分享", dashboard_user_path(current_user) %></li>
+            <li><%= link_to "我的关注", dashboard_user_path(current_user) %></li>
             <li class="active"><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
             <li><a href="#">好友的分享</a></li>
             <li><a href="#">热门推荐</a></li>
@@ -63,7 +63,7 @@
                     <div class="pull-right item-right">
                         <div class="item-info">
                             <p class="row user-block">
-                                <%= image_tag share.user.avatar, width: 50, class: "pull-left" %>
+                                <%= image_tag small_avatar_url(share.user.avatar), width: 50, class: "pull-left" %>
                                 <span class="user-block-info">
                                     <%= link_to share.user.full_name, my_shares_user_path(share.user) %>
 								</span>

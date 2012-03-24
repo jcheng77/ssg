@@ -3,6 +3,7 @@ class Share
 
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include Mongo::Followable
   include ObjectIdHelper
   include VisibleToHelper
   include CommentableHelper
@@ -17,10 +18,9 @@ class Share
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
   field :images, type: Array # string[], url of images
-  field :tags, type: Array # string[]
   field :comment_id, type: String # sharing comment
   field :visible_to, type: Array # when it's private, visibleTo=VISIBLE_TO_SELF; when no limit, visibleTo=nil
-  field :anonymous, type: Boolean #false: named; true: anounymous
+  field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
 
   acts_as_taggable
@@ -28,21 +28,6 @@ class Share
   belongs_to :item, index: true
   belongs_to :user, index: true
   belongs_to :seller, index: true
-
-  # likes
-  def likes
-    Choice.where(object_id_type: self._id, type: Choice::TYPE_LIKE)
-  end
-
-  # wishes
-  def wishes
-    Choice.where(object_id_type: self._id, type: Choice::TYPE_WISH)
-  end
-
-  # recommends
-  def recommends
-    Choice.where(object_id_type: self._id, type: Choice::TYPE_RECOMMEND)
-  end
 
   def basic_comment
     if self.comment_id
@@ -61,6 +46,7 @@ class Share
     comment = self.comments.new(user_id: self.user_id, content: content)
     comment.save
     self.update_attributes(comment_id: comment._id)
+    comment
   end
 
   def items_with_any_same_tags

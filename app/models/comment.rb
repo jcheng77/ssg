@@ -5,18 +5,6 @@ class Comment
   include Mongoid::MultiParameterAttributes
   include Mongoid::Timestamps::Created
   include Mongo::Voteable
-  include ObjectIdHelper
-
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end
-
-  before_create :reset_commentable_id
-
-  # comment to share, object_id = share_id
-  # comment to item, object_id = item_id (not now)
-  # comment to seller, object_id = seller_id (not now)
-  # comment to comment would be using weibo style, which is @user_nick_name, won't use object_id to refer to the target-comment id
 
   field :user_id, type: BSON::ObjectId # user who writes this comment
   field :content, type: String # content of the comment
@@ -27,6 +15,7 @@ class Comment
   voteable self, :up => 1, :down => -1
 
   validates_presence_of :user_id, :content, :allow_nil => false
+  before_create :reset_commentable_id
 
   # Get uer object.
   def user
@@ -42,6 +31,11 @@ class Comment
   def is_root?
     parent = self.parent
     parent.is_a?(self.class) ? false : true
+  end
+
+  def has_root?
+    root = self.root
+    !root.nil?
   end
 
   # Get the parent object of the comment.

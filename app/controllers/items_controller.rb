@@ -1,10 +1,9 @@
 class ItemsController < ApplicationController
-  layout 'application1'
+  layout 'application'
   # GET /items
   # GET /items.json
 
   include TaobaoApiHelper
-
 
   def index
     @items = Item.all
@@ -15,10 +14,57 @@ class ItemsController < ApplicationController
     end
   end
 
+  # POST /items/1/add_tag
+  def add_tag
+    @item = Item.find(params[:id])
+    @share = @item.share_by_user current_user
+    tag = params[:tag]
+
+    unless tag.blank?
+      @item.add_tag tag
+      @share.add_tag tag unless @share.nil?
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @item }
+    end
+  end
+
+  # POST /items/1/recommend
+  def recommend
+    @item = Item.find(params[:id])
+    @recommend = @item.share_by_user current_user
+    @comment = Comment.new(params[:comment])
+    has_shared = false
+
+    if @recommend.nil?
+      share = @comment.root
+      @recommend = @item.shares.create user_id: current_user._id
+      @comment = @recommend.create_basic_comment @comment.content
+    else
+      has_shared = true
+    end
+
+    if @recommend.persisted? && @comment.persisted?
+      current_user.follow @item
+      respond_to do |format|
+        format.html { redirect_to @recommend }
+        format.js { render "comments/create_root" }
+      end
+    else
+      @recommend.destroy if !has_shared
+      respond_to do |format|
+        format.html { redirect_to @item }
+        format.js { render "comments/create_root" }
+      end
+    end
+  end
+
   # GET /items/1
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
+    @share = @item.shares.new
 
     respond_to do |format|
       format.html # show.html.erb

@@ -4,6 +4,8 @@ Ssg::Application.routes.draw do
   resources :items do
     member do
       get 'add'
+      post 'add_tag'
+      post 'recommend'
     end
   end
 
@@ -23,7 +25,6 @@ Ssg::Application.routes.draw do
   resources :shares do
     member do
       get 'choose'
-      post 'add_tag'
     end
   end
 

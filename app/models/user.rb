@@ -3,13 +3,15 @@ class User
 
   include Mongoid::Document
   include Mongo::Voter
+  include Mongo::Follower
+  include Mongo::Followable
   include ObjectIdHelper
-  
+
   #devise :registerable, :database_authenticatable, :recoverable
-  
+
   after_initialize do |o|
     o.mark_id! # mark the _id with the mark byte
-  end  
+  end
 
 
   field :full_name, type: String # 
@@ -54,21 +56,6 @@ class User
   def notifications
     Notification.where(receiver_id: self._id)
   end
-
-  # my likes
-  def likes
-    Choice.where(user_id: self._id, type: Choice::TYPE_LIKE)
-  end
-
-  # my wishes
-  def wishes
-    Choice.where(user_id: self._id, type: Choice::TYPE_WISH)
-  end
-
-  # my recommendations
-  def recommends
-    Choice.where(user_id: self._id, type: Choice::TYPE_RECOMMEND)
-  end
   
   # my firends shared with me
   def shared_with_me
@@ -85,61 +72,6 @@ class User
     end
     
     return hash
-  end
-
-  # connections of my following
-  def following
-    ary = Array.new
-    Follow.where(user_id: self._id).each do |f|
-      ary << f.following_id
-    end
-    return ary
-  end
-  def following_users
-    ary = Array.new
-    following.each do |id|
-      ary << User.find(id)
-    end
-    return ary
-  end
-  
-  # connections of my follower
-  def followed_by
-    ary = Array.new
-    Follow.where(following_id: self._id).each do |f|
-      ary << f.user_id
-    end
-    return ary
-  end
-  def followed_by_users
-    ary = Array.new
-    followed_by.each do |id|
-      ary << User.find(id)
-    end
-    return ary
-  end
-  
-  # action: follow
-  def follow(user_id)
-    user_id = BSON::ObjectId(user_id.to_s) unless !user_id.is_a? BSON::ObjectId
-    if self._id.to_s!=user_id && Follow.where(user_id: self._id, following_id: user_id).empty?
-      Follow.new(user_id: self._id, following_id: user_id).save
-
-      # send notification
-      Notification.add(self._id, self._id, user_id, Notification::TYPE_FOLLOW)
-    end
-  end
-
-  # action: unfollow
-  def unfollow(user_id)
-    user_id = BSON::ObjectId(user_id.to_s) unless !user_id.is_a? BSON::ObjectId
-    Follow.where(user_id: self._id, following_id: user_id).delete_all
-  end
-
-  # action: following?
-  def following?(user_id)
-    user_id = BSON::ObjectId(user_id.to_s) unless !user_id.is_a? BSON::ObjectId
-    return !Follow.where(user_id: self._id, following_id: user_id).empty?
   end
   
   # action: notify my follower about my share

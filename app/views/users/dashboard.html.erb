@@ -2,7 +2,7 @@
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
         <ul class="nav nav-pills nav-stacked" style="margin-top: 15px;">
-            <li class="active"><%= link_to "所有分享", dashboard_user_path(current_user) %></li>
+            <li class="active"><%= link_to "我的关注", dashboard_user_path(current_user) %></li>
             <li><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
             <li><a href="#">好友的分享</a></li>
             <li><a href="#">热门推荐</a></li>

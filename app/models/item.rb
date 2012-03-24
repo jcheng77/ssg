@@ -2,6 +2,7 @@ class Item
   MARK_BYTE = 2
 
   include Mongoid::Document
+  include Mongo::Followable
   include ObjectIdHelper
   include TaggableHelper
 
@@ -19,65 +20,16 @@ class Item
 
   acts_as_taggable
   has_many :shares
-  
-  # comments
-  def comments
-    Comment.where(object_id: self._id)
-  end
-  
-  # likes
-  def likes
-    all = Array.new
-    self.shares.each do |share|
-      shares.likes.each do |item|
-        all << item
-      end
-    end
-    return all
-  end
-  
-  # wishes
-  def wishes
-    all = Array.new
-    self.shares.each do |share|
-      shares.wishes.each do |item|
-        all << item
-      end
-    end
-    return all
-  end
-  
-  # recommends
-  def recommends
-    all = Array.new
-    self.shares.each do |share|
-      shares.recommends.each do |item|
-        all << item
-      end
-    end
-    return all
+
+  def with_any_same_tags
+    self.class.tagged_with_any(self.tags_array)
   end
 
-  
-  def get_share(user_id)
-    if(!self.shares)
-      self.shares=Array.new
-    end
-    self.shares.each do |s|
-      if s.user_id == user_id
-        return s
-      end
-    end
-    return Share.new
+  def share_by_user(user)
+    self.shares.where(user_id: user._id).first
   end
-  
-  def add_share(share)
-    if(!self.shares)
-      self.shares=Array.new
-    end
-    self.shares.each {|s| self.shares.delete (s) if s.user_id == share.user_id}
-    self.shares << share
+
+  def has_shared_by_user?(user)
+    !self.share_by_user(user).nil?
   end
-  
-  #before_save { |record| record.shares.each {|s| record.shares.delete(s) if !s.user_id } }
 end

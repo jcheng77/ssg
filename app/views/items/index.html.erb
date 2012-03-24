@@ -1,44 +1,32 @@
-<h2>Listing items</h2>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th># of Shares</th>
-
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @items.each do |item| %>
-  <tr>
-  	<td><%= item._id %></td>
-    <td><%= item.title %></td>
-    <td><%= item.shares.count %></td>
-  	
-    <td><%= link_to 'Show', item %></td>
-    <td><%= link_to 'Edit', edit_item_path(item) %></td>
-    <td><%= link_to 'Destroy', item, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Item', new_item_path , :class=>'btn primary'%>
-<br/>
-<br/>
-<a href="/items/new/246883">246883</a>
-|
-<a href="/items/new/246884">246884</a>
-|
-<a href="/items/new/484075">484075</a>
-|
-<a href="/items/new/484076">484076</a>
-|
-<a href="/items/new/246887">246887</a>
-|
-<a href="/items/new/246885">246885</a>
-|
-<a href="/items/new/246886">246886</a>
+<div class="row">
+    <div class="span12">
+        <div class="row" style="margin-left: 0px;">
+            <ul class="nav nav-pills well category">
+                <li class="active"><a href="#">书籍</a></li>
+                <li><a href="#">应用</a></li>
+                <li><a href="#">数码</a></li>
+                <li><a href="#">户外</a></li>
+                <li><a href="#">服饰</a></li>
+                <li><a href="#">化妆品</a></li>
+                <li><a href="#">居家</a></li>
+                <li><a href="#">其它</a></li>
+            </ul>
+        </div>
+        <ul class="tag">
+            <li><a href="#">酷玩</a></li>
+            <li><a href="#">数码</a></li>
+            <li><a href="#">玩具</a></li>
+            <li><a href="#">涂鸦</a></li>
+            <li><a href="#">创意</a></li>
+            <li><a href="#">印章</a></li>
+            <li><a href="#">趣味</a></li>
+            <li><a href="#">人偶</a></li>
+        </ul>
+        <div class="page-header"></div>
+        <ul class="thumbnails">
+            <% @items.each do |item| %>
+                <%= render :partial => "item", :object => item, :locals => { :share => item.shares.first } %>
+            <% end %>
+        </ul>
+    </div>
+</div>

@@ -1,34 +1,66 @@
-<h2>Item details</h2>
-<p id="notice"><%= notice %></p>
-<table>
-	<tr>
-		<td><img src="<%=@item.image %>" width="120"/></td>
-		<td>
-		  <i>_id: <%= @item._id %></i><br/>
-		  <b>Title:</b> <%= @item.title %><br/>
-		</td>
-	</tr>
-</table>
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function () {
+            $(".comment-block").each(function () {
+                var block = this;
+                $(".link-child-comments", block).click(function () {
+                    $(".child-comments", block).fadeToggle("slow", "linear");
+                });
+            });
+        });
+    </script>
+<% end %>
 
-<%
-@item.shares.each do |share|
-  if share.visible_to?(current_user)
-%>
-	<hr size="1" />
-	<p>
-  <b>&nbsp; &nbsp; Ratings:</b> <%=share.product_rating%>/<%=share.service_rating%>
-  <b>&nbsp; &nbsp; Comments:</b> <%= link_to share.comments.length, share %> <%= link_to 'Add Comment', edit_share_path(share)%>
-	<br/>
-  <b>&nbsp; &nbsp; Source:</b> <%= share.source %>
-  <b>&nbsp; &nbsp; Price:</b> <%= share.price %>
-  <br/>
-  <b>&nbsp; &nbsp; Visible To:</b> <%=share.visible_to_nick_str%> <%=share.visible_to_self ? "private":""%><br/>
-  <b>&nbsp; &nbsp; Comment:</b> <%=share.comment%><br/>
-	</p>
-<%
-  end
-end
-%>
-<%= link_to 'Edit', edit_item_path(@item), :class=>'btn primary' %>
-<%= link_to 'Back', items_path , :class=>'btn'%>
+<div class="page-header"><h2><%= @item.title %></h2></div>
+<div class="row">
+    <div class="span4">
+        <div class="thumbnail">
+            <%= image_tag @item.image, :width => '360' %>
 
+            <div class="caption">
+                <ul class="nav nav-pills info" style="font-size: 16px;">
+                    <li><a href="#"><strong>210</strong><span>推荐</span></a></li>
+                    <li><a href="#"><strong>100</strong><span>愿望</span></a></li>
+                    <li><a href="#"><strong>20</strong><span>背包</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-header"><h4>标签</h4></div>
+        <ul class="tag-block">
+            <% @item.tags_each do |tag| %>
+                <li>
+                    <button class="btn btn-info"><%= tag %></button>
+                </li>
+            <% end %>
+        </ul>
+        <%= form_tag add_tag_item_path(@item), class: "well form-inline" do %>
+            <%= text_field_tag 'tag' %>
+            <%= submit_tag "添加标签", class: "btn btn-info" %>
+        <% end %>
+    </div>
+    <div class="span8">
+        <div class="page-header" id="comments-header"><h4>大家的评论</h4></div>
+        <% @item.shares.all.desc(:created_at).each do |share| %>
+            <% share.root_comments.each do |comment| %>
+                <%= render :partial => "comments/comment", :object => comment %>
+            <% end %>
+        <% end %>
+        <%= form_for @share.comments.new, url: recommend_item_path(@item), remote: true do |f| %>
+            <%= f.hidden_field :user_id %>
+            <%= f.hidden_field :_type %>
+            <%= f.hidden_field :user_id %>
+            <%= f.hidden_field :commentable_id %>
+            <%= f.hidden_field :commentable_type %>
+            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 760px;", placeholder: "我来说两句" %>
+            <%= f.submit "我要推荐", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>
+<div class="row" style="margin-top: 30px; margin-left: 0px;">
+    <div class="page-header"><h4>你可能也会喜欢</h4></div>
+    <ul class="thumbnails">
+        <% @item.with_any_same_tags.each do |item| %>
+            <%= render :partial => "items/item", :object => item, :locals => {:share => item.shares.first} %>
+        <% end %>
+    </ul>
+</div>
