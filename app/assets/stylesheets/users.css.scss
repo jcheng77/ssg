@@ -1,3 +1,28 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.sidebars li{
+    border-top: 1px solid #D4D4D4;
+}
+.dashboard .span10, .myshares .span10{
+    margin: 0;
+    border-left: 1px solid #D4D4D4;
+    padding-left: 28px;
+}
+.dashboard .thumbnail, .myshares .thumbnail{
+    border-right:none;
+}
+ul.category{
+    position: relative;
+}
+ul.category:after{
+    content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: 20px solid transparent;
+    border-top-color: #f5f5f5;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+}
