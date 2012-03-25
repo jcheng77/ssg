@@ -50,6 +50,9 @@ class User
  
   before_save :encrypt_password, :save_fullname
 
+  def followed_shares
+    Share.desc(:created_at).followees_of(self)
+  end
 
   #------------------------------------
   # my notifications

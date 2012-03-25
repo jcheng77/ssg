@@ -54,12 +54,16 @@ class UsersController < ApplicationController
 #    redirect_to :action => "show", :id => @user
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /users/1/follow
   def follow
+    @user = User.find(params[:id])
+    current_user.follow @user
   end
-  
+
+  # GET /users/1/unfollow
   def unfollow
+    @user = User.find(params[:id])
+    current_user.unfollow @user
   end
   
   # GET /users/1
@@ -139,6 +143,4 @@ class UsersController < ApplicationController
     session[:current_user_id] = @user._id 
     @username = params[:name]
   end
-
-
 end

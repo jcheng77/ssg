@@ -34,76 +34,9 @@
         </ul>
         <div class="page-header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <div class="row item-block">
-                <h4>休闲卡通印花圆领长袖T恤</h4>
-
-                <div class="pull-left item-left">
-
-                    <img src="http://placehold.it/300x300">
-
-                    <div class="btn-group">
-                        <a class="btn" href="#">想买</a>
-                        <a class="btn" href="#">推荐</a>
-                        <a class="btn" href="#">买过</a>
-                    </div>
-                </div>
-                <div class="pull-right item-right">
-                    <div class="item-info">
-                        <p class="row user-block">
-                            <img src="http://placehold.it/50x50" class="pull-left">
-								<span class="user-block-info">
-									<a href="#">jcheng无敌</a>
-								</span>
-                        </p>
-
-                        <p>进口女装2011新款秋冬装韩国正品代购，休闲卡通印花圆领长袖T恤。超值！
-                            衬衫质量很好，穿着很舒服。这家店的服务也很好，不仅店主热情，服务周到，
-                            发货迅速，而且还能打折喔。。。
-                        </p>
-
-                        <p>价格：55元 <a href="#">去淘宝购买</a></p>
-                    </div>
-                    <form>
-                        <textarea class="input-xlarge" rows="1" placeholder="我来评两句"></textarea>
-                        <button type="submit" class="btn btn-primary">评论</button>
-                    </form>
-                </div>
-            </div>
-            <div class="row item-block">
-                <h4>休闲卡通印花圆领长袖T恤</h4>
-
-                <div class="pull-left item-left">
-
-                    <img src="http://placehold.it/300x300">
-
-                    <div class="btn-group">
-                        <a class="btn" href="#">想买</a>
-                        <a class="btn" href="#">推荐</a>
-                        <a class="btn" href="#">买过</a>
-                    </div>
-                </div>
-                <div class="pull-right item-right">
-                    <div class="item-info">
-                        <p class="row user-block">
-                            <img src="http://placehold.it/50x50" class="pull-left">
-								<span class="user-block-info">
-									<a href="#">jcheng无敌</a>
-								</span>
-                        </p>
-
-                        <p>进口女装2011新款秋冬装韩国正品代购，休闲卡通印花圆领长袖T恤。超值！
-                            衬衫质量很好，穿着很舒服。这家店的服务也很好，不仅店主热情，服务周到，
-                            发货迅速，而且还能打折喔。。。
-                        </p>
-
-                        <p>价格：55元 <a href="#">去淘宝购买</a></p>
-                    </div>
-                    <form>
-                        <textarea class="input-xlarge" rows="1" placeholder="我来评两句"></textarea>
-                        <button type="submit" class="btn btn-primary">评论</button>
-                    </form>
-                </div>
-            </div>
+            <% @user.followed_shares.each do |share| %>
+                <%= render :partial => "shares/share", :object => share %>
+            <% end %>
         </div>
     </div>
 </div>

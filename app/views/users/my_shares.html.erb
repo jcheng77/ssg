@@ -46,50 +46,7 @@
         <div class="page-header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.shares.desc(:created_at).each do |share| %>
-                <div class="row item-block">
-                    <%= link_to share do %>
-                        <h4><%= share.item.title %></h4>
-                    <% end %>
-
-                    <div class="pull-left item-left">
-                        <%= image_tag share.item.image, :width => '290' %>
-
-                        <div class="btn-group">
-                            <a class="btn" href="#">想买</a>
-                            <a class="btn" href="#">推荐</a>
-                            <a class="btn" href="#">买过</a>
-                        </div>
-                    </div>
-                    <div class="pull-right item-right">
-                        <div class="item-info">
-                            <p class="row user-block">
-                                <%= image_tag small_avatar_url(share.user.avatar), width: 50, class: "pull-left" %>
-                                <span class="user-block-info">
-                                    <%= link_to share.user.full_name, my_shares_user_path(share.user) %>
-								</span>
-                            </p>
-
-                            <p><%= share.basic_comment.content %></p>
-
-                            <p>价格：<%= share.price %>元 <a href="#">去淘宝购买</a></p>
-                            <div class="child-comments" id="<%= "#{share.basic_comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
-                                <% share.basic_comment.child_comments.each do |child_comment| %>
-                                    <%= render :partial => "comments/child_comment", :object => child_comment %>
-                                <% end %>
-
-                                <%= form_for(share.basic_comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :_type %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :commentable_id %>
-                                    <%= f.hidden_field :commentable_type %>
-                                    <%= f.text_area :content, rows: 1, class: "input-xlarge", placeholder: "我来评两句" %>
-                                    <%= f.submit "评论", class: "btn btn-primary" %>
-                                <% end %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%= render :partial => "shares/share", :object => share %>
             <% end %>
         </div>
     </div>

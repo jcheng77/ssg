@@ -1,19 +1,23 @@
 module ImageHelper
   def big_avatar_url(avatar_url)
-    url = avatar_url
-    if avatar_url.include? "sinaimg"
-      url = avatar_url.sub "/50/", "/180/"
+    if avatar_url.blank?
+      ""
+    elsif avatar_url.include? "sinaimg"
+      avatar_url.sub "/50/", "/180/"
     elsif avatar_url.include? "qlogo"
-      url = "#{avatar_url}/180"
+      "#{avatar_url}/180"
+    else
+      avatar_url
     end
-    url
   end
 
   def small_avatar_url(avatar_url)
-    url = avatar_url
-    if avatar_url.include? "qlogo"
-      url = "#{avatar_url}/50"
+    if avatar_url.blank?
+      ""
+    elsif avatar_url.include? "qlogo"
+      "#{avatar_url}/50"
+    else
+      avatar_url
     end
-    url
   end
 end
