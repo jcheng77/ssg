@@ -21,12 +21,67 @@
             <li><a href="#">印章</a></li>
             <li><a href="#">趣味</a></li>
             <li><a href="#">人偶</a></li>
+            <li><a href="#">test</a></li>
         </ul>
-        <div class="page-header"></div>
-        <ul class="thumbnails">
+        <!--<div class="page-header"></div>-->
+        <ul class="thumbnails items">
             <% @items.each do |item| %>
                 <%= render :partial => "item", :object => item, :locals => { :share => item.shares.first } %>
             <% end %>
+            <li>
+                <div class="thumbnail image">
+                    <img src="http://placehold.it/200x251" alt=""/>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+                <div class="thumbnail description">
+                    <h3>this is decription for the left picture</h3>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="thumbnail image">
+                    <img src="http://placehold.it/200x251" alt=""/>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+                <div class="thumbnail description">
+                    <h3>this is decription for the left picture</h3>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="thumbnail image">
+                    <img src="http://placehold.it/200x251" alt=""/>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+                <div class="thumbnail description">
+                    <h3>this is decription for the left picture</h3>
+                    <div class="caption">
+                        <h5>thumbnail label</h5>
+                        <p>description for thumbnail label and picture. the description may be very very long</p>
+                        <p><a href="#" class="btn btn-primary">action</a><a href="#" class="btn">action</a></p>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
