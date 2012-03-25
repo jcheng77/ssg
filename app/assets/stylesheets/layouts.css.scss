@@ -99,6 +99,13 @@ body {
 
 .user-block {
     margin-left: 0px;
+
+    .user-block-link {
+        margin-left: 20px;
+        margin-top: 10px;
+        display: block;
+        float: left;
+    }
 }
 
 .user-block-info {
@@ -107,7 +114,7 @@ body {
 
     a {
         margin-top: 15px;
-        text-indent: 5px;
+        text-indent: 10px;
         height: 30px;
         float: left;
     }

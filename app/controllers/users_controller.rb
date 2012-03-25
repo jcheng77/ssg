@@ -58,12 +58,22 @@ class UsersController < ApplicationController
   def follow
     @user = User.find(params[:id])
     current_user.follow @user
+    @success = current_user.follower_of? @user
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /users/1/unfollow
   def unfollow
     @user = User.find(params[:id])
     current_user.unfollow @user
+    @success = !current_user.follower_of?(@user)
+
+    respond_to do |format|
+      format.js
+    end
   end
   
   # GET /users/1
