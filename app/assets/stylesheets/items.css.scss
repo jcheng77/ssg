@@ -1,3 +1,13 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.items .thumbnail{
+    float: left;
+    height: 250px;
+}
+.items .image{
+    width: 250px;
+}
+.items .description{
+    width: 285px;
+}
