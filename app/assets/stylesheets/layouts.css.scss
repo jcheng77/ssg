@@ -222,7 +222,7 @@ body {
 }
 
 .friend-info {
-    width: 650px;
+    width: 700px;
 
     h5 {
         font-size: 14px;
@@ -238,6 +238,10 @@ body {
     li {
         display: inline;
         margin-right: 20px;
+    }
+
+    a:hover {
+        text-decoration: none;
     }
 }
 

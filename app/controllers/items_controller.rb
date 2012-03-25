@@ -100,8 +100,7 @@ class ItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item }
+      format.html { render layout: 'application1' }
     end
   end
 
@@ -184,7 +183,7 @@ class ItemsController < ApplicationController
       return false if !@share.save
       @share.create_basic_comment(params[:share][:comment])
 
-      user.notify_my_share(@share)
+      #user.notify_my_share(@share)
     end
     return true
   end

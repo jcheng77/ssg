@@ -54,6 +54,10 @@ class User
     Share.desc(:created_at).followees_of(self)
   end
 
+  def recent_shares(limit = 10)
+    self.shares.desc(:created_at).limit(limit)
+  end
+
   #------------------------------------
   # my notifications
   def notifications
