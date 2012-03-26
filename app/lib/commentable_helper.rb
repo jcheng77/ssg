@@ -1,5 +1,8 @@
 module CommentableHelper
 
+  ROOT_TYPE_SINGLE = :single
+  ROOT_TYPE_MULTIPLE = :multiple
+
   # Inject the class methods to the object's class.
   def self.included(c)
     c.instance_eval do
@@ -8,9 +11,16 @@ module CommentableHelper
   end
 
   module ClassMethods
-    def acts_as_commentable
-      has_many :comments, :as => :commentable, :dependent => :destroy
-      include CommentableHelper::LocalInstanceMethods
+    def acts_as_commentable(root_type = ROOT_TYPE_SINGLE)
+      case root_type
+        when ROOT_TYPE_SINGLE
+          has_one :comment, :as => :commentable, :dependent => :destroy
+          include CommentableHelper::SingleLocalInstanceMethods
+        when ROOT_TYPE_MULTIPLE
+          has_many :comments, :as => :commentable, :dependent => :destroy
+          include CommentableHelper::MultipleLocalInstanceMethods
+      end
+      include CommentableHelper::CommonLocalInstanceMethods
       extend CommentableHelper::SingletonMethods
     end
   end
@@ -30,25 +40,35 @@ module CommentableHelper
     end
   end
 
-  module LocalInstanceMethods
-    # Display only root comments, no children/replies
+  module SingleLocalInstanceMethods
+    # Display only root comments, no children/replies.
+    def root_comments
+      comment = self.comment
+      comment.nil? ? [] : [comment]
+    end
+
+    # Display all comments.
+    def all_comments
+      self.comment.recursive_comments
+    end
+  end
+
+  module MultipleLocalInstanceMethods
+    # Display only root comments, no children/replies.
     def root_comments
       self.comments.all.desc(:created_at)
     end
 
-    # Display all comments
+    # Display all comments.
     def all_comments
       self.comments.all.map { |comment| comment.recursive_comments }
     end
+  end
 
-    # Sort comments by date
+  module CommonLocalInstanceMethods
+    # Sort comments by date.
     def comments_ordered_by_created
       Comment.where(:commentable_id => id, :commentable_type => self.class.name).desc(:created_at)
-    end
-
-    # Defaults the submitted time.
-    def add_comment(comment)
-      self.comments << comment
     end
   end
 end

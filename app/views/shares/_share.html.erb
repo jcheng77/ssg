@@ -30,16 +30,16 @@
                 <% end %>
             </p>
 
-            <p><%= share.basic_comment.content %></p>
+            <p><%= share.comment_content %></p>
 
             <p>价格：<%= share.price %>元 <a href="#">去淘宝购买</a></p>
 
-            <div class="child-comments" id="<%= "#{share.basic_comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
-                <% share.basic_comment.child_comments.each do |child_comment| %>
+            <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
+                <% share.comment.child_comments.each do |child_comment| %>
                     <%= render :partial => "comments/child_comment", :object => child_comment %>
                 <% end %>
 
-                <%= form_for(share.basic_comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
+                <%= form_for(share.comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
                     <%= f.hidden_field :user_id %>
                     <%= f.hidden_field :_type %>
                     <%= f.hidden_field :user_id %>
