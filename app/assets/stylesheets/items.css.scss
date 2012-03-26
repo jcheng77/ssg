@@ -3,11 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .items .thumbnail{
     float: left;
-    height: 250px;
+    height: 200px;
 }
 .items .image{
-    width: 250px;
+    width: 200px;
+    overflow: hidden;
 }
 .items .description{
-    width: 285px;
+    width: 300px;
 }
