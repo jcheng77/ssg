@@ -3,75 +3,38 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <i>_id: <%= @user._id %></i><br/>
-  <b>Full Name:</b> <%= @user.full_name %><br/>
-  <b>Nick Name:</b> <%= @user.nick_name %><br/>
-  <img src="<%= @user.avatar %>" />
+    <i>_id: <%= @user._id %></i><br/>
+    <b>Full Name:</b> <%= @user.full_name %><br/>
+    <b>Nick Name:</b> <%= @user.nick_name %><br/>
+    <img src="<%= @user.avatar %>"/>
 </p>
 <p>
-  <b>I'm following:</b>
-  <ul>
-  <%@user.following_users.each do |f|%>
-    <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %> | <%= link_to 'unfollow', unfollow_user_path(f) %></li>
-  <%end%>
-  </ul>
+    <b>I'm following:</b>
+<ul>
+    <% @user.followees_by_type(User.name).each do |f| %>
+        <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %> | <%= link_to 'unfollow', unfollow_user_path(f) %></li>
+    <% end %>
+</ul>
 </p>
-<hr />
+<hr/>
 <p>
-  <b>My followers:</b>
-  <ul>
-  <%@user.followed_by_users.each do |f|%>
-    <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %></li>
-  <%end%>
-  </ul>
+    <b>My followers:</b>
+<ul>
+    <% @user.followers_by_type(User.name) do |f| %>
+        <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %></li>
+    <% end %>
+</ul>
 </p>
-<hr />
+<hr/>
 <p>
-  <b>My purchases:</b>
-  <ul>
-  <%@user.shares.each do |s|%>
-    <li><%= link_to "#{s.item.title} (#{s.source})", s.item %></li>
-  <%end%>
-  </ul>
+    <b>My shares:</b>
+<ul>
+    <% @user.shares.each do |f| %>
+        <li><%= link_to "#{f.user.full_name}'s share about (#{f.item.title})", f %></li>
+    <% end %>
+</ul>
 </p>
-<hr />
-<p>
-  <b>My likes:</b>
-  <ul>
-  <%@user.likes.each do |f|%>
-    <li><%= link_to "#{f.object.user.full_name}'s share about (#{f.object.item.title})", f.object %></li>
-  <%end%>
-  </ul>
-</p>
-<hr />
-<p>
-  <b>My wishes:</b>
-  <ul>
-  <%@user.wishes.each do |f|%>
-    <li><%= link_to "#{f.object.user.full_name}'s share about (#{f.object.item.title})", f.object %></li>
-  <%end%>
-  </ul>
-</p>
-<hr />
-<p>
-  <b>My recommendations:</b>
-  <ul>
-  <%@user.recommends.each do |f|%>
-    <li><%= link_to "#{f.object.user.full_name}'s share about (#{f.object.item.title})", f.object %></li>
-  <%end%>
-  </ul>
-</p>
-<hr />
+<hr/>
 
-<p>
-  <b>My notification:</b>
-  <ul>
-  <%@user.notifications.each do |f|%>
-    <li><%= link_to f.to_s, f.object %></li>
-  <%end%>
-  </ul>
-</p>
-<hr />
-
-<%= link_to 'Edit', edit_user_path(@user) , :class=>'btn primary'%>
-<%= link_to 'Back', users_path , :class=>'btn'%>
+<%= link_to 'Edit', edit_user_path(@user), :class=>'btn primary' %>
+<%= link_to 'Back', users_path, :class=>'btn' %>

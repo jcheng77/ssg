@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     if @recommend.nil?
       share = @comment.root
       @recommend = @item.shares.create user_id: current_user._id
-      @comment = @recommend.create_basic_comment @comment.content
+      @comment = @recommend.create_comment_by_sharer @comment.content
     else
       has_shared = true
     end
@@ -100,8 +100,7 @@ class ItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item }
+      format.html { render layout: 'application1' }
     end
   end
 
@@ -182,9 +181,9 @@ class ItemsController < ApplicationController
       @share.item_id = @item._id
       @share.user_id = user._id
       return false if !@share.save
-      @share.create_basic_comment(params[:share][:comment])
+      @share.create_comment_by_sharer(params[:share][:comment])
 
-      user.notify_my_share(@share)
+      #user.notify_my_share(@share)
     end
     return true
   end

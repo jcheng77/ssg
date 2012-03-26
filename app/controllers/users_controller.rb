@@ -27,10 +27,33 @@ class UsersController < ApplicationController
   # GET /users/1/friends
   def friends
     @user = User.find(params[:id])
+    @users = @user.followees_by_type(User.name)
 
     respond_to do |format|
       format.html { render layout: 'application' } # friends.html.erb
-      format.json { render json: @user }
+      format.json { render json: @users }
+    end
+  end
+
+  # GET /users/1/followees
+  def followees
+    @user = User.find(params[:id])
+    @users = @user.followees_by_type(User.name)
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # friends.html.erb
+      format.json { render json: @users }
+    end
+  end
+
+  # GET /users/1/followers
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers_by_type(User.name)
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # friends.html.erb
+      format.json { render json: @users }
     end
   end
 
@@ -58,12 +81,22 @@ class UsersController < ApplicationController
   def follow
     @user = User.find(params[:id])
     current_user.follow @user
+    @success = current_user.follower_of? @user
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /users/1/unfollow
   def unfollow
     @user = User.find(params[:id])
     current_user.unfollow @user
+    @success = !current_user.follower_of?(@user)
+
+    respond_to do |format|
+      format.js
+    end
   end
   
   # GET /users/1

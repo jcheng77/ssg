@@ -4,9 +4,10 @@
 .items .thumbnail{
     float: left;
     height: 200px;
-    padding-bottom: 4px;
 }
 .items .image{
+    width: 200px;
+    overflow: hidden;
     width: 200px;
     padding-bottom: 4px;
 }

@@ -18,7 +18,6 @@ class Share
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
   field :images, type: Array # string[], url of images
-  field :comment_id, type: String # sharing comment
   field :visible_to, type: Array # when it's private, visibleTo=VISIBLE_TO_SELF; when no limit, visibleTo=nil
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
@@ -29,24 +28,13 @@ class Share
   belongs_to :user, index: true
   belongs_to :seller, index: true
 
-  def basic_comment
-    if self.comment_id
-      self.comments.find(self.comment_id)
-    else
-      nil
-    end
+  def comment_content
+    comment = self.comment
+    comment.nil? ? nil : comment.content
   end
 
-  def basic_comment_content
-    comment = self.basic_comment
-    comment ? comment.content : nil
-  end
-
-  def create_basic_comment(content)
-    comment = self.comments.new(user_id: self.user_id, content: content)
-    comment.save
-    self.update_attributes(comment_id: comment._id)
-    comment
+  def create_comment_by_sharer(content)
+    self.create_comment(user_id: self.user_id, content: content)
   end
 
   def items_with_any_same_tags

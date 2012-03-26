@@ -45,7 +45,7 @@
                 <%= render :partial => "comments/comment", :object => comment %>
             <% end %>
         <% end %>
-        <%= form_for @share.comments.new, url: recommend_item_path(@item), remote: true do |f| %>
+        <%= form_for @share.build_comment, url: recommend_item_path(@item), remote: true do |f| %>
             <%= f.hidden_field :user_id %>
             <%= f.hidden_field :_type %>
             <%= f.hidden_field :user_id %>

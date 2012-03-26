@@ -16,6 +16,8 @@ Ssg::Application.routes.draw do
       get 'dashboard'
       get 'my_shares'
       get 'friends'
+      get 'followers'
+      get 'followees'
       get 'select'
       get 'follow'
       get 'unfollow'
