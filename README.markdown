@@ -8,6 +8,9 @@
 1. [Functionalites] (https://github.com/jcheng77/ssg/wiki/User-Story-&-Functionality)
 2. [Tech stuff ] (https://github.com/jcheng77/ssg/wiki/Technology)
 
+##Heroku production deployment
+http://ssgcloud.herokuapp.com/  (it's working!!!)
+
 ##Beta release schedule:
 1. 4月7号: 内测上线 让朋友试用 可以让朋友分享一些自己在淘宝曾买过的东西
 2. 4月27号: 完成淘宝支付和支持亚马逊商品分享和礼品卡发放
@@ -18,3 +21,4 @@
 ##Task/Issue tracking page:
 https://app.asana.com/0/570850315510/570850315510
 
+##Weekly status update / Meeting minutes
