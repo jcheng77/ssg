@@ -18,7 +18,7 @@ test:
 # host: staff.mongohq.com #  port: 10082 #  host: ds029187.mongolab.com #  port: 29187
 production:
   host: staff.mongohq.com
-  port: 10010
-  database: app2920888
+  port: 10082
+  database: app3550586
   username: heroku
-  password: ssgcloud
+  password: ssg
