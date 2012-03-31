@@ -19,9 +19,9 @@
 
             <div class="caption">
                 <ul class="nav nav-pills info" style="font-size: 16px;">
-                    <li><a href="#"><strong>210</strong><span>推荐</span></a></li>
-                    <li><a href="#"><strong>100</strong><span>愿望</span></a></li>
-                    <li><a href="#"><strong>20</strong><span>背包</span></a></li>
+                    <li><a href="#"><strong><%= @item.in_shares_num %></strong><span>推荐</span></a></li>
+                    <li><a href="#"><strong><%= @item.in_wishes_num %></strong><span>愿望</span></a></li>
+                    <li><a href="#"><strong><%= @item.in_bags_num %></strong><span>背包</span></a></li>
                 </ul>
             </div>
         </div>
@@ -60,7 +60,7 @@
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
     <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
-            <%= render :partial => "items/item", :object => item, :locals => {:share => item.shares.first} %>
+            <%= render :partial => "items/item", :object => item %>
         <% end %>
     </ul>
 </div>

@@ -15,6 +15,8 @@ Ssg::Application.routes.draw do
     member do
       get 'dashboard'
       get 'my_shares'
+      get 'my_wishes'
+      get 'my_bags'
       get 'friends'
       get 'followers'
       get 'followees'
@@ -27,6 +29,8 @@ Ssg::Application.routes.draw do
   resources :shares do
     member do
       get 'choose'
+      post 'add_to_wish'
+      post 'add_to_bag'
     end
   end
 

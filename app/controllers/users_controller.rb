@@ -67,6 +67,26 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/my_wishes
+  def my_wishes
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # my_wishes.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/1/my_bags
+  def my_bags
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # my_bags.html.erb
+      format.json { render json: @user }
+    end
+  end
+
   # GET /users/1
   # GET /users/1.json
   def select

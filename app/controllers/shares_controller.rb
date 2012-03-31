@@ -18,6 +18,29 @@ class SharesController < ApplicationController
     end
   end
 
+  # POST /shares/1/add_to_wish
+  def add_to_wish
+    @share = Share.find(params[:id])
+    @user = current_user
+    @wish = @user.wishes.find_or_create_by share_id: @share._id
+    @wish.add_tag params[:tag] if @wish.persisted? && !params[:tag].blank?
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # POST /shares/1/add_to_bag
+  def add_to_bag
+    @share = Share.find(params[:id])
+    @user = current_user
+    @bag = @user.bags.find_or_create_by share_id: @share._id
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /shares/new
   # GET /shares/new.json
   def new

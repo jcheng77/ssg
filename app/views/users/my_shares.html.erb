@@ -1,7 +1,7 @@
 <% content_for :javascripts do %>
     <script type="text/javascript">
         $(function() {
-            $("textarea").focusin(function() {
+            $(".item-block textarea").focusin(function() {
                 $(this).attr("rows", 3);
             }).focusout(function() {
                 $(this).attr("rows", 1);
