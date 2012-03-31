@@ -52,6 +52,7 @@ Ssg::Application.routes.draw do
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback
   match "taobao/purchases" => "taobao#purchases", :as => :taobao_purchases
+  match "itemcard" => "items#index2"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

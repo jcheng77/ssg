@@ -14,6 +14,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  def index2
+    @items = Item.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
+  end
+
   # POST /items/1/add_tag
   def add_tag
     @item = Item.find(params[:id])
