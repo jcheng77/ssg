@@ -177,21 +177,20 @@ class ItemsController < ApplicationController
     if @share
       @item = Item.first(conditions: {_id: @share.item_id})
     else
-      binding.pry
       @item = Item.new(params[:item])
     end
 
     if @share
       return false if !@item.update_attributes(params[:item])
     else
-      binding.pry
       return false if !@item.save
     end
+
     @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
     if @share
       return false if !@share.update_attributes(params[:share])
     else
-      binding.pry
+
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id

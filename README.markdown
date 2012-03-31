@@ -17,8 +17,13 @@ http://ssgcloud.herokuapp.com/  (it's working!!!)
 3. 5月: 邀请内测 积累用户 性能测试 准备上线 
 4. 6月: 加大推广力度 开展一些推广活动 包含网络营销和病毒视频
 5. 7月: 放宽内测 迎接更多新用户
+6. 11.11 大丰收
 
 ##Task/Issue tracking page:
-https://app.asana.com/0/570850315510/570850315510
+Old: https://app.asana.com/0/570850315510/570850315510
+New: https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
 
 ##Weekly status update / Meeting minutes
+每周二
+每周五
+每周日

@@ -35,9 +35,7 @@ module TaobaoApiHelper
     url = URI.parse(REST_URL)
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
-    #binding.pry
-    #json = JSON.parse(resp.body)
-    #binding.pry
+
     if(json['error_response'])
       puts json
       return EMPTY_JSON
@@ -90,7 +88,7 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.taobaoke.items.convert", params
-    binding.pry
+
     return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON
   end
  
