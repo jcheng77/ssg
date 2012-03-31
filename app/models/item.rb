@@ -10,6 +10,7 @@ class Item
     o.mark_id! # mark the _id with the mark byte
   end  
 
+  field :source_id, type: String
   field :title, type: String
   field :description, type: String
   field :product_rating, type: Float # overall product rating 
@@ -17,6 +18,7 @@ class Item
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
   field :tags, type: Array # string[]
+  field :purchase_url, type: String 
 
   acts_as_taggable
   has_many :shares
@@ -32,4 +34,5 @@ class Item
   def has_shared_by_user?(user)
     !self.share_by_user(user).nil?
   end
+
 end

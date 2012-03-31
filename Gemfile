@@ -22,6 +22,8 @@ gem 'mongo_session_store-rails3'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
 #
 gem 'pry', :group => :development
+gem 'pry-nav'
+gem 'pry-remote'
 gem 'heroku'
 
 gem 'oauth'

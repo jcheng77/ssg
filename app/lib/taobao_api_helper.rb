@@ -81,7 +81,19 @@ module TaobaoApiHelper
     json = call_taobao "taobao.taobaoke.items.convert", params
     return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"] if json!=EMPTY_JSON
   end
-  
+
+  def convert_item_url(item_id)
+    params = {
+      "num_iids"=> item_id,
+      'nick' => 'jackie_f_cheng',
+      "fields" => "click_url"
+    }
+
+    json = call_taobao "taobao.taobaoke.items.convert", params
+    binding.pry
+    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON
+  end
+ 
   # get the rating/comment of your shopping history
   def get_traderates
     params = {

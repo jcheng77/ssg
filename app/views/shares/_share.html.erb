@@ -32,7 +32,7 @@
 
             <p><%= share.comment_content %></p>
 
-            <p>价格：<%= share.price %>元 <a href="#">去淘宝购买</a></p>
+            <p>价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %> ">去淘宝购买</a></p>
 
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
                 <% share.comment.child_comments.each do |child_comment| %>

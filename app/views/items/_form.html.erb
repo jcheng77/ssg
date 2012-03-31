@@ -4,6 +4,7 @@
             <div class="share_img_view">
                 <img id="share_img_src" src="<%= @item_imgs.first if @item_imgs %>"/>
                 <%= hidden_field_tag "item[image]", @item.image %>
+                <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
             </div>
             <div class="share_img_others">
                 <% @item_imgs.each do |img| %>
