@@ -15,7 +15,7 @@ class User
 
 
   field :full_name, type: String # 
-  field :nick_name, type: String # 
+  field :nick_name, type: String #
   field :userid, type: String
   field :email, type: String
   field :password, type: String
@@ -31,7 +31,7 @@ class User
 
   field :session_key, type: String
 
-
+  field :point, type: Integer, default: 0
 
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
   
@@ -39,6 +39,8 @@ class User
   embeds_many :accounts # second accounts
 
   has_many :shares
+  has_many :wishes
+  has_many :bags
   has_many :choices
 
   # index  

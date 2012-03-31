@@ -38,8 +38,7 @@ class ItemsController < ApplicationController
     has_shared = false
 
     if @recommend.nil?
-      share = @comment.root
-      @recommend = @item.shares.create user_id: current_user._id
+      @recommend = @item.shares.create user_id: current_user._id, parent_share_id: @comment.root_id
       @comment = @recommend.create_comment_by_sharer @comment.content
     else
       has_shared = true
@@ -182,6 +181,7 @@ class ItemsController < ApplicationController
       @share.user_id = user._id
       return false if !@share.save
       @share.create_comment_by_sharer(params[:share][:comment])
+      @item.update_attribute(:root_share_id, @share._id)
 
       #user.notify_my_share(@share)
     end

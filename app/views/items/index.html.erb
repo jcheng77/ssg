@@ -25,9 +25,9 @@
         </ul>
         <!--<div class="page-header"></div>-->
         <ul class="thumbnails items">
-            <!--<% @items.each do |item| %>
-                <%= render :partial => "item", :object => item, :locals => { :share => item.shares.first } %>
-            <% end %>-->
+            <% @items.each do |item| %>
+                <%= render :partial => "item", :object => item %>
+            <% end %>
             <li>
                 <div class="thumbnail image">
                     <img src="http://s6.mogujie.cn/b7/bao/120323/znib_kqyuousdozbhsrcugfjeg5sckzsew_800x800.jpg_200x999.jpg" alt=""/>

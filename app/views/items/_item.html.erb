@@ -12,12 +12,12 @@
             <p>标签：<%= item.tags %></p>
 
             <div class="row user-comment">
-                <%= image_tag small_avatar_url(share.user.avatar), :width => '50', class: "pull-left" %>
+                <%= image_tag small_avatar_url(item.root_share.user.avatar), :width => '50', class: "pull-left" %>
 
                 <div class="pull-right user-comment-info">
-                    <p><%= link_to share.user.full_name, my_shares_user_path(share.user) %></p>
+                    <p><%= link_to item.root_share.user.full_name, my_shares_user_path(item.root_share.user) %></p>
 
-                    <p><%= share.comment_content %></p>
+                    <p><%= item.root_share.comment_content %></p>
                 </div>
             </div>
         </div>

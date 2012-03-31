@@ -7,9 +7,9 @@
         <%= image_tag share.item.image, :width => '290' %>
 
         <div class="btn-group">
-            <a class="btn" href="#">想买</a>
-            <a class="btn" href="#">推荐</a>
-            <a class="btn" href="#">买过</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
+            <%= link_to '背包', add_to_bag_share_path(share), method: :post, remote: true, class: "btn" %>
         </div>
     </div>
     <div class="pull-right item-right">
@@ -50,5 +50,44 @@
                 <% end %>
             </div>
         </div>
+    </div>
+</div>
+<div id="<%= "#{share._id}-recommend-btn" %>" class="modal hide fade" style="display: none;">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" >&times;</a>
+        <h3><%= share.item.title %></h3>
+    </div>
+    <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
+        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= form_for share.build_comment, url: recommend_item_path(share.item), class: "pull-right" do |f| %>
+            <%= f.hidden_field :user_id %>
+            <%= f.hidden_field :_type %>
+            <%= f.hidden_field :user_id %>
+            <%= f.hidden_field :commentable_id %>
+            <%= f.hidden_field :commentable_type %>
+            <%= f.text_area :content, rows: 6, class: "input-xlarge", style: "width: 260px;", placeholder: "我来说两句" %>
+            <%= f.submit "我要推荐", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">取消</a>
+    </div>
+</div>
+<div id="<%= "#{share._id}-wish-btn" %>" class="modal hide fade" style="display: none;">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" >&times;</a>
+        <h3><%= share.item.title %></h3>
+    </div>
+    <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
+        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= form_tag add_to_wish_share_path(share), remote: true, class: "pull-right" do %>
+            <div class="page-header"><h4>标签</h4></div>
+            <%= text_field_tag 'tag', nil, style: "width: 240px;" %>
+            <br>
+            <%= submit_tag "加入愿望清单", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">取消</a>
     </div>
 </div>

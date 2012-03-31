@@ -28,6 +28,11 @@ class Comment
     parent.is_a?(self.class) ? parent.parent : parent
   end
 
+  def root_id
+    root = self.root
+    root.nil? ? nil : root._id
+  end
+
   def is_root?
     parent = self.parent
     parent.is_a?(self.class) ? false : true

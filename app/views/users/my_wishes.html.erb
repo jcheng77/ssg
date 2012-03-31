@@ -1,0 +1,52 @@
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function() {
+            $(".item-block textarea").focusin(function() {
+                $(this).attr("rows", 3);
+            }).focusout(function() {
+                        $(this).attr("rows", 1);
+                    });
+        });
+    </script>
+<% end %>
+
+<div class="row">
+    <div class="span2">
+        <%= render :partial => "avatar", :object => @user %>
+        <ul class="nav nav-tabs nav-stacked" style="margin-top: 15px;">
+            <li class="active"><%= link_to "我的愿望 (#{@user.wishes.size})", my_wishes_user_path(@user) %></li>
+            <li><%= link_to "我的背包 (#{@user.bags.size})", my_bags_user_path(@user) %></li>
+        </ul>
+    </div>
+    <div class="span10">
+        <div class="row" style="margin-left: 0px;">
+            <ul class="nav nav-pills well category">
+                <li class="active"><a href="#">书籍</a></li>
+                <li><a href="#">应用</a></li>
+                <li><a href="#">数码</a></li>
+                <li><a href="#">户外</a></li>
+                <li><a href="#">服饰</a></li>
+                <li><a href="#">化妆品</a></li>
+                <li><a href="#">居家</a></li>
+                <li><a href="#">其它</a></li>
+            </ul>
+        </div>
+        <ul class="tag">
+            <li><a href="#">酷玩</a></li>
+            <li><a href="#">数码</a></li>
+            <li><a href="#">玩具</a></li>
+            <li><a href="#">涂鸦</a></li>
+            <li><a href="#">创意</a></li>
+            <li><a href="#">印章</a></li>
+            <li><a href="#">趣味</a></li>
+            <li><a href="#">人偶</a></li>
+        </ul>
+        <div class="page-header"><h4>我的愿望</h4></div>
+        <div class="row" style="margin-left: 0px;">
+            <% @user.wishes.desc(:created_at).each do |wish| %>
+                <div class="page-header"><h5>标签： <%= wish.tags %></h5></div>
+                <%= render :partial => "shares/share", :object => wish.share %>
+            <% end %>
+        </div>
+    </div>
+</div>
