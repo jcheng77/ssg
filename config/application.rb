@@ -65,6 +65,6 @@ module Ssg
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.mongoid.observers = :point_observer
+    config.mongoid.observers = :point_observer, :notification_observer
   end
 end

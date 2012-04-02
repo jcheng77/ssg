@@ -9,7 +9,7 @@
         <div class="btn-group">
             <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
-            <%= link_to '背包', add_to_bag_share_path(share), method: :post, remote: true, class: "btn" %>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">背包</a>
         </div>
     </div>
     <div class="pull-right item-right">
@@ -32,7 +32,7 @@
 
             <p><%= share.comment_content %></p>
 
-            <p>价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %> ">去淘宝购买</a></p>
+            <p>价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %>">去淘宝购买</a></p>
 
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
                 <% share.comment.child_comments.each do |child_comment| %>
@@ -85,6 +85,23 @@
             <%= text_field_tag 'tag', nil, style: "width: 240px;" %>
             <br>
             <%= submit_tag "加入愿望清单", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">取消</a>
+    </div>
+</div>
+<div id="<%= "#{share._id}-bag-btn" %>" class="modal hide fade" style="display: none;">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" >&times;</a>
+        <h3><%= share.item.title %></h3>
+    </div>
+    <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
+        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= form_tag add_to_bag_share_path(share), remote: true, class: "pull-right" do |f| %>
+            <%= text_area_tag 'comment', nil, rows: 6, class: "input-xlarge", style: "width: 240px;", placeholder: "我来说两句" %>
+            <br>
+            <%= submit_tag "放入背包", class: "btn btn-primary" %>
         <% end %>
     </div>
     <div class="modal-footer">

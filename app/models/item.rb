@@ -23,9 +23,11 @@ class Item
 
   acts_as_taggable
   has_many :shares
+  has_many :wishes
+  has_many :bags
 
   def root_share
-    Share.find(self.root_share_id)
+    self.root_share_id.nil? ? nil : Share.find(self.root_share_id)
   end
 
   def with_any_same_tags
@@ -45,18 +47,12 @@ class Item
   end
 
   def in_wishes_num
-    num = 0
-    self.shares.all.each do |share|
-      num += Wish.where(share_id: share._id).count
-    end
-    num
+    share_ids = self.shares.all.map { |share| share._id }
+    share_ids.blank? ? 0 : Wish.any_in(share_id: share_ids).count
   end
 
   def in_bags_num
-    num = 0
-    self.shares.all.each do |share|
-      num += Bag.where(share_id: share._id).count
-    end
-    num
+    share_ids = self.shares.all.map { |share| share._id }
+    share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
   end
 end

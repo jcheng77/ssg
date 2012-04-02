@@ -22,8 +22,13 @@ class SharesController < ApplicationController
   def add_to_wish
     @share = Share.find(params[:id])
     @user = current_user
-    @wish = @user.wishes.find_or_create_by share_id: @share._id
-    @wish.add_tag params[:tag] if @wish.persisted? && !params[:tag].blank?
+    @wish = @user.wishes.find_or_initialize_by item_id: @share.item._id
+    unless params[:tag].blank?
+      if @wish.save
+        @wish.add_tag params[:tag]
+        @wish.create_comment(user_id: @user._id, content: params[:tag])
+      end
+    end
 
     respond_to do |format|
       format.js
@@ -34,7 +39,10 @@ class SharesController < ApplicationController
   def add_to_bag
     @share = Share.find(params[:id])
     @user = current_user
-    @bag = @user.bags.find_or_create_by share_id: @share._id
+    @bag = @user.bags.find_or_initialize_by item_id: @share.item._id
+    unless params[:comment].blank?
+      @bag.create_comment(user_id: @user._id, content: params[:comment]) if @bag.save
+    end
 
     respond_to do |format|
       format.js

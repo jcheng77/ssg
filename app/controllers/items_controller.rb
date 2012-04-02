@@ -55,6 +55,7 @@ class ItemsController < ApplicationController
 
     if @recommend.persisted? && @comment.persisted?
       current_user.follow @item
+      current_user.follow @recommend
       respond_to do |format|
         format.html { redirect_to @recommend }
         format.js { render "comments/create_root" }
@@ -197,13 +198,14 @@ class ItemsController < ApplicationController
       return false if !@share.save
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
+      current_user.follow @item
+      current_user.follow @share
 
-      #user.notify_my_share(@share)
     end
     return true
   end
 
-   def taobao_url(taobao_item_id)
-     "http://item.taobao.com/item.htm?id=" + taobao_item_id 
-   end
+  def taobao_url(taobao_item_id)
+    "http://item.taobao.com/item.htm?id=" + taobao_item_id
+  end
 end

@@ -51,6 +51,11 @@ module CommentableHelper
     def all_comments
       self.comment.recursive_comments
     end
+
+    def comment_content
+      comment = self.comment
+      comment.nil? ? nil : comment.content
+    end
   end
 
   module MultipleLocalInstanceMethods

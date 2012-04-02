@@ -1,14 +1,12 @@
 class Wish
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include Mongo::Followable
   include TaggableHelper
-
-  field :share_id, type: BSON::ObjectId
+  include CommentableHelper
 
   acts_as_taggable
+  acts_as_commentable
   belongs_to :user
-
-  def share
-    Share.find self.share_id
-  end
+  belongs_to :item
 end

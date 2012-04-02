@@ -1,12 +1,10 @@
 class Bag
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include Mongo::Followable
+  include CommentableHelper
 
-  field :share_id, type: BSON::ObjectId
-
+  acts_as_commentable
   belongs_to :user
-
-  def share
-    Share.find self.share_id
-  end
+  belongs_to :item
 end

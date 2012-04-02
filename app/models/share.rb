@@ -19,6 +19,8 @@ class Share
 
   acts_as_taggable
   acts_as_commentable
+  has_many :wishes
+  has_many :bags
   belongs_to :item, index: true
   belongs_to :user, index: true
   belongs_to :seller, index: true
@@ -34,11 +36,6 @@ class Share
 
   def parent_share
     self.parent_share_id.nil? ? nil : Share.find(self.parent_share_id)
-  end
-
-  def comment_content
-    comment = self.comment
-    comment.nil? ? nil : comment.content
   end
 
   def create_comment_by_sharer(content)
