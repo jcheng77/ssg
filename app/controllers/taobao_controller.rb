@@ -81,6 +81,12 @@ class TaobaoController < ApplicationController
     json = get_bought_trades session[:taobao_session_key]
     redirect_to dashboard_user_path(current_user)
   end
+
+
+  def favorites
+    json = get_favorite_items session[:taobao_session_key]
+    redirect_to dashboard_users_path
+  end
   
   protected 
 

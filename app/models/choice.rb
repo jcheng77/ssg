@@ -2,7 +2,6 @@ class Choice
   MARK_BYTE = 6
   
   include Mongoid::Document
-  include ObjectIdHelper
   include VisibleToHelper
 
   after_initialize do |o|

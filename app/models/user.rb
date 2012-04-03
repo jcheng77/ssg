@@ -5,13 +5,9 @@ class User
   include Mongo::Voter
   include Mongo::Follower
   include Mongo::Followable
-  include ObjectIdHelper
 
   #devise :registerable, :database_authenticatable, :recoverable
 
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end
 
 
   field :full_name, type: String # 

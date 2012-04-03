@@ -35,6 +35,7 @@ module TaobaoApiHelper
     url = URI.parse(REST_URL)
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
+    binding.pry
 
     if(json['error_response'])
       puts json
@@ -67,6 +68,20 @@ module TaobaoApiHelper
     json = call_taobao  "taobao.trades.bought.get", params
     return json["trades_bought_get_response"]["trades"]["trade"] if json!=EMPTY_JSON
   end
+
+  def get_favorite_items(session_key)
+    params = {
+     "session" =>  session_key,
+    "user_nick" => 'jackie_f_cheng',
+    "collect_type" => 'ITEM',
+    "page_no" => 20
+    }
+
+    json = call_taobao "taobao.favorite.search", params
+    binding.pry
+    return json["favorite_search_response"] if json != EMPTY_JSON
+  end
+
 
   # get taobaoke link
   def convert_items_taobaoke(item_id)
