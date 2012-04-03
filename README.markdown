@@ -20,10 +20,10 @@ http://ssgcloud.herokuapp.com/  (it's working!!!)
 6. 11.11 大丰收
 
 ##Task/Issue tracking page:
-Old: https://app.asana.com/0/570850315510/570850315510
-New: https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
+1. Old: https://app.asana.com/0/570850315510/570850315510
+2. New: https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
 
 ##Weekly status update / Meeting minutes
-每周二
-每周五
-每周日
+1. 每周二
+1. 每周五
+1. 每周日

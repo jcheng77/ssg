@@ -1,6 +1,5 @@
 class Notification
   include Mongoid::Document
-  include ObjectIdHelper
 
   TYPE_FOLLOW=:FLW
   TYPE_ACTIVATE=:ACT

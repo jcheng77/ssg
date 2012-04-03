@@ -2,11 +2,6 @@ class Seller
   MARK_BYTE = 4
   
   include Mongoid::Document
-  include ObjectIdHelper
-
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end  
 
   field :name, type: BSON::ObjectId # the guy who follows follow
   field :image, type: String # url of the image

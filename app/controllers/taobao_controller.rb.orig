@@ -9,14 +9,12 @@ require 'iconv'
 
 
 class TaobaoController < ApplicationController
-<<<<<<< HEAD
   layout 'application1'
-=======
 
   include TaobaoApiHelper
 
   layout 'application'
->>>>>>> release/v1.5
+  #
   #layout 'taobao'
   #skip_before_filter :verify_authenticity_token
   AUTH_URL = 'http://container.api.taobao.com/container?'
@@ -87,6 +85,7 @@ class TaobaoController < ApplicationController
     redirect_to dashboard_users_path
   end
   
+
   protected 
 
   def urlencode(params)

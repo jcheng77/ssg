@@ -3,7 +3,6 @@ class Item
 
   include Mongoid::Document
   include Mongo::Followable
-  include ObjectIdHelper
   include TaggableHelper
 
   after_initialize do |o|
