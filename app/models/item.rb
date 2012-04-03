@@ -5,10 +5,6 @@ class Item
   include Mongo::Followable
   include TaggableHelper
 
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end  
-
   field :source_id, type: String
   field :title, type: String
   field :description, type: String

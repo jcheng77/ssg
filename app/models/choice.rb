@@ -4,9 +4,6 @@ class Choice
   include Mongoid::Document
   include VisibleToHelper
 
-  after_initialize do |o|
-    o.mark_id! # mark the _id with the mark byte
-  end
   
   TYPE_LIKE=:LIK
   TYPE_WISH=:WSH
