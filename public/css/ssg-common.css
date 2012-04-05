@@ -1,6 +1,6 @@
 /*common start*/
 html {
-  background: url("../images/paper.jpg") repeat scroll 0 0 #F6F6F6;
+  /*background: url("../images/paper.jpg") repeat scroll 0 0 #F6F6F6;*/
 }
 
 a {
@@ -72,15 +72,6 @@ a {
 }
 /*common start*/
 
-/*header start*/
-#header {
-  /*background-image: url("../images/header_bg.gif");
-  background-repeat: repeat-x;*/
-  height: 75px;
-  background: #FFFFFF;
-  border-bottom: solid 1px #DDDDDD;
-  box-shadow: 0 1px 2px rgba(55, 55, 55, 0.6);
-}
 
 #header .logo {
   font-size: 30px;
@@ -90,6 +81,7 @@ a {
 #header .my_account {
   text-align: center;
   width: 95px;
+  margin-top: 35px;
 }
 
 #header .my_account ul.my_ul {
