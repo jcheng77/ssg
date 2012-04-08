@@ -27,6 +27,7 @@ class User
   field :session_key, type: String
 
   field :point, type: Integer, default: 0
+  field :active, type: Integer, default: 0
 
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
   
@@ -119,5 +120,10 @@ class User
   def save_fullname
     self.full_name ||= self.nick_name
   end
+
+  def activate
+    self.active = 1 if self.active == 0
+  end
+  
 
 end

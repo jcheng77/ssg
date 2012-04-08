@@ -41,6 +41,7 @@ Ssg::Application.routes.draw do
   end
 
   resources :choices
+  resources :invitations
   #  resources :taobao
   resources :sessions
 
@@ -54,6 +55,7 @@ Ssg::Application.routes.draw do
   match "taobao/purchases" => "taobao#purchases", :as => :taobao_purchases
   match "tbwishes" => "taobao#favorites" 
   match "itemcard" => "items#index2"
+  match "usercode" => "users#code"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

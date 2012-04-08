@@ -28,6 +28,7 @@ gem 'heroku'
 
 gem 'oauth'
 gem 'oauth_china'
+gem 'slim'
 
 #gem "weibo_oauth2", "~> 0.0.5"
  
