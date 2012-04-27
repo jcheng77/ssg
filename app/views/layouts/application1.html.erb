@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/960_24_col.css" type="text/css" media="screen">
     <link rel="stylesheet" href="/css/text.css" type="text/css" media="screen">
     <link rel="stylesheet" href="/css/ssg-common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" type="text/css" media="screen"/>
     <%if current_page?(:controller => 'users', :action => 'dashboard') || current_page?(:controller => 'users', :action => 'my_shares')%>
       <link rel="stylesheet" href="/css/ssg-home.css" type="text/css" media="screen"/>
     <%end%>
@@ -42,47 +43,39 @@
 
 
 <body onload="">
-<div id="header">
-  <div class="container_24">
-    <div class="clear"></div>
-          
-    <div class="grid_3 logo">
-      <p><a href="/index.html">i享买</a></p>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">i享买</a>
+
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li><%= link_to '我的首页', current_user ? dashboard_user_path(current_user) : "#" %></li>
+                    <li><%= link_to '我的分享', current_user ? my_shares_user_path(current_user) : "#" %></li>
+                    <li><%= link_to '用户', users_path %></li>
+                    <li><%= link_to '商品', items_path %></li>
+                </ul>
+                <form class="navbar-search pull-left" action="">
+                    <input type="text" class="search-query span2" placeholder="我感兴趣的内容或人..."/>
+                </form>
+              <%if current_user %>
+                <ul class="nav pull-right">
+                    <li><%= image_tag image_path(current_user.avatar) %></li>
+                </ul>
+              <%else%>
+                <ul class="nav pull-right">
+                    <li><a href="javascript:void(0);" id="index_login">登&nbsp;录</a></li>
+                </ul>
+              <%end%>
+            </div>
+        </div>
     </div>
-    <div class="grid_2 header_link">
-      <p><%= link_to '我的首页', current_user ? dashboard_user_path(current_user) : "#" %></p>
-    </div>
-    <div class="grid_3 header_link">
-      <p><%= link_to '我的分享', current_user ? my_shares_user_path(current_user) : "#" %></p>
-    </div>
-    <div class="grid_2 header_link">
-      <p><%= link_to '用户', users_path %></p>
-    </div>
-    <div class="grid_3 header_link">
-      <p><%= link_to '商品', items_path %></p>
-    </div>
-    <div class="grid_8 header_search">
-      <div><input type="text" placeholder="我感兴趣的内容或人..."/></div>
-    </div>
-    <div class="grid_2 my_account">
-      <%if current_user %>
-      <ul class="my_ul">
-        <li class="my_li"><a href="javascript:void(0);"><%=current_user.nick_name%></a> <%= image_tag image_path(current_user.avatar) %> 
-      </li>
-                <ul class="my_menu" style="display:none;">
-          <li class="my_menu_item"><a href="myAccount.html">帐号设置</a></li>
-          <li class="separator">&nbsp;</li>
-          <li class="my_menu_item log_out"> <%= link_to "退出", logout_path %> </li>
-        </ul>
-      </ul>
-      <%else%>
-      <div class="loginBtn">
-        <a href="javascript:void(0);" id="index_login">登&nbsp;录</a>
-      </div>
-      <%end%>
-    </div>
-    
-  </div>
 </div>
 
 
