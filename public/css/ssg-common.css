@@ -81,7 +81,6 @@ a {
 #header .my_account {
   text-align: center;
   width: 95px;
-  margin-top: 35px;
 }
 
 #header .my_account ul.my_ul {
@@ -184,5 +183,16 @@ a {
   font-family: tahoma,arial,sans-serif;
   font-size: 12px;
   margin-top: 25px;
+}
+.navbar_item_top{
+    margin-top: 6px;
+}
+.sina_wb, .qq_wb{
+    padding: 10px;
+}
+.login_title{
+    padding: 10px;
+    font-size: 14pt;
+    font-weight: bold;
 }
 /*footer end*/

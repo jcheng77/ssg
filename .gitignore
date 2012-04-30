@@ -48,5 +48,7 @@ tag/*
 tag
 tag/
 
+#vim tmp files
+*.swp
 
 app/lib/taobao_api_helper.rb
