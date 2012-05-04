@@ -19,7 +19,7 @@
                         <div class="text_12 dark_color">您还没有同步淘宝的购买记录
                             <a href="javascript:void(0)" class="secondary_color text_10">了解更多</a></div>
                         <div class="gotoSync">
-                            <a href="javascript:void(0)" id="select_from_buy_list_sync">连接淘宝帐号分享购买过的宝贝</a></div>
+                          <%= link_to "连接淘宝帐号分享购买过的宝贝" , {:controller => "taobao", :action => "purchases" }, :id =>  'select_from_buy_list_sync' %>
                     </div>
                 </div>
                 <div class="clear_both">&nbsp;</div>
@@ -33,7 +33,6 @@
                     </div>
                 </div>
                 <div class="clear_both">&nbsp;</div>
-                <div class="separator">&nbsp;</div>
 
                 <div class="grid_24" id="select_from_sys">
                     <div class="select_from_sys_contaniner">

@@ -13,8 +13,10 @@ class TaobaoController < ApplicationController
   include TaobaoApiHelper
 
   layout 'application'
-  #layout 'taobao'
+
+  before_filter :login_taobao, :only => [:purchases, :favorites]
   #skip_before_filter :verify_authenticity_token
+  
   AUTH_URL = 'http://container.api.taobao.com/container?'
   app_key = '12483819' 
 
@@ -63,11 +65,16 @@ class TaobaoController < ApplicationController
       if exists.nil?
       
       user = User.create( :userid => top_params["visitor_id"], :session_key => top_params["top_session"])
-      session[:current_user_id] = user._id
-      redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => top_params["visitor_nick"]
+
+      unless logged_in?
+        session[:current_user_id] = user._id
+        redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => top_params["visitor_nick"]
+      end
       else
-      session[:current_user_id] = exists._id
-      redirect_to dashboard_user_path(current_user)
+      unless logged_in?
+        session[:current_user_id] = exists._id
+        redirect_to dashboard_user_path(current_user)
+      end
       end
       
     else
@@ -79,6 +86,7 @@ class TaobaoController < ApplicationController
 
   def purchases
     json = get_bought_trades session[:taobao_session_key]
+    p json
     redirect_to dashboard_user_path(current_user)
   end
 
@@ -93,6 +101,12 @@ class TaobaoController < ApplicationController
   def urlencode(params)
     params.to_a.collect! { |k, v| "#{k.to_s}=#{v.to_s}" }.join("&") 
   end 
+
+  def login_taobao
+    unless session[:taobao_session_key] || current_user
+      redirect taobao_auth_path
+    end
+  end
 
   
 end

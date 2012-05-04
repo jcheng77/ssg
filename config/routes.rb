@@ -1,5 +1,4 @@
 Ssg::Application.routes.draw do
-  get 'test' => 'users#test'
 
   resources :items do
     member do
@@ -42,7 +41,6 @@ Ssg::Application.routes.draw do
 
   resources :choices
   resources :invitations
-  #  resources :taobao
   resources :sessions
 
   match "login" => "sessions#new", :as => :login
@@ -53,6 +51,7 @@ Ssg::Application.routes.draw do
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback
   match "taobao/purchases" => "taobao#purchases", :as => :taobao_purchases
+  match "taobao/authorize" => "taobao#auth", :as => :taobao_auth
   match "tbwishes" => "taobao#favorites" 
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"
