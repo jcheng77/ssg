@@ -60,7 +60,6 @@
   border-radius:3px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
-  background: #7BCC00;
   font-size: 14px;
   padding: 7px 20px 8px;
   text-align: center;
@@ -182,13 +181,12 @@
 #input_buy_url input,
 #select_from_sys input {
   width: 380px;
-  height: 40px;
   border-radius:4px;
   -moz-border-radius:4px;
   -webkit-border-radius:4px;
   border: solid 1px #BBBBBB;
   font-size: 14px;
-  padding-left: 8px;
+  padding: 8px;
   margin-right: 10px;
 }
 
