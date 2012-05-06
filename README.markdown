@@ -12,18 +12,16 @@
 http://ssgcloud.herokuapp.com/  (it's working!!!)
 
 ##Beta release schedule:
-1. 4月7号: 内测上线 让朋友试用 可以让朋友分享一些自己在淘宝曾买过的东西
-2. 4月27号: 完成淘宝支付和支持亚马逊商品分享和礼品卡发放
-3. 5月: 邀请内测 积累用户 性能测试 准备上线 
-4. 6月: 加大推广力度 开展一些推广活动 包含网络营销和病毒视频
-5. 7月: 放宽内测 迎接更多新用户
+1. 5月12号: 内测上线 让朋友试用 可以让朋友分享一些自己在淘宝曾买过的东西
+2. 6月10号: 完成淘宝支付和支持亚马逊商品分享和礼品卡发放
+3. 6月: 邀请内测 积累用户 性能测试 准备上线 
+4. 7月: 加大推广力度 开展一些推广活动 包含网络营销和病毒视频
+5. 8月: 放宽内测 迎接更多新用户
 6. 11.11 大丰收
 
 ##Task/Issue tracking page:
-1. Old: https://app.asana.com/0/570850315510/570850315510
-2. New: https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
+1. https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
 
 ##Weekly status update / Meeting minutes
-1. 每周二
-1. 每周五
+1. 每周四
 1. 每周日
