@@ -29,6 +29,7 @@ gem 'heroku'
 gem 'oauth'
 gem 'oauth_china'
 gem 'slim'
+gem 'will_paginate_mongoid'
 
 #gem "weibo_oauth2", "~> 0.0.5"
  
