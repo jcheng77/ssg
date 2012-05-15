@@ -1,0 +1,688 @@
+/*@说明：页面级别merge css 文件，对应堆糖工具发布页面@作者：demokevin@时间：2011-05-01*//*@说明：产品级组件样式文件，对应表情选择器@作者：demokevin@时间：2010-05-03*/.md_list a {
+	float:left;
++display:inline;
+	width:22px;
+	height:20px;
+	overflow:hidden;
+	margin:4px 4px 0 0;
+	border:1px solid #eee;
+	background-image:url(../../../../img/0/mood.gif);
+	background-repeat:no-repeat;
+}
+.md_img {
+	width:22px;
+	height:20px;
+	background-image:url(../../../../img/0/mood.gif);
+	background-repeat:no-repeat;
+}
+.md_happy {
+	background-position:0 0
+}
+.md_cry {
+	background-position:-22px 0
+}
+.md_sorrow {
+	background-position:-44px 0
+}
+.md_angry {
+	background-position:-66px 0
+}
+.md_amazed {
+	background-position:-88px 0
+}
+.md_missyou {
+	background-position:-110px 0
+}
+.md_tanglement {
+	background-position:-132px 0
+}
+.md_heart {
+	background-position:-154px 0
+}
+.md_loving {
+	background-position:-176px 0
+}
+.md_green {
+	background-position:-198px 0
+}
+.md_cake {
+	background-position:-220px 0
+}
+.md_sun {
+	background-position:0 -20px
+}
+.md_rainbow {
+	background-position:-22px -20px
+}
+.md_praise {
+	background-position:-44px -20px
+}
+.md_crown {
+	background-position:-66px -20px
+}
+.md_snow {
+	background-position:-88px -20px
+}
+.md_help {
+	background-position:-110px -20px
+}
+.md_music {
+	background-position:-132px -20px
+}
+.md_car {
+	background-position:-154px -20px
+}
+.md_cheers {
+	background-position:-176px -20px
+}
+.md_paint {
+	background-position:-198px -20px
+}
+.md_skate {
+	background-position:-220px -20px
+}
+.md_travel {
+	background-position:0 -40px
+}
+.md_pighead {
+	background-position:-22px -40px
+}
+.md_christmastree {
+	background-position:-44px -40px
+}
+.md_glove {
+	background-position:-66px -40px
+}
+.md_mcdonald {
+	background-position:-88px -40px
+}
+.md_happiness {
+	background-position:-110px -40px
+}
+.md_daze {
+	background-position:-132px -40px
+}
+.md_woundplast {
+	background-position:-154px -40px
+}
+.md_football {
+	background-position:-176px -40px
+}
+.md_star {
+	background-position:-198px -40px
+}
+.md_shutup {
+	background-position:-220px -40px
+}
+.md_yy {
+	background-position:0 -60px
+}
+.md_moon {
+	background-position:-22px -60px
+}
+.md_kiss {
+	background-position:-44px -60px
+}
+.md_cup {
+	background-position:-66px -60px
+}
+.md_camera {
+	background-position:-88px -60px
+}
+.md_diamond {
+	background-position:-110px -60px
+}
+.md_thunder {
+	background-position:-132px -60px
+}
+.md_candle {
+	background-position:-154px -60px
+}/*@说明：网站组件之 【发布微博-beta】@作者：demokevin@时间：2011-10-10*//*@说明：产品级公用样式文件，浮出确认框，选择确认或删除@依赖：/js/0/p/part/at.js@作者：demokevin@时间：2011-09-26*/
+.PL-at {
+	position:absolute;
+	z-index:9100;
+	top:0;
+	left:0;
+	width:160px;
+	height:auto;
+	line-height:21px;
+	padding:4px 1px 4px;
+	border:1px solid #ebebeb;
+	background-color:#fff;
+	display:none;
+}
+.PL-at div {
+	padding:0 8px;
+}
+.PL-at .zero {
+	line-height:14px;
+	color:#bbb;
+}
+.PL-at li {
+	height:21px;
+	overflow:hidden;
+	padding:0 8px;
+	cursor:pointer
+}
+.PL-at li.cur {
+	background-color:#d7eafb;
+}
+.PL-at-cont {
+	width:auto;
+	padding:12px;
+	height:62px;
+	border:1px solid #A0A0A0;
++border:5px solid #ddd;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	-border-radius:1px;
+	-moz-box-shadow:0 0 10px #666;
+	-webkit-box-shadow:0 0 10px #666;
+	box-shadow:0 0 10px #666;
+	background-color:#fff;
+}
+.PL-at-wds {
+	font-size:12px;
+	line-height:1.5;
+}/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+#al-mblog {
+	position:relative;
+	z-index:100;
+	width:auto;
+	height:530px;
+	background-color:#f7f7f7;
+	border:1px solid #ebebeb;
+	-moz-box-shadow:0 0 30px rgba(0,0,0,.3);
+	-webkit-box-shadow:0 0 30px rgba(0,0,0,.3);
+	box-shadow:0 0 30px rgba(0,0,0,.3)
+}
+.al-shw {
+	border-width:1px;
+	border-style:solid;
+	border-color:#ccc #bbb #aaa;
+	-moz-box-shadow:1px 1px 2px #ccc;
+	-webkit-box-shadow:1px 1px 2px #ccc;
+	box-shadow:1px 1px 2px #ccc;
+}
+.al-nogoodimg {
+	color:#666;
+}
+.al-floaded .al-subbtn, .al-uloaded .al-subbtn, .al-fzero .al-subbtn, .al-uzero .al-subbtn {
+	display:block;
+}
+.al-fzero .al-picouter {
+	display:none;
+}
+.al-fzero .al-subbtn .al-nogoodimg, .al-uzero .al-subbtn .al-nogoodimg {
+	display:block;
+	float:left;
+	margin:0 0 0 16px;
+	color:#F21664;
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+.al-nogoodimg {
+	float:none !important;
+	text-align:right;
+}
+.al-head {
+	height:60px;
+	overflow:hidden;
+	border-bottom:1px solid #ebebeb
+}
+a.al-swbtn:link, a.al-swbtn:visited {
+	margin:0 0 0 24px;
+	letter-spacing:1px;
+	font-size:12px;
+	color:#bbb;
+	font-weight:normal;
+}
+a.al-swbtn:hover {
+	color:#F21664;
+	text-decoration:none;
+}
+.al-close:link, .al-close:visited {
+	float:right;
++display:inline;
+	width:36px;
+	height:36px;
+	margin:12px 12px 0 0;
+	background-image:url(../../../../img/0/main.gif?20120208);
+	background-repeat:no-repeat;
+	background-position:-350px -770px;
+	text-indent:-9999px;
+}
+.al-close:hover {
+	background-position:-386px -770px;
+}
+.al-head h1 {
+	float:left;
++display:inline;
+	margin:12px 0 0 40px;
+	letter-spacing:2px;
+	font-size:24px;
+	font-family:'\5FAE\8F6F\96C5\9ED1';
+	font-weight:normal;
+	color:#666;
+}
+.al-part-lf {
+	float:left;
+	width:622px;
+	height:444px;
+	padding:24px 39px 0 39px;
+	border-top:1px solid #fff;
+	border-right:1px solid #ebebeb;
+}
+.al-part-rg {
+	float:left;
+	width:210px;
+	height:460px;
+	padding:8px 21px 0 24px;
+	border-left:1px solid #fff;
+	border-top:1px solid #fff;
+}
+.al-part-rg h6 {
+	padding:12px 0 4px;
+	color:#666;
+}
+.al-ftip {
+	margin:12px 0 0;
+	padding:8px;
+	line-height:1.8;
+	border:1px solid #c0c0c0;
+	color:#adadad;
+	background-color:#fdf8c4;
+}
+.al-part-rg .usetag {
+	display:block;
+	height:auto;
+	margin:0;
+	padding:0;
+}
+.al-prepost {
+	position:relative;
+	margin:0 0 0 44px;
+}
+.al-covb {
+	position:absolute;
+	z-index:7;
+	width:612px;
+	height:270px;
+	top:25px;
+	left:-5px;
+	border:5px solid #ebebeb;
+	background-color:#f7f7f7;
+}
+.al-covh {
+	position:absolute;
+	z-index:8;
+	width:505px;
+	height:280px;
+	top:25px;
+	left:56px;
+	background-color:#f7f7f7;
+}
+.al-covv {
+	position:absolute;
+	z-index:9;
+	width:622px;
+	height:160px;
+	left:-5px;
+	top:84px;
+	background-color:#f7f7f7;
+}
+.al-album {
+	position:relative;
+	overflow:visible
+}
+.al-album p.al-albumsel {
+	width:auto;
+	margin:0 8px 0 0;
+}
+.al-albumsel input {
+	display:none;
+}
+.al-albumsel a {
+	display:block;
+	width:184px;
+	height:24px;
+	overflow:hidden;
+	line-height:1.8;
+	padding:2px 20px 0 4px;
+}
+.al-albumsel a:link, .al-albumsel a:visited {
+	color:#666;
+	background-color:#fff;
+	background-image:url(../../../../img/0/icons.gif);
+	background-repeat:no-repeat;
+	background-position:right -29px
+}
+.al-albumsel a:hover {
+	background-color:#d7eafb;
+	background-position:right 1px;
+	text-decoration:none;
+	color:#238fdb
+}
+#al-mblog #myalbums-wrap {
+	top:103px;
+	left:auto;
+	right:20px;
+	width:359px;
+	z-index:100;
+}
+.al-subtag {
+	position:relative;
+}
+.al-subtag label {
+	position:absolute;
+	z-index:10;
+	top:42px;
+	left:6px;
+	color:#aaa;
+}
+.al-subtag .txa {
+	width:202px;
+	height:57px;
+}
+.al-updv {
+	float:left;
++display:inline;
+	margin:65px 0 0 230px;
+}
+.al-size {
+	float:left;
++display:inline;
+	width:190px;
+	margin:64px 0 0 90px;
+}
+.al-fedv {
+	padding:30px 70px 0 70px;
+}
+.al-fedv .tc {
+	margin:12px 0 0;
+}
+.al-fchk {
+	height:26px;
+	font-size:14px;
+}
+.al-fedv .ipt {
+	width:470px;
+	margin-right:8px;
+}
+.al-cxa {
+	position:relative;
+	height:83px;
+	overflow:hidden;
+	margin:20px 0 0;
+}
+.al-cxa textarea {
+	width:614px;
+	height:68px;
+}
+.al-cxa label {
+	position:absolute;
+	z-index:10;
+	top:5px;
+	left:6px;
+	color:#aaa;
+}
+#al-loading {
+	display:none;
+}
+.al-topre {
+	position:absolute;
+	top:300px;
+	left:80px
+}
+.al-site {
+	background-position:0 -1339px;
+}
+.al-img {
+	background-position:0 -1310px;
+}
+.al-uloading .al-updv, .al-uloading .al-size, .al-uloading .al-nogoodimg, .al-uloading .al-fedv {
+	display:none;
+}
+.al-uloading #al-loading {
+	display:block;
+	width:190px;
+	line-height:1.5;
+	margin:50px auto 0;
+	background:url(../../../../img/0/loading2.gif?20111013) 56px -2px no-repeat;
+	font-size:16px;
+	font-weight:normal;
+	font-family:'\5FAE\8F6F\96C5\9ED1';
+	color:#666;
+}
+.al-uloading #al-loading a {
+	margin-left:82px;
+	font-size:12px;
+	font-weight:normal;
+}
+#al-pics {
+	height:278px;
+	overflow:hidden;
+	padding:0;
+	margin:0;
+	border:1px solid #ebebeb;
+	background-position:center center;
+}
+.al-upload .al-fedv {
+	display:none;
+}
+.al-upload #al-pics {
+	text-align:center;
+	background-color:#fff;
+	line-height:278px;
+	font-size:0px;
+	_font-size:249px;/* height 值乘以 0.896 */
+	_font-family:Arial;
+}
+.al-upload #al-pics img {
+	padding:0;
+	margin:0;
+	border:0 none;
+	vertical-align:middle;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.al-upload #al-pics {
+	line-height:274px;/* line height 比较 height -4px */
+}
+}
+.al-fetch .al-updv, .al-fetch .al-size {
+	display:none;
+}
+.al-uloaded .al-prepost, .al-uloaded .al-nogoodimg {
+	display:none;
+}
+.al-floaded .al-prepost, .al-floaded .al-nogoodimg {
+	display:none;
+}
+.al-floaded #al-pics {
+	height:280px;
+	margin:-50px 0 0;
+	padding-top:0px;
+	overflow:hidden;
+	border:0 none;
+}
+#al-source {
+	display:none;
+	position:relative;
+	z-index:2;
+	width:100%;
+	height:50px;
+	overflow:hidden;
+}
+.al-floaded #al-source {
+	display:block;
+}
+#sourcelink-ed, #sourcelinkcheck {
+	float:left;
++display:inline;
+}
+#sourcelink-ed span, #sourcelinkcheck span {
+	color:#666;
+}
+#sourcelinkcheck {
+	margin:2px 0 0 8px;
+}
+#sourcelink-ed {
+	width:404px;
+	color:#666;
+}
+.al-inwds {
+	padding:8px 0 0;
+}
+.al-piclist {
+	overflow:hidden;
+}
+.al-picselect {
+	position:relative;
+	width:622px;
+	height:223px;
+	padding:58px 0 0;
+}
+.al-picselect .vm, .al-picselect .vma .vmb {
+	height:198px
+}
+.al-picselect .vm {
+	width:198px;
+	overflow:hidden;
+	padding:1px;
+	border:1px solid #ccc;
+	margin:0 8px 0 0;
+	background-color:#fff;
+}
+.al-picselect .last {
+	margin-right:0
+}
+.al-picselect .vmb {
+	overflow:hidden;
+}
+.al-picselect .vm, .al-picselect .vm img {
+	cursor:pointer
+}
+.al-picselect .vm img {
+	max-width:198px;
+	max-height:198px;
+_width:expression(this.width > 198 && this.width > this.height ? 198: true);
+_height:expression(this.height > 198 && this.height > this.width ? 198: true)
+}
+.al-picselect .cur {
+	padding:0px;
+	border:2px solid #137ad1;
+}
+#al-fesour, #bindsourcelink {
+	height:23px;
+	word-break:keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	color:#bbb;
+}
+#al-fesour span, #bindsourcelink span {
+	color:#666;
+}
+#bindsourcelink {
+	width:100%;
+	overflow:hidden;
+	padding-top:4px
+}
+#sourcelink-ed {
+	display:none;
+}
+.al-subbtn {
+	margin:8px 0 0;
+	padding-top:2px;
+}
+.al-subbtn .abtn-s {
+	margin:-1px 8px 0 0;
+}
+.al-subbtn label {
+	margin-right:0;
+}
+.al-mbsite {
+	float:left;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+	margin:4px 0 0 0;
+	text-indent:-99999px;
+	background-image:url(../../../../img/0/main.gif?20120208);
+	background-repeat:no-repeat;
+}
+.s-sina {
+	background-position:-60px -891px;
+}
+.al-postsuc {
+	float:right;
++display:inline;
+	padding-left:40px;
+	line-height:1.5;
+	background:url(../../../../img/0/prompt.gif) -78px -44px no-repeat;
+	font-size:16px;
+	font-weight:normal;
+	font-family:'\5FAE\8F6F\96C5\9ED1';
+	color:#666;
+}
+.al-inpost {
+	float:right;
++display:inline;
+	line-height:1.5;
+	padding-right:69px;
+	margin-right:-20px;
+	background:url(../../../../img/0/loading2.gif?20111013) right -2px no-repeat;
+	font-size:16px;
+	font-weight:normal;
+	font-family:'\5FAE\8F6F\96C5\9ED1';
+	color:#666;
+}
+.al-posterror {
+	float:right;
++display:inline;
+	color:#F21664;
+}
+.al-error .al-posterror {
+	display:block;
+}
+.al-error .al-postsuc, .al-error .al-inpost {
+	display:none;
+}
+#al-lastset {
+	margin:0 0 0 8px;
+	display:none;
+}
+#al-fullpic {
+	position:absolute;
+	top:87px;
+	left:40px;
+	z-index:9999;
+}
+#al-mblog {
+	width:810px;
+}
+.ps-collectit {
+	margin:0 0 0;
+	padding:0;
+}
+.ps-collectit .al-close {
+	display:none !important;
+}
+.ps-collectit .al-part-lf {
+	width:472px;
+	overflow:hidden;
+}
+.ps-collectit .al-cxa textarea {
+	width:464px;
+}
+.ps-collectit .al-covb {
+	width:462px;
+}
+.ps-collectit .al-covv {
+	width:472px;
+}
+.ps-collectit .al-covh {
+	width:355px;
+}
+.ps-collectit .al-ftip {
+	display:none;
+}

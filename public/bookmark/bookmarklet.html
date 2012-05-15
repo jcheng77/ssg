@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+    
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            抓取图片分享到友礼享
+        </title>
+        <meta name="keywords" content="友礼享网" />
+        <meta name="description" content="友礼享网" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Cache-Control" content="no-store, no-cache, max-age=0, must-revalidate"/>
+        <link href="cmn/css/a.css" rel="stylesheet"
+        type="text/css" />
+        <link href="cmn/css/webcollect.css" rel="stylesheet"
+        type="text/css" />
+        <script type="text/javascript">
+            var USER = {},
+            BIND_SITES;
+
+            USER.ID = 348089;
+
+            BIND_SITES = {
+                'sina': true
+            };
+        </script>
+        <script type="text/javascript" src="cmn/js/base.js?1329542821.0">
+        </script>
+        <script type="text/javascript" src="cmn/js/a.js?1329791564.0">
+        </script>
+    </head>
+    
+    <body>
+        <div class="layer layer-full">
+            <div class="tube">
+                <div class="block">
+                    <div class="ps-collectit">
+                        <div id="ps-profilemb" class="ps-profilemb al-fetch al-floaded">
+                            <div id="al-mblog">
+                                <div class="al-head">
+                                    <a class="al-close" href="javascript:;">
+                                        close
+                                    </a>
+                                    <h1>
+                                        友礼享工具抓取
+                                    </h1>
+                                </div>
+                                <div class="al-prepost">
+                                    <div class="al-covb">
+                                    </div>
+                                    <div class="al-covh">
+                                    </div>
+                                    <div class="clr al-covv">
+                                        <div class="al-updv">
+                                            <a id="al-upbtn" href="javascript:;" class="abtn abtn-i dib al-upbtn">
+                                                <u>
+                                                    上传图片
+                                                </u>
+                                                <form id="form-al-upic" target="alupifr" enctype="multipart/form-data"
+                                                method="POST" action="/upload/photo/">
+                                                    <input name="img" hidefoucs="true" type="file">
+                                                    <input type="hidden" name="tid" value="" />
+                                                    <iframe name="alupifr" src="about:blank" class="dn" scrolling="no" frameborder="0"
+                                                    height="0" width="0">
+                                                    </iframe>
+                                                    <input type="hidden" name="type" value="blog" />
+                                                </form>
+                                            </a>
+                                        </div>
+                                        <div class="al-size gray">
+                                            · 仅支持jpg、gif、png图片格式
+                                            <br />
+                                            · 文件要小于2M
+                                            <br />
+                                            · 图片分辨率要大于80x80
+                                        </div>
+                                        <div class="al-fedv">
+                                            <div class="al-fchk gray" id="al-fchk">
+                                                拷贝完整的网址，我们将帮你保存网页的图片和地址。
+                                            </div>
+                                            <form action="/mblog/fetch/" method="post" target="_self" id="form-al-fetchpic">
+                                                <input type="text" value="http://" autocomplete="off" class="ipt" name="url"
+                                                id="al-fipt">
+                                                <div class="tc">
+                                                    <a target="_self" href="javascript:;" class="abtn abtn-s dib" id="al-fchab">
+                                                        <button type="submit">
+                                                            <u>
+                                                                确定
+                                                            </u>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div id="al-loading">
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="form-al-poststatus" action="/people/mblog/add/" method="post"
+                                target="_blank">
+                                    <div id="al-bepost" class="al-bepost clr">
+                                        <div class="al-part-lf">
+                                            <a class="r dn" style="margin-right:-20px" href="javascript:Coll.reset();">
+                                                取消
+                                            </a>
+                                            <div id="al-source">
+                                                <div id="al-fesour">
+                                                    来源：
+                                                    <span>
+                                                    </span>
+                                                </div>
+                                                <input type="text" autocomplete="off" id="sourcelink-ed" class="ipt" value="">
+                                                <input type="hidden" id="sourcetitle" name="source_title" value="" />
+                                                <input type="hidden" id="sourcelink" name="source_link" value="" />
+                                                <div id="bindsourcelink" class="al-lkwd">
+                                                    链接：
+                                                    <span>
+                                                        暂无链接
+                                                    </span>
+                                                </div>
+                                                <p id="sourcelinkcheck" class="red">
+                                                </p>
+                                            </div>
+                                            <div id="al-pics">
+                                            </div>
+                                            <!-- 输入框 -->
+                                            <div class="al-cxa">
+                                                <textarea name="content" class="txa" id="al-txa">
+                                                </textarea>
+                                                <span class="alrmn dn">
+                                                    <b id="al-rmn">
+                                                        140
+                                                    </b>
+                                                    字
+                                                </span>
+                                                <label for="al-txa" id="al-txa-lb">
+                                                    写点有营养的介绍吧，使这次收集更加有意义。
+                                                </label>
+                                            </div>
+                                            <!-- 发布区域 -->
+                                            <div class="u-chk al-subbtn clr">
+                                                <a class="abtn abtn-s l" href="javascript:;" target="_self">
+                                                    <button id="al-abtnpost" type="submit">
+                                                        <u>
+                                                            发布
+                                                        </u>
+                                                    </button>
+                                                </a>
+                                                <input type="checkbox" checked name="syncpost" class="chk s-sina" value="sina"
+                                                id="al-sync">
+                                                <label for="al-sync" title="同步到新浪微博" class="s-sina">
+                                                    同步
+                                                </label>
+                                                <div class="al-mbsite s-sina">
+                                                    新浪
+                                                </div>
+                                                <a class="l" id="al-lastset" href="javascript:;">
+                                                    上次设置
+                                                </a>
+                                                <div id="al-poststat">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- lfpart end -->
+                                        <div class="al-part-rg">
+                                            <!-- 专辑区域 -->
+                                            <div class="al-album">
+                                                <h6>
+                                                    选择专辑
+                                                </h6>
+                                                <div id="al-albumsel" class="al-albumsel">
+                                                    <input type="text" name="album" value="" data-optional="1" />
+                                                    <a class="al-shw" href="javascript:;">
+                                                        默认专辑
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- 标签区域 -->
+                                            <div class="al-subtag">
+                                                <h6>
+                                                    添加标签
+                                                </h6>
+                                                <textarea id="al-tagsipt" data-optional="1" class="txa" name="tags" autocomplete="off">
+                                                </textarea>
+                                                <label style="display: inline;" for="al-tagsipt" id="al-tagsipt-lb">
+                                                    多个标签用空格隔开
+                                                </label>
+                                            </div>
+                                            <h6>
+                                                常用标签
+                                            </h6>
+                                            <div id="al-tagssel" class="usetag clr">
+                                                <a href="#">
+                                                    家居
+                                                </a>
+                                                <a href="#">
+                                                    设计
+                                                </a>
+                                                <a href="#">
+                                                    插画
+                                                </a>
+                                                <a href="#">
+                                                    电影
+                                                </a>
+                                                <a href="#">
+                                                    旅行
+                                                </a>
+                                                <a href="#">
+                                                    手工
+                                                </a>
+                                                <a href="#">
+                                                    女装
+                                                </a>
+                                                <a href="#">
+                                                    男装
+                                                </a>
+                                                <a href="#">
+                                                    配饰
+                                                </a>
+                                                <a href="#">
+                                                    美食
+                                                </a>
+                                                <a href="#">
+                                                    摄影
+                                                </a>
+                                                <a href="#">
+                                                    艺术
+                                                </a>
+                                                <a href="#">
+                                                    封面
+                                                </a>
+                                                <a href="#">
+                                                    动漫
+                                                </a>
+                                                <a href="#">
+                                                    怀旧
+                                                </a>
+                                                <a href="#">
+                                                    街拍
+                                                </a>
+                                                <a href="#">
+                                                    小孩
+                                                </a>
+                                                <a href="#">
+                                                    宠物
+                                                </a>
+                                                <a href="#">
+                                                    植物
+                                                </a>
+                                                <a href="#">
+                                                    人物
+                                                </a>
+                                            </div>
+                                            <!-- 友礼享工具 -->
+                                            <div class="al-ftip">
+                                                亲爱的礼友：强烈建议5秒钟设置浏览器
+                                                <a target="_blank" href="/about/collectit/">
+                                                    【收集工具】
+                                                </a>
+                                                插件，超快捷保存任何网站的图片和地址。
+                                            </div>
+                                            <input id="al-sourcetype" type="hidden" name="source" value="" />
+                                            <input id="al-grpid" type="hidden" name="group" value="" />
+                                            <input type="hidden" value="" name="photo_id" id="al-mbimg" />
+                                            <input type="hidden" value="" name="" id="al-picinpt" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <form id="form-myalbumlist" method="post" action="/album/collect/list/">
+                                <input type="hidden" name="user_id" value="348089" />
+                                <input type="hidden" name="count" value="0" />
+                            </form>
+                            <!--form id="form-blogpicdel" method="post" action="/people/mblog/photo/del/"></form-->
+                        </div>
+                    </div>
+                </div>
+                <!-- block end -->
+            </div>
+        </div>
+        <span id="form-token">
+            <div style='display:none'>
+                <input type='hidden' name='csrfmiddlewaretoken' value='5f5e87e6fe56a9acd806a1040cdc735d'
+                />
+            </div>
+        </span>
+        <script type="text/javascript" src="cmn/js/webcollect.js?1329791566.0">
+        </script>
+        <script>
+            $('#al-picinpt').val('http://img04.taobaocdn.com/imgextra/i4/501672673/T2zYlhXchMXXXXXXXX_!!501672673.jpg');
+            $('#al-picinpt').attr('name', 'image_src');
+            $('#al-fesour span').html('3645460 进口 Vacu Vin 冰酒壶 饮料冰镇 冷水壶 黑色 酷爽一夏-淘宝网');
+            $('#sourcetitle').val('3645460 进口 Vacu Vin 冰酒壶 饮料冰镇 冷水壶 黑色 酷爽一夏-淘宝网') $('#bindsourcelink span').html('http://item.taobao.com/item.htm?id=12809105861');
+            $('#sourcelink').val('http://item.taobao.com/item.htm?id=12809105861') if ($.trim('')) {
+                $('#al-txa-lb').css('display', 'none');
+                $('#al-txa').focus().val('').focus();
+            }
+
+            $('#al-pics').html('<div id="al-picselect" class="al-picselect"><div class="al-piclist clr" style="width:412px;"><!-- 循环单元开始 --><div class="vm ct l last"><div class="vma"><div class="vmb"><img src="http://img04.taobaocdn.com/imgextra/i4/501672673/T2zYlhXchMXXXXXXXX_!!501672673.jpg"></div></div></div><!-- 循环单元结束 --></div></div>');
+
+            $('input[name=source]', '#al-mblog').attr('value', 'tool')
+        </script>
+    </body>
+
+</html>
