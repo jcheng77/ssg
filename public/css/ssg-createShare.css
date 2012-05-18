@@ -156,26 +156,12 @@
 }
 
 #create_view .share_img_others {
-  float: left;
   margin-top: 20px;
 }
 
-#create_view .share_img_others ul {
-  
-}
-
-#create_view .share_img_others ul li.img_others_item {
+#create_view .share_img_others ul li{
   float: left;
-  margin-right: 15px;
-}
-
-#create_view .share_img_others ul li.img_others_item img {
-  border: solid 1px #BBBBBB;
-  padding: 1px;
-}
-
-#create_view .share_img_others ul li.hover_img_bg img {
-  border: solid 1px #00AEEF;
+  margin-right: 10px;
 }
 
 #input_buy_url input,

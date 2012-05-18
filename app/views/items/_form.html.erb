@@ -7,13 +7,11 @@
                 <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
             </div>
             <div class="share_img_others">
-                <% @item_imgs.each do |img| %>
-                    <ul>
-                        <a href="javascript:void(0);">
-                            <li class="img_others_item"><img src="<%= img + "_40x40.jpg" %>"/></li>
-                        </a>
-                    </ul>
-                <% end %>
+                <ul>
+                    <% @item_imgs.each do |img| %>
+                        <li><img src="<%= img + "_40x40.jpg" %>"/></li>
+                    <% end %>
+                </ul>
             </div>
         </div>
         <div class="grid_11">

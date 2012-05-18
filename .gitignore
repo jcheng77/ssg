@@ -1,5 +1,6 @@
 # Compiled source #
 ###################
+.getFiles.cache
 *.com
 *.class
 *.dll
