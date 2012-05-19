@@ -89,6 +89,7 @@ class ItemsController < ApplicationController
     @item_imgs = Array.new
 
     @id = params[:id] #246883
+    binding.pry
 
     if @id
       product = get_item @id
@@ -174,7 +175,7 @@ class ItemsController < ApplicationController
   def save_item
     user = current_user
     @share = Share.first(conditions: {source: params[:share][:source]})
-
+    binding.pry
     if @share
       @item = Item.first(conditions: {_id: @share.item_id})
     else
@@ -191,6 +192,10 @@ class ItemsController < ApplicationController
     if @share
       return false if !@share.update_attributes(params[:share])
     else
+
+      unless params[:tags].nil?
+      params[:tags].split(',').each { |tag| @item.add_tag(tag) }
+      end
 
       @share = Share.new(params[:share])
       @share.item_id = @item._id
