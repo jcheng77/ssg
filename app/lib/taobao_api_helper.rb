@@ -78,7 +78,6 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.favorite.search", params
-    binding.pry
     return json["favorite_search_response"] if json != EMPTY_JSON
   end
 

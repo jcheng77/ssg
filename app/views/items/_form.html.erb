@@ -35,14 +35,9 @@
             <div class="input_field">
                 <label for="category">分类：</label>
                 <select name="category">
-                    <option value="1">数码</option>
-                    <option value="2">户外</option>
-                    <option value="3">男装</option>
-                    <option value="4">女装</option>
-                    <option value="5">饰品</option>
-                    <option value="6">化妆品</option>
-                    <option value="7">居家</option>
-                    <option value="8">其它</option>
+                  <% categories.each do |cat|  %>
+                    <option value="<%= cat.cid %>"><%= cat.cn %></option>
+                  <% end %>
                 </select>
             </div>
             <div class="input_field">

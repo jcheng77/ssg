@@ -20,6 +20,7 @@ class Item
   has_many :shares
   has_many :wishes
   has_many :bags
+  has_one :category
 
   def root_share
     self.root_share_id.nil? ? nil : Share.find(self.root_share_id)

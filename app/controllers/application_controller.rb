@@ -8,12 +8,18 @@ require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user
+  helper_method :current_user, :categories
   
 
   def current_user
     begin
       @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
+    end
+  end
+
+  def categories
+    begin
+    @categories ||= Category.all
     end
   end
   
