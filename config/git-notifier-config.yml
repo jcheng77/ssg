@@ -55,7 +55,7 @@ mailinglist: jackie.f.cheng@gmail.com,zl_demon@yahoo.com.cn,lerryhe@gmail.com
 
 # The from address. If not defined it will use 
 # the address that is configured in git
-from: ssg@gmail.com
+#from: ssg@gmail.com
 
 # stylesheet file (embedded template/styles.css by default)
 # stylesheet: /absolute/path/to/readable/stylesheet.css
@@ -67,7 +67,7 @@ from: ssg@gmail.com
 delivery_method: smtp
 
 # Optionally group email by push: don't send an email for each commit when true.
-group_email_by_push: true
+#group_email_by_push: true
 
 # settings for the smtp server
 smtp_server:
