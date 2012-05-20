@@ -72,7 +72,7 @@ delivery_method: sendmail
 # settings for the smtp server
 smtp_server:
   address: smtp.gmail.com
-  port: 25
+  port: 587
   domain:  smtp.gmail.com
   user_name: socialshoppingifting@gmail.com
   password: makedifference

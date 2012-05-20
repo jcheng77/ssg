@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def categories
     begin
-    @categories ||= Category.all
+    @categories ||= Category.all(sort: [[ :cid, :asc ]])
     end
   end
   
