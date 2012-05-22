@@ -22,6 +22,7 @@ Ssg::Application.routes.draw do
       get 'select'
       get 'follow'
       get 'unfollow'
+      resources :categories
     end
   end
 
@@ -55,6 +56,7 @@ Ssg::Application.routes.draw do
   match "tbwishes" => "taobao#favorites" 
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"
+  match "collect" => "items#collect", :as => :collecter
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

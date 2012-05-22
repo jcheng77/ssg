@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   # GET /items.json
 
   include TaobaoApiHelper
+  include BookmarkletHelper
 
   def index
     @items = Item.all
@@ -22,6 +23,16 @@ class ItemsController < ApplicationController
       format.json { render json: @items }
     end
   end
+
+  def collect
+    @imgs = taobao_collector(params[:url])
+    
+    binding.pry
+
+    respond_to do |format|
+      format.js { render json: @imgs }
+    end
+  end 
 
   # POST /items/1/add_tag
   def add_tag
