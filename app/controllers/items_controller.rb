@@ -27,8 +27,6 @@ class ItemsController < ApplicationController
   def collect
     @imgs = taobao_collector(params[:url])
     
-    binding.pry
-
     respond_to do |format|
       format.js { render json: @imgs }
     end

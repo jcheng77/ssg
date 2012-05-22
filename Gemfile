@@ -31,6 +31,7 @@ gem 'oauth'
 gem 'oauth_china'
 gem 'slim'
 gem 'will_paginate_mongoid'
+gem 'nokogiri'
 
 #gem "weibo_oauth2", "~> 0.0.5"
  
