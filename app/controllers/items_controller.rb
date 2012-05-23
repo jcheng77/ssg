@@ -29,6 +29,7 @@ class ItemsController < ApplicationController
     
     respond_to do |format|
       format.js { render json: @imgs }
+      format.html { render layout: 'empty' }
     end
   end 
 
