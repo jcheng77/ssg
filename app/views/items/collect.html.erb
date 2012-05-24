@@ -1,8 +1,57 @@
 <style>
+ul,ol{
+    margin: 0;
+}
 .required{
     color: red;
     font-weight: bold;
     padding-right: 6px;
+}
+.thumbnails > li{
+    margin: 0;
+}
+.span2{
+    width: 180px;
+}
+.span1{
+    width: 80px;
+}
+.dimension{
+    text-align: center;
+    color: #999;
+    margin: 4px 0 5px 0;
+    line-height: 27px;
+    background-color: white;
+}
+.images_picker{
+    background-color: #EEEEEE;
+    padding: 4px 6px;
+}
+.image_frame{
+    text-align:center;
+}
+.image_frame img{
+    height: 135px;
+    width: 135px;
+}
+#bookmarklet_container > h2{
+    text-align: center;
+}
+.image_list li{
+    float: left;
+    margin: 0 0 10px 10px;
+    border: 3px solid transparent;
+}
+.image_list img{
+    height: 60px;
+    width: 60px;
+}
+.image_list li:hover, .selected{
+    border: 3px solid #A20;
+}
+body{
+    min-width: 680px;
+    max-width: 700px;
 }
 </style>
 <script>
@@ -10,45 +59,41 @@ var GLOBAL_IMAGES_FROM_BOOKMARK = [];
     <% @imgs.each do |img| %>
         GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
     <% end %>
-console.log(GLOBAL_IMAGES_FROM_BOOKMARK.length);
+$(document).ready(function(){
+    var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
+        dimension = $('#bookmarklet_container .dimension')[0],
+        imageFrame = $('#bookmarklet_container .image_frame img')[0];
+    dimension.innerHTML = src.substring(src.lastIndexOf('_')+1, src.lastIndexOf('.'));
+    $('.image_list li').click(function(){
+        if(selected){
+            selected.removeClass('selected');
+        }
+        selected = $(this);
+        selected.addClass('selected');
+        src = selected.find('img')[0].src;
+        imageFrame.src = src;
+        dimension.innerHTML = src.substring(src.lastIndexOf('_')+1, src.lastIndexOf('.'));
+    });
+});
 </script>
+<div id="bookmarklet_container">
 <h2>Add a Recommendation</h2>
   <div class="row">
-    <div class="span4">
-        <ul class="thumbnails">
-        <li class="span4">
-          <a href="#" class="thumbnail">
-            <img src="http://placehold.it/360x268" alt="">
-          </a>
+    <div class="span2 images_picker">
+      <div class="image_frame">
+              <img src="<%=@imgs[0]%>" alt=""/>
+              <div class="dimension"></div>
+      </div>
+      <p> Select your picture: </p>
+      <ul class="image_list">
+      <% @imgs.each do |img| %>
+        <li>
+            <img src="<%= img %>" alt="">
         </li>
-        <li class="span4">
-          <a href="#" class="thumbnail">
-            310 x 310
-          </a>
-        </li>
-        <li class="span2">
-          <a href="#" class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="">
-          </a>
-        </li>
-        <li class="span2">
-          <a href="#" class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="">
-          </a>
-        </li>
-        <li class="span2">
-          <a href="#" class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="">
-          </a>
-        </li>
-        <li class="span2">
-          <a href="#" class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="">
-          </a>
-        </li>
-          </ul>
+      <% end %>
+      </ul>
     </div><!-- /.span -->
-    <div class="span8">
+    <div class="span6">
       <form class="form-horizontal">
         <fieldset>
           <div class="control-group">
@@ -94,3 +139,4 @@ console.log(GLOBAL_IMAGES_FROM_BOOKMARK.length);
           </div>
         </fieldset>
       </form>
+</div>
