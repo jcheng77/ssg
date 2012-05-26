@@ -94,49 +94,43 @@ $(document).ready(function(){
       </ul>
     </div><!-- /.span -->
     <div class="span6">
-      <form class="form-horizontal">
-        <fieldset>
+      <fieldset>
+      <%= form_for @item , :url => { :controller => "items", :action => "create"} , :html => { :class => "form-horizontal" } do |f|  %>
+                <%= hidden_field_tag "item[image]", @item.image %>
+                <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
           <div class="control-group">
             <label class="control-label" for="input01"><span class="required">*</span>Title</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
+            <%= f.text_field :title , :class => 'input-xlarge' %>
               <p class="help-block">80 characters remaining.</p>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="select01"><span class="required">*</span>Category</label>
             <div class="controls">
-              <select id="category">
-                <option>Home</option>
-                <option>Book</option>
-                <option>Movie</option>
-                <option>Hotel</option>
-                <option>Restaurant</option>
+              <select id="category" name="category">
+                  <% categories.each do |cat|  %>
+                    <option value="<%= cat.cid %>"><%= cat.cn %></option>
+                  <% end %>
               </select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="textarea"><span class="required">*</span>Recommendation</label>
+            <label class="control-label" for="textarea"><span class="required">*</span>Comment</label>
             <div class="controls">
-              <textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+                <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="textarea">Tags</label>
             <div class="controls">
-              <textarea class="input-xlarge" id="textarea" rows="2"></textarea>
+              <textarea class="input-xlarge" id="tags" name="tags" rows="2"></textarea>
             </div>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="input01">Address</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-              <p class="help-block">enter a city, state or zipcode</p>
-            </div>
-          </div>
+                <%= hidden_field_tag "share[source]", @share.source %>
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Recommend</button>
+            <%= f.submit  "Recommend", :class => 'btn btn-primary' %>
+          <% end %>
           </div>
-        </fieldset>
-      </form>
+      </fieldset>
 </div>

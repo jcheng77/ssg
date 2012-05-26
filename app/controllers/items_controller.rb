@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   include TaobaoApiHelper
   include BookmarkletHelper
+  include ItemsHelper
 
   def index
     @items = Item.all
@@ -26,7 +27,32 @@ class ItemsController < ApplicationController
 
   def collect
     @imgs = taobao_collector(params[:url])
-    
+    item_id = extra_item_id_from_url(params[:url])
+    @item = Item.new
+    @share = Share.new
+
+    if item_id
+      product = get_item item_id
+      if product
+
+        converted_url = convert_item_url item_id
+        converted_url ||= taobao_url(item_id)
+        @item = Item.new({
+                             :source_id => product['num_iid'],
+                             :title => product['title'],
+                             #:image => product['pic_url'],
+                             :image => @imgs.first,
+                             :purchase_url => converted_url
+                         })
+        @share = Share.new({
+                               :source => product['num_iid'],
+                               #:seller => product['nick'],
+                               :price => product['price']
+                           })
+      end
+    end
+
+
     respond_to do |format|
       format.js { render json: @imgs }
       format.html { render layout: 'empty' }
@@ -98,10 +124,7 @@ class ItemsController < ApplicationController
     @share = Share.new
     @item_imgs = Array.new
 
-    @id = params[:id] #246883
-
-    #@categories = Category.all
-    binding.pry
+    @id = params[:id] 
 
     if @id
       product = get_item @id
@@ -205,6 +228,7 @@ class ItemsController < ApplicationController
     else
 
       @category = Category.first(conditions: {cid: params[:category]})
+      binding.pry
 
       unless params[:tags].nil?
         params[:tags].split(',').each do |tag| 
