@@ -88,7 +88,7 @@ $(document).ready(function(){
       <ul class="image_list">
       <% @imgs.each do |img| %>
         <li>
-            <img src="<%= img %>" alt="">
+            <img src="<%= conv_pic_from_310_to_40 img %>" alt="">
         </li>
       <% end %>
       </ul>

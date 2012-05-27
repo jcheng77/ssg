@@ -13,7 +13,7 @@ module BookmarkletHelper
     end
 
     doc.css('div.tb-s40 img').each do |node|
-      imgs << node.values.first
+      imgs << conv_pic_from_40_to_310(node.values.first)
     end
 
     return imgs

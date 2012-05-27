@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   include TaobaoApiHelper
   include BookmarkletHelper
   include ItemsHelper
+  include ImageHelper
 
   def index
     @items = Item.all
