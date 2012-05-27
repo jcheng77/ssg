@@ -1,22 +1,45 @@
 require 'nokogiri'
 require 'open-uri'
+require 'uri'
+
+include ImageHelper
 
 module BookmarkletHelper
 
-  def taobao_collector(url)
-    doc = Nokogiri::HTML(open(url))
-    imgs = []
-    doc.css('div.tb-s310 img').each do |node|
-      node.values.each do |val|
-        imgs << val if val.match(/^http/)
+  class Collector
+
+
+    def initialize(url)
+      @url = url
+    end
+
+    def collecter
+      doc = Nokogiri::HTML(open(@url))
+      imgs = []
+      domain_checker
+      doc.css(@mark).each do |node|
+        imgs << conv_pic_40_to_310(node.values.first)
+      end
+     return imgs
+    end
+
+    def domain_checker
+      case URI(@url).host
+      when /taobao/
+        @site =  'taobao'
+        @mark =  'div.tb-s40 img'
+      when /tmall/
+        @site = 'taobao'
+        @mark =  'div.tb-s40 img'
+      when /amazon/
+        @site = 'amazon'
+        @mark = 'prodimage'
+      when /360buy/
+        @site ='360buy'
+      else
+        @site ='others'
       end
     end
 
-    doc.css('div.tb-s40 img').each do |node|
-      imgs << conv_pic_from_40_to_310(node.values.first)
-    end
-
-    return imgs
   end
-
 end

@@ -27,7 +27,9 @@ class ItemsController < ApplicationController
   end
 
   def collect
-    @imgs = taobao_collector(params[:url])
+    col = Collector.new(params[:url])
+    @imgs = col.collecter
+    binding.pry
     item_id = extra_item_id_from_url(params[:url])
     @item = Item.new
     @share = Share.new

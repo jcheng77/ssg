@@ -21,11 +21,11 @@ module ImageHelper
     end
   end
 
-  def conv_pic_from_310_to_40(picurl)
+  def conv_pic_40_to_310(picurl)
     picurl.gsub('40x40','310x310')
   end
 
-  def conv_pic_from_40_to_310(picurl)
+  def conv_pic_310_to_40(picurl)
     picurl.gsub('310x310','40x40')
   end
 
