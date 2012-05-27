@@ -29,7 +29,6 @@ class ItemsController < ApplicationController
   def collect
     col = Collector.new(params[:url])
     @imgs = col.collecter
-    binding.pry
     item_id = extra_item_id_from_url(params[:url])
     @item = Item.new
     @share = Share.new
