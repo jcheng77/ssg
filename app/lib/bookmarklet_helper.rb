@@ -17,25 +17,43 @@ module BookmarkletHelper
       doc = Nokogiri::HTML(open(@url))
       imgs = []
       domain_checker
-      doc.css(@mark).each do |node|
-        imgs << conv_pic_40_to_310(node.values.first)
+      if @css_mark
+        doc.css(@css_mark).each do |node|
+          imgs << conv_pic_to_310(node.values.first)
+        end
+      return imgs
       end
-     return imgs
+
+      if @xpath_mark
+        i=0
+        doc.xpath(@xpath_mark).each do |node|
+          if i > 5
+            break
+          end
+          if node["onerror"]
+            i += 1
+            imgs <<  node["src"].gsub('/n5/','/n1/')
+          end
+      end
+      return imgs
+      end
+
     end
 
     def domain_checker
       case URI(@url).host
       when /taobao/
         @site =  'taobao'
-        @mark =  'div.tb-s40 img'
+        @css_mark =  'div.tb-pic img'
       when /tmall/
         @site = 'taobao'
-        @mark =  'div.tb-s40 img'
+        @css_mark =  'div.tb-pic img'
       when /amazon/
         @site = 'amazon'
-        @mark = 'prodimage'
+        @css_mark = 'prodimage'
       when /360buy/
         @site ='360buy'
+        @xpath_mark = '//img'
       else
         @site ='others'
       end
