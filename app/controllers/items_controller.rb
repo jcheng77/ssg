@@ -230,13 +230,6 @@ class ItemsController < ApplicationController
 
       @category = Category.first(conditions: {cid: params[:category]})
 
-      unless params[:tags].nil?
-        params[:tags].split(',').each do |tag| 
-          @item.add_tag(tag) 
-          @category.add_tag(tag)
-        end
-      end
-
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id

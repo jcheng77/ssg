@@ -30,8 +30,8 @@ class SyncsController < ApplicationController
       
       user = User.create( :userid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
       session[:current_user_id] = user._id
-      #redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => userinfo["name"]
-      redirect_to dashboard_user_path(user._id)
+      redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => userinfo["name"]
+      #redirect_to dashboard_user_path(user._id)
       else
          session[:current_user_id] = exists._id
         if exists.active == 1 || exists.active == 0
