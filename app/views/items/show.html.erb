@@ -60,7 +60,9 @@
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
     <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
+          <% unless @item == item %>
             <%= render :partial => "items/item", :object => item %>
+          <% end %>
         <% end %>
     </ul>
 </div>
