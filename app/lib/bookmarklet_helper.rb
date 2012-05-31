@@ -19,7 +19,7 @@ module BookmarkletHelper
       domain_checker
       if @css_mark
         doc.css(@css_mark).each do |node|
-          imgs << conv_pic_to_310(node.values.first)
+          imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
         end
       return imgs
       end

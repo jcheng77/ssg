@@ -131,7 +131,6 @@ class ItemsController < ApplicationController
     if @id
       product = get_item @id
       if product
-
         @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         converted_url = convert_item_url @id
         converted_url ||= taobao_url(@id)
@@ -230,7 +229,6 @@ class ItemsController < ApplicationController
     else
 
       @category = Category.first(conditions: {cid: params[:category]})
-      binding.pry
 
       unless params[:tags].nil?
         params[:tags].split(',').each do |tag| 
@@ -239,7 +237,6 @@ class ItemsController < ApplicationController
         end
       end
 
-      binding.pry
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
