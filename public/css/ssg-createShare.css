@@ -20,30 +20,37 @@
 
 
 /*select share way start*/
-#select_view {
+#bookmarklet_toolbar h1{
+    font-size: 15px;
+    font-weight: normal;
 }
-
+#bookmarklet_toolbar a, #bookmarklet_toolbar a:hover{
+    background-color: #C6401B;
+    color:#FFFFFF;
+    border-radius: 8px;
+    padding: 6px;
+    text-decoration: none;
+}
 #select_view .separator {
   margin-top: 5px;
 }
 
 #select_view .select_title,
-#select_view .select_sub_title,
-#select_view .select_sub_title_1 {
+#select_view .select_sub_title{
   text-align: center;
   font-size: 20px;
 }
 
 
-#select_view .select_sub_title,
-#select_view .select_sub_title_1 {
+#select_view .select_sub_title{
   color: #888888;
   margin-top: 15px;
   margin-bottom: 10px;
 }
 
 #select_view .select_sub_title_1 {
-  margin-top: 0px;
+  padding: 10px 0;
+  font-weight: normal;
 }
 
 #select_from_buy_list,
