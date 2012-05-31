@@ -51,4 +51,10 @@ class Item
     share_ids = self.shares.all.map { |share| share._id }
     share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
   end
+
+  def self.top_tags
+    tags = self.tags_with_weight.sort_by { |k| k[1] }
+    tags.last(10)
+  end
+
 end
