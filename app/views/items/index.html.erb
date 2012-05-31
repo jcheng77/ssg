@@ -13,15 +13,9 @@
             </ul>
         </div>
         <ul class="tag">
-            <li><a href="#">酷玩</a></li>
-            <li><a href="#">数码</a></li>
-            <li><a href="#">玩具</a></li>
-            <li><a href="#">涂鸦</a></li>
-            <li><a href="#">创意</a></li>
-            <li><a href="#">印章</a></li>
-            <li><a href="#">趣味</a></li>
-            <li><a href="#">人偶</a></li>
-            <li><a href="#">test</a></li>
+          <% Item.top_tags.each do |ttag| %>
+          <li><a href="#"><%= ttag[0] %></a></li>
+          <% end %>
         </ul>
         <!--<div class="page-header"></div>-->
         <ul class="thumbnails">

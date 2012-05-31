@@ -228,7 +228,8 @@ class ItemsController < ApplicationController
       return false if !@share.update_attributes(params[:share])
     else
 
-      @category = Category.first(conditions: {cid: params[:category]})
+      #@category = Category.first(conditions: {cid: params[:category]})
+      @item.add_tag(params[:category])
 
       @share = Share.new(params[:share])
       @share.item_id = @item._id

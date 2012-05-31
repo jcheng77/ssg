@@ -27,11 +27,14 @@
         </div>
         <div class="page-header"><h4>标签</h4></div>
         <ul class="tag-block">
-            <% @item.tags_each do |tag| %>
+            <% @item.tags_each do |t| %>
+              <% unless category.include?(t) %>
                 <li>
-                    <button class="btn btn-info"><%= tag %></button>
+                    <button class="btn btn-info"><%= t %></button>
                 </li>
             <% end %>
+            <% end %>
+
         </ul>
         <%= form_tag add_tag_item_path(@item), class: "well form-inline" do %>
             <%= text_field_tag 'tag' %>

@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 require 'rubygems'
 require 'net/http'
 require 'uri'
@@ -8,7 +10,7 @@ require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user, :categories
+  helper_method :current_user, :categories, :category 
   
 
   def current_user
@@ -20,6 +22,12 @@ class ApplicationController < ActionController::Base
   def categories
     begin
     @categories ||= Category.all(sort: [[ :cid, :asc ]])
+    end
+  end
+
+  def category
+    begin
+      @category ||= ['数码','户外','男装','女装','饰品','化妆品','居家','其他']
     end
   end
   
