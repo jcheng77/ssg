@@ -1,25 +1,18 @@
-<li class="span3">
-    <div class="thumbnail">
-        <%= image_tag item.image, width: 260 %>
-
-        <div class="caption">
-            <h5>
-                <%= link_to item do %>
-                    <%= item.title %>
-                <% end %>
-            </h5>
-
-            <p>标签：<%= item.tags %></p>
-
-            <div class="row user-comment">
-                <%= image_tag small_avatar_url(item.root_share.user.avatar), :width => '50', class: "pull-left" %>
-
-                <div class="pull-right user-comment-info">
-                    <p><%= link_to item.root_share.user.full_name, my_shares_user_path(item.root_share.user) %></p>
-
-                    <p><%= item.root_share.comment_content %></p>
-                </div>
-            </div>
+<li>
+    <div class="thumbnail browse_item">
+        <a class="img_frame medium_picture">
+            <%= image_tag item.image %>
+        </a>
+        <%= link_to item do %>
+        <h5 class="title"> <%= item.title %> </h5>
+        <% end %>
+        <p>标签：<%= item.tags %></p>
+        <div class="row user-comment">
+            <a class="img_frame mini_picture pull-left">
+                <%= image_tag small_avatar_url(item.root_share.user.avatar) %>
+            </a>
+            <%= link_to item.root_share.user.full_name, my_shares_user_path(item.root_share.user),:class=> "user_name"%>
+            <p class="comment" title="<%=item.root_share.comment_content%>"><%= item.root_share.comment_content %></p>
         </div>
     </div>
 </li>
