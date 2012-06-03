@@ -195,6 +195,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     session[:current_user_id] = @user._id 
     @username = params[:name]
+
+    respond_to do |format|
+      format.html {}
+      format.json {redirect_to dashboard_user_path}
+    end
   end
 
 
