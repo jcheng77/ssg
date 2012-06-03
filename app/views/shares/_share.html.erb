@@ -1,24 +1,24 @@
-<div class="row item-block">
-    <%= link_to share do %>
-        <h4><%= share.item.title %></h4>
-    <% end %>
+<div class="row item_block">
+    <div class="title"><%= share.item.title %></div>
+    <div class="pull-left item_left">
+        <%= link_to share , :class=> "img_frame large_picture" do %>
+        <%= image_tag share.item.image %>
+        <% end %>
 
-    <div class="pull-left item-left">
-        <%= image_tag share.item.image, :width => '290' %>
-
-        <div class="btn-group">
+        <div class="item_actions">
             <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">背包</a>
         </div>
     </div>
-    <div class="pull-right item-right">
-        <div class="item-info">
-            <p class="row user-block">
-                <%= image_tag small_avatar_url(share.user.avatar), width: 50, class: "pull-left" %>
-                <span class="user-block-info">
+    <div class="item_right">
+            <div class="user_share">
+                <a class="img_frame mini_picture pull-left">
+                <%= image_tag small_avatar_url(share.user.avatar) %>
+                </a>
+                <div class="user_info">
                     <%= link_to share.user.full_name, my_shares_user_path(share.user) %>
-                </span>
+                </div>
                 <% if current_user != share.user %>
                     <span class="user-block-link <%= "#{share.user._id}-follow" %>">
                     <%=
@@ -28,13 +28,11 @@
                     %>
                     </span>
                 <% end %>
-            </p>
 
-            <p><%= share.comment_content %></p>
-
-            <p>价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %>">去淘宝购买</a></p>
-
-            <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
+            <div class="user_comment"><%= share.comment_content %></div>
+          </div>
+            <p class="price_info">价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %>">去淘宝购买</a></p>
+            <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">
                 <% share.comment.child_comments.each do |child_comment| %>
                     <%= render :partial => "comments/child_comment", :object => child_comment %>
                 <% end %>
@@ -49,9 +47,9 @@
                     <%= f.submit "评论", class: "btn btn-primary" %>
                 <% end %>
             </div>
-        </div>
     </div>
 </div>
+
 <div id="<%= "#{share._id}-recommend-btn" %>" class="modal hide fade" style="display: none;">
     <div class="modal-header">
         <a class="close" data-dismiss="modal" >&times;</a>

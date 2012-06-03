@@ -6,7 +6,6 @@ body {
 .footer {
     margin-top: 45px;
     padding: 35px 0 36px;
-    border-top: 1px solid #E5E5E5;
     text-align: center;
 }
 
@@ -43,67 +42,33 @@ body {
     }
 }
 
-.item-block {
+.item_block {
     margin-left: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     line-height: 15px;
-    border-bottom: 1px solid #EEE;
-    padding-bottom: 10px;
-
-    h4 {
-        margin-bottom: 15px;
-    }
+    border: 1px solid #DDD;
+    padding-bottom: 2px;
 }
 
-.item-left {
-    width: 290px;
-
-    img {
-        margin-left: 0px;
-        margin-bottom: 3px;
-    }
-
-    .btn-group a {
-        padding-left: 1px;
-        padding-right: 1px;
-        width: 32%;
-    }
+.item_left {
+    position: relative;
 }
 
-.item-right {
-    width: 670px;
-
+.item_right {
+    margin-left: 260px;
     a:hover {
         text-decoration: none;
     }
-
     img {
         vertical-align: middle;
     }
-
     form {
         margin-top: 6px;
         margin-bottom: 0px;
-
         textarea {
             margin-bottom: 0px;
-            width: 605px;
+            width: 400px;
         }
-    }
-}
-
-.item-info {
-    margin-bottom: 20px;
-}
-
-.user-block {
-    margin-left: 0px;
-
-    .user-block-link {
-        margin-left: 20px;
-        margin-top: 10px;
-        display: block;
-        float: left;
     }
 }
 
@@ -255,4 +220,34 @@ body {
         margin-left: 2px;
         margin-right: 2px;
     }
+}
+.title{
+    background-color: #F0F0F0;
+    overflow: hidden;
+    padding: 6px;
+    border-style: none none solid none;
+    border-color: #DDD;
+    border-width: 1px;
+    margin-bottom: 8px;
+}
+.large_picture{
+    width: 250px;
+    height: 220px;
+}
+.user_info, .user_comment{
+    margin-left: 30px;
+    font-size: 10px;
+}
+.price_info{
+    padding: 6px 0;
+    margin: 0;
+}
+.page_header{
+    padding: 0 0 8px 0;
+}
+.item_actions{
+    display: none;
+    position: absolute;
+    left: 20%;
+    top: 0;
 }

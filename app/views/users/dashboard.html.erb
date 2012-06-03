@@ -1,3 +1,12 @@
+<script>
+$(document).ready(function(){
+   $('.item_block .item_left').mouseover(function(){
+      $(this).find('.item_actions').css('display', 'block');
+   }).mouseout(function(){
+      $(this).find('.item_actions').css('display', 'none');
+   });
+});
+</script>
 <div class="row dashboard">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
@@ -8,7 +17,7 @@
             <li><a href="#">热门推荐</a></li>
         </ul>
     </div>
-    <div class="span10">
+    <div class="span8">
         <div class="row" style="margin-left: 0px;">
             <ul class="nav nav-pills well category">
                 <li class="active"><a href="#">数码</a></li>
@@ -26,7 +35,7 @@
           <li><a href="#"><%= ttag[0] %></a></li>
           <% end %>
         </ul>
-        <div class="page-header"><h4>分享</h4></div>
+        <div class="page_header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.followed_shares.each do |share| %>
                 <%= render :partial => "shares/share", :object => share %>
