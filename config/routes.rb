@@ -6,6 +6,9 @@ Ssg::Application.routes.draw do
       post 'add_tag'
       post 'recommend'
     end
+    collection do
+      get 'tagged'
+    end
   end
 
   #devise_for :users

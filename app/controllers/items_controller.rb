@@ -17,6 +17,18 @@ class ItemsController < ApplicationController
     end
   end
 
+
+  def tagged
+    @items = Item.tagged_with_all(params[:tags])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
+  end
+
+
+
   def index2
     @items = Item.all
 
