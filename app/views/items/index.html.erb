@@ -1,22 +1,9 @@
 <div class="row">
     <div class="span12">
-        <div class="row" style="margin-left: 0px;">
-            <ul class="nav nav-pills well category">
-                <li class="active"><a href="#">书籍</a></li>
-                <li><a href="#">应用</a></li>
-                <li><a href="#">数码</a></li>
-                <li><a href="#">户外</a></li>
-                <li><a href="#">服饰</a></li>
-                <li><a href="#">化妆品</a></li>
-                <li><a href="#">居家</a></li>
-                <li><a href="#">其它</a></li>
-            </ul>
-        </div>
-        <ul class="tag">
-          <% Item.top_tags.each do |ttag| %>
-            <li><a> <%= link_to "#{ttag[0]}" , :action => "tagged", :tags => ttag[0] %></a> </li>
-          <% end %>
-        </ul>
+
+       <%= render "categories/category" %>
+       <%= render "items/toptags" %>
+
         <!--<div class="page-header"></div>-->
         <ul class="thumbnails">
             <% @items.each do |item| %>

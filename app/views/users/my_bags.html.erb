@@ -19,28 +19,10 @@
         </ul>
     </div>
     <div class="span10">
-        <div class="row" style="margin-left: 0px;">
-            <ul class="nav nav-pills well category">
-                <li class="active"><a href="#">书籍</a></li>
-                <li><a href="#">应用</a></li>
-                <li><a href="#">数码</a></li>
-                <li><a href="#">户外</a></li>
-                <li><a href="#">服饰</a></li>
-                <li><a href="#">化妆品</a></li>
-                <li><a href="#">居家</a></li>
-                <li><a href="#">其它</a></li>
-            </ul>
-        </div>
-        <ul class="tag">
-            <li><a href="#">酷玩</a></li>
-            <li><a href="#">数码</a></li>
-            <li><a href="#">玩具</a></li>
-            <li><a href="#">涂鸦</a></li>
-            <li><a href="#">创意</a></li>
-            <li><a href="#">印章</a></li>
-            <li><a href="#">趣味</a></li>
-            <li><a href="#">人偶</a></li>
-        </ul>
+
+       <%= render "categories/category" %>
+       <%= render "items/toptags" %>
+
         <div class="page-header"><h4>我的背包</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.bags.desc(:created_at).each do |bag| %>

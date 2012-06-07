@@ -18,23 +18,10 @@ $(document).ready(function(){
         </ul>
     </div>
     <div class="span8">
-        <div class="row" style="margin-left: 0px;">
-            <ul class="nav nav-pills well category">
-                <li class="active"><a href="#">数码</a></li>
-                <li><a href="#">户外</a></li>
-                <li><a href="#">男装</a></li>
-                <li><a href="#">女装</a></li>
-                <li><a href="#">饰品</a></li>
-                <li><a href="#">化妆品</a></li>
-                <li><a href="#">居家</a></li>
-                <li><a href="#">其它</a></li>
-            </ul>
-        </div>
-        <ul class="tag">
-          <% Item.top_tags.each do |ttag| %>
-          <li><a href="#"><%= ttag[0] %></a></li>
-          <% end %>
-        </ul>
+
+       <%= render "categories/category" %>
+       <%= render "items/toptags" %>
+
         <div class="page_header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.followed_shares.each do |share| %>
