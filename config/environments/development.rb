@@ -1,3 +1,4 @@
+# encoding: utf-8
 Ssg::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -29,4 +30,6 @@ Ssg::Application.configure do
   config.assets.debug = true
   
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  CATEGORY = ['数码','户外','男装','女装','饰品','化妆品','居家','其他']
+
 end

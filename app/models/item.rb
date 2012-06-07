@@ -54,7 +54,8 @@ class Item
 
   def self.top_tags
     tags = self.tags_with_weight.sort_by { |k| k[1] }
-    tags.last(10)
+    exculde_category_tags = tags.last(18).delete_if { |w| CATEGORY.index(w[0]) }
+    exculde_category_tags.last(10)
   end
 
 end
