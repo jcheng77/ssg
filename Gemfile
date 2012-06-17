@@ -26,12 +26,14 @@ gem 'pry-nav' , :group => :development
 gem 'pry-remote', :group => :development
 gem 'git-commit-notifier', :group => :development
 gem 'heroku'
+gem 'whenever'
 
 gem 'oauth'
 gem 'oauth_china'
 gem 'slim'
 gem 'will_paginate_mongoid'
 gem 'nokogiri'
+gem 'amazon-ecs'
 
 #gem "weibo_oauth2", "~> 0.0.5"
  
