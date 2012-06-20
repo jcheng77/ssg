@@ -22,6 +22,7 @@ module TaggableHelper
   module LocalInstanceMethods
     def add_tag(tag)
       self.add_to_set(:tags_array, tag)
+      self.class.save_tags_index!
     end
 
     def tags_each
