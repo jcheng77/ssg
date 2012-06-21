@@ -17,7 +17,6 @@ class Share
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
 
-  acts_as_taggable
   acts_as_commentable
   has_many :wishes
   has_many :bags

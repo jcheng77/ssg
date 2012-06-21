@@ -16,7 +16,6 @@ class Item
   field :purchase_url, type: String 
   field :root_share_id, type: BSON::ObjectId
 
-  acts_as_taggable
   has_many :shares
   has_many :wishes
   has_many :bags
@@ -52,10 +51,13 @@ class Item
     share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
   end
 
+  def tags_without_category
+
+  end
+
   def self.top_tags
     tags = self.tags_with_weight.sort_by { |k| k[1] }
     exculde_category_tags = tags.last(18).delete_if { |w| CATEGORY.index(w[0]) }
     exculde_category_tags.last(10)
   end
-
 end
