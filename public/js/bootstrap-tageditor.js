@@ -20,10 +20,40 @@
     constructor: Tageditor
 
   , select: function () {
-      var val = this.$menu.find('.active').attr('data-value')
-      this.$element.val(val)
-      return this.hide()
+      var val;
+      if(this.shown){
+          val = this.$menu.find('.active').attr('data-value')
+          this.hide();
+      }else{
+          val = $.trim(this.input.val());
+      }
+      this.appendTag(val);
     }
+   , getValue: function(){
+       var a = [];
+       this.$element.find('ul.tags li.tag span').each(function(){
+           a.push($(this).val());
+       });
+       return a.join(',');
+   }
+
+   , appendTag: function(val) {
+        var insert = this.options.insert.replace('{0}',val);
+        $(insert).insertBefore(this.$element.find('ul.tags li').filter(':last'));
+        this.input.val('');
+    }
+
+   , deleteTag: function(event) {
+       var target = event.target;
+       $(target.parentNode).remove();
+    }
+
+   , deleteLastTag: function(){
+       var val = this.input.val();
+       if(val.length == 0){
+           this.$element.find('ul.tags li.tag').filter(':last').remove();
+       }
+   }
 
   , show: function () {
       var pos = $.extend({}, this.$element.offset(), {
@@ -148,12 +178,19 @@
       this.$menu
         .on('click', $.proxy(this.click, this))
         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
+
+      this.$element.on('click', 'li.tag a' , $.proxy(this.deleteTag, this))
     }
+
+  , updateWidth: function(){
+      var val = $.trim(this.input.val()).length;
+      this.input.width(val * 10 + 30);
+   }
 
   , keyup: function (e) {
       e.stopPropagation()
       e.preventDefault()
-
+      this.updateWidth();
       switch(e.keyCode) {
         case 40: // down arrow
         case 38: // up arrow
@@ -161,13 +198,16 @@
 
         case 9: // tab
         case 13: // enter
-          if (!this.shown) return
           this.select()
           break
 
         case 27: // escape
           this.hide()
           break
+
+        case 8:
+          this.deleteLastTag();
+          break;
 
         default:
           this.lookup()
@@ -237,6 +277,7 @@
   , items: 8
   , menu: '<ul class="tagsmenu dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
+  , insert: '<li class="tag" value="0"><span>{0}</span><a>x</a></li>'
   }
 
   $.fn.tageditor.Constructor = Tageditor
