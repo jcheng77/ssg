@@ -1,3 +1,11 @@
+<script>
+$(document).ready(function(){
+    $('form').on('submit',function(event){
+        var val = $('[data-provide="tageditor"]').data('tageditor').getValue();
+        $('#tags').val(val);
+    });
+});
+</script>
 <div id="create_view" style="display:<%=@share.source ? 'block':'none'%>;">
     <%= form_for(@item) do |f| %>
         <div class="grid_9">
@@ -17,11 +25,11 @@
         <div class="grid_11">
             <div class="input_field" style="margin-top:0px;">
                 <label for="title">标题：</label>
-                <input type="text" name="item[title]" id="title" value="<%= @item.title %>"/>
+                <input type="text" class="shareInput" name="item[title]" id="title" value="<%= @item.title %>"/>
             </div>
             <div class="input_field">
                 <label for="price">价格：</label>
-                <input type="text" name="share[price]" id="price" value="<%= @share.price %>"/>
+                <input type="text" class="shareInput" name="share[price]" id="price" value="<%= @share.price %>"/>
             </div>
             <div class="input_field">
                 <label class="rating_comp_label" for="rating">评分：</label>
@@ -42,13 +50,19 @@
             </div>
             <div class="input_field">
                 <label class="top_label" for="tags">标签：</label>
-                <textarea id="tags" name="item[tags]"></textarea>
+              <input type="hidden" id="tags" name="item[tags]">
+        <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
+        <ul class="tags">
+            <li><input type="text" style="width:30px;"/></li>
+        </ul>
+        </div>
             </div>
 
             <div class="submit_field">
                 <%= hidden_field_tag "share[user_id]", current_user._id %>
                 <%= hidden_field_tag "share[source]", @share.source %>
-                <div class="submit_link"><a class="submit_btn" href="javascript:$('form')[0].submit();void(0);">提交分享</a>
+                <div class="submit_link">
+                <%= f.submit  "分享", :class => 'btn btn-primary' %>
                 </div>
                 <div class="share_wb_link"><input type="checkbox" checked/><span>分享到新浪微博</span></div>
             </div>

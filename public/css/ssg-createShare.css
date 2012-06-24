@@ -200,7 +200,7 @@
   width: 200px !important;
 }
 
-#create_view .input_field input {
+#create_view .input_field input.shareInput {
   border: 1px solid #BBBBBB;
   border-radius: 3px;
   -moz-border-radius:3px;
