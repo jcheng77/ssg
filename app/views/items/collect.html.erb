@@ -129,7 +129,7 @@ $(document).ready(function(){
             <label class="control-label" for="textarea">Tags</label>
             <div class="controls">
               <input type="hidden" id="tags" name="item[tags]">
-        <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='["air", "tablet", "ipad", "clothes"]'>
+        <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
         <ul class="tags">
             <li><input type="text" style="width:30px;"/></li>
         </ul>
