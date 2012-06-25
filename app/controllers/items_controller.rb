@@ -41,7 +41,6 @@ class ItemsController < ApplicationController
   def collect
     col = Collector.new(params[:url])
     @imgs = col.collecter
-    binding.pry
     item_id = extra_item_id_from_url(params[:url])
     @item = Item.new
     @share = Share.new
@@ -53,14 +52,14 @@ class ItemsController < ApplicationController
         converted_url = convert_item_url item_id
         converted_url ||= taobao_url(item_id)
         @item = Item.new({
-                             :source_id => product['num_iid'],
+                             :source_id => item_id,
                              :title => product['title'],
                              #:image => product['pic_url'],
                              :image => @imgs.first,
                              :purchase_url => converted_url
                          })
         @share = Share.new({
-                               :source => product['num_iid'],
+                               :source => item_id,
                                #:seller => product['nick'],
                                :price => product['price']
                            })
@@ -244,7 +243,8 @@ class ItemsController < ApplicationController
       @share.item_id = @item._id
       @share.user_id = user._id
       return false if !@share.save
-      @share.create_comment_by_sharer(params[:share][:comment])
+      binding.pry
+      @share.create_comment_by_sharer(params[:share][:comment]) if params[:share][:comment] != ""
       @item.update_attribute(:root_share_id, @share._id)
       current_user.follow @item
       current_user.follow @share

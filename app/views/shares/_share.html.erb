@@ -32,6 +32,7 @@
             <div class="user_comment"><%= share.comment_content %></div>
           </div>
             <p class="price_info">价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %>">去淘宝购买</a></p>
+            <% if share.comment %>
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">
                 <% share.comment.child_comments.each do |child_comment| %>
                     <%= render :partial => "comments/child_comment", :object => child_comment %>
@@ -47,6 +48,7 @@
                     <%= f.submit "评论", class: "btn btn-primary" %>
                 <% end %>
             </div>
+          <% end %>
     </div>
 </div>
 
