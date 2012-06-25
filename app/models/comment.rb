@@ -1,6 +1,4 @@
 class Comment
-  MARK_BYTE = 5
-
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
   include Mongoid::Timestamps::Created

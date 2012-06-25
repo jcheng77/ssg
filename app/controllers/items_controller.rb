@@ -226,13 +226,9 @@ class ItemsController < ApplicationController
     @share = Share.first(conditions: {source: params[:share][:source]})
     if @share
       @item = Item.first(conditions: {_id: @share.item_id})
-    else
-      @item = Item.new(params[:item])
-    end
-
-    if @share
       return false if !@item.update_attributes(params[:item])
     else
+      @item = Item.new(params[:item])
       return false if !@item.save
     end
 
@@ -241,8 +237,8 @@ class ItemsController < ApplicationController
       return false if !@share.update_attributes(params[:share])
     else
 
-      #@category = Category.first(conditions: {cid: params[:category]})
-      @item.add_tag(params[:category])
+      # @category = Category.first(conditions: {cid: params[:category]})
+      # @item.add_tag(params[:category])
 
       @share = Share.new(params[:share])
       @share.item_id = @item._id

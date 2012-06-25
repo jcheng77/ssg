@@ -17,8 +17,9 @@ module TaggableHelper
     base.send :include, InstanceMethods
     base.send :attr_accessor, :tags_array_changed
 
-    # enable indexing as default
-    base.enable_tags_index!
+    # disable index as default
+    base.disable_tags_index!
+    base.tags_index_group_by 'default'
   end
 
   module ClassMethods
@@ -39,10 +40,17 @@ module TaggableHelper
       tags_index_collection.master.find.to_a.map { |r| r["_id"] }
     end
 
-    # retrieve the list of tags with weight (i.e. count), this is useful for
-    # creating tag clouds
-    def tags_with_weight
-      tags_index_collection.master.find.to_a.map { |r| [r["_id"], r["value"]] }
+    # retrieve the list of tags with weight(i.e. count), this is useful for
+    # create tags index
+    def tags_with_weight(group = nil)
+      hash = {}
+      array = tags_index_collection.master.find.to_a
+      array.select! { |v| v["value"].key? group } unless group.blank?
+      array.each do |r|
+        sum = r["value"].values.inject { |total, x| total + x }
+        hash[r["_id"]] = sum
+      end
+      hash
     end
 
     def disable_tags_index!
@@ -51,6 +59,10 @@ module TaggableHelper
 
     def enable_tags_index!
       @do_tags_index = true
+    end
+
+    def tags_index_group_by(value)
+      @tags_index_group = value
     end
 
     def tags_separator(separator = nil)
@@ -74,19 +86,31 @@ module TaggableHelper
           return;
         }
 
-        for (index in this.tags_array) {
-          emit(this.tags_array[index], 1);
+        for (i in this.tags_array) {
+          var hash = {}
+          if ('#{@tags_index_group}' == 'default') {
+            hash['default'] = 1
+          } else {
+            hash[this.#{@tags_index_group}] = 1
+          }
+          emit(this.tags_array[i], hash);
         }
       }"
 
-      reduce = "function(previous, current) {
-        var count = 0;
+      reduce = "function(key, emits) {
+        var total = {};
 
-        for (index in current) {
-          count += current[index]
+        for (i in emits) {
+          for (val in emits[i]) {
+            if (total[val] == null) {
+              total[val] = emits[i][val]
+            } else {
+              total[val] += emits[i][val]
+            }
+          }
         }
 
-        return count;
+        return total;
       }"
 
       self.collection.master.map_reduce(map, reduce, :out => tags_index_collection_name)

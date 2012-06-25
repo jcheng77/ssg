@@ -58,5 +58,5 @@ Ssg::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  CATEGORY = ['数码','户外','男装','女装','饰品','化妆品','居家','其他']
+  # CATEGORY = ['数码','户外','男装','女装','饰品','化妆品','居家','其他']
 end

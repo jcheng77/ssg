@@ -1,6 +1,7 @@
 <div class="row" style="margin-left: 0px;">
-<ul class="nav nav-pills well category">
-<% CATEGORY.each_with_index do |cat|  %>
-  <li> <a href="#"><%= cat %></a></li>
-<% end %>
+    <ul class="nav nav-pills well category">
+        <% categories.each do |c| %>
+            <li><a href="#"><%= c %></a></li>
+        <% end %>
+    </ul>
 </div>
