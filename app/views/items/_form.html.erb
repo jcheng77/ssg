@@ -35,9 +35,9 @@
             <div class="input_field">
                 <label for="category">分类：</label>
                 <select name="category">
-                  <% categories.each do |cat|  %>
-                    <option value="<%= cat.cid %>"><%= cat.cn %></option>
-                  <% end %>
+                    <% categories.each do |cat| %>
+                        <option value="<%= cat %>"><%= cat %></option>
+                    <% end %>
                 </select>
             </div>
             <div class="input_field">

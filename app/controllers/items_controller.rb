@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   include ImageHelper
 
   def index
-    @items = Item.all
+    @items = Item.in_categories current_categories(params[:category])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -40,6 +40,14 @@ body {
     li {
         text-align: center;
     }
+
+    .checked {
+        color: white;
+        background-color: #08C;
+        &:hover {
+            color: #005580;
+        }
+    }
 }
 
 .item_block {

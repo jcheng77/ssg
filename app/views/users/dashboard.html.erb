@@ -24,7 +24,7 @@ $(document).ready(function(){
 
         <div class="page_header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <% @user.followed_shares.each do |share| %>
+            <% @shares.each do |share| %>
                 <%= render :partial => "shares/share", :object => share %>
             <% end %>
         </div>

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1/dashboard
   def dashboard
     @user = User.find(params[:id])
-
+    @shares = @user.followed_shares current_categories(params[:category])
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
       format.json { render json: @user }
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   # GET /users/1/my_shares
   def my_shares
     @user = User.find(params[:id])
-
+    @shares = @user.my_shares current_categories(params[:category])
     respond_to do |format|
       format.html { render layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
