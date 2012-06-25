@@ -32,7 +32,7 @@
    , getValue: function(){
        var a = [];
        this.$element.find('ul.tags li.tag span').each(function(){
-           a.push($(this).val());
+           a.push($(this).html());
        });
        return a.join(',');
    }

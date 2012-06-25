@@ -24,6 +24,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/account
+  def account
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render layout: 'application' } # account.html.erb
+      format.json { render json: @user }
+    end
+  end
+
   # GET /users/1/friends
   def friends
     @user = User.find(params[:id])

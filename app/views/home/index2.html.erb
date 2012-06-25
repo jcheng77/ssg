@@ -1,23 +1,68 @@
+<style>
+#myCarousel {
+	width:650px;
+	max-height:420px;
+	overflow:hidden;
+	position:relative;
+        border: 1px solid #D4D4D4;
+}
+#register_main{
+    margin: 0 auto;
+    width: 60%;
+}
+#loginBar{
+    padding: 10px 0;
+}
+#loginBar a {
+    display: inline-block;
+    padding: 10px 8px 10px 40px;
+    border-radius: 4px;
+    color: #868686;
+    background: url(/images/32-weibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
+    background: url(/images/32-weibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
+    border: 1px solid #D4D4D4;
+}
+#loginBar a:last-child{
+    background: url(/images/32-qqweibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
+    background: url(/images/32-qqweibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
+    margin-left: 10px;
+}
+</style>
+<script>
+$(document).ready(function() {
+    $('.carousel').carousel({
+          interval: 5000
+    })
+});
+</script>
 <div id="register_main">
-<div class="container_24">
-    <div class="grid_24 register_content">
-    <div class="grid_10 register_left">
-        <div class="login_title" >使用帐号登陆</div>
-        <div class="sina_wb">
-          <%= link_to :controller => 'syncs' ,:type => 'sina' , :action =>'new' do %> 
-          <%= image_tag "/images/32-weibo.gif"  %> <span> "用新浪微博创建帐号"</span>
-          <% end %>
-        </div>
-        <div class="qq_wb" >
-          <%= link_to :controller => 'syncs' ,:type => 'qq' , :action =>'new' do %> 
-          <%= image_tag "/images/32-qqweibo.gif"  %> <span> "用腾讯微博创建帐号"</span>
-          <% end %>
-        </div>
+<div id="loginBar">
+    <%= link_to  :controller => 'syncs' ,:type => 'sina' , :action =>'new' do %> 
+     <span>用新浪微博创建帐号</span>
+    <% end %>
+    <%= link_to  :controller => 'syncs' ,:type => 'qq' , :action =>'new' do %> 
+     <span>用腾讯微博创建帐号</span>
+    <% end %>
+</div>
+<div id="myCarousel" class="carousel">
+  <div class="carousel-inner">
+    <div class="active item">
+        <img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-01.jpg"/>
+        <div class="carousel-caption"><p>你可曾为朋友中意的礼物而发愁？<br/>
+        来这里看看朋友们的愿望清单吧<br/>
+        也来这里分享自己的愿望清单吧<br/>
+        可能会有惊喜的哦</p></div>
     </div>
-    <div class="grid_7 register_right">
-            <!--<img src="/images/social.png"/>-->
-            <div class="title">掀开社交电子商务的新篇章</div>
+    <div class="item">
+        <img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-02.jpg"/>
+        <div class="carousel-caption"><p>你可曾淘到了好宝贝，想与朋友分享<br/> 这里有最专业买家的最真实而又最专业的点评</p></div>      
     </div>
+    <div class="item">
+        <img src="http://twitter.github.com/bootstrap/assets/img/bootstrap-mdo-sfmoma-03.jpg"/>
+        <div class="carousel-caption"><p>结识与你购物品味相同的朋友<br/> 发现你可能可兴趣的商品</p></div>        
     </div>
+  </div>
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
 </div>

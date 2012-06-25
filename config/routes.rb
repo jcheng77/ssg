@@ -25,6 +25,7 @@ Ssg::Application.routes.draw do
       get 'select'
       get 'follow'
       get 'unfollow'
+      get 'account'
       resources :categories
     end
   end

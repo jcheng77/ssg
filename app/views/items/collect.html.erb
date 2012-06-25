@@ -1,165 +1,147 @@
 <style>
-    ul, ol {
-        margin: 0;
-    }
-
-    .required {
-        color: red;
-        font-weight: bold;
-        padding-right: 6px;
-    }
-
-    .thumbnails > li {
-        margin: 0;
-    }
-
-    .span2 {
-        width: 180px;
-    }
-
-    .span1 {
-        width: 80px;
-    }
-
-    .dimension {
-        text-align: center;
-        color: #999;
-        margin: 4px 0 5px 0;
-        line-height: 27px;
-        background-color: white;
-    }
-
-    .images_picker {
-        background-color: #EEEEEE;
-        padding: 4px 6px;
-    }
-
-    .image_frame {
-        text-align: center;
-    }
-
-    .image_frame img {
-        height: 135px;
-        width: 135px;
-    }
-
-    #bookmarklet_container > h2 {
-        text-align: center;
-    }
-
-    .image_list li {
-        float: left;
-        margin: 0 0 10px 10px;
-        border: 3px solid transparent;
-    }
-
-    .image_list img {
-        height: 60px;
-        width: 60px;
-    }
-
-    .image_list li:hover, .selected {
-        border: 3px solid #A20;
-    }
-
-    body {
-        min-width: 680px;
-        max-width: 700px;
-    }
+ul,ol{
+    margin: 0;
+}
+.required{
+    color: red;
+    font-weight: bold;
+    padding-right: 6px;
+}
+.thumbnails > li{
+    margin: 0;
+}
+.span2{
+    width: 180px;
+}
+.span1{
+    width: 80px;
+}
+.dimension{
+    text-align: center;
+    color: #999;
+    margin: 4px 0 5px 0;
+    line-height: 27px;
+    background-color: white;
+}
+.images_picker{
+    background-color: #EEEEEE;
+    padding: 4px 6px;
+}
+.image_frame{
+    text-align:center;
+}
+.image_frame img{
+    height: 135px;
+    width: 135px;
+}
+#bookmarklet_container > h2{
+    text-align: center;
+}
+.image_list li{
+    float: left;
+    margin: 0 0 10px 10px;
+    border: 3px solid transparent;
+}
+.image_list img{
+    height: 60px;
+    width: 60px;
+}
+.image_list li:hover, .selected{
+    border: 3px solid #A20;
+}
+body{
+    min-width: 680px;
+    max-width: 700px;
+}
 </style>
 <script>
-    var GLOBAL_IMAGES_FROM_BOOKMARK = [];
+var GLOBAL_IMAGES_FROM_BOOKMARK = [];
     <% @imgs.each do |img| %>
-    GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
+        GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
     <% end %>
-    $(document).ready(function () {
-        var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
-                dimension = $('#bookmarklet_container .dimension')[0],
-                imageFrame = $('#bookmarklet_container .image_frame img')[0];
-        dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
-        $('.image_list li').click(function () {
-            if (selected) {
-                selected.removeClass('selected');
-            }
-            selected = $(this);
-            selected.addClass('selected');
-            src = selected.find('img')[0].src;
-            imageFrame.src = src;
-            dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
-        });
+$(document).ready(function(){
+    var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
+        dimension = $('#bookmarklet_container .dimension')[0],
+        imageFrame = $('#bookmarklet_container .image_frame img')[0];
+    dimension.innerHTML = src.substring(src.lastIndexOf('_')+1, src.lastIndexOf('.'));
+    $('.image_list li').click(function(){
+        if(selected){
+            selected.removeClass('selected');
+        }
+        selected = $(this);
+        selected.addClass('selected');
+        src = selected.find('img')[0].src;
+        imageFrame.src = src;
+        dimension.innerHTML = src.substring(src.lastIndexOf('_')+1, src.lastIndexOf('.'));
     });
+    $('form').on('submit',function(event){
+        var val = $('[data-provide="tageditor"]').data('tageditor').getValue();
+        $('#tags').val(val);
+    });
+});
 </script>
 <div id="bookmarklet_container">
-    <h2>Add a Recommendation</h2>
-
-    <div class="row">
-        <div class="span2 images_picker">
-            <div class="image_frame">
-                <img src="<%= @imgs[0] %>" alt=""/>
-
-                <div class="dimension"></div>
+<h2>Add a Recommendation</h2>
+  <div class="row">
+    <div class="span2 images_picker">
+      <div class="image_frame">
+              <img src="<%=@imgs[0]%>" alt=""/>
+              <div class="dimension"></div>
+      </div>
+      <p> Select your picture: </p>
+      <ul class="image_list">
+      <% @imgs.each do |img| %>
+        <li>
+            <img src="<%= img %>" alt="">
+        </li>
+      <% end %>
+      </ul>
+    </div><!-- /.span -->
+    <div class="span6">
+      <fieldset>
+      <%= form_for @item , :url => { :controller => "items", :action => "create"} , :html => { :class => "form-horizontal" } do |f|  %>
+                <%= hidden_field_tag "item[image]", @item.image %>
+                <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
+          <div class="control-group">
+            <label class="control-label" for="input01"><span class="required">*</span>Title</label>
+            <div class="controls">
+            <%= f.text_field :title , :class => 'input-xlarge' %>
+              <p class="help-block">80 characters remaining.</p>
             </div>
-            <p> Select your picture: </p>
-            <ul class="image_list">
-                <% @imgs.each do |img| %>
-                    <li>
-                        <img src="<%= img %>" alt="">
-                    </li>
-                <% end %>
-            </ul>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="select01"><span class="required">*</span>Category</label>
+            <div class="controls">
+              <select id="category" name="category">
+                  <% categories.each do |cat|  %>
+                    <option value="<%= cat.cn %>"><%= cat.cn %></option>
+                  <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="textarea"><span class="required">*</span>Comment</label>
+            <div class="controls">
+                <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="textarea">Tags</label>
+            <div class="controls">
+              <input type="hidden" id="tags" name="item[tags]">
+        <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
+        <ul class="tags">
+            <li><input type="text" style="width:30px;"/></li>
+        </ul>
         </div>
-        <!-- /.span -->
-        <div class="span6">
-            <fieldset>
-                <%= form_for @item, :url => {:controller => "items", :action => "create"}, :html => {:class => "form-horizontal"} do |f| %>
-                    <%= hidden_field_tag "item[image]", @item.image %>
-                    <%= binding.pry %>
-                    <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
-                    <div class="control-group">
-                        <label class="control-label" for="input01"><span class="required">*</span>Title</label>
-
-                        <div class="controls">
-                            <%= f.text_field :title, :class => 'input-xlarge' %>
-                            <p class="help-block">80 characters remaining.</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="select01"><span class="required">*</span>Category</label>
-
-                        <div class="controls">
-                            <select id="category" name="category">
-                                <% categories.each do |c| %>
-                                    <option value="<%= c %>"><%= c %></option>
-                                <% end %>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="textarea"><span class="required">*</span>Comment</label>
-
-                        <div class="controls">
-                            <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="textarea">Tags</label>
-
-                        <div class="controls">
-                            <input type="hidden" id="tags" name="item[tags]">
-
-                            <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='["air", "tablet", "ipad", "clothes"]'>
-                                <ul class="tags">
-                                    <li><input type="text" style="width:30px;"/></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <%= hidden_field_tag "share[source]", @share.source %>
-                    <div class="form-actions">
-                        <%= f.submit "Recommend", :class => 'btn btn-primary' %>
-                <% end %>
-                </div>
-            </fieldset>
-        </div>
-    </div>
+            </div>
+          </div>
+                <%= hidden_field_tag "share[source]", @share.source %>
+          <div class="form-actions">
+            <%= f.submit  "Recommend", :class => 'btn btn-primary' %>
+          <% end %>
+          </div>
+      </fieldset>
+</div>
+  </div>
 </div>
