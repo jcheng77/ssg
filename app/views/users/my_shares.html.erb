@@ -26,7 +26,7 @@
 
         <div class="page-header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <% @user.shares.desc(:created_at).each do |share| %>
+            <% @shares.each do |share| %>
                 <%= render :partial => "shares/share", :object => share %>
             <% end %>
         </div>

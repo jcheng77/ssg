@@ -1,5 +1,6 @@
 class Item
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   include Mongo::Followable
   include TaggableHelper
 
@@ -22,6 +23,11 @@ class Item
 
   enable_tags_index!
   tags_index_group_by :category
+
+  def self.in_categories(categories = [])
+    return [] if categories.blank?
+    self.where(:category.in => categories).desc(:created_at);
+  end
 
   def root_share
     self.root_share_id.nil? ? nil : Share.find(self.root_share_id)
@@ -53,8 +59,8 @@ class Item
     share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
   end
 
-  def self.top_tags(num = 10)
-    tags = self.tags_with_weight.sort_by { |k| -k[1] }
+  def self.top_tags(category, num = 10)
+    tags = self.tags_with_weight(category).sort_by { |k| -k[1] }
     tags.first(num).map { |t| t[0] }
   end
 end
