@@ -112,9 +112,9 @@ $(document).ready(function(){
           <div class="control-group">
             <label class="control-label" for="select01"><span class="required">*</span>Category</label>
             <div class="controls">
-              <select id="category" name="category">
-                  <% categories.each do |cat|  %>
-                    <option value="<%= cat %>"><%= cat %></option>
+              <select id="category" name="item[category]">
+                  <% categories.each do |c|  %>
+                    <option value="<%= c %>"><%= c %></option>
                   <% end %>
               </select>
             </div>
