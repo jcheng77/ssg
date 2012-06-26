@@ -145,7 +145,7 @@ class UsersController < ApplicationController
     session[:current_categories] = params[:user][:preferences]
 
     respond_to do |format|
-      format.html { redirect_to edit_preferences_user_url(@user) }
+      format.html { redirect_to dashboard_user_path(@user) }
     end
   end
   
@@ -220,7 +220,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def signup
     @user = User.find(params[:id])
     session[:current_user_id] = @user._id 
@@ -228,9 +227,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html {}
-      format.json {redirect_to dashboard_user_path}
     end
   end
-
-
 end

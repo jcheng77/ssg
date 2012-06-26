@@ -1,11 +1,20 @@
 <% content_for :javascripts do %>
     <script type="text/javascript">
-        $(function() {
-            $(".item-block textarea").focusin(function() {
-                $(this).attr("rows", 3);
-            }).focusout(function() {
-                $(this).attr("rows", 1);
-            });
+        $(function () {
+            $(".item-block textarea").focusin(
+                    function () {
+                        $(this).attr("rows", 3);
+                    }).focusout(function () {
+                        $(this).attr("rows", 1);
+                    });
+        });
+        $(document).ready(function () {
+            $('.item_block .item_left').mouseover(
+                    function () {
+                        $(this).find('.item_actions').css('display', 'block');
+                    }).mouseout(function () {
+                        $(this).find('.item_actions').css('display', 'none');
+                    });
         });
     </script>
 <% end %>
@@ -21,8 +30,8 @@
         </ul>
     </div>
     <div class="span10">
-       <%= render "categories/category" %>
-       <%= render "items/toptags" %>
+        <%= render "categories/category" %>
+        <%= render "items/toptags" %>
 
         <div class="page-header"><h4>分享</h4></div>
         <div class="row" style="margin-left: 0px;">

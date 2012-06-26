@@ -86,8 +86,9 @@ class TaobaoController < ApplicationController
 
   def purchases
     json = get_bought_trades session[:taobao_session_key]
-    p json
-    redirect_to dashboard_user_path(current_user)
+    # p json
+    render text: json.blank?
+    # redirect_to dashboard_user_path(current_user)
   end
 
 

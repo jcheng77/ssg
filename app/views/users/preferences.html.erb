@@ -1,6 +1,57 @@
-<%= form_for @user, url: update_preferences_user_path(@user), method: :put do |f| %>
+<div class="row preferences">
+    <div class="span2">
+        <%= render :partial => "avatar", :object => @user %>
+        <ul class="nav nav-pills nav-stacked sidebars" style="margin-top: 15px;">
+            <li class="active"><%= link_to "我的关注", dashboard_user_path(current_user) %></li>
+            <li><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
+            <li><a href="#">好友的分享</a></li>
+            <li><a href="#">热门推荐</a></li>
+        </ul>
+    </div>
+    <div class="span10">
+        <div class="page-header"><h4>我的偏好</h4></div>
+        <div class="page-header">
+            <h4>
+                <span style="margin-right: 20px;">已经选择了<span id="preference_num"><%= @user.preferences.size %></span>个</span>
+                <button type="submit" id="submit" class="btn btn-primary">完成</button>
+            </h4>
+        </div>
+        <ul class="thumbnails">
+            <% categories.each_with_index do |c, i| %>
+                <li class="span3">
+                    <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
+                        <img src="http://placehold.it/260x180" alt="">
+
+                        <div class="caption">
+                            <h5 style="text-align: center;"><%= c %></h5>
+                        </div>
+                    </a>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>
+<%= form_for @user, url: update_preferences_user_path(@user), method: :put, :html => {:style => "display: none;"} do |f| %>
     <% categories.each_with_index do |c, i| %>
-        <%= check_box_tag 'user[preferences][]', c, @user.preferences.include?(c), :id => "preference_#{i}" %><%= c %><br/>
+        <%= check_box_tag 'user[preferences][]', c, @user.preferences.include?(c), :id => "preference_#{i}_checkbox" %><%= c %>
+        <br/>
     <% end %>
-    <%= f.submit %>
+    <%= f.submit :id => "submit_checkbox" %>
 <% end %>
+<script type="text/javascript">
+    var num_object = $("#preference_num");
+    var num = parseInt(num_object.html());
+    $(".preference").click(function () {
+        $("#" + $(this).attr("id") + "_checkbox").click();
+        if ($(this).hasClass("checked")) {
+            $(this).removeClass("checked");
+            num_object.html(--num);
+        } else {
+            $(this).addClass("checked");
+            num_object.html(++num);
+        }
+    });
+    $("#submit").click(function () {
+        $("#submit_checkbox").click();
+    });
+</script>

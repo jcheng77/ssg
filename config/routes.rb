@@ -58,7 +58,7 @@ Ssg::Application.routes.draw do
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback
   match "taobao/purchases" => "taobao#purchases", :as => :taobao_purchases
-  match "taobao/authorize" => "taobao#auth", :as => :taobao_auth
+  match "taobao/authorize" => "taobao#authorize", :as => :taobao_auth
   match "tbwishes" => "taobao#favorites" 
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"

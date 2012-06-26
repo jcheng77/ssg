@@ -26,3 +26,9 @@ ul.category:after{
     left: 50%;
     margin-left: -15px;
 }
+
+.preferences {
+    .checked {
+        border-color: #08C;
+    }
+}
