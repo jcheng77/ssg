@@ -128,6 +128,26 @@ class UsersController < ApplicationController
       format.js
     end
   end
+
+  # GET /users/1/edit_preferences
+  def edit_preferences
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render "preferences", layout: 'application' }
+    end
+  end
+
+  # PUT /users/1/update_preferences
+  def update_preferences
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
+    session[:current_categories] = params[:user][:preferences]
+
+    respond_to do |format|
+      format.html { redirect_to edit_preferences_user_url(@user) }
+    end
+  end
   
   # GET /users/1
   # GET /users/1.json

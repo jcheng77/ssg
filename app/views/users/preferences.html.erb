@@ -1,0 +1,6 @@
+<%= form_for @user, url: update_preferences_user_path(@user), method: :put do |f| %>
+    <% categories.each_with_index do |c, i| %>
+        <%= check_box_tag 'user[preferences][]', c, @user.preferences.include?(c), :id => "preference_#{i}" %><%= c %><br/>
+    <% end %>
+    <%= f.submit %>
+<% end %>

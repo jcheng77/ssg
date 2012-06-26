@@ -26,7 +26,9 @@ Ssg::Application.routes.draw do
       get 'follow'
       get 'unfollow'
       get 'account'
-      resources :categories
+      get 'edit_preferences'
+      put 'update_preferences'
+      # resources :categories
     end
   end
 

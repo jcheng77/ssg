@@ -19,13 +19,13 @@ class User
 
   field :gender, type: Integer # 0 female/1 male/gay/lesbian/bisexual etc.
   field :dob, type: Date # date actually
-  field :preference, type: Array # predefined tags used to filter item list
-  field :tags, type: Array # system generated tags for this user, according to his/her share/like
+  # field :tags, type: Array # system generated tags for this user, according to his/her share/like
   field :access_token, type: String
   field :token_secret, type: String
 
   field :session_key, type: String
 
+  field :preferences, type: Array, default: []
   field :point, type: Integer, default: 0
   field :active, type: Integer, default: 0
 
