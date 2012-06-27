@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>友礼享</title>
+    <link rel="stylesheet" href="/css/notification.css" type="text/css" media="screen"/>
     <%= stylesheet_link_tag 'application' %>
     <%= yield :stylesheets %>
     <%= javascript_include_tag 'application' %>
     <%= yield :javascripts %>
+    <script src="/js/bootstrap-notification.js" type="text/javascript"></script>
     <%= csrf_meta_tags %>
 </head>
 
@@ -36,6 +38,7 @@
                     <li><a href="#">帐号</a></li>
                 </ul>
                 <%= link_to "我要分享", new_item_path, class: "btn btn-warning pull-right" %>
+                <a href="#" class="pull-right notification-badge" id="notification-badge">4</a>
             </div>
         </div>
     </div>
