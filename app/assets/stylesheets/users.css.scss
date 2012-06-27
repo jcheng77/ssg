@@ -32,3 +32,15 @@ ul.category:after{
         border-color: #08C;
     }
 }
+
+.account {
+    .account_info {
+        h1 {
+            margin: 20px 0 20px 0;
+            font-size: 20px;
+        } 
+        p {
+            margin: 10px 0 10px 0;
+        }
+    }
+}

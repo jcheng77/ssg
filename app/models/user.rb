@@ -66,6 +66,14 @@ class User
     self.shares.desc(:created_at).limit(limit)
   end
 
+  def recent_bags(limit = 10)
+    self.bags.desc(:created_at).limit(limit)
+  end
+
+  def recent_wishes(limit = 10)
+    self.wishes.desc(:created_at).limit(limit)
+  end
+
   #------------------------------------
   # my notifications
   def notifications

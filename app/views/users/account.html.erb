@@ -1,29 +1,51 @@
-<script>
-$(document).ready(function(){
-   $('.item_block .item_left').mouseover(function(){
-      $(this).find('.item_actions').css('display', 'block');
-   }).mouseout(function(){
-      $(this).find('.item_actions').css('display', 'none');
-   });
-});
-</script>
-<div class="row dashboard">
+<div class="row account">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
-        <ul class="nav nav-pills nav-stacked sidebars" style="margin-top: 15px;">
-            <li class="active"><%= link_to "我的分享", dashboard_user_path(current_user) %></li>
-            <li><%= link_to "我的愿望清单", my_shares_user_path(current_user) %></li>
-            <li><a href="#">我的背包</a></li>
-        </ul>
     </div>
-    <div class="span9">
-
-
-        <ul class="thumbnails">
-            <%binding.pry%>
-            <% @user.recent_shares.each do |share| %>
-                <%= render :partial => "items/item", :object => share.item %>
-            <% end %>
+    <div class="span9 account_info">
+        <h1><%= @user.full_name %></h1>
+        <p>生日: 2012/2/31</p>
+        <p>购物宣言: 只买贵的...</p>
+        <p>感兴趣的分类: <%= @user.preferences.join ", " %></p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <div class="page-header"></div>
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#wishes" data-toggle="tab">我的愿望</a></li>
+            <li class=""><a href="#bags" data-toggle="tab">我的背包</a></li>
+            <li class=""><a href="#shares" data-toggle="tab">我的分享</a></li>
         </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="wishes">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_wishes.each do |wish| %>
+                            <%= render :partial => "items/item", :object => wish.item %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="bags">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_bags.each do |bag| %>
+                            <%= render :partial => "items/item", :object => bag.item %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="shares">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_shares.each do |share| %>
+                            <%= render :partial => "items/item", :object => share.item %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

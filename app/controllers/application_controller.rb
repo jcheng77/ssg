@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def current_categories(category = nil)
     @current_categories = session[:current_categories]
-    @current_categories = [categories.first] if @current_categories.nil?
+    @current_categories = current_user.preferences if @current_categories.nil?
     unless category.blank?
       if @current_categories.include? category
         @current_categories.delete category
