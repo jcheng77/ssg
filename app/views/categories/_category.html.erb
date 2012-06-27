@@ -1,6 +1,20 @@
 <div class="row" style="margin-left: 0px;">
-<ul class="nav nav-pills well category">
-<% CATEGORY.each_with_index do |cat|  %>
-  <li> <a href="#"><%= cat %></a></li>
-<% end %>
+    <ul class="nav nav-pills well category">
+        <% categories.each_with_index do |c, i| %>
+            <li>
+                <a href="javascript: void(0);" value="<%= c %>" class="<%= current_categories.include?(c) ? "checked" : "" %>"><%= c %></a>
+            </li>
+        <% end %>
+    </ul>
 </div>
+<script type="text/javascript">
+    $(".category li a").click(function () {
+        var url = $(location).attr("href");
+        var index = url.indexOf('?');
+        if(index != -1) {
+            url = url.substring(0, index);
+        }
+        var param = "?category=" + $(this).attr("value");
+        $(location).attr("href",  url + param);
+    });
+</script>

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1/dashboard
   def dashboard
     @user = User.find(params[:id])
-
+    @shares = @user.followed_shares current_categories(params[:category])
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
       format.json { render json: @user }
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   # GET /users/1/my_shares
   def my_shares
     @user = User.find(params[:id])
-
+    @shares = @user.my_shares current_categories(params[:category])
     respond_to do |format|
       format.html { render layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
@@ -128,6 +128,26 @@ class UsersController < ApplicationController
       format.js
     end
   end
+
+  # GET /users/1/edit_preferences
+  def edit_preferences
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render "preferences", layout: 'application' }
+    end
+  end
+
+  # PUT /users/1/update_preferences
+  def update_preferences
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
+    session[:current_categories] = params[:user][:preferences]
+
+    respond_to do |format|
+      format.html { redirect_to dashboard_user_path(@user) }
+    end
+  end
   
   # GET /users/1
   # GET /users/1.json
@@ -163,7 +183,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to edit_preferences_user_url(@user) }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -179,7 +199,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to edit_preferences_user_url(@user) }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -200,7 +220,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def signup
     @user = User.find(params[:id])
     session[:current_user_id] = @user._id 
@@ -208,9 +227,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html {}
-      format.json {redirect_to dashboard_user_path}
     end
   end
-
-
 end

@@ -1,5 +1,4 @@
 # encoding: utf-8
-#
 require 'rubygems'
 require 'net/http'
 require 'uri'
@@ -10,25 +9,36 @@ require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user, :categories, :category 
-  
+  helper_method :current_user, :categories, :current_categories
 
   def current_user
-    begin
-      @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
-    end
+    @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
   end
 
+  def current_categories(category = nil)
+    @current_categories = session[:current_categories]
+    @current_categories = current_user.preferences if @current_categories.nil?
+    unless category.blank?
+      if @current_categories.include? category
+        @current_categories.delete category
+      else
+        @current_categories << category
+      end
+      session[:current_categories] = @current_categories
+    end
+    @current_categories
+  end
+
+=begin
   def categories
     begin
-    @categories ||= Category.all(sort: [[ :cid, :asc ]])
+      @categories ||= Category.all(sort: [[:cid, :asc]])
     end
+  end
+=end
+
+  def categories
+    @categories ||= ['数码', '户外', '男装', '女装', '饰品', '化妆品', '居家', '其他']
   end
 
-  def category
-    begin
-      @category ||= ['数码','户外','男装','女装','饰品','化妆品','居家','其他']
-    end
-  end
-  
 end

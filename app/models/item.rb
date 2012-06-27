@@ -1,7 +1,6 @@
 class Item
-  MARK_BYTE = 2
-
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   include Mongo::Followable
   include TaggableHelper
 
@@ -12,15 +11,23 @@ class Item
   field :price_low, type: Float # lowest price
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
-  field :tags, type: Array # string[]
+  # field :tags, type: Array # string[]
+  field :category, type: String
   field :purchase_url, type: String 
   field :root_share_id, type: BSON::ObjectId
 
-  acts_as_taggable
   has_many :shares
   has_many :wishes
   has_many :bags
-  has_one :category
+  # has_one :category
+
+  enable_tags_index!
+  tags_index_group_by :category
+
+  def self.in_categories(categories = [])
+    return [] if categories.blank?
+    self.where(:category.in => categories).desc(:created_at);
+  end
 
   def root_share
     self.root_share_id.nil? ? nil : Share.find(self.root_share_id)
@@ -52,10 +59,8 @@ class Item
     share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
   end
 
-  def self.top_tags
-    tags = self.tags_with_weight.sort_by { |k| k[1] }
-    exculde_category_tags = tags.last(18).delete_if { |w| CATEGORY.index(w[0]) }
-    exculde_category_tags.last(10)
+  def self.top_tags(category, num = 10)
+    tags = self.tags_with_weight(category).sort_by { |k| -k[1] }
+    tags.first(num).map { |t| t[0] }
   end
-
 end

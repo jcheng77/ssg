@@ -43,7 +43,7 @@ gem 'chosen-rails'
 gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
 gem 'rails-dev-tweaks', '~> 0.6.1'
 gem 'voteable_mongo'
-gem 'mongoid_taggable'
+#gem 'mongoid_taggable'
 gem 'mongo_followable'
 
 # Bundle edge Rails instead:

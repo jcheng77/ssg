@@ -19,13 +19,13 @@ class User
 
   field :gender, type: Integer # 0 female/1 male/gay/lesbian/bisexual etc.
   field :dob, type: Date # date actually
-  field :preference, type: Array # predefined tags used to filter item list
-  field :tags, type: Array # system generated tags for this user, according to his/her share/like
+  # field :tags, type: Array # system generated tags for this user, according to his/her share/like
   field :access_token, type: String
   field :token_secret, type: String
 
   field :session_key, type: String
 
+  field :preferences, type: Array, default: []
   field :point, type: Integer, default: 0
   field :active, type: Integer, default: 0
 
@@ -48,12 +48,30 @@ class User
  
   before_save :encrypt_password, :save_fullname
 
-  def followed_shares
-    Share.desc(:created_at).followees_of(self)
+  def followed_shares(categories = [])
+    return [] if categories.blank?
+    Share.desc(:created_at).followees_of(self).to_a.select do |share|
+      categories.include? share.item.category
+    end
+  end
+
+  def my_shares(categories = [])
+    return [] if categories.blank?
+    self.shares.desc(:created_at).to_a.select do |share|
+      categories.include? share.item.category
+    end
   end
 
   def recent_shares(limit = 10)
     self.shares.desc(:created_at).limit(limit)
+  end
+
+  def recent_bags(limit = 10)
+    self.bags.desc(:created_at).limit(limit)
+  end
+
+  def recent_wishes(limit = 10)
+    self.wishes.desc(:created_at).limit(limit)
   end
 
   #------------------------------------

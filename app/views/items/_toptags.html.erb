@@ -1,7 +1,10 @@
-<ul class="tag">
-<% Item.top_tags.each do |ttag| %>
-<li><a href="#"><%= ttag[0] %></a></li>
+<% current_categories.each do |c| %>
+    <ul class="tag">
+        <%= "#{c} >>" %>
+        <% Item.top_tags(c).each do |tag| %>
+            <li><a href="#"><%= tag %></a></li>
+        <% end %>
+    </ul>
 <% end %>
-</ul>
 
 
