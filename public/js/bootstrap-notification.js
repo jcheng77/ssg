@@ -154,7 +154,7 @@
 
   , setContent: function () {
       var $tip = this.tip()
-      $tip.find('.notification-inner .notification-content').html(this.getTitle())
+      $tip.find('.notification-inner .notification-content').html(this.getContent())
       $tip.removeClass('fade in top bottom left right')
     }
 
@@ -188,7 +188,7 @@
     }
 
   , hasContent: function () {
-      return this.getTitle()
+      return this.getContent()
     }
 
   , getPosition: function (inside) {
@@ -198,17 +198,21 @@
       })
     }
 
-  , getTitle: function () {
-      var title
-        , $e = this.$element
-        , o = this.options
+   , prepareData: function() {
+       this.notifications = [{msg: 'Your share was commented', url: 'http://www.google.com'},
+                             {msg: 'Your share was commented', url: 'http://www.google.com'},
+                             {msg: 'Your share was commented', url: 'http://www.google.com'},
+                             {msg: 'Your share was commented', url: 'http://www.google.com'}];
+    }
 
-      title = $e.attr('data-original-title')
-        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-      title = title.toString().replace(/(^\s*|\s*$)/, "")
-
-      return title
+  , getContent: function () {
+      var nf, content = [];
+      this.prepareData();
+      for (var i = 0; i < this.notifications.length; i++) {
+          nf = this.notifications[i];
+          content.push('<a href="',nf.url,'">', nf.msg , '</a>');
+      };
+      return content.join('');
     }
 
   , tip: function () {
@@ -267,6 +271,8 @@
   , template: '<div class="notification"><div class="notification-arrow"></div><div class="notification-inner"><div class="notification-title">Notifications</div><div class="notification-content"></div></div></div>'
   }
     
-  $('#notification-badge').notification();
+  $(document).ready(function(){
+      $('#notification-badge').notification();
+  })
 
 }( window.jQuery );

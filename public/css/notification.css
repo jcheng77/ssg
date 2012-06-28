@@ -57,7 +57,7 @@
   border-right: 5px solid #C2C2C2;
 }
 .notification-inner {
-  max-width: 200px;
+  max-width: 300px;
   padding: 3px 8px;
   color: #262626;
   text-align: center;
@@ -73,8 +73,17 @@
   height: 0;
 }
 .notification-badge{
-    border-radius: 5px;
+    border-radius: 12px;
     background-color: #D44937;
     padding: 4px 10px;
     margin: 5px 10px 0 0;
+    position: relative;
+}
+.notification-title{
+    font-weight: bold;
+}
+.notification-content a{
+    display: block;
+    min-width: 180px;
+    padding: 4px 0;
 }
