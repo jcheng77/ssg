@@ -4,15 +4,19 @@
             <%= image_tag item.image %>
         </a>
         <%= link_to item do %>
-        <h5 class="title"> <%= item.title %> </h5>
+            <h5 class="title"> <%= item.title %> </h5>
         <% end %>
-        <p>标签：<%= item.tags %></p>
-        <div class="row user-comment">
-            <a class="img_frame mini_picture pull-left">
-                <%= image_tag small_avatar_url(item.root_share.user.avatar) %>
-            </a>
-            <%= link_to item.root_share.user.full_name, my_shares_user_path(item.root_share.user),:class=> "user_name"%>
-            <p class="comment" title="<%=item.root_share.comment_content%>"><%= item.root_share.comment_content %></p>
-        </div>
+        <% unless tags.nil? %>
+            <p>标签：<%= tags %></p>
+        <% end %>
+        <% unless share.nil? %>
+            <div class="row user-comment">
+                <a class="img_frame mini_picture pull-left">
+                    <%= image_tag small_avatar_url(share.user.avatar) %>
+                </a>
+                <%= link_to share.user.full_name, my_shares_user_path(share.user), :class=> "user_name" %>
+                <p class="comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
+            </div>
+        <% end %>
     </div>
 </li>

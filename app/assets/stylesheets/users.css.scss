@@ -4,13 +4,15 @@
 .sidebars li{
     border-top: 1px solid #D4D4D4;
 }
-.dashboard .span10, .myshares .span10{
-    margin: 0;
-    border-left: 1px solid #D4D4D4;
-    padding-left: 28px;
-}
-.dashboard .thumbnail, .myshares .thumbnail{
-    border-right:none;
+.left_nav{
+    .span10{
+        margin: 0;
+        border-left: 1px solid #D4D4D4;
+        padding-left: 28px;
+    }
+    .thumbnail{
+        border-right:none;
+    }
 }
 ul.category{
     position: relative;
@@ -26,7 +28,6 @@ ul.category:after{
     left: 50%;
     margin-left: -15px;
 }
-
 .preferences {
     .checked {
         border-color: #08C;
@@ -44,15 +45,19 @@ ul.category:after{
         position: relative;
     }
 }
-
 .account {
-    .account_info {
-        h1 {
-            margin: 20px 0 20px 0;
-            font-size: 20px;
-        } 
-        p {
-            margin: 10px 0 10px 0;
-        }
+    h1 {
+        margin: 20px 0 20px 0;
+        font-size: 20px;
+    }
+    p {
+        margin: 10px 0 10px 0;
+    }
+    a {
+        margin-top: 20px;
+    }
+    .form-actions {
+        background-color: white;
     }
 }
+

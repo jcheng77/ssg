@@ -31,7 +31,7 @@ class Comment
     root.nil? ? nil : root._id
   end
 
-  def is_root?
+  def is_root_comment?
     parent = self.parent
     parent.is_a?(self.class) ? false : true
   end

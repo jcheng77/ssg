@@ -148,6 +148,14 @@ class UsersController < ApplicationController
       format.html { redirect_to dashboard_user_path(@user) }
     end
   end
+
+  def edit_account
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render layout: 'application' }
+    end
+  end
   
   # GET /users/1
   # GET /users/1.json
@@ -220,9 +228,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/signup
   def signup
+    # @user = User.find(params[:id])
     @user = User.find(params[:id])
-    session[:current_user_id] = @user._id 
+    session[:current_user_id] = @user._id
     @username = params[:name]
 
     respond_to do |format|

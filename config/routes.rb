@@ -26,9 +26,19 @@ Ssg::Application.routes.draw do
       get 'follow'
       get 'unfollow'
       get 'account'
+      get 'edit_account'
       get 'edit_preferences'
       put 'update_preferences'
       # resources :categories
+      resources :notifications, :only => [:index, :show] do
+        collection do
+          get 'recent'
+        end
+      end
+    end
+
+    collection do
+      get 'signup'
     end
   end
 

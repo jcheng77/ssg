@@ -74,7 +74,6 @@ class User
     self.wishes.desc(:created_at).limit(limit)
   end
 
-  #------------------------------------
   # my notifications
   def notifications
     Notification.where(receiver_id: self._id)
@@ -115,8 +114,6 @@ class User
     end
   end
 
-
-
   def self.authenticate(input,password)
    user ||= User.where(email:input).first
    user ||= User.where(nick_name:input).first
@@ -142,6 +139,4 @@ class User
   def activate
     self.active = 1 if self.active == 0
   end
-  
-
 end

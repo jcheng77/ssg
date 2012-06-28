@@ -1,5 +1,5 @@
 <div class="thumbnail">
-    <%= image_tag (avatar.avatar.nil? ? 'default_avatar.jpg' : big_avatar_url(avatar.avatar)), :width => '160' %>
+    <%= image_tag big_avatar_url(avatar.avatar), :width => '160' %>
 
     <div class="caption">
         <ul class="nav nav-pills info" style="font-size: 12px;">

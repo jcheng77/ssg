@@ -7,7 +7,7 @@
         <!--<div class="page-header"></div>-->
         <ul class="thumbnails">
             <% @items.each do |item| %>
-                <%= render :partial => "item", :object => item %>
+                <%= render :partial => "item", :object => item, :locals => { :tags => item.tags, :share => item.root_share } %>
             <% end %>
         </ul>
     </div>

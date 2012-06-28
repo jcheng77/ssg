@@ -1,9 +1,12 @@
 class Notification
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
 
   TYPE_FOLLOW = 'FLW'
   TYPE_ACTIVATE = 'ACT'
   TYPE_SHARE = 'SHR'
+  TYPE_BAG = 'BAG'
+  TYPE_WISH = 'WIS'
   TYPE_COMMENT = 'CMT'
   TYPE_AT_SHARE = 'ATS'
   TYPE_AT_COMMENT = 'ATC'
@@ -29,6 +32,10 @@ class Notification
         nil
       when TYPE_SHARE
         Share.find self.target_id
+      when TYPE_BAG
+        Bag.find self.target_id
+      when TYPE_WISH
+        Wish.find self.target_id
       when TYPE_COMMENT
         Comment.find self.target_id
       when TYPE_AT_SHARE
@@ -40,12 +47,16 @@ class Notification
     end
   end
 
-  def sender
-    User.find self.sender_id
-  end
-
-  def receiver
-    User.find self.receiver_id
+  def target_object
+    object = self.object
+    case self.type
+      when TYPE_COMMENT
+        object.root
+      when TYPE_AT_COMMENT
+        object.root
+      else
+        object
+    end
   end
 
   def to_s
@@ -56,6 +67,10 @@ class Notification
         return "#{sender.full_name} is activated"
       when TYPE_SHARE then
         return "user #{sender.full_name} shared #{object.item.title} with you"
+      when TYPE_BAG then
+        return "user #{sender.full_name} added #{object.item.title} to bags"
+      when TYPE_WISH then
+        return "user #{sender.full_name} added #{object.item.title} to wishes"
       when TYPE_COMMENT then
         return "user #{sender.full_name} commented your share"
       when TYPE_AT_SHARE then
@@ -65,5 +80,29 @@ class Notification
       else
         "Invalid Notification Type#{type}"
     end
+  end
+
+  def sender
+    User.find self.sender_id
+  end
+
+  def receiver
+    User.find self.receiver_id
+  end
+
+  def set_checked
+    self.update_attribute :checked, true
+  end
+
+  def self.recent_limit(user_id, num = 5)
+    Notification.recent_all(user_id).limit(num)
+  end
+
+  def self.recent_all(user_id)
+    Notification.receiver_unchecked(user_id).desc(:created_at)
+  end
+
+  def self.receiver_unchecked(user_id)
+    Notification.where(:checked => false, :receiver_id => user_id)
   end
 end

@@ -1,17 +1,17 @@
-<div class="row account">
+<div class="row">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
     </div>
-    <div class="span9 account_info">
+    <div class="span9 account">
         <h1><%= @user.full_name %></h1>
         <p>生日: 2012/2/31</p>
         <p>购物宣言: 只买贵的...</p>
         <p>感兴趣的分类: <%= @user.preferences.join ", " %></p>
+        <%= link_to "修改个人资料", edit_account_user_path(@user), :class => "btn btn-success" %>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top: 30px;">
     <div class="span12">
-        <div class="page-header"></div>
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#wishes" data-toggle="tab">我的愿望</a></li>
             <li class=""><a href="#bags" data-toggle="tab">我的背包</a></li>
@@ -23,7 +23,7 @@
                 <div class="row" style="margin-left: 0px;">
                     <ul class="thumbnails">
                         <% @user.recent_wishes.each do |wish| %>
-                            <%= render :partial => "items/item", :object => wish.item %>
+                            <%= render :partial => "items/item", :object => wish.item, :locals => {:tags => wish.tags, :share => nil} %>
                         <% end %>
                     </ul>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="row" style="margin-left: 0px;">
                     <ul class="thumbnails">
                         <% @user.recent_bags.each do |bag| %>
-                            <%= render :partial => "items/item", :object => bag.item %>
+                            <%= render :partial => "items/item", :object => bag.item, :locals => {:tags => nil, :share => bag} %>
                         <% end %>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="row" style="margin-left: 0px;">
                     <ul class="thumbnails">
                         <% @user.recent_shares.each do |share| %>
-                            <%= render :partial => "items/item", :object => share.item %>
+                            <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share.item.root_share} %>
                         <% end %>
                     </ul>
                 </div>
