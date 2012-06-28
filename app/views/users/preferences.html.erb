@@ -21,7 +21,7 @@
                 <li class="span3">
                     <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
                         <img src="http://placehold.it/260x180" alt="">
-
+                        <span class="selected_pref"></span>
                         <div class="caption">
                             <h5 style="text-align: center;"><%= c %></h5>
                         </div>
