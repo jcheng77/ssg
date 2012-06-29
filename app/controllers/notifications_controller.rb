@@ -15,10 +15,11 @@ class NotificationsController < ApplicationController
   def recent
     @notifications = Notification.recent_limit params[:id]
     @length = Notification.receiver_unchecked(params[:id]).length
+    array = @notifications.map { |n| {msg: n.to_s, url: notification_path(n)} }
 
     respond_to do |format|
       format.html # recent.html.erb
-      format.json { render json: {:notifications => @notifications, :length => @length} }
+      format.json { render json: {:notifications => array, :length => @length} }
     end
   end
 

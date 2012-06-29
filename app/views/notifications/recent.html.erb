@@ -9,7 +9,7 @@
 
 <% @notifications.each do |notification| %>
   <tr>
-    <td><%= link_to 'Show', notification %></td>
+    <td><%= link_to raw(notification.to_s), notification %></td>
     <td><%= link_to 'Destroy', notification, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

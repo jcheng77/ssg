@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Notification
   include Mongoid::Document
   include Mongoid::Timestamps::Created
@@ -62,21 +63,21 @@ class Notification
   def to_s
     case self.type
       when TYPE_FOLLOW then
-        return "user #{sender.full_name} followed you"
+        return "<em>#{sender.full_name}</em> 关注了你"
       when TYPE_ACTIVATE then
         return "#{sender.full_name} is activated"
       when TYPE_SHARE then
-        return "user #{sender.full_name} shared #{object.item.title} with you"
+        return "<em>#{sender.full_name}</em> 分享了 <em>#{object.item.title}</em>"
       when TYPE_BAG then
-        return "user #{sender.full_name} added #{object.item.title} to bags"
+        return "<em>#{sender.full_name}</em> 把 <em>#{object.item.title}</em> 放入了背包"
       when TYPE_WISH then
-        return "user #{sender.full_name} added #{object.item.title} to wishes"
+        return "<em>#{sender.full_name}</em> 把 <em>#{object.item.title}</em> 添加到了愿望清单"
       when TYPE_COMMENT then
-        return "user #{sender.full_name} commented your share"
+        return "<em>#{sender.full_name}</em> 评论了你的分享"
       when TYPE_AT_SHARE then
-        return "user #{sender.full_name} @ you in his/her share"
+        return "#{sender.full_name} @ you in his/her share"
       when TYPE_AT_COMMENT then
-        return "user #{sender.full_name} @ you in his/her comment"
+        return "#{sender.full_name} @ you in his/her comment"
       else
         "Invalid Notification Type#{type}"
     end
