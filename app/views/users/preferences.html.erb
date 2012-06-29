@@ -18,9 +18,10 @@
         </div>
         <ul class="thumbnails">
             <% categories.each_with_index do |c, i| %>
+              <% break if i == categories.count-1  %>
                 <li class="span3">
                     <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
-                        <img src="http://placehold.it/260x180" alt="">
+                      <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
                         <span class="selected_pref"></span>
                         <div class="caption">
                             <h5 style="text-align: center;"><%= c %></h5>
