@@ -103,7 +103,8 @@ module TaobaoApiHelper
 
     json = call_taobao "taobao.taobaoke.items.convert", params
 
-    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON
+    # return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON
+    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON && json["taobaoke_items_convert_response"]["total_results"]!=0
   end
  
   # get the rating/comment of your shopping history
