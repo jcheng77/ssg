@@ -5,10 +5,12 @@ require 'net/http'
 require 'uri'
 require 'digest/md5'
 
-source 'http://rubygems.org'
-#source 'http://ruby.taobao.org/'  
+#source 'http://rubygems.org'
+source 'http://ruby.taobao.org/'  
 
 gem 'rails', '3.1.3'
+gem 'sprockets', '~> 2.0.0.beta.14'
+
 #gem 'mongo_mapper'
 gem 'mongoid'
 gem 'nestful'
@@ -52,7 +54,7 @@ gem 'mongo_followable'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '3.1.4'
+  gem 'sass-rails' , '3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
