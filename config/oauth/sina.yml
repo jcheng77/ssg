@@ -1,11 +1,11 @@
 development:
       key:    "1408937818"
       secret: "613b940d9fe14180aa01ce294e1ddf8a"
-      url:    "http://www.ixiangmai.com"
+      url:    "boluo.me"
       callback: "http://localhost:3000/syncs/sina/callback"
 production:
       key:    "1408937818"
       secret: "613b940d9fe14180aa01ce294e1ddf8a"
-      url:    "http://ixiangmai.com"
-      callback: "http://ssgcloud.heroku.com/syncs/sina/callback"
+      url:    "boluo.me"
+      callback: "http://boluo.me/syncs/sina/callback"
 
