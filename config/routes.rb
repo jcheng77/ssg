@@ -29,19 +29,14 @@ Ssg::Application.routes.draw do
       get 'edit_account'
       put 'update_account'
       get 'edit_preferences'
-      get 'recent_notification'
       put 'update_preferences'
       # resources :categories
-      resources :notifications, :only => [:index, :show] do
-        collection do
-          get 'recent'
-        end
-      end
+      resources :notifications, :only => [:index, :show]
     end
 
     collection do
       get 'signup'
-      get 'recent_notification'
+      get 'recent_notifications'
     end
   end
 

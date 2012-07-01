@@ -203,12 +203,13 @@
        var me = this; 
        setTimeout(function(){
             $.ajax({
-               url: '/user/current_recent',
+               url: '/users/recent_notifications',
                type: 'GET',
                dataType: 'json',
                success: function(data){
                    me.$element.html(data.length);
                    me.$element.css('display',data.length > 0 ? '' : 'none');
+                   me.notifications = data.notifications
                },
                error: function() {
                    alert('error occured!');

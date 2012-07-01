@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   layout 'application1'
   #before_filter :authenticate_user!
-  
+
   # GET /users
   # GET /users.json
   # localhost:3000/users/index
   def index
     @users = User.all
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -172,7 +172,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   # GET /users/1
   # GET /users/1.json
   def show
@@ -188,7 +188,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -256,13 +256,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def recent_notification 
+  # GET /users/recent_notifications
+  def recent_notifications
     @user = current_user
+    @notifications = Notification.recent_limit @user._id
+    @length = Notification.receiver_unchecked(@user._id).length
+    array = @notifications.map { |n| {msg: n.to_s, url: notification_path(n)} }
 
     respond_to do |format|
-      format.html { redirect_to "/users/#{@user._id}/notifications/recent" }
-      format.json {}
-      end
+      format.html { render layout: 'application' }
+      format.json { render json: {:notifications => array, :length => @length} }
+    end
   end
-
 end
