@@ -27,6 +27,7 @@ Ssg::Application.routes.draw do
       get 'unfollow'
       get 'account'
       get 'edit_account'
+      put 'update_account'
       get 'edit_preferences'
       get 'recent_notification'
       put 'update_preferences'

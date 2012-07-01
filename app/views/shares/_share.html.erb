@@ -17,17 +17,8 @@
                 <%= image_tag small_avatar_url(share.user.avatar) %>
                 </a>
                 <div class="user_info">
-                    <%= link_to share.user.full_name, my_shares_user_path(share.user) %>
+                    <%= link_to share.user.full_name, account_user_path(share.user) %>
                 </div>
-                <% if current_user != share.user %>
-                    <span class="user-block-link <%= "#{share.user._id}-follow" %>">
-                    <%=
-                        link_to_unless current_user.follower_of?(share.user), '关注', follow_user_path(share.user), remote: true, class: "btn btn-small btn-success" do
-                            link_to '取消关注', unfollow_user_path(share.user), remote: true, class: "btn btn-small btn-success"
-                        end
-                    %>
-                    </span>
-                <% end %>
 
             <div class="user_comment"><%= share.comment_content %></div>
           </div>

@@ -1,91 +1,53 @@
-<div class="row main">
+<div class="row">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
-        <ul class="nav nav-pills nav-stacked sidebars" style="margin-top: 15px;">
-            <li class="active"><%= link_to "我的关注", dashboard_user_path(current_user) %></li>
-            <li><%= link_to "我的分享", my_shares_user_path(current_user) %></li>
-            <li><a href="#">好友的分享</a></li>
-            <li><a href="#">热门推荐</a></li>
-        </ul>
     </div>
     <div class="span10 account">
-        <h1><%= @user.full_name %></h1>
-        <form class="form-horizontal">
+        <h1 class="page-header"><%= @user.full_name %></h1>
+        <%= form_for @user, :url => update_account_user_path(@user), :method => :put, :html => {:class => "form-horizontal"} do |f| %>
             <fieldset>
                 <div class="control-group">
-                    <label class="control-label" for="focusedInput">Focused input</label>
+                    <%= f.label :city, '城市', :class => "control-label" %>
 
                     <div class="controls">
-                        <input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
+                        <%= f.text_field :city, :class => "input-medium focused" %>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Uneditable input</label>
+                    <%= f.label :birthday, '生日', :class => "control-label" %>
 
                     <div class="controls">
-                        <span class="input-xlarge uneditable-input">Some value here</span>
+                        <%= f.date_select :birthday, :start_year => Time.now.year - 100, :end_year => Time.now.year %>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="disabledInput">Disabled input</label>
+                    <%= f.label :email, '邮箱', :class => "control-label" %>
 
                     <div class="controls">
-                        <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Disabled input here…" disabled="">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-envelope"></i></span><%= f.text_field :email, :class => "input-large" %>
+                        </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="optionsCheckbox2">Disabled checkbox</label>
+                    <%= f.label :address, '地址', :class => "control-label" %>
 
                     <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" id="optionsCheckbox2" value="option1" disabled="">
-                            This is a disabled checkbox
-                        </label>
+                        <%= f.text_field :address, :class => "input-xlarge focused" %>
                     </div>
                 </div>
-                <div class="control-group warning">
-                    <label class="control-label" for="inputWarning">Input with warning</label>
+                <div class="control-group">
+                    <%= f.label :introduction, '个人简介', :class => "control-label" %>
 
                     <div class="controls">
-                        <input type="text" id="inputWarning">
-                        <span class="help-inline">Something may have gone wrong</span>
-                    </div>
-                </div>
-                <div class="control-group error">
-                    <label class="control-label" for="inputError">Input with error</label>
-
-                    <div class="controls">
-                        <input type="text" id="inputError">
-                        <span class="help-inline">Please correct the error</span>
-                    </div>
-                </div>
-                <div class="control-group success">
-                    <label class="control-label" for="inputSuccess">Input with success</label>
-
-                    <div class="controls">
-                        <input type="text" id="inputSuccess">
-                        <span class="help-inline">Woohoo!</span>
-                    </div>
-                </div>
-                <div class="control-group success">
-                    <label class="control-label" for="selectError">Select with success</label>
-
-                    <div class="controls">
-                        <select id="selectError">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <span class="help-inline">Woohoo!</span>
+                        <%= f.text_area :introduction, :rows => 5, :class => "input-xlarge focused" %>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">保存修改</button>
-                    <button class="btn">取消</button>
+                    <%= f.submit "保存修改", :class => "btn btn-primary" %>
+                    <%= link_to "取消", account_user_path(@user), :class => "btn" %>
                 </div>
             </fieldset>
-        </form>
+        <% end %>
     </div>
 </div>

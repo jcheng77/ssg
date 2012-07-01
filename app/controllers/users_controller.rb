@@ -149,11 +149,27 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/edit_account
   def edit_account
     @user = User.find(params[:id])
 
     respond_to do |format|
       format.html { render layout: 'application' }
+    end
+  end
+
+  # PUT /users/1/update_account
+  def update_account
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to account_user_url(@user) }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit_account" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
   

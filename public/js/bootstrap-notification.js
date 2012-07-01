@@ -199,15 +199,26 @@
     }
 
    , prepareData: function() {
-       this.notifications = [{msg: 'Your share was commented', url: 'http://www.google.com'},
-                             {msg: 'Your share was commented', url: 'http://www.google.com'},
-                             {msg: 'Your share was commented', url: 'http://www.google.com'},
-                             {msg: 'Your share was commented', url: 'http://www.google.com'}];
+       this.notifications = [];
+       var me = this; 
+       setTimeout(function(){
+            $.ajax({
+               url: '/user/current_recent',
+               type: 'GET',
+               dataType: 'json',
+               success: function(data){
+                   me.$element.html(data.length);
+                   me.$element.css('display',data.length > 0 ? '' : 'none');
+               },
+               error: function() {
+                   alert('error occured!');
+               }
+           });
+       },me.options.pollingInterval);
     }
 
   , getContent: function () {
       var nf, content = [];
-      this.prepareData();
       for (var i = 0; i < this.notifications.length; i++) {
           nf = this.notifications[i];
           content.push('<a href="',nf.url,'">', nf.msg , '</a>');
@@ -264,6 +275,7 @@
   $.fn.notification.defaults = {
     animation: true
   , delay: 0
+  , pollingInterval: 10
   , selector: false
   , placement: 'in bottom'
   , trigger: 'hover'
@@ -272,7 +284,9 @@
   }
     
   $(document).ready(function(){
-      $('#notification-badge').notification();
+      $('#notification-badge').notification().css('display','none');
+      var instance = $('#notification-badge').data('notification');
+      instance.prepareData();
   })
 
 }( window.jQuery );

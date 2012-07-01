@@ -1,13 +1,12 @@
 class User
 
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
   include Mongo::Voter
   include Mongo::Follower
   include Mongo::Followable
 
   #devise :registerable, :database_authenticatable, :recoverable
-
-
 
   field :full_name, type: String # 
   field :nick_name, type: String #
@@ -28,6 +27,12 @@ class User
   field :preferences, type: Array, default: []
   field :point, type: Integer, default: 0
   field :active, type: Integer, default: 0
+
+  field :birthday, type: Date
+  field :introduction, type: String
+  field :city, type: String
+  field :address, type: String
+
 
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
   
