@@ -34,6 +34,7 @@ Ssg::Application.routes.draw do
       resources :notifications, :only => [:index, :show] do
         collection do
           get 'recent'
+          get 'current_recent'
         end
       end
     end
@@ -74,6 +75,7 @@ Ssg::Application.routes.draw do
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"
   match "collect" => "items#collect", :as => :collecter
+  match "user/current_recent" => "user#current_recent"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
