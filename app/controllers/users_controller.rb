@@ -239,4 +239,14 @@ class UsersController < ApplicationController
       format.html {}
     end
   end
+
+  def recent_notification 
+    @user = current_user
+
+    respond_to do |format|
+      format.html { redirect_to "/users/#{@user._id}/notifications/recent" }
+      format.json {}
+      end
+  end
+
 end

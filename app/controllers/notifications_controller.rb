@@ -23,17 +23,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def current_recent
-    @notifications = Notification.recent_limit current_user
-    @length = Notification.receiver_unchecked(current_user).length
-    array = @notifications.map { |n| {msg: n.to_s, url: notification_path(n)} }
-
-    respond_to do |format|
-      format.html # recent.html.erb
-      format.json { render json: {:notifications => array, :length => @length} }
-    end
-  end
-
   # GET /user/1/notifications/1
   # GET /user/1/notifications/1.json
   def show

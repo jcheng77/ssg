@@ -28,18 +28,19 @@ Ssg::Application.routes.draw do
       get 'account'
       get 'edit_account'
       get 'edit_preferences'
+      get 'recent_notification'
       put 'update_preferences'
       # resources :categories
       resources :notifications, :only => [:index, :show] do
         collection do
           get 'recent'
-          get 'current_recent'
         end
       end
     end
 
     collection do
       get 'signup'
+      get 'recent_notification'
     end
   end
 
@@ -74,7 +75,7 @@ Ssg::Application.routes.draw do
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"
   match "collect" => "items#collect", :as => :collecter
-  match "user/current_recent" => "user#current_recent"
+  #match "user/recent_notification" => "user#recent_notification" , :as => :recent_notification
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
