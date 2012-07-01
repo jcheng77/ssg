@@ -5,7 +5,7 @@
     border-top: 1px solid #D4D4D4;
 }
 .main{
-    .span10{
+    .span8{
         margin: 0;
         border-left: 1px solid #D4D4D4;
         padding-left: 28px;
@@ -45,19 +45,38 @@ ul.category:after{
         position: relative;
     }
 }
-.account {
+.account {   
+    a {
+        font-weight: normal;
+        text-decoration: underline;
+    }
     h1 {
-        margin: 20px 0 20px 0;
         font-size: 20px;
     }
-    p {
-        margin: 10px 0 10px 0;
+    dt {
+        line-height: 20px;
     }
-    a {
-        margin-top: 20px;
+    dd {
+        line-height: 20px;
+        margin-left: 0px;
+        margin-bottom: 5px;
+    }
+    select {
+        width: 100px;
     }
     .form-actions {
         background-color: white;
+        a {
+            text-decoration: none;
+        }
     }
+}
+
+.dashboard .comment-sub, .myshares .comment-sub {
+    width: 490px;
+    float: left;
+}
+.dashboard .comment-sub .comment-info, .myshares .comment-sub .comment-info {
+    width: 430px;
 }
 
