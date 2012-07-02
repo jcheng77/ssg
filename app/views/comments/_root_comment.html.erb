@@ -3,7 +3,7 @@
 
     <div class="pull-right comment-info">
         <p>
-            <%= link_to root_comment.user.full_name, account_user_path(root_comment.user) %><span><%= root_comment.created_at.to_s :db %></span>
+            <%= link_to root_comment.user.nick_name, account_user_path(root_comment.user) %><span><%= root_comment.created_at.to_s :db %></span>
         </p>
 
         <p><%= root_comment.content %></p>

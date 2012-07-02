@@ -8,21 +8,13 @@ class User
 
   #devise :registerable, :database_authenticatable, :recoverable
 
-  field :full_name, type: String # 
   field :nick_name, type: String #
-  field :userid, type: String
   field :email, type: String
   field :password, type: String
   field :password_salt, type: String
-  field :avatar, type: String #  
+  field :avatar, type: String  
 
   field :gender, type: Integer # 0 female/1 male/gay/lesbian/bisexual etc.
-  field :dob, type: Date # date actually
-  # field :tags, type: Array # system generated tags for this user, according to his/her share/like
-  field :access_token, type: String
-  field :token_secret, type: String
-
-  field :session_key, type: String
 
   field :preferences, type: Array, default: []
   field :point, type: Integer, default: 0
@@ -51,7 +43,7 @@ class User
   validates_uniqueness_of :nick_name
   validates_format_of :email, :with => email_regexp, :on => :update
  
-  before_save :encrypt_password, :save_fullname
+  before_save :encrypt_password
 
   def followed_shares(categories = [])
     return [] if categories.blank?
@@ -135,10 +127,6 @@ class User
       self.password_salt = BCrypt::Engine.generate_salt
       self.password = BCrypt::Engine.hash_secret(password,password_salt)
     end
-  end
-
-  def save_fullname
-    self.full_name ||= self.nick_name
   end
 
   def activate
