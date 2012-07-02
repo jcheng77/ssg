@@ -3,7 +3,7 @@
         <%= render :partial => "avatar", :object => @user %>
     </div>
     <div class="span10 account">
-        <h1 class="page-header"><%= @user.full_name %></h1>
+        <h1 class="page-header"><%= @user.nick_name %></h1>
         <%= form_for @user, :url => update_account_user_path(@user), :method => :put, :html => {:class => "form-horizontal"} do |f| %>
             <fieldset>
                 <div class="control-group">

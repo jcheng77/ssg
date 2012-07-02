@@ -4,7 +4,7 @@
 
 <p>
     <i>_id: <%= @user._id %></i><br/>
-    <b>Full Name:</b> <%= @user.full_name %><br/>
+    <b>Full Name:</b> <%= @user.nick_name %><br/>
     <b>Nick Name:</b> <%= @user.nick_name %><br/>
     <img src="<%= @user.avatar %>"/>
 </p>
@@ -12,7 +12,7 @@
     <b>I'm following:</b>
 <ul>
     <% @user.followees_by_type(User.name).each do |f| %>
-        <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %> | <%= link_to 'unfollow', unfollow_user_path(f) %></li>
+        <li><%= link_to "#{f.nick_name} (#{f.nick_name})", f %> | <%= link_to 'unfollow', unfollow_user_path(f) %></li>
     <% end %>
 </ul>
 </p>
@@ -21,7 +21,7 @@
     <b>My followers:</b>
 <ul>
     <% @user.followers_by_type(User.name) do |f| %>
-        <li><%= link_to "#{f.full_name} (#{f.nick_name})", f %></li>
+        <li><%= link_to "#{f.nick_name} (#{f.nick_name})", f %></li>
     <% end %>
 </ul>
 </p>
@@ -30,7 +30,7 @@
     <b>My shares:</b>
 <ul>
     <% @user.shares.each do |f| %>
-        <li><%= link_to "#{f.user.full_name}'s share about (#{f.item.title})", f %></li>
+        <li><%= link_to "#{f.user.nick_name}'s share about (#{f.item.title})", f %></li>
     <% end %>
 </ul>
 </p>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'application1'
+  layout 'application'
   #before_filter :authenticate_user!
 
   # GET /users
@@ -203,10 +203,19 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+
+    if session[:current_user]
+      @user = session[:current_user]
+      @user.update_attributes(params[:user])
+      session[:current_user_id] = @user._id
+      session[:current_user] = nil
+    else
+      @user = User.new(params[:user])
+    end
 
     respond_to do |format|
       if @user.save
+        session[:current_user_id] = @user._id
         format.html { redirect_to edit_preferences_user_url(@user) }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -246,14 +255,15 @@ class UsersController < ApplicationController
 
   # GET /users/signup
   def signup
-    # @user = User.find(params[:id])
-    @user = User.find(params[:id])
-    session[:current_user_id] = @user._id
+
+    @user = session[:current_user]
     @username = params[:name]
 
     respond_to do |format|
-      format.html {}
+      format.html { render :layout => false}
+      format.json { head :ok }
     end
+
   end
 
   # GET /users/recent_notifications

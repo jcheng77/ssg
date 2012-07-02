@@ -17,7 +17,7 @@
                 <%= image_tag small_avatar_url(share.user.avatar) %>
                 </a>
                 <div class="user_info">
-                    <%= link_to share.user.full_name, account_user_path(share.user) %>
+                    <%= link_to share.user.nick_name, account_user_path(share.user) %>
                 </div>
 
             <div class="user_comment"><%= share.comment_content %></div>

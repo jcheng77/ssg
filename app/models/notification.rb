@@ -63,21 +63,21 @@ class Notification
   def to_s
     case self.type
       when TYPE_FOLLOW then
-        return "<em>#{sender.full_name}</em> 关注了你"
+        return "<em>#{sender.nick_name}</em> 关注了你"
       when TYPE_ACTIVATE then
-        return "#{sender.full_name} is activated"
+        return "#{sender.nick_name} is activated"
       when TYPE_SHARE then
-        return "<em>#{sender.full_name}</em> 分享了 <em>#{object.item.title}</em>"
+        return "<em>#{sender.nick_name}</em> 分享了 <em>#{object.item.title}</em>"
       when TYPE_BAG then
-        return "<em>#{sender.full_name}</em> 把 <em>#{object.item.title}</em> 放入了背包"
+        return "<em>#{sender.nick_name}</em> 把 <em>#{object.item.title}</em> 放入了背包"
       when TYPE_WISH then
-        return "<em>#{sender.full_name}</em> 把 <em>#{object.item.title}</em> 添加到了愿望清单"
+        return "<em>#{sender.nick_name}</em> 把 <em>#{object.item.title}</em> 添加到了愿望清单"
       when TYPE_COMMENT then
-        return "<em>#{sender.full_name}</em> 评论了你的分享"
+        return "<em>#{sender.nick_name}</em> 评论了你的分享"
       when TYPE_AT_SHARE then
-        return "#{sender.full_name} @ you in his/her share"
+        return "#{sender.nick_name} @ you in his/her share"
       when TYPE_AT_COMMENT then
-        return "#{sender.full_name} @ you in his/her comment"
+        return "#{sender.nick_name} @ you in his/her comment"
       else
         "Invalid Notification Type#{type}"
     end

@@ -17,9 +17,14 @@ gem 'nestful'
 gem 'topsdk'
 gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'mongoid_session_store'
+
 #gem 'therubyracer', :platforms => :ruby
+#
 #gem "mongo_mapper-rails3", :require => "mongo_mapper"
-gem 'mongo_session_store-rails3'
+#gem 'mongo_session_store-rails3'
+
+
 #gem 'devise', '1.4.7'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
 #
