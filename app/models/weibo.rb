@@ -1,5 +1,7 @@
 class Weibo
 
+  KEY_MAP = {"openid" => "id" , "name" => "name" , "head" => "profile_image_url", "location" => "location", "email" => "email" , "birth_day" => "birth_day", "birth_month" => "birth_month", "birth_year" => "birth_year", "birthday" => "birthday" }
+
   def initialize(type)
    @type = type 
   end
@@ -81,11 +83,7 @@ class Weibo
     # The hash key of returned json object from QQ weibo is different from the one returned from Sina weibo.
     # So the ids and names needs to be extracted from the json object
 
-    if @type == 'qq'
-      return extract_user_info(userhash)
-    else
-      return userhash
-    end
+    return extract_user_info(userhash)
   end
 
 
@@ -107,10 +105,12 @@ class Weibo
   #extract id and name and profile image infomation from the json object returned from QQ weibo
   def extract_user_info(hash)
     if hash.has_key?('data')
-      userhash = { "id" => hash["data"]["openid"], "name" => hash["data"]["name"] , "profile_image_url" => hash["data"]["head"]}
-      return userhash
+      hashdata = hash["data"]
+      userhash = Hash[hashdata.map { |k,v| [ KEY_MAP[k], v ] }]
+      #userhash = { "id" => hashdata["openid"], "name" => hashdata["name"] , "profile_image_url" => hashdata["head"], "location" => hashdata["location"], "email" => hashdata["email"] , "birthday" => "#{hashdata["birth_year"]}#{hashdata["birth_month"]}#{hashdata["birth_day"]}" , "description" => hashdata["description"] }
+    else
+      hash.select {|k,v| KEY_MAP.values.index(k) }
     end  
-    return hash
   end
 
 

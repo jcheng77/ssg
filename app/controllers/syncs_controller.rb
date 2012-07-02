@@ -32,14 +32,18 @@ class SyncsController < ApplicationController
       users.each do |user| 
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
       end
-      binding.pry
 
+      binding.pry
       #exists = User.all.each.accounts.where(aid: userinfo["id"].to_s ).first
 
       if account.nil?
       
       cur_user = User.new
       cur_user.accounts.create( :type => params[:type], :aid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
+
+      userinfo.delete("id")
+      cur_user.update_attributes(userinfo)
+
       #
       #user = User.create( :userid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
       #

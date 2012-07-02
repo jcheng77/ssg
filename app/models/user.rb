@@ -21,7 +21,7 @@ class User
   field :active, type: Integer, default: 0
 
   field :birthday, type: Date
-  field :introduction, type: String
+  field :description, type: String
   field :city, type: String
   field :address, type: String
 
