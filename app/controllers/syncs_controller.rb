@@ -27,26 +27,28 @@ class SyncsController < ApplicationController
 
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
-      cur_user = nil
+      account = nil
       users = User.all
       users.each do |user| 
-        cur_user = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
+        account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
       end
+      binding.pry
 
       #exists = User.all.each.accounts.where(aid: userinfo["id"].to_s ).first
 
-      if cur_user.nil?
+      if account.nil?
       
       cur_user = User.new
-      cur_user.accounts.create( :aid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
+      cur_user.accounts.create( :type => params[:type], :aid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
       #
       #user = User.create( :userid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
       #
       session[:current_user] = cur_user
       redirect_to :controller => "users", :action => "signup" ,:id => cur_user._id , :name => userinfo["name"]
-      #redirect_to dashboard_user_path(user._id)
+
       else
-         session[:current_user_id] = cur_user._id
+        cur_user = account.user
+        session[:current_user_id] = cur_user._id
         if cur_user.active == 1 || cur_user.active == 0
           redirect_to dashboard_user_path(current_user)
         else
