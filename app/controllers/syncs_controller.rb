@@ -33,7 +33,6 @@ class SyncsController < ApplicationController
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
       end
 
-      binding.pry
       #exists = User.all.each.accounts.where(aid: userinfo["id"].to_s ).first
 
       if account.nil?
