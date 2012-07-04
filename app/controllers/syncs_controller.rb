@@ -27,6 +27,7 @@ class SyncsController < ApplicationController
 
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
+      binding.pry
       account = nil
       users = User.all
       users.each do |user| 
@@ -50,9 +51,9 @@ class SyncsController < ApplicationController
       redirect_to :controller => "users", :action => "signup" ,:id => cur_user._id , :name => userinfo["name"]
 
       else
-        cur_user = account.user
-        session[:current_user_id] = cur_user._id
-        if cur_user.active == 1 || cur_user.active == 0
+        
+        session[:current_user_id] = account.user._id
+        if current_user.active == 1 || current_user.active == 0
           redirect_to dashboard_user_path(current_user)
         else
           redirect_to :controller => "invitation" , :action => "new"
