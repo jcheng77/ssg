@@ -66,7 +66,6 @@ class TaobaoController < ApplicationController
       
       user = User.create( :userid => top_params["visitor_id"], :session_key => top_params["top_session"])
       session[:current_user_id] = user._id
-      binding.pry
       redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => top_params["visitor_nick"]
       else
       session[:current_user_id] = exists._id

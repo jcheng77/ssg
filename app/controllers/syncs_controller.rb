@@ -27,11 +27,9 @@ class SyncsController < ApplicationController
 
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
-      binding.pry
       account = nil
       users = User.all
       users.each do |user| 
-        binding.pry
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
         break if account
       end 
