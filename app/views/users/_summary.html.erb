@@ -3,9 +3,9 @@
     <div class="pull-right friend-info">
         <h5><%= link_to summary.nick_name, my_shares_user_path(summary) %></h5>
         <ul>
-            <li>推荐 180</li>
-            <li>购买 153</li>
-            <li>愿望 22</li>
+            <li>推荐 <%= summary.shares.size%></li>
+            <li>购买 <%= summary.bags.size%></li>
+            <li>愿望 <%= summary.wishes.size%></li>
         </ul>
         <% summary.recent_shares.each do |share| %>
             <%= link_to share do %>
