@@ -203,7 +203,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-
     if session[:current_user]
       @user = session[:current_user]
       @user.update_attributes(params[:user])
@@ -228,10 +227,18 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    if session[:current_user]
+      @user = session[:current_user]
+      @user.update_attributes(params[:user])
+      session[:current_user_id] = @user._id
+      session[:current_user] = nil
+    else
+      @user = User.new(params[:user])
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        session[:current_user_id] = @user._id
         format.html { redirect_to edit_preferences_user_url(@user) }
         format.json { head :ok }
       else
@@ -274,6 +281,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render layout: 'application' }
       format.json { render json: {:notifications => array, :length => @length} }
+    end
+  end
+
+  # GET /users/all_notifications
+  def all_notifications
+    @user = current_user
+
+    respond_to do |format|
+      format.html { redirect_to notifications_url(@user) }
     end
   end
 end

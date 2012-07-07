@@ -7,6 +7,14 @@
                     $(".child-comments", block).fadeToggle("slow", "linear");
                 });
             });
+            <% if flash[:highlighted] %>
+            var comment = $("#<%= flash[:highlighted] %>-comment");
+            comment.addClass("highlighted");
+            setTimeout(function () {
+                comment.removeClass("highlighted");
+            }, 5000);
+            $("div ul a", comment.parent().prev()).first().click();
+            <% end %>
         });
     </script>
 <% end %>
@@ -60,9 +68,9 @@
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
     <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
-          <% unless @item == item %>
-            <%= render :partial => "items/item", :object => item %>
-          <% end %>
+            <% unless @item == item %>
+                <%= render :partial => "items/item", :object => item %>
+            <% end %>
         <% end %>
     </ul>
 </div>

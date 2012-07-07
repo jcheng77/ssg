@@ -127,6 +127,12 @@ body {
     }
 }
 
+.child-comments {
+    .highlighted {
+        border-color: red;
+    }
+}
+
 .comment-sub {
     margin-left: 0px;
     margin-top: 10px;
