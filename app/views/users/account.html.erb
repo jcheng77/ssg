@@ -21,10 +21,13 @@
             <dd><%= account_info @user.description %></dd>
         </dl>
         <dl class="page-header">
-            <dt>感兴趣的分类<% if current_user == @user then %> &minus; <%= link_to "编辑", edit_preferences_user_path(@user) %> <% end %></dt>
+            <dt>感兴趣的分类
+                <% if current_user == @user then %> &minus; <%= link_to "编辑", edit_preferences_user_path(@user) %><% end %></dt>
             <dd><%= account_info @user.preferences.join(", ") %></dd>
         </dl>
-        <%= link_to "修改个人资料", edit_account_user_path(@user) %>
+        <% if current_user == @user then %>
+            <%= link_to "修改个人资料", edit_account_user_path(@user) %>
+        <% end %>
     </div>
 </div>
 <div class="row" style="margin-top: 30px;">

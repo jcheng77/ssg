@@ -1,15 +1,37 @@
-				<div class="steps_2">第2步：设置/完善您的帐号信息</div>
-				<div>
-          <%= form_for @user do |f| %>
-          <%= f.label :nick_name %>
-          <%= f.text_field :nick_name , :value => @username %>
-          <%= f.label :email %>
-          <%= f.text_field :email %>
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-          <% if @user.avatar.nil? %>
-          <%= hidden_field_tag "user[avatar]", @user.accounts.last.avatar %>
-        <% end%>
-          <%= f.submit "完成" %>
-        <% end %>
-				</div>
+<div class="row signup">
+    <div class="page-header"><h4>第2步：设置/完善您的帐号信息</h4></div>
+
+    <%= form_for @user, :html => {:class => "form-horizontal"} do |f| %>
+        <fieldset>
+            <div class="control-group">
+                <%= f.label :nick_name, '昵称', :class => "control-label" %>
+
+                <div class="controls">
+                    <%= f.text_field :nick_name, :value => @username, :class => "input-medium focused" %>
+                </div>
+            </div>
+            <div class="control-group">
+                <%= f.label :email, '邮箱', :class => "control-label" %>
+
+                <div class="controls">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-envelope"></i></span><%= f.text_field :email, :class => "input-large" %>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <%= f.label :password, '密码', :class => "control-label" %>
+
+                <div class="controls">
+                    <%= f.password_field :password, :class => "input-medium focused" %>
+                </div>
+            </div>
+            <% if @user.avatar.nil? %>
+                <%= hidden_field_tag "user[avatar]", @user.accounts.last.avatar %>
+            <% end %>
+            <div class="form-actions">
+                <%= f.submit "完成", :class => "btn btn-primary" %>
+            </div>
+        </fieldset>
+    <% end %>
+</div>

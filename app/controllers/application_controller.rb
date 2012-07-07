@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :categories, :current_categories
 
   def current_user
-    @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
+    @current_user ||= session[:current_user_id] && User.where(:_id => session[:current_user_id]).first
   end
 
   def current_categories(category = nil)

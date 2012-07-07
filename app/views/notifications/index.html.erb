@@ -1,18 +1,14 @@
-<h1>Listing notifications</h1>
+<div class="row all_notifications">
+    <div class="page-header"><h4>我的通知</h4></div>
+    <% @notifications.each do |n| %>
+        <div class="single_notification">
+            <%= image_tag small_avatar_url(n.sender.avatar), width: 35, class: "pull-left" %>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @notifications.each do |notification| %>
-  <tr>
-    <td><%= link_to 'Show', notification %></td>
-    <td><%= link_to 'Destroy', notification, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
+            <div class="pull-left notification_block">
+                <%= link_to raw(n), n %>
+                <h6><%= n.created_at %></h6>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    <% end %>
+</div>
