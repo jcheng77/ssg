@@ -255,15 +255,13 @@ class UsersController < ApplicationController
 
   # GET /users/signup
   def signup
-
     @user = session[:current_user]
     @username = params[:name]
 
     respond_to do |format|
-      format.html { render :layout => false}
+      format.html { render layout: 'application' }
       format.json { head :ok }
     end
-
   end
 
   # GET /users/recent_notifications

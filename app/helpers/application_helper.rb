@@ -1,6 +1,9 @@
 module ApplicationHelper
-  def my_form_for(*args, &block)
-    options=args.extract_options!.merge(:builder => LabeledFormBuilder)
-    form_for(*(args + [options]), &block)
+  def empty_link_if(condition, name)
+    if condition
+      link_to name, "javascripts: void(0);"
+    else
+      link_to name, yield
+    end
   end
 end

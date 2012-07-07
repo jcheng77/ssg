@@ -72,6 +72,18 @@ ul.category:after{
     }
 }
 
+.signup {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    h1 {
+        font-size: 20px;
+    }
+    .form-actions {
+        background-color: white;
+    }
+}
+
 .dashboard .comment-sub, .myshares .comment-sub {
     width: 490px;
     float: left;
