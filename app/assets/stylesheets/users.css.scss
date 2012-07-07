@@ -45,7 +45,12 @@ ul.category:after{
         position: relative;
     }
 }
-.account {   
+.account {
+    .user-block-link {
+        a {
+            text-decoration: none;
+        }
+    }
     a {
         font-weight: normal;
         text-decoration: underline;

@@ -106,6 +106,7 @@ class ItemsController < ApplicationController
     if @recommend.persisted? && @comment.persisted?
       current_user.follow @item
       current_user.follow @recommend
+      current_user.followers_by_type(User.name).each { |user| user.follow @recommend }
       respond_to do |format|
         format.html { redirect_to @recommend }
         format.js { render "comments/create_root" }
@@ -248,7 +249,7 @@ class ItemsController < ApplicationController
       @item.update_attribute(:root_share_id, @share._id)
       current_user.follow @item
       current_user.follow @share
-
+      current_user.followers_by_type(User.name).each { |user| user.follow @share }
     end
     return true
   end
