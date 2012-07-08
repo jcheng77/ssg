@@ -7,7 +7,7 @@
                 <%= f.label :nick_name, '昵称', :class => "control-label" %>
 
                 <div class="controls">
-                    <%= f.text_field :nick_name, :value => @username, :class => "input-medium focused" %>
+                    <%= f.text_field :nick_name, :value => @user.accounts.last.nick_name, :class => "input-medium focused" %>
                 </div>
             </div>
             <div class="control-group">
