@@ -27,7 +27,9 @@
             }else{
                 val = $.trim(this.input.val());
             }
-            this.appendTag(val);
+            if(val){
+                this.appendTag(val);
+            }
         }
         , getValue: function(){
             var a = [];
@@ -205,10 +207,6 @@
                     this.hide()
                     break
 
-                case 8:
-                    this.deleteLastTag();
-                    break;
-
                 default:
                     this.lookup()
             }
@@ -217,7 +215,7 @@
 
         , keypress: function (e) {
             e.stopPropagation()
-            if (!this.shown) return
+            //if (!this.shown) return
 
             switch(e.keyCode) {
                 case 9: // tab
@@ -235,6 +233,10 @@
                     e.preventDefault()
                     this.next()
                     break
+
+                case 8: //backspace
+                    this.deleteLastTag();
+                    break;
             }
         }
 
