@@ -39,17 +39,17 @@ class SyncsController < ApplicationController
 
       if account.nil?
       
-      cur_user = User.new
-      cur_user.accounts.create( :type => params[:type], :aid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
+      binding.pry
+      aid = userinfo.delete("id")
+      cur_user = User.new(userinfo)
+      cur_user.accounts.new( :type => params[:type], :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
 
-      userinfo.delete("id")
-      cur_user.update_attributes(userinfo)
 
       #
       #user = User.create( :userid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
       #
       session[:current_user] = cur_user
-      redirect_to :controller => "users", :action => "signup" ,:id => cur_user._id , :name => userinfo["name"]
+      redirect_to :controller => "users", :action => "signup" 
 
       else
         

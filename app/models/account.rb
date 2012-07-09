@@ -3,7 +3,7 @@ class Account
 
   field :type, type: String
   field :aid, type: String # account id from 3rd party, e.g. weibo:13123, tb:xxx, tmall:xxxx, qq:xxx
-  field :name, type:String
+  field :nick_name, type:String
   field :access_token, type: String # authorization key
   field :token_secret, type: String # authorization key
   field :session_key, type: String

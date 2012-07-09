@@ -263,7 +263,6 @@ class UsersController < ApplicationController
   # GET /users/signup
   def signup
     @user = session[:current_user]
-    @username = params[:name]
 
     respond_to do |format|
       format.html { render layout: 'application' }
@@ -274,9 +273,13 @@ class UsersController < ApplicationController
   # GET /users/recent_notifications
   def recent_notifications
     @user = current_user
-    @notifications = Notification.recent_limit @user._id
-    @length = Notification.receiver_unchecked(@user._id).length
-    array = @notifications.map { |n| {msg: n.to_s, url: notification_path(n)} }
+    if @user.nil?
+      array = [] , length = 0
+    else
+      @notifications = Notification.recent_limit @user._id
+      @length = Notification.receiver_unchecked(@user._id).length
+      array = @notifications.map { |n| {msg: n.to_s, url: notification_path(n)} }
+    end
 
     respond_to do |format|
       format.html { render layout: 'application' }
