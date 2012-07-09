@@ -7,4 +7,12 @@ module UsersHelper
       info
     end
   end
+
+  def actived_li_if(condition)
+    html_class = ""
+    if condition
+      html_class = "active"
+    end
+    content_tag(:li, :class => html_class){ yield }
+  end
 end

@@ -67,11 +67,11 @@ class Notification
       when TYPE_ACTIVATE then
         return "#{sender.nick_name} is activated"
       when TYPE_SHARE then
-        return "<em>#{sender.nick_name}</em> 分享了 <em>#{object.item.title}</em>"
+        return "<em>#{sender.nick_name}</em> 有了新的分享"
       when TYPE_BAG then
-        return "<em>#{sender.nick_name}</em> 把 <em>#{object.item.title}</em> 放入了背包"
+        return "<em>#{sender.nick_name}</em> 更新了背包"
       when TYPE_WISH then
-        return "<em>#{sender.nick_name}</em> 把 <em>#{object.item.title}</em> 添加到了愿望清单"
+        return "<em>#{sender.nick_name}</em> 有了新的愿望"
       when TYPE_COMMENT then
         return "<em>#{sender.nick_name}</em> 评论了你的分享"
       when TYPE_AT_SHARE then

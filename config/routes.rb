@@ -49,6 +49,9 @@ Ssg::Application.routes.draw do
     end
   end
 
+  resources :wishes, :only => [:show]
+  resources :bags, :only => [:show]
+
   resources :comments do
     member do
       get 'vote'

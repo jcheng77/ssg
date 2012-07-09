@@ -1,70 +1,25 @@
 <% content_for :javascripts do %>
     <script type="text/javascript">
-        $(function() {
-            $(".item-block textarea").focusin(function() {
+        $(function () {
+            $(".item-block textarea").focusin(function () {
                 $(this).attr("rows", 3);
-            }).focusout(function() {
+            }).focusout(function () {
                         $(this).attr("rows", 1);
                     });
         });
     </script>
 <% end %>
 
-<div class="row">
+<div class="row main">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
-        <ul class="nav nav-tabs nav-stacked" style="margin-top: 15px;">
-            <li><%= link_to "我的愿望 (#{@user.wishes.size})", my_wishes_user_path(@user) %></li>
-            <li class="active"><%= link_to "我的背包 (#{@user.bags.size})", my_bags_user_path(@user) %></li>
-        </ul>
+        <%= render :partial => "links"  %>
     </div>
-    <div class="span10">
-
-       <%= render "categories/category" %>
-       <%= render "items/toptags" %>
-
+    <div class="span8">
         <div class="page-header"><h4>我的背包</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.bags.desc(:created_at).each do |bag| %>
-                <div class="row item-block">
-                    <%= link_to bag.item do %>
-                        <h4><%= bag.item.title %></h4>
-                    <% end %>
-
-                    <div class="pull-left item-left">
-                        <%= image_tag bag.item.image, :width => '290' %>
-                    </div>
-                    <div class="pull-right item-right">
-                        <div class="item-info">
-                            <p class="row user-block">
-                                <%= image_tag small_avatar_url(bag.user.avatar), width: 50, class: "pull-left" %>
-                                <span class="user-block-info">
-                                    <%= link_to bag.user.nick_name, my_shares_user_path(bag.user) %>
-                                </span>
-                            </p>
-
-                            <p><%= bag.comment_content %></p>
-
-                            <p><a href="<%= bag.item.purchase_url %>">去淘宝购买</a></p>
-
-                            <div class="child-comments" id="<%= "#{bag.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
-                                <% bag.comment.child_comments.each do |child_comment| %>
-                                    <%= render :partial => "comments/child_comment", :object => child_comment %>
-                                <% end %>
-
-                                <%= form_for(bag.comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :_type %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :commentable_id %>
-                                    <%= f.hidden_field :commentable_type %>
-                                    <%= f.text_area :content, rows: 1, class: "input-xlarge", placeholder: "我来评两句" %>
-                                    <%= f.submit "评论", class: "btn btn-primary" %>
-                                <% end %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%= render :partial => "shares/share", :object => bag %>
             <% end %>
         </div>
     </div>

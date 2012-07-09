@@ -1,8 +1,8 @@
 <div class="row item_block">
     <div class="title"><%= share.item.title %></div>
     <div class="pull-left item_left">
-        <%= link_to share , :class=> "img_frame large_picture" do %>
-        <%= image_tag share.item.image %>
+        <%= link_to share, :class => "img_frame large_picture" do %>
+            <%= image_tag share.item.image %>
         <% end %>
 
         <div class="item_actions">
@@ -12,18 +12,24 @@
         </div>
     </div>
     <div class="item_right">
-            <div class="user_share">
-                <a class="img_frame mini_picture pull-left">
+        <div class="user_share">
+            <a class="img_frame mini_picture pull-left">
                 <%= image_tag small_avatar_url(share.user.avatar) %>
-                </a>
-                <div class="user_info">
-                    <%= link_to share.user.nick_name, account_user_path(share.user) %>
-                </div>
+            </a>
+
+            <div class="user_info">
+                <%= link_to share.user.nick_name, account_user_path(share.user) %>
+            </div>
 
             <div class="user_comment"><%= share.comment_content %></div>
-          </div>
-            <p class="price_info">价格：<%= share.price %>元 <a href="<%= share.item.purchase_url %>">去淘宝购买</a></p>
-            <% if share.comment %>
+        </div>
+        <p class="price_info">
+            <% if share['price'] %>
+                价格：<%= share['price'] %>元
+            <% end %>
+            <a href="<%= share.item.purchase_url %>">去淘宝购买</a>
+        </p>
+        <% if share.comment %>
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">
                 <% share.comment.child_comments.each do |child_comment| %>
                     <%= render :partial => "comments/child_comment", :object => child_comment %>
@@ -39,13 +45,14 @@
                     <%= f.submit "评论", class: "btn btn-primary" %>
                 <% end %>
             </div>
-          <% end %>
+        <% end %>
     </div>
 </div>
 
 <div id="<%= "#{share._id}-recommend-btn" %>" class="modal hide fade" style="display: none;">
     <div class="modal-header">
-        <a class="close" data-dismiss="modal" >&times;</a>
+        <a class="close" data-dismiss="modal">&times;</a>
+
         <h3><%= share.item.title %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
@@ -66,7 +73,8 @@
 </div>
 <div id="<%= "#{share._id}-wish-btn" %>" class="modal hide fade" style="display: none;">
     <div class="modal-header">
-        <a class="close" data-dismiss="modal" >&times;</a>
+        <a class="close" data-dismiss="modal">&times;</a>
+
         <h3><%= share.item.title %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
@@ -84,7 +92,8 @@
 </div>
 <div id="<%= "#{share._id}-bag-btn" %>" class="modal hide fade" style="display: none;">
     <div class="modal-header">
-        <a class="close" data-dismiss="modal" >&times;</a>
+        <a class="close" data-dismiss="modal">&times;</a>
+
         <h3><%= share.item.title %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">

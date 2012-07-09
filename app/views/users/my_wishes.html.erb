@@ -11,60 +11,16 @@
     </script>
 <% end %>
 
-<div class="row">
+<div class="row main">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
-        <ul class="nav nav-tabs nav-stacked" style="margin-top: 15px;">
-            <li class="active"><%= link_to "我的愿望 (#{@user.wishes.size})", my_wishes_user_path(@user) %></li>
-            <li><%= link_to "我的背包 (#{@user.bags.size})", my_bags_user_path(@user) %></li>
-        </ul>
+        <%= render :partial => "links"  %>
     </div>
-    <div class="span10">
-       <%= render "categories/category" %>
-       <%= render "items/toptags" %>
-
+    <div class="span8">
         <div class="page-header"><h4>我的愿望</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @user.wishes.desc(:created_at).each do |wish| %>
-                <div class="row item-block">
-                    <%= link_to wish.item do %>
-                        <h4><%= wish.item.title %></h4>
-                    <% end %>
-
-                    <div class="pull-left item-left">
-                        <%= image_tag wish.item.image, :width => '290' %>
-                    </div>
-                    <div class="pull-right item-right">
-                        <div class="item-info">
-                            <p class="row user-block">
-                                <%= image_tag small_avatar_url(wish.user.avatar), width: 50, class: "pull-left" %>
-                                <span class="user-block-info">
-                                    <%= link_to wish.user.nick_name, my_shares_user_path(wish.user) %>
-                                </span>
-                            </p>
-
-                            <p>标签：<%= wish.tags %></p>
-
-                            <p><a href="<%= wish.item.purchase_url %>">去淘宝购买</a></p>
-
-                            <div class="child-comments" id="<%= "#{wish.comment._id}-child-comments" %>" style="margin-left: 0px; margin-top: 20px;">
-                                <% wish.comment.child_comments.each do |child_comment| %>
-                                    <%= render :partial => "comments/child_comment", :object => child_comment %>
-                                <% end %>
-
-                                <%= form_for(wish.comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :_type %>
-                                    <%= f.hidden_field :user_id %>
-                                    <%= f.hidden_field :commentable_id %>
-                                    <%= f.hidden_field :commentable_type %>
-                                    <%= f.text_area :content, rows: 1, class: "input-xlarge", placeholder: "我来评两句" %>
-                                    <%= f.submit "评论", class: "btn btn-primary" %>
-                                <% end %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%= render :partial => "shares/share", :object => wish %>
             <% end %>
         </div>
     </div>

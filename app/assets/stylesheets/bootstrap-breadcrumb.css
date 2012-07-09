@@ -1,0 +1,91 @@
+.breadcrumb {
+    list-style: none;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px 0 0;
+    border-radius: 4px;
+    border: 1px solid #E5E5E5;
+    background-color: #EEEEEE;
+}
+
+.breadcrumb li {
+    float: left;
+    text-shadow: none;
+}
+
+.breadcrumb li a {
+    text-decoration: none;
+    padding: 10px 0 10px 65px;
+    position: relative;
+    display: block;
+    float: left;
+    color: #551A8B;
+}
+
+.breadcrumb li a:after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid #EEEEEE;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 100%;
+    z-index: 2;
+}
+
+.breadcrumb li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+}
+
+.breadcrumb li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+}
+
+.breadcrumb li:first-child a {
+    padding-left: 20px;
+}
+
+.breadcrumb li:nth-child(n) a {
+    background-color: #EEEEEE;
+}
+
+.breadcrumb li:nth-child(n) a:after {
+    border-left-color: #EEEEEE;
+}
+
+.breadcrumb li a.active {
+    background-color: #5AADDF;
+}
+
+.breadcrumb li a.active:after {
+    border-left-color: #5AADDF !important;
+}

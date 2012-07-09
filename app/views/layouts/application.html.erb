@@ -39,6 +39,7 @@
                             <ul class="dropdown-menu">
                                 <li><%= empty_link_if(current_user.nil?, "偏好设置") { edit_preferences_user_path(current_user) } %></li>
                                 <li><%= empty_link_if(current_user.nil?, "帐号信息") { account_user_path(current_user) } %></li>
+                                <li><%= empty_link_if(current_user.nil?, "通知中心") { notifications_path(current_user) } %></li>
                             </ul>
                         </li>
                     </ul>
