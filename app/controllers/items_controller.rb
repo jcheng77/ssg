@@ -167,6 +167,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  # GET /items/share
+  def share
+    respond_to do |format|
+      format.html { render layout: 'application1' }
+    end
+  end
+
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])

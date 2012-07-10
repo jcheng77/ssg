@@ -19,7 +19,7 @@
       <link rel="stylesheet" href="/css/ssg-viewShare.css" type="text/css" media="screen"/>
     <%end%>
     <!-- <%=current_page?(:controller => 'items', :action => 'new')%>-->
-    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'edit') %>
+    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'share') %>
       <link rel="stylesheet" href="/css/ssg-createShare.css" type="text/css" media="screen"/>
     <%end%>
 
@@ -38,7 +38,7 @@
     <%if current_page?(:controller => 'shares', :action => 'show') %>
       <script src="/js/ssg-1.0-viewShare.js" type="text/javascript"></script>
     <%end%>
-    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'edit') %>
+    <%if current_page?(:controller => 'items', :action => 'new') || current_page?(:controller => 'items', :action => 'share') %>
       <script src="/js/ssg-1.0-createShare.js" type="text/javascript"></script>
     <%end%>
 </head>

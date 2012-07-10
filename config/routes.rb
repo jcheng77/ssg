@@ -7,6 +7,7 @@ Ssg::Application.routes.draw do
       post 'recommend'
     end
     collection do
+      get 'share'
       get 'tagged'
     end
   end
