@@ -1,3 +1,19 @@
+<style>
+.autoShow{
+    margin-top: 10px;
+    display: block;
+}
+</style>
+<script>
+$(document).ready(function(){
+   $('.auto_expand').focus(function(){
+      var comment = $(this).attr('rows',2);
+      if(comment.parent().find('.autoShow').length == 0){
+          comment.after('<input type="submit" value="评论" name="commit" class="btn btn-primary autoShow">'); 
+      }
+   });
+});
+</script>
 <div class="row item_block">
     <div class="title"><%= share.item.title %></div>
     <div class="pull-left item_left">
@@ -41,8 +57,7 @@
                     <%= f.hidden_field :user_id %>
                     <%= f.hidden_field :commentable_id %>
                     <%= f.hidden_field :commentable_type %>
-                    <%= f.text_area :content, rows: 1, class: "input-xlarge", placeholder: "我来评两句" %>
-                    <%= f.submit "评论", class: "btn btn-primary" %>
+                    <%= f.text_area :content, rows: 1, class: "auto_expand input-xlarge", placeholder: "我来评两句" %>
                 <% end %>
             </div>
         <% end %>
