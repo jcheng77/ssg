@@ -5,8 +5,8 @@ require 'net/http'
 require 'uri'
 require 'digest/md5'
 
-#source 'http://rubygems.org'
-source 'http://ruby.taobao.org/'  
+source 'http://rubygems.org'
+#source 'http://ruby.taobao.org/'  
 
 gem 'rails', '3.1.3'
 gem 'sprockets', '~> 2.0.0.beta.14'
