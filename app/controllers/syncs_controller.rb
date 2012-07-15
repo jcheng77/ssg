@@ -43,7 +43,6 @@ class SyncsController < ApplicationController
 
       if account.nil?
       
-      binding.pry
       aid = userinfo.delete("id")
       cur_user = User.new(userinfo)
       cur_user.accounts.new( :type => params[:type], :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
