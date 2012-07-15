@@ -9,6 +9,7 @@ require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :authenticate 
   helper_method :current_user, :categories, :current_categories
 
   def current_user
@@ -40,5 +41,12 @@ class ApplicationController < ActionController::Base
   def categories
     @categories ||= ['数码', '户外', '男装', '女装', '饰品', '化妆品', '居家', '其他']
   end
+
+  def authenticate
+    unless session[:current_user_id].nil? || current_user.nil?
+      @current_user
+    end
+  end
+
 
 end

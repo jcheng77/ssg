@@ -1,6 +1,10 @@
 class SyncsController < ApplicationController
   layout 'application1'
+  skip_before_filter :authenticate
 
+  def index
+  end
+  
   def new
     wb = Weibo.new(params[:type])
     wb.init_client

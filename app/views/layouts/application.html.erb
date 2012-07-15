@@ -24,9 +24,18 @@
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li><%= empty_link_if(current_user.nil?, "我的首页") { dashboard_user_path(current_user) } %></li>
-                    <li><%= link_to "去逛逛", items_path %></li>
-                    <li><%= empty_link_if(current_user.nil?, "我的圈子") { friends_user_path(current_user) } %></li>
+                  <li>
+                  <%= link_to_if( current_user.nil?, "我的首页") do 
+                    link_to "我的首页" , dashboard_user_path(current_user)
+                  end %></li>
+                  <li>
+                  <%= link_to_if( current_user.nil?, "去逛逛") do 
+                    link_to "去逛逛" , items_path
+                  end %></li>
+                    <li>
+                  <%= link_to_if( current_user.nil?, "我的圈子") do 
+                    link_to "我的圈子" , friends_user_path(current_user)
+                  end %></li>
                 </ul>
                 <form class="navbar-search pull-left" action="">
                     <input type="text" class="search-query span2" placeholder="搜索宝贝">
