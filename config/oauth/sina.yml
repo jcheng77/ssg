@@ -4,8 +4,8 @@ development:
       url:    "boluo.me"
       callback: "http://localhost:3000/syncs/sina/callback"
 production:
-      key:    "419180446"
-      secret: "8d97de6064802d452a721e9a64c82310"
+      key:    "3788831273"
+      secret: "cd9072acaac30aaa6d7a45dc8fff57e3"
       url:    "boluo.me"
       callback: "http://boluo.me/syncs/sina/callback"
 
