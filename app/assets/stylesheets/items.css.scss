@@ -1,0 +1,53 @@
+// Place all the styles related to the Items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.img_frame{
+    overflow: hidden;
+    display: block;
+}
+.medium_picture{
+    width: 220px;
+    height: 170px;
+}
+.mini_picture{
+    width: 26px;
+    height: 26px;
+}
+.browse_item .title{
+    color: #32A0EB;
+    max-width: 220px;
+    max-height: 14px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+.browse_item .user-comment{
+    height: 100px;
+    overflow: hidden;
+    height: 68px;
+}
+.user-comment{
+    font-size: 12px;
+}
+.user_name, .comment{
+    margin-left: 34px;
+    max-width: 190px;
+}
+.comment{
+    margin-top: 4px;
+}
+.user_name{
+    display: block;
+}
+.items .thumbnail{
+    float: left;
+    height: 200px;
+}
+.items .image{
+    width: 200px;
+    overflow: hidden;
+    width: 200px;
+    padding-bottom: 4px;
+}
+.items .description{
+    width: 300px;
+}

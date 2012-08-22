@@ -1,0 +1,123 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.sidebars li{
+    border-top: 1px solid #D4D4D4;
+}
+.main{
+    .span8{
+        min-height: 390px;
+        margin: 0;
+        border-left: 1px solid #D4D4D4;
+        padding-left: 28px;
+    }
+    .avatar{
+        border-right:none;
+    }
+}
+ul.category{
+    position: relative;
+}
+ul.category:after{
+    content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: 15px solid transparent;
+    border-top-color: #f5f5f5;
+    top: 100%;
+    left: 50%;
+    margin-left: -15px;
+}
+.preferences {
+    .checked {
+        border-color: #08C;
+        span.selected_pref{
+            padding: 8px;
+            margin: -8px 0 0 -8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1000;
+            background: url(/images/selected.png) no-repeat left top;
+        }
+    }
+    .preference{
+        position: relative;
+    }
+}
+.account {
+    .user-block-link {
+        a {
+            text-decoration: none;
+        }
+    }
+    a {
+        font-weight: normal;
+        text-decoration: underline;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    dt {
+        line-height: 20px;
+    }
+    dd {
+        line-height: 20px;
+        margin-left: 0px;
+        margin-bottom: 5px;
+    }
+    select {
+        width: 100px;
+    }
+    .form-actions {
+        background-color: white;
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+.signup {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    h1 {
+        font-size: 20px;
+    }
+    .form-actions {
+        background-color: white;
+    }
+}
+
+.all_notifications {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .single_notification {
+        width: 500px;
+        margin: 15px auto;
+
+        .notification_block {
+            margin-left: 5px;   
+            a {
+                display: block;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            h6 {
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+.dashboard .comment-sub, .myshares .comment-sub {
+    width: 490px;
+    float: left;
+}
+.dashboard .comment-sub .comment-info, .myshares .comment-sub .comment-info {
+    width: 430px;
+}
+
