@@ -43,47 +43,9 @@
     <%end%>
 </head>
 <body>
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-        <a class="brand" href="/index.html">菠萝蜜</a>
-        <ul class="nav">
-          <li><%= link_to '我的首页', current_user ? dashboard_user_path(current_user) : "#" %></li>
-          <li><%= link_to '我的分享', current_user ? my_shares_user_path(current_user) : "#" %></li>
-          <li><%= link_to '用户', users_path %></li>
-          <li><%= link_to '商品', items_path %></li>
-          <li><input type="text" class="search-query span2 navbar_item_top" placeholder="我感兴趣的内容或人..."/></li>
-        </ul>
-        <ul class="nav pull-right">
-          <%if current_user %>
-          <!--
-            <li class="my_li"><%= image_tag image_path(current_user.avatar) %></li>
-            -->
-            <ul class="nav" style="display:none;">
-              <li class="my_menu_item"><a href="myAccount.html">帐号设置</a></li>
-              <li class="separator">&nbsp;</li>
-              <li class="my_menu_item log_out"> <%= link_to "退出", logout_path %> </li>
-            </ul>
-          </ul>
-          <%else%>
-          <ul class="nav">
-            <li><a href="javascript:void(0);" id="index_login">登&nbsp;录</a></li>
-          </ul>
-          <%end%>
-      </div>
-  </div>
-</div>
 
   <%= yield %>
 
-<div id="footer">
-  <div class="container_24">
-    <div class="clear"></div>
-    <div class="grid_24 footer_content">
-      <div>Copyright by 菠萝蜜 2011-2012 boluo.me, all rights reserved</div>
-    </div>
-  </div>
-</div>
 
 </body>
 
