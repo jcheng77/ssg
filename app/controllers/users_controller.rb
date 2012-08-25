@@ -37,11 +37,12 @@ class UsersController < ApplicationController
   # GET /users/1/friends
   def friends
     @user = User.find(params[:id])
-    @users = @user.followees_by_type(User.name)
+    @f_users = @user.followees_by_type(User.name)
+    @a_users = User.all
 
     respond_to do |format|
       format.html { render layout: 'application' } # friends.html.erb
-      format.json { render json: @users }
+      format.json { render json: @f_users }
     end
   end
 
