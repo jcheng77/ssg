@@ -66,5 +66,7 @@ module Ssg
     config.assets.version = '1.0'
 
     config.mongoid.observers = :point_observer, :notification_observer
+    #added for heroku deployment. suggested https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
+    config.assets.initialize_on_precompile = false
   end
 end
