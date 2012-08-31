@@ -38,7 +38,11 @@ class SyncsController < ApplicationController
 
     else
       
-      code = @client.auth_code.get_token(params[:code])
+    WeiboOAuth2::Config.api_key = '3788831273'
+    WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
+    @client = WeiboOAuth2::Client.new
+    code = @client.auth_code.get_token(params[:code])
       userinfo["id"] = ''
     end
 
