@@ -6,17 +6,17 @@ class SyncsController < ApplicationController
   end
   
   def new
+    WeiboOAuth2::Config.api_key = '3788831273'
+    WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me:3000/syncs/sina/callback/'
+    @client = WeiboOAuth2::Client.new
+
     if params[:type] == 'qq'
     wb = Weibo.new(params[:type])
     wb.init_client
     wb.write_to_cache
     redirect_to wb.client.authorize_url
     else
-    WeiboOAuth2::Config.api_key = '3788831273'
-    WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
-    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
-
-    @client = WeiboOAuth2::Client.new  
     redirect_to @client.authorize_url
     end
   end
@@ -37,6 +37,7 @@ class SyncsController < ApplicationController
       userinfo = wb.get_user_info_hash
 
     else
+      
       code = @client.auth_code.get_token(params[:code])
       userinfo["id"] = ''
     end
