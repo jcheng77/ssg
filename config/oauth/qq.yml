@@ -1,11 +1,11 @@
 development:
-      key:    "801078737"
-      secret: "d8cf504891096c77e920178ae32afc67"
+      key:    "100657029"
+      secret: "10478c7b28f1b17a09d04d165f5ba610"
       url:    "http://www.ssg.com"
-      callback: "http://localhost:3000/syncs/qq/callback"
+      callback: "http://127.0.0.1:3000/syncs/qq/callback"
 production:
-      key:    "801078737"
-      secret: "d8cf504891096c77e920178ae32afc67"
+      key:    "100657029"
+      secret: "10478c7b28f1b17a09d04d165f5ba610"
       url:    "http://boluo.me"
       callback: "http://boluo.me/syncs/qq/callback"
 
