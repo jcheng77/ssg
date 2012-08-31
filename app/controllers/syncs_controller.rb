@@ -14,10 +14,10 @@ class SyncsController < ApplicationController
     else
     WeiboOAuth2::Config.api_key = '3788831273'
     WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
-    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
+    WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1/syncs/sina/callback/'
 
-    client = WeiboOAuth2::Client.new  
-    redirect_to client.authorize_url
+    @client = WeiboOAuth2::Client.new  
+    redirect_to @client.authorize_url
     end
   end
 
@@ -34,15 +34,20 @@ class SyncsController < ApplicationController
 
       access_token = session[:access_token] = results[:access_token]
       token_secret = session[:token_secret] = results[:access_token_secret]
-
       userinfo = wb.get_user_info_hash
 
-    if access_token && token_secret 
+    else
+      code = @client.auth_code.get_token(params[:code])
+      userinfo["id"] = ''
+    end
+
+    if (access_token && token_secret) || code
 
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
       account = nil
       users = User.all
+
       users.each do |user| 
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
         break if account
@@ -77,9 +82,6 @@ class SyncsController < ApplicationController
       
     else
       redirect_to users_url, :notice => "authorized failed!!!! #{access_token} #{token_secret}"
-    end
-    else
-      code = client.auth_code.get_token(params[:code])
     end
   end
 
