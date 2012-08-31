@@ -127,11 +127,13 @@ class Weibo
 
   def add_status(access_token,token_secret,message)
     load_from_db(access_token,token_secret)
-    @client.add_status(access_token,token_secret,message)
+    #message.force_encoding('utf-8')
+    @client.add_status(message)
   end
 
   def upload_image(access_token,token_secret,message,image_path)
     load_from_db(access_token,token_secret)
+    #message.force_encoding('utf-8')
     @client.upload_image(message,image_path)
   end
 

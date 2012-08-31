@@ -6,28 +6,38 @@ class SyncsController < ApplicationController
   end
   
   def new
+    if params[:type] == 'qq'
     wb = Weibo.new(params[:type])
     wb.init_client
     wb.write_to_cache
     redirect_to wb.client.authorize_url
+    else
+    WeiboOAuth2::Config.api_key = '3788831273'
+    WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
+
+    client = WeiboOAuth2::Client.new  
+    redirect_to client.authorize_url
+    end
   end
 
 
 
   def callback
-    wb = Weibo.new(params[:type])
-    wb.load_client(params[:oauth_token])
-    wb.client.authorize(:oauth_verifier => params[:oauth_verifier])
-    results = wb.client.dump
+    
+    if params[:type] == 'qq'
+      wb = Weibo.new(params[:type])
+      wb.load_client(params[:oauth_token])
+      wb.client.authorize(:oauth_verifier => params[:oauth_verifier])
+      results = wb.client.dump
 
 
-    access_token = session[:access_token] = results[:access_token]
-    token_secret = session[:token_secret] = results[:access_token_secret]
+      access_token = session[:access_token] = results[:access_token]
+      token_secret = session[:token_secret] = results[:access_token_secret]
 
-    userinfo = wb.get_user_info_hash
+      userinfo = wb.get_user_info_hash
 
-
-    if access_token && token_secret
+    if access_token && token_secret 
 
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
@@ -67,6 +77,9 @@ class SyncsController < ApplicationController
       
     else
       redirect_to users_url, :notice => "authorized failed!!!! #{access_token} #{token_secret}"
+    end
+    else
+      code = client.auth_code.get_token(params[:code])
     end
   end
 
