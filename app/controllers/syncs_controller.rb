@@ -43,7 +43,6 @@ class SyncsController < ApplicationController
     WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
     @client = WeiboOAuth2::Client.new
     code = @client.auth_code.get_token(params[:code])
-      userinfo["id"] = ''
     end
 
     if (access_token && token_secret) || code
