@@ -14,7 +14,7 @@ class SyncsController < ApplicationController
     else
     WeiboOAuth2::Config.api_key = '3788831273'
     WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
-    WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1/syncs/sina/callback/'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
 
     @client = WeiboOAuth2::Client.new  
     redirect_to @client.authorize_url
