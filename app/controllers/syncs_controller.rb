@@ -18,7 +18,7 @@ class SyncsController < ApplicationController
     #client = OAuth2::Client.new('3788831273', 'cd9072acaac30aaa6d7a45dc8fff57e3', :site => 'https://api.weibo.com', authorize_url: '/oauth2/authorize', token_url: '/oauth2/access_token')
     WeiboOAuth2::Config.api_key = '3788831273'
     WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
-    WeiboOAuth2::Config.redirect_uri = 'http://www.boluome.com:3000/syncs/sina/callback/'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
     client = WeiboOAuth2::Client.new
     #client.auth_code.authorize_url(:redirect_uri => 'http://www.boluome.com:3000/syncs/sina/callback/')
     redirect_to client.authorize_url
@@ -44,7 +44,7 @@ class SyncsController < ApplicationController
       
     WeiboOAuth2::Config.api_key = '3788831273'
     WeiboOAuth2::Config.api_secret = 'cd9072acaac30aaa6d7a45dc8fff57e3'
-    WeiboOAuth2::Config.redirect_uri = 'http://www.boluome.com:3000/syncs/sina/callback/'
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
     client = WeiboOAuth2::Client.new
     code = client.auth_code.get_token(params[:code])
     userinfo = client.users.show_by_uid(code.params["uid"])
