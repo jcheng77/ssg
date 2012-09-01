@@ -43,6 +43,8 @@ class SyncsController < ApplicationController
     WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
     @client = WeiboOAuth2::Client.new
     code = @client.auth_code.get_token(params[:code])
+    puts code
+    redirect_to :controller => "users", :action => "signup" 
     end
 
     if (access_token && token_secret) || code
@@ -50,13 +52,15 @@ class SyncsController < ApplicationController
 
       #exists = User.where(userid: userinfo["id"].to_s ).first
       account = nil
+
+
       users = User.all
 
       users.each do |user| 
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
         break if account
       end 
-        
+       
 
       #exists = User.all.each.accounts.where(aid: userinfo["id"].to_s ).first
 
