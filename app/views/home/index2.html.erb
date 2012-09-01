@@ -41,6 +41,9 @@
 </head>
 <div id="register_main">
 <div id="loginBar">
+    <%= link_to  :controller => 'syncs' ,:type => 'sina' , :action =>'new' do %> 
+     <span>用新浪微博创建帐号</span>
+    <% end %>
     <%= link_to  :controller => 'syncs' ,:type => 'qq' , :action =>'new' do %> 
      <span>用腾讯微博创建帐号</span>
     <% end %>
