@@ -1,6 +1,6 @@
 class Seller
   MARK_BYTE = 4
-  
+
   include Mongoid::Document
 
   field :name, type: BSON::ObjectId # the guy who follows follow
@@ -10,7 +10,7 @@ class Seller
   field :tags, type: Array # tags
 
   has_many :shares
-  
+
   # comments
   def comments
     Comment.where(object_id: self._id)
