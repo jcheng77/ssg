@@ -39,6 +39,7 @@ class SyncsController < ApplicationController
       access_token = session[:access_token] = results[:access_token]
       token_secret = session[:token_secret] = results[:access_token_secret]
       userinfo = wb.get_user_info_hash
+      puts userinfo["id"]
 
     else
       
