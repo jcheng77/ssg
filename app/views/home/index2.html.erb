@@ -1,66 +1,21 @@
-<head>
-  <meta property="wb:webmaster" content="d8c0ee16f0cc4d98" />
-  <style>
-#tileIcons{
-    height: 400px;
-}
-#tileIcons img{
-    height: 300px;
-    width: 300px
-}
-#tileIcons .item{
-    float: left;
-}
-#tileIcons .caption {
-   max-width: 300px;
-   padding: 10px 0 0 2px;
-}
-#register_main{
-    margin: 0 auto;
-    width: 80%;
-}
-#loginBar{
-    padding: 10px 0;
-    text-align: center;
-}
-#loginBar a {
-    display: inline-block;
-    padding: 10px 8px 10px 40px;
-    border-radius: 4px;
-    color: #868686;
-    background: url(/images/32-weibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
-    background: url(/images/32-weibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
-    border: 1px solid #D4D4D4;
-}
-#loginBar a:last-child{
-    background: url(/images/32-qqweibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
-    background: url(/images/32-qqweibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
-    margin-left: 50px;
-}
-</style>
-</head>
 <div id="register_main">
-<div id="loginBar">
-    <%= link_to  :controller => 'syncs' ,:type => 'sina' , :action =>'new' do %> 
-     <span>用新浪微博创建帐号</span>
-    <% end %>
-    <%= link_to  :controller => 'syncs' ,:type => 'qq' , :action =>'new' do %> 
-     <span>用腾讯微博创建帐号</span>
-    <% end %>
-</div>
-<div id="tileIcons">
+  <div id="loginBar">
+    <%= link_to "用新浪微博创建帐号", sync_new_path(type: 'sina'), :class => 'sina-connect' %>
+    <%= link_to "用腾讯微博创建帐号", sync_new_path(type: 'qq'), :class => 'qq-connect' %>
+  </div>
+  <div id="tileIcons">
     <div class="item">
-        <img src="/images/recommend.jpg"/>
-        <div class="caption"><p>淘到了最便宜最热门最新鲜的宝贝想给好友推荐？<br/>
+      <%= image_tag "recommend.jpg" %>
+      <div class="caption"><p>淘到了最便宜最热门最新鲜的宝贝想给好友推荐？<br/>
         看看买家最真实的入手评测吧</p></div>
     </div>
     <div class="item">
-        <img src="/images/gift-box.jpg"/>
-        <div class="caption"><p>为送朋友生日礼物发愁？<br/>分享你的愿望清单吧 可能会有来自朋友或者网站的礼物惊喜哦:)</p></div>      
+      <%= image_tag "gift-box.jpg" %>
+      <div class="caption"><p>为送朋友生日礼物发愁？<br/>分享你的愿望清单吧 可能会有来自朋友或者网站的礼物惊喜哦:)</p></div>
     </div>
     <div class="item">
-        <img src="/images/partners.jpg"/>
-        <div class="caption"><p>想结识与你"臭"味相投的网购达人？<br/>这是最真实的买家社区</p></div>        
+      <%= image_tag "partners.jpg" %>
+      <div class="caption"><p>想结识与你"臭"味相投的网购达人？<br/>这是最真实的买家社区</p></div>
     </div>
-</div>
+  </div>
 </div>

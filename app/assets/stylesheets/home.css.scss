@@ -1,0 +1,40 @@
+#tileIcons {
+  height: 400px;
+  img {
+    height: 300px;
+    width: 300px;
+  }
+  .item {
+    float: left;
+  }
+  .caption {
+    max-width: 300px;
+    padding: 10px 0 0 2px;
+  }
+}
+
+#register_main {
+  margin: 0 auto;
+  width: 80%;
+}
+
+#loginBar {
+  padding: 10px 0;
+  text-align: center;
+  a {
+    display: inline-block;
+    padding: 10px 8px 10px 40px;
+    border: 1px solid #D4D4D4;
+    border-radius: 4px;
+    color: #868686;
+  }
+  a.sina-connect {
+    background: url(/assets/32-weibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
+    background: url(/assets/32-weibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
+  }
+  a.qq-connect {
+    margin-left: 50px;
+    background: url(/assets/32-qqweibo.gif) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
+    background: url(/assets/32-qqweibo.gif) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
+  }
+}

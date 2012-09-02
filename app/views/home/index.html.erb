@@ -1,105 +1,21 @@
-<div id="index_instruction">
-	<div class="container_24">
-		<div class="clear"></div>
-		<div class="grid_24 instruction_content">
-			<div class="grid_16 instruction_left">
-				<div class="instruction_left_content">
-					<div>想知道朋友最近淘到了什么好宝贝?</div>
-					<div>朋友快过生日了, 想知道朋友的愿望清单?</div>
-					<div>朋友是购物达人, 想听听他的推荐?</div>
-				</div>
-			</div>
-			
-			<div class="grid_7">
-				<div class="instruction_right">
-					用已有帐号登录(<span class="secondary_color">推荐</span>) <span class="help_icon"><a class="why_existing_login" title="1.迅速建立朋友群<br/>2.分享更方便" href="javascript:void(0);"><img style="width:16px;" src="../images/question.png"/></a></span>
-					<div class="ins_r_s separator">&nbsp;</div>
-					<div id="register_main">
-						<div class="sina_wb">
-          <%= link_to :controller => 'syncs' ,:type => 'sina' , :action =>'new' do %> 
-          <%= image_tag "/images/32-weibo.gif"  %> <span> "用新浪微博创建帐号"</span>
-          <% end %>
-					</div>
-						
-						<div class="qq_wb">
-          <%= link_to :controller => 'syncs' ,:type => 'qq' , :action =>'new' do %> 
-          <%= image_tag "/images/32-qqweibo.gif"  %> <span> "用腾讯微博创建帐号"</span>
-          <% end %>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-</div>
-
-<div id="index_main">
-	<div class="container_24 outerbox">
-		<div class="grid_24 container">
-			<ul>
-				<li><img id="img_1" src=""/></li>
-				<li><img id="img_2" src=""/></li>
-				<li><img id="img_3" src=""/></li>
-				<li><img id="img_4" src=""/></li>
-			</ul>
-			
-		</div>
-	</div>
-</div>
-
-<div id="loginBox" style="display:none;">
-    <div class="loginBox_l">
-    <%= form_tag sessions_path do %>
-	<div class="userName">
-	  <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-	</div>
-	<div class="password">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %> </p>
-	</div>
-	<div class="loginStatus">
-		<input class="chk_bx" type="checkbox" name="rememberMe" id="rememberMe" checked="checked"/>
-		<span>记住登录状态</span>
-	</div>
-	<div class="loginBtn">
-		<%= submit_tag "登录" %>
-	</div>
-<% end %>
-	<div class="loginRight">
-		<div class="forgetPwd"><a href="#" onclick="return false;">忘记密码？</a></div>
-	</div>
+<div id="register_main">
+  <div id="loginBar">
+    <%= link_to "用新浪微博创建帐号", sync_new_path(type: 'sina'), :class => 'sina-connect' %>
+    <%= link_to "用腾讯微博创建帐号", sync_new_path(type: 'qq'), :class => 'qq-connect' %>
+  </div>
+  <div id="tileIcons">
+    <div class="item">
+      <%= image_tag "recommend.jpg" %>
+      <div class="caption"><p>淘到了最便宜最热门最新鲜的宝贝想给好友推荐？<br/>
+        看看买家最真实的入手评测吧</p></div>
     </div>
-    <div class="lgn_box_s separator_v">&nbsp;</div>
-    <div class="loginBox_r">
-	<div class="r_title secondary_color">还没有帐号？</div>
-	<div class="r_suggestion">请用已有帐号登录 <span class="help_icon"><a class="why_existing_login" title="1.自动建立帐号<br/>2.迅速建立朋友群<br/>3.分享更方便" href="javascript:void(0);"><img style="width:13px;" src="images/question.png"/></a></span></div>
-	<div class="sugst_r_s separator">&nbsp;</div>
-	<div id="register_main">
-		<div class="sina_wb">
-			<a href="setAccount.html" onclick="" title="用新浪微博创建帐号">
-				<img src="images/32-weibo.gif" />
-				<span>&nbsp;用新浪微博登录</span>
-			</a>
-		</div>	
-		
-		<div class="qq_wb">
-			<a href="#" onclick="" title="用腾讯微博创建帐号">
-				<img src="images/32-qqweibo.gif" />
-				<span>&nbsp;用腾讯微博登录</span>
-			</a>
-		</div>
-	</div>
+    <div class="item">
+      <%= image_tag "gift-box.jpg" %>
+      <div class="caption"><p>为送朋友生日礼物发愁？<br/>分享你的愿望清单吧 可能会有来自朋友或者网站的礼物惊喜哦:)</p></div>
     </div>
+    <div class="item">
+      <%= image_tag "partners.jpg" %>
+      <div class="caption"><p>想结识与你"臭"味相投的网购达人？<br/>这是最真实的买家社区</p></div>
+    </div>
+  </div>
 </div>
-
-<div id="footer">
-	<div class="container_24">
-		<div class="clear"></div>
-		<div class="grid_24 footer_content">
-			<div>Copyright by 菠萝蜜 2011-2012 boluo.me, all rights reserved</div>
-		</div>
-	</div>
-</div>
-

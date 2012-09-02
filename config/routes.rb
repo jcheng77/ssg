@@ -1,5 +1,5 @@
 Ssg::Application.routes.draw do
-  root :to => 'home#index2'
+  root :to => 'home#index'
 
   #devise_for :users
 
@@ -73,7 +73,7 @@ Ssg::Application.routes.draw do
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback
   match "taobao/purchases" => "taobao#purchases", :as => :taobao_purchases
   match "taobao/authorize" => "taobao#authorize", :as => :taobao_auth
-  match "tbwishes" => "taobao#favorites" 
+  match "tbwishes" => "taobao#favorites"
   match "itemcard" => "items#index2"
   match "usercode" => "users#code"
   match "collect" => "items#collect", :as => :collecter
