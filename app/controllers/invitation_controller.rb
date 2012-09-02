@@ -1,9 +1,9 @@
 class InvitationController < ApplicationController
   def new
     @invitation = Invitation.new
-    
+
     respond_to do |format|
-      format.html 
+      format.html
       format.json { render json: @invitation}
     end
   end
@@ -13,7 +13,6 @@ class InvitationController < ApplicationController
     @invitation.user = current_user
     @invitation.user.activate
 
-
     if @invitation
       redirect_to dashboard_user_path(current_user)
     else
@@ -22,6 +21,5 @@ class InvitationController < ApplicationController
   end
 
   def index
-
   end
 end
