@@ -72,23 +72,24 @@ $(document).ready(function () {
 
 
   $(function() {
-    if($.browser.msie) { // IE 
-      $("#search_item_input").get(0).onpropertychange = handleSearch;  
-    } else {    // others
+    if($("#search_item_input").length > 0) {
+      if($.browser.msie) { // IE
+        $("#search_item_input").get(0).onpropertychange = handleSearch;
+      } else {    // others
 
-      $("#search_item_input").get(0).addEventListener("input", handleSearch, false);
+        $("#search_item_input").get(0).addEventListener("input", handleSearch, false);
 
-      $("#search_item_input").blur(function() {  
-        setTimeout(function(){$('#searched_results').slideUp(100)}, 100);
-      });  
-    }  
+        $("#search_item_input").blur(function() {
+          setTimeout(function(){$('#searched_results').slideUp(100)}, 100);
+        });
+      }
+    }
 
-
-    function handleSearch() {  
+    function handleSearch() {
       var inputVal = $("#search_item_input").val();
       //TODO: Ajax call to search the result
       $('#searched_results').slideDown(200);
-    } 
+    }
   });
 
   $('div#rating_comp').raty({
