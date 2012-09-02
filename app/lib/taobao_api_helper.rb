@@ -31,7 +31,7 @@ module TaobaoApiHelper
     }
     p = p.merge params
     p["sign"] = Digest::MD5.hexdigest(app_sec + p.sort.flatten.join + app_sec).upcase
-    
+
     url = URI.parse(REST_URL)
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
@@ -71,10 +71,10 @@ module TaobaoApiHelper
 
   def get_favorite_items(session_key)
     params = {
-     "session" =>  session_key,
-    "user_nick" => 'jackie_f_cheng',
-    "collect_type" => 'ITEM',
-    "page_no" => 20
+      "session" =>  session_key,
+      "user_nick" => 'jackie_f_cheng',
+      "collect_type" => 'ITEM',
+      "page_no" => 20
     }
 
     json = call_taobao "taobao.favorite.search", params
@@ -106,7 +106,7 @@ module TaobaoApiHelper
     # return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON
     return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first["click_url"] if json["taobaoke_items_convert_response"]!=EMPTY_JSON && json["taobaoke_items_convert_response"]["total_results"]!=0
   end
- 
+
   # get the rating/comment of your shopping history
   def get_traderates
     params = {
@@ -119,14 +119,14 @@ module TaobaoApiHelper
     json = call_taobao "taobao.traderates.get", params
     return json["traderates_get_response"]["trade_rates"]["trade_rate"] if json!=EMPTY_JSON
   end
-  
+
   # get item categories
   # eg. parent_cid: 50011999, cids: 18957,19562,
   def get_itemcats(parent_cid, cids)
     params = {
       "fields" => "cid, parent_cid, name, is_parent, status, sort_order"
     }
-    
+
     if parent_cid  && parent_cid>=0
       params['parent_cid']=parent_cid
     elsif cids
@@ -136,7 +136,7 @@ module TaobaoApiHelper
     json = call_taobao "taobao.itemcats.get", params
     return json["itemcats_get_response"]["item_cats"]["item_cat"] if json!=EMPTY_JSON
   end
-  
+
   # get item properties
   # eg. cid: 50011999
   def get_itemprops(cid)
@@ -144,7 +144,7 @@ module TaobaoApiHelper
       'cid' => cid,
       "fields" => "pid,name,must,multi,prop_values"
     }
-    
+
     json = call_taobao "taobao.itemprops.get", params
     return json["itemprops_get_response"]["item_props"]["item_prop"] if json!=EMPTY_JSON
   end
@@ -157,7 +157,7 @@ module TaobaoApiHelper
       'session' => SESSION,
       "fields" => "trade_id,pay_time,pay_price,num_iid,outer_code,commission_rate,commission,seller_nick,pay_time,app_key"
     }
-    
+
     json = call_taobao "taobao.taobaoke.report.get", params
     return json["taobaoke_report_get_response"]["taobaoke_report"]["taobaoke_report_members"]["taobaoke_report_member"] if json!=EMPTY_JSON
   end
@@ -202,7 +202,7 @@ module TestTaobaoApiHelper
       'wap_desc String  否   Wap宝贝详情   不带html标签的desc文本信息，该字段只在taobao.item.get接口中返回',
       item['wap_desc']
   end
-  
+
   def TestTaobaoApiHelper.get_bought_trades
     trades = TaobaoApiHelper.get_bought_trades
     return if !trades
@@ -214,11 +214,11 @@ module TestTaobaoApiHelper
       end
     end
   end
-  
+
   def TestTaobaoApiHelper.convert_items_taobaoke
     items = TaobaoApiHelper.convert_items_taobaoke('34562')
     return if !items
-    
+
     items.each do |item|
       puts item
     end
@@ -227,16 +227,16 @@ module TestTaobaoApiHelper
   def TestTaobaoApiHelper.get_traderates
     rates = TaobaoApiHelper.get_traderates
     return if !rates
-    
+
     rates.each do |rate|
       puts rate
     end
   end
-  
+
   def TestTaobaoApiHelper.get_itemcats(parent_cid, level)
     itemcats = TaobaoApiHelper.get_itemcats(parent_cid, nil)
     return if !itemcats
-    
+
     itemcats.each do |itemcat|
       level.times{print '  '}
       print itemcat, "\n"
@@ -245,17 +245,17 @@ module TestTaobaoApiHelper
       TestTaobaoApiHelper.get_traderates(itemcat['cid'], level+1)
     end
   end
-  
+
   def TestTaobaoApiHelper.get_report_taobaoke
-   5.times{|i|
-        print "\n", date=(Time.now-(3600*24*i)).strftime("%Y%m%d"), "\t"
-        reports = TaobaoApiHelper.get_report_taobaoke(date)
-        next if !reports
-        
-        reports.each do |report|
-          print report#report['outer_code'],report['trade_id'],report['pay_price'],report['commission'],report['num_iid'],"\n"
-        end
-      }
+    5.times{|i|
+      print "\n", date=(Time.now-(3600*24*i)).strftime("%Y%m%d"), "\t"
+      reports = TaobaoApiHelper.get_report_taobaoke(date)
+      next if !reports
+
+      reports.each do |report|
+        print report#report['outer_code'],report['trade_id'],report['pay_price'],report['commission'],report['num_iid'],"\n"
+      end
+    }
 
   end
 end
@@ -263,13 +263,13 @@ end
 module CommissionHelper
   BUYER_COMMISSION_RATE=0.5
   REFERRER_COMMISSION_RATE=0.3
-  
+
   # trade_id:xx, pay_time:xx, pay_price:xx, item_id:xx, item_num:xx, real_pay_fee:xx, commission:xx, commission_rate:xx
   # buyer_id:xx, buyer_commission:xx
   # referral_code:xx, referrer_id:xx, shared_item_id:xx, shared_item_price:xx, referrer_bought:true, referrer_commission:xx
   def CommissionHelper.commission_calculator
     result={}
-    
+
     report = get_report_mock
     result['item_id'] = report['num_iid']
     result['item_num'] = report['item_num']
@@ -298,10 +298,10 @@ module CommissionHelper
 
       result['buyer_commission'] = report['commission']*BUYER_COMMISSION_RATE
     end
-    
+
     return result
   end
-  
+
   def CommissionHelper.get_report_mock
     report={}
     report['num_iid']='101'
@@ -315,17 +315,17 @@ module CommissionHelper
     report['commission_rate']=0.1
     return report
   end
-  
+
   def CommissionHelper.get_user_id_by_taobao_nick_mock(nick)
     return nick
   end
-  
+
   def CommissionHelper.get_trade_mock(trade_id)
     trade={}
     trade['buyer_nick']='buyer'
     return trade
   end
-  
+
   def CommissionHelper.get_referral_mock(referral_code)
     referral={}
     referral['referrer_id']='referrer'
