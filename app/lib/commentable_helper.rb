@@ -13,12 +13,12 @@ module CommentableHelper
   module ClassMethods
     def acts_as_commentable(root_type = ROOT_TYPE_SINGLE)
       case root_type
-        when ROOT_TYPE_SINGLE
-          has_one :comment, :as => :commentable, :dependent => :destroy
-          include CommentableHelper::SingleLocalInstanceMethods
-        when ROOT_TYPE_MULTIPLE
-          has_many :comments, :as => :commentable, :dependent => :destroy
-          include CommentableHelper::MultipleLocalInstanceMethods
+      when ROOT_TYPE_SINGLE
+        has_one :comment, :as => :commentable, :dependent => :destroy
+        include CommentableHelper::SingleLocalInstanceMethods
+      when ROOT_TYPE_MULTIPLE
+        has_many :comments, :as => :commentable, :dependent => :destroy
+        include CommentableHelper::MultipleLocalInstanceMethods
       end
       include CommentableHelper::CommonLocalInstanceMethods
       extend CommentableHelper::SingletonMethods

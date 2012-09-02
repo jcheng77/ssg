@@ -1,4 +1,7 @@
 Ssg::Application.routes.draw do
+  root :to => 'home#index2'
+
+  #devise_for :users
 
   resources :items do
     member do
@@ -11,8 +14,6 @@ Ssg::Application.routes.draw do
       get 'tagged'
     end
   end
-
-  #devise_for :users
 
   resources :users do
     member do
@@ -128,7 +129,6 @@ Ssg::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'home#index2'
 
   # See how all your routes lay out with "rake routes"
 

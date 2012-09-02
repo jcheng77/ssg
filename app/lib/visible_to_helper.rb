@@ -34,10 +34,9 @@ module VisibleToHelper
     end
     self.visible_to = ary
   end
-  
+
   # check if this share is visible ot given user
   def visible_to?(user)
     return self.user==user || !self.visible_to || self.visible_to.include?(user._id)
   end
 end
-

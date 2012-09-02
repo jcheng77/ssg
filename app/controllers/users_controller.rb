@@ -105,7 +105,7 @@ class UsersController < ApplicationController
     session[:current_user_id]=@user._id.to_s
 
     redirect_to :action => "index"
-#    redirect_to :action => "show", :id => @user
+    #    redirect_to :action => "show", :id => @user
   end
 
   # GET /users/1/follow

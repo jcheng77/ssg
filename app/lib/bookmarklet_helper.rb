@@ -5,9 +5,7 @@ require 'uri'
 include ImageHelper
 
 module BookmarkletHelper
-
   class Collector
-
 
     def initialize(url)
       @url = url
@@ -21,7 +19,7 @@ module BookmarkletHelper
         doc.css(@css_mark).each do |node|
           imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
         end
-      return imgs
+        return imgs
       end
 
       if @xpath_mark
@@ -34,10 +32,9 @@ module BookmarkletHelper
             i += 1
             imgs <<  node["src"].gsub('/n5/','/n1/')
           end
+        end
+        return imgs
       end
-      return imgs
-      end
-
     end
 
     def domain_checker

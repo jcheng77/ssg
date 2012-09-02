@@ -16,9 +16,9 @@ class TaobaoController < ApplicationController
 
   before_filter :login_taobao, :only => [:purchases, :favorites]
   #skip_before_filter :verify_authenticity_token
-  
+
   AUTH_URL = 'http://container.api.taobao.com/container?'
-  app_key = '12483819' 
+  app_key = '12483819'
 
   def new
     #params[:itemId]
@@ -34,20 +34,19 @@ class TaobaoController < ApplicationController
       format.json { render json: @product }
     end
   end
-  
-  def index
 
+  def index
     respond_to do |format|
       format.html index.html.erb
     end
   end
-  
+
   def authorize
-   p = {
+    p = {
       'appkey' => '12483819',
       'encode' => 'utf-8'
-   }
-   redirect_to AUTH_URL + urlencode(p)
+    }
+    redirect_to AUTH_URL + urlencode(p)
   end
 
   def callback
@@ -63,8 +62,8 @@ class TaobaoController < ApplicationController
       exists = User.where(userid: top_params["visitor_id"].to_s ).first
 
       if exists.nil?
-      
-      user = User.create( :userid => top_params["visitor_id"], :session_key => top_params["top_session"])
+
+        user = User.create( :userid => top_params["visitor_id"], :session_key => top_params["top_session"])
 
         session[:current_user_id] = user._id
         redirect_to :controller => "users", :action => "signup" , :id => user._id , :name => top_params["visitor_nick"]
@@ -72,13 +71,11 @@ class TaobaoController < ApplicationController
         session[:current_user_id] = exists._id
         redirect_to dashboard_user_path(current_user)
       end
-      
+
     else
       redirect_to users_url, :notice => "authorized failed!!!! #{access_token} #{token_secret}"
     end
- 
-   end 
-
+  end
 
   def purchases
     json = get_bought_trades session[:taobao_session_key]
@@ -87,12 +84,11 @@ class TaobaoController < ApplicationController
     # redirect_to dashboard_user_path(current_user)
   end
 
-
   def favorites
     json = get_favorite_items session[:taobao_session_key]
     redirect_to dashboard_users_path
   end
-  
+
   protected 
 
   def urlencode(params)
@@ -104,6 +100,4 @@ class TaobaoController < ApplicationController
       redirect taobao_auth_path
     end
   end
-
-  
 end
