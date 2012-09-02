@@ -166,7 +166,7 @@ class ItemsController < ApplicationController
   # GET /items/share
   def share
     respond_to do |format|
-      format.html { render layout: 'application1' }
+      format.html { render layout: 'application' }
     end
   end
 
