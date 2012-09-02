@@ -3,15 +3,15 @@ class Weibo
   KEY_MAP = {"openid" => "id" , "name" => "name" , "head" => "profile_image_url", "location" => "location", "email" => "email" , "birth_day" => "birth_day", "birth_month" => "birth_month", "birth_year" => "birth_year", "birthday" => "birthday" }
 
   def initialize(type)
-   @type = type 
+    @type = type
   end
 
   def init_client
     case @type
     when 'sina'
-    @client = OauthChina::Sina.new
+      @client = OauthChina::Sina.new
     when 'qq'
-    @client = OauthChina::Qq.new
+      @client = OauthChina::Qq.new
     end
   end
 
@@ -23,62 +23,55 @@ class Weibo
     Rails.cache.write(build_oauth_token_key(@client.name,@client.oauth_token), @client.dump)
   end
 
-
   def load_client(oauth_token)
     case @type
     when 'sina'
-    @client = OauthChina::Sina.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
+      @client = OauthChina::Sina.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
     when 'qq'
-    @client = OauthChina::Qq.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
+      @client = OauthChina::Qq.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
     end
   end
-
 
   def load_from_db(access_token,token_secret)
     case @type
     when 'sina'
-    @client = OauthChina::Sina.load(:access_token => access_token,:access_token_secret => token_secret)
+      @client = OauthChina::Sina.load(:access_token => access_token,:access_token_secret => token_secret)
     when 'qq'
-    @client = OauthChina::Qq.load(:access_token => access_token,:access_token_secret => token_secret)
+      @client = OauthChina::Qq.load(:access_token => access_token,:access_token_secret => token_secret)
     end
   end
-
 
   #verify account info
   def get_account_info
     case @type
     when 'sina'
-    resp = @client.get '/account/verify_credentials.json' 
+      resp = @client.get '/account/verify_credentials.json' 
     when 'qq'
-    resp = @client.get 'http://open.t.qq.com/api/user/info?format=json'
+      resp = @client.get 'http://open.t.qq.com/api/user/info?format=json'
     end
     return resp
   end
 
-  
-#get the friends list that the given person follows
+  #get the friends list that the given person follows
   def get_friends_ids
     case @type
     when 'sina'
-    resp = @client.get '/friends/ids.json'
+      resp = @client.get '/friends/ids.json'
     when 'qq'
-    resp = @client.get 'http://open.t.qq.com/api/friends/idollist_s?format=json'
+      resp = @client.get 'http://open.t.qq.com/api/friends/idollist_s?format=json'
     end
     return resp
   end
 
-
-  
-
-    ## -------------
-    ##  print key-value pair of the returned user object
-    ##  userhash.each_key {|key| logger.info "#{key} => #{userhash[key]}"}
-    ## -------------
+  ## -------------
+  ##  print key-value pair of the returned user object
+  ##  userhash.each_key {|key| logger.info "#{key} => #{userhash[key]}"}
+  ## -------------
   def get_user_info_hash
     if @client
-    resp = get_account_info
-    json_resp = resp.body 
-    userhash = ActiveSupport::JSON.decode(json_resp) 
+      resp = get_account_info
+      json_resp = resp.body 
+      userhash = ActiveSupport::JSON.decode(json_resp) 
     end
     # The hash key of returned json object from QQ weibo is different from the one returned from Sina weibo.
     # So the ids and names needs to be extracted from the json object
@@ -86,12 +79,11 @@ class Weibo
     return extract_user_info(userhash)
   end
 
-
   def get_friends_list
     if @client
-    resp = get_friends_ids
-    friends_json= resp.body 
-    friends_hash = ActiveSupport::JSON.decode(friends_json) 
+      resp = get_friends_ids
+      friends_json= resp.body 
+      friends_hash = ActiveSupport::JSON.decode(friends_json) 
     end
     friends_hash.each_key {|key| Rails.logger.info "#{key} => #{friends_hash[key]}"}
     if @type == 'qq'
@@ -101,7 +93,6 @@ class Weibo
     end
   end
 
-
   #extract id and name and profile image infomation from the json object returned from QQ weibo
   def extract_user_info(hash)
     if hash.has_key?('data')
@@ -110,9 +101,8 @@ class Weibo
       #userhash = { "id" => hashdata["openid"], "name" => hashdata["name"] , "profile_image_url" => hashdata["head"], "location" => hashdata["location"], "email" => hashdata["email"] , "birthday" => "#{hashdata["birth_year"]}#{hashdata["birth_month"]}#{hashdata["birth_day"]}" , "description" => hashdata["description"] }
     else
       hash.select {|k,v| KEY_MAP.values.index(k) }
-    end  
+    end
   end
-
 
   def extract_friends_list(qqhash)
     if qqhash.has_key?('data')
@@ -142,7 +132,4 @@ class Weibo
   def build_oauth_token_key(name , oauth_token)
     [name,oauth_token].join("_")
   end
-
-  
-  
 end

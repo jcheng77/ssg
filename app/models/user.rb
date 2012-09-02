@@ -1,5 +1,4 @@
 class User
-
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
   include Mongo::Voter
@@ -12,7 +11,7 @@ class User
   field :email, type: String
   field :password, type: String
   field :password_salt, type: String
-  field :avatar, type: String  
+  field :avatar, type: String
 
   field :gender, type: Integer # 0 female/1 male/gay/lesbian/bisexual etc.
 
@@ -25,9 +24,8 @@ class User
   field :city, type: String
   field :address, type: String
 
-
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
-  
+
   # relations
   embeds_many :accounts # second accounts
 
@@ -36,13 +34,13 @@ class User
   has_many :bags
   has_many :choices
 
-  # index  
+  # index
   index :nick_name, unique: true
-  
+
   # validation
   validates_uniqueness_of :nick_name
   validates_format_of :email, :with => email_regexp, :on => :update
- 
+
   before_save :encrypt_password
 
   def followed_shares(categories = [])
@@ -75,7 +73,7 @@ class User
   def notifications
     Notification.where(receiver_id: self._id)
   end
-  
+
   # my firends shared with me
   def shared_with_me
     hash = Hash.new
@@ -89,14 +87,14 @@ class User
         end
       end
     end
-    
+
     return hash
   end
-  
+
   # action: notify my follower about my share
   def notify_my_share(share)
     return if (share.visible_to==Share::VISIBLE_TO_SELF)
-    
+
     if share.visible_to
       # share to people in visible to list
       receivers = share.visible_to
@@ -104,7 +102,7 @@ class User
       # share to all people follows me
       receivers = followed_by
     end
-    
+
     receivers.each do |receiver_id|
       # send notification
       Notification.add(share._id, self._id, receiver_id, Notification::TYPE_SHARE)
@@ -112,14 +110,14 @@ class User
   end
 
   def self.authenticate(input,password)
-   user ||= User.where(email:input).first
-   user ||= User.where(nick_name:input).first
-   
-   if user && user.password == BCrypt::Engine.hash_secret(password,user.password_salt)
-     user
-   else
-     logger.info "user not found"
-   end
+    user ||= User.where(email:input).first
+    user ||= User.where(nick_name:input).first
+
+    if user && user.password == BCrypt::Engine.hash_secret(password,user.password_salt)
+      user
+    else
+      logger.info "user not found"
+    end
   end
 
   def encrypt_password

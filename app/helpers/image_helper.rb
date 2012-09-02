@@ -28,5 +28,4 @@ module ImageHelper
   def conv_pic_310_to_40(picurl)
     picurl.gsub('310x310','40x40')
   end
-
 end

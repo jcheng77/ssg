@@ -1,19 +1,18 @@
 #encoding: utf-8
-
 class SessionsController < ApplicationController
   layout 'application1'
   def new
   end
 
   def create
-  user = User.authenticate(params[:email], params[:password])
-  if user
-    session[:current_user_id] = user._id
-    redirect_to root_url 
-  else
-    flash.now.alert = "Invalid email or password"
-    render "new"
-  end
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      session[:current_user_id] = user._id
+      redirect_to root_url 
+    else
+      flash.now.alert = "Invalid email or password"
+      render "new"
+    end
   end
 
   def destroy
@@ -27,5 +26,4 @@ class SessionsController < ApplicationController
     session[:current_categories] = nil
     redirect_to root_url
   end
-
 end

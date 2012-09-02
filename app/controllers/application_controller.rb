@@ -9,7 +9,7 @@ require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate 
+  before_filter :authenticate
   helper_method :current_user, :categories, :current_categories
 
   def current_user
@@ -47,6 +47,4 @@ class ApplicationController < ActionController::Base
       @current_user
     end
   end
-
-
 end
