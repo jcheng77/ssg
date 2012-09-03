@@ -49,7 +49,7 @@ class ItemsController < ApplicationController
                              :title => col.title,
                              #:image => product['pic_url'],
                              :image => @imgs.first,
-                             :purchase_url => col.converted_url 
+                             :purchase_url => col.purchase_url
                          })
         @share = Share.new({
                                :source => item_id,
