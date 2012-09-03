@@ -61,7 +61,6 @@ module BookmarkletHelper
 
     def get_item_id
       uri = URI(@url)
-      req_hash = Rack::Utils.parse_nested_query uri.query
       path = uri.path.split('/')
 
       case @site
