@@ -66,8 +66,6 @@ Ssg::Application.routes.draw do
 
   match "login" => "sessions#new", :as => :login
   match "logout" => "sessions#destroy", :as => :logout
-  match "home/account" => "home#account", :as => :account
-  match "home/index" => "home#index", :as => :home
   match "syncs/:type/new" => "syncs#new", :as => :sync_new
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback
