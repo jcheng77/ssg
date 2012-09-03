@@ -47,7 +47,9 @@ tmp/
 .sass-cache/
 tag/*
 tag
+tags
 tag/
+backup/
 
 #vim tmp files
 *.swp

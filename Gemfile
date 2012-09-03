@@ -6,7 +6,7 @@ require 'uri'
 require 'digest/md5'
 
 source 'http://rubygems.org'
-#source 'http://ruby.taobao.org/'  
+#source 'http://ruby.taobao.org/'
 
 gem 'rails', '3.1.3'
 gem 'sprockets', '~> 2.0.0.beta.14'
@@ -27,17 +27,20 @@ gem 'mongoid_session_store'
 
 #gem 'devise', '1.4.7'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
-#
-gem 'pry', :group => :development
-gem 'pry-nav' , :group => :development
-gem 'pry-remote', :group => :development
-gem 'git-commit-notifier', :group => :development
+
+group :development, :test do
+  gem 'pry', :group => :development
+  gem 'pry-nav' , :group => :development
+  gem 'pry-remote', :group => :development
+  gem 'git-commit-notifier', :group => :development
+end
 gem 'heroku'
 gem 'whenever'
 
 gem 'oauth'
 gem 'oauth_china'
 gem 'weibo_2'
+
 gem 'json', '~>1.7.3'
 gem 'slim'
 gem 'will_paginate_mongoid'
@@ -45,7 +48,7 @@ gem 'nokogiri'
 gem 'amazon-ecs'
 
 #gem "weibo_oauth2", "~> 0.0.5"
- 
+
 gem 'jquery-rails'
 gem 'chosen-rails'
 
@@ -64,7 +67,7 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'sass-rails' , '3.1.4'
 gem 'uglifier', '>= 1.0.3'
 
-#gem "twitter-bootstrap-rails", "~> 2.0.1.0"  
+#gem "twitter-bootstrap-rails", "~> 2.0.1.0"
 
 #group :assets do
 #end
