@@ -6,9 +6,7 @@ include ImageHelper
 include TaobaoApiHelper
 
 module BookmarkletHelper
-
   class Collector
-
 
     def initialize(url)
       @url = url

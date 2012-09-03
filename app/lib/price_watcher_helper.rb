@@ -19,9 +19,7 @@ module PriceWatcherHelper
     end
   end
 
-
   def notify_users
     items_with_price = get_the_latest_price
   end
-
 end

@@ -17,7 +17,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
   def tagged
     @items = Item.tagged_with_all(params[:tags])
 
@@ -26,8 +25,6 @@ class ItemsController < ApplicationController
       format.json { render json: @items }
     end
   end
-
-
 
   def index2
     @items = Item.all
@@ -61,12 +58,11 @@ class ItemsController < ApplicationController
                            })
     end
 
-
     respond_to do |format|
       format.js { render json: @imgs }
-      format.html { render layout: 'empty' }
+      format.html
     end
-  end 
+  end
 
   # POST /items/1/add_tag
   def add_tag
@@ -143,17 +139,17 @@ class ItemsController < ApplicationController
         converted_url = convert_item_url @id
         converted_url ||= taobao_url(@id)
         @item = Item.new({
-                             :source_id => product['num_iid'],
-                             :title => product['title'],
-                             #:image => product['pic_url'],
-                             :image => @item_imgs.first,
-                             :purchase_url => converted_url
-                         })
+          :source_id => product['num_iid'],
+          :title => product['title'],
+          #:image => product['pic_url'],
+          :image => @item_imgs.first,
+          :purchase_url => converted_url
+        })
         @share = Share.new({
-                               :source => product['num_iid'],
-                               #:seller => product['nick'],
-                               :price => product['price']
-                           })
+          :source => product['num_iid'],
+          #:seller => product['nick'],
+          :price => product['price']
+        })
       end
     end
 
@@ -165,7 +161,7 @@ class ItemsController < ApplicationController
   # GET /items/share
   def share
     respond_to do |format|
-      format.html { render layout: 'application1' }
+      format.html { render layout: 'application' }
     end
   end
 
