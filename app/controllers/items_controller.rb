@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.js { render json: @imgs }
-      format.html { render layout: 'empty' }
+      format.html
     end
   end
 
@@ -235,6 +235,7 @@ class ItemsController < ApplicationController
       return false if !@item.save
     end
 
+    binding.pry
     @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
     if @share
       return false if !@share.update_attributes(params[:share])
