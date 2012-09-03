@@ -60,9 +60,7 @@ Ssg::Application.routes.draw do
 
   resources :choices
   resources :invitations
-  resources :sessions
 
-  match "login" => "sessions#new", :as => :login
   match "logout" => "sessions#destroy", :as => :logout
   match "syncs/:type/new" => "syncs#new", :as => :sync_new
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
