@@ -65,11 +65,14 @@ module BookmarkletHelper
 
       case @site
       when 'taobao'
+        req_hash = Rack::Utils.parse_nested_query uri.query
         @item_id = req_hash["id"]
       when 'tmall'
+        req_hash = Rack::Utils.parse_nested_query uri.query
         @item_id = req_hash["id"]
       when 'amazon'
-        @item_id = path[path.index("product")+1]
+        preindex = path.index("product") || path.index("dp")
+        @item_id = path[preindex + 1] if preindex
       when '360buy'
         @item_id = path[path.index("product")+1].split('.').first
       else
@@ -85,6 +88,7 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+      binding.pry
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
