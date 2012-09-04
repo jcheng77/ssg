@@ -1,7 +1,7 @@
 development:
       key:    "100657029"
       secret: "10478c7b28f1b17a09d04d165f5ba610"
-      url:    "http://www.ssg.com"
+      url:    "http://boluo.me"
       callback: "http://127.0.0.1:3000/syncs/qq/callback"
 production:
       key:    "100657029"

@@ -29,8 +29,6 @@ gem 'mongoid_session_store'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
 
 group :development, :test do
-  gem 'quiet_assets'
-  gem 'thin'
   gem 'pry', :group => :development
   gem 'pry-nav' , :group => :development
   gem 'pry-remote', :group => :development
