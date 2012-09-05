@@ -130,7 +130,7 @@ class ItemsController < ApplicationController
     @share = Share.new
     @item_imgs = Array.new
 
-    @id = params[:id] 
+    @id = params[:id]
 
     if @id
       product = get_item @id
