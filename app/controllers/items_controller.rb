@@ -242,7 +242,6 @@ class ItemsController < ApplicationController
       @share.item_id = @item._id
       @share.user_id = user._id
       return false if !@share.save
-      # binding.pry
       @share.create_comment_by_sharer(params[:share][:comment]) if params[:share][:comment] != ""
       @item.update_attribute(:root_share_id, @share._id)
       current_user.follow @item
@@ -250,9 +249,5 @@ class ItemsController < ApplicationController
       current_user.followers_by_type(User.name).each { |user| user.follow @share }
     end
     return true
-  end
-
-  def taobao_url(taobao_item_id)
-    "http://item.taobao.com/item.htm?id=" + taobao_item_id
   end
 end

@@ -35,7 +35,7 @@ module BookmarkletHelper
             i += 1
             @imgs <<  node["src"].gsub('/n5/','/n1/')
           end
-      end
+        end
       end
 
     end
@@ -87,22 +87,22 @@ module BookmarkletHelper
     def retrieve_product_info
       case @site
       when 'amazon'
-      res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
-      binding.pry
-      item = res.first_item
-      @imgs << item.get_hash("LargeImage")["URL"]
-      node = item/'Price/Amount'
-      @price = node.children.first.text.to_i/100
-      @title = item.get_element('ItemAttributes').get('Title')
-      node2 = item/'DetailPageURL'
-      @purchase_url = node2.first.text
+        res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+        binding.pry
+        item = res.first_item
+        @imgs << item.get_hash("LargeImage")["URL"]
+        node = item/'Price/Amount'
+        @price = node.children.first.text.to_i/100
+        @title = item.get_element('ItemAttributes').get('Title')
+        node2 = item/'DetailPageURL'
+        @purchase_url = node2.first.text
       when 'taobao','tmall'
-      product = get_item item_id
-      @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
-      @price = product['price']
-      @title = product['title']
-      @purchase_url = convert_item_url item_id
-      @purchase_url ||= taobao_url(item_id)
+        product = get_item item_id
+        @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
+        @price = product['price']
+        @title = product['title']
+        @purchase_url = convert_item_url item_id
+        @purchase_url ||= taobao_url(item_id)
       when '360buy'
         collecter
       end
@@ -113,7 +113,7 @@ module BookmarkletHelper
     end
 
     def title
-     @title
+      @title
     end
 
     def price
