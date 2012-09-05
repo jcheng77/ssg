@@ -1,20 +1,5 @@
 #encoding: utf-8
 class SessionsController < ApplicationController
-  layout 'application1'
-  def new
-  end
-
-  def create
-    user = User.authenticate(params[:email], params[:password])
-    if user
-      session[:current_user_id] = user._id
-      redirect_to root_url 
-    else
-      flash.now.alert = "Invalid email or password"
-      render "new"
-    end
-  end
-
   def destroy
     #Weibo.new('qq').add_status(session[:access_token],session[:token_secret],'Knowledge is power. Pass it on...')
     #Weibo.new('sina').upload_image(session[:access_token],session[:token_secret],"my handwriting","/Users/jcheng/Pictures/head.jpg") 
