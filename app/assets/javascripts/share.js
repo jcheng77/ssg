@@ -117,6 +117,4 @@ $(document).ready(function () {
     $('#share_img_src').attr("src", b_img_url);
   }
   )
-
-
 });
