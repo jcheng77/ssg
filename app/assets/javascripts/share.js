@@ -94,13 +94,15 @@ $(document).ready(function () {
     }
   });
 
-  $('div#rating_comp').raty({
-    readOnly:  false,
-    start: $('div#rating_comp').attr("stars"),
-    scoreName: $('div#rating_comp').attr("scoreName"),
-    path: '/images/smallStars',
-    hintList:     ['', '', '', '', '']
-  });
+  if($('#rating_comp').length > 0) {
+    $('div#rating_comp').raty({
+      readOnly:  false,
+      start: $('div#rating_comp').attr("stars"),
+      scoreName: $('div#rating_comp').attr("scoreName"),
+      path: '/assets/smallStars',
+      hintList:     ['', '', '', '', '']
+    });
+  };
 
   $('.img_others_item').hover(
     function() {
