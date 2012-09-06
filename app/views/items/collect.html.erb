@@ -30,16 +30,12 @@
 </script>
 
 <div id="bookmarklet_container">
-  <h2>Add a Recommendation</h2>
-
   <div class="row">
-    <div class="span2 images_picker">
+    <div class="span3 images_picker">
       <div class="image_frame">
         <img src="<%= @imgs[0] %>" alt=""/>
-
         <div class="dimension"></div>
       </div>
-      <p> Select your picture: </p>
       <ul class="image_list">
         <% @imgs.each do |img| %>
           <li>
@@ -55,15 +51,14 @@
           <%= hidden_field_tag "item[image]", @item.image %>
           <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
           <div class="control-group">
-            <label class="control-label" for="input01"><span class="required">*</span>Title</label>
+            <label class="control-label" for="input01"><span class="required">*</span>商品名称:</label>
 
             <div class="controls">
               <%= f.text_field :title, :class => 'input-xlarge' %>
-              <p class="help-block">80 characters remaining.</p>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="select01"><span class="required">*</span>Category</label>
+            <label class="control-label" for="select01"><span class="required">*</span>分类:</label>
 
             <div class="controls">
               <select id="category" name="item[category]">
@@ -74,14 +69,20 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="textarea"><span class="required">*</span>Comment</label>
+            <label class="control-label" for="rating_comp"><span class="required">*</span>推荐指数:</label>
+            <div class="controls">
+              <div id="rating_comp"></div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="textarea"><span class="required">*</span>推荐评论:</label>
 
             <div class="controls">
               <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="textarea">Tags</label>
+            <label class="control-label" for="textarea">标签:</label>
 
             <div class="controls">
               <input type="hidden" id="tags" name="item[tags]">
@@ -95,7 +96,7 @@
           </div>
           <%= hidden_field_tag "share[source]", @share.source %>
           <div class="form-actions">
-            <%= f.submit "Recommend", :class => 'btn btn-primary' %>
+            <%= f.submit "提交分享", :class => 'btn btn-primary' %>
           <% end %>
         </div>
       </fieldset>

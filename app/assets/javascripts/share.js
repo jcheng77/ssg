@@ -24,9 +24,11 @@ $(document).ready(function () {
     var regNumber = new RegExp('^\\d+$');
 
     if(url.match(regTaobaoId)){
-      location.href='/items/new?id=' + url.replace(regTaobaoId, "$1");
+      //location.href='/items/new?id=' + url.replace(regTaobaoId, "$1");
+      location.href='/collect?url=' + url;
     }else if(url.match(regNumber)){
-      location.href='/items/new?id=' + url;
+      //location.href='/items/new?id=' + url;
+      location.href='/collect?url=' + url;
     }else{
       alert ('请输入有效的宝贝链接或商品ID')
     }
@@ -92,13 +94,15 @@ $(document).ready(function () {
     }
   });
 
-  $('div#rating_comp').raty({
-    readOnly:  false,
-    start: $('div#rating_comp').attr("stars"),
-    scoreName: $('div#rating_comp').attr("scoreName"),
-    path: '/images/smallStars',
-    hintList:     ['', '', '', '', '']
-  });
+  if($('#rating_comp').length > 0) {
+    $('div#rating_comp').raty({
+      readOnly:  false,
+      start: $('div#rating_comp').attr("stars"),
+      scoreName: $('div#rating_comp').attr("scoreName"),
+      path: '/assets/smallStars',
+      hintList:     ['', '', '', '', '']
+    });
+  };
 
   $('.img_others_item').hover(
     function() {
