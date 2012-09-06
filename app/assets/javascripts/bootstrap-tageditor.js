@@ -36,7 +36,7 @@
             this.$element.find('ul.tags li.tag span').each(function(){
                 a.push($(this).html());
             });
-            return a.join(',');
+            return a.join(' ');
         }
 
         , appendTag: function(val) {
