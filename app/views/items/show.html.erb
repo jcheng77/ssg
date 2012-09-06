@@ -69,7 +69,7 @@
     <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
             <% unless @item == item %>
-                <%= render :partial => "items/item", :object => item %>
+                <%= render :partial => "items/item", :object => item, :locals => { :tags => item.tags, :share => item.root_share} %>
             <% end %>
         <% end %>
     </ul>

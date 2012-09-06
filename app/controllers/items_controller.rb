@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ItemsController < ApplicationController
   layout 'application'
   # GET /items
@@ -42,7 +43,7 @@ class ItemsController < ApplicationController
     @item = Item.new
     @share = Share.new
 
-    if item_id
+    if item_id != 'invalid'
       @item = Item.new({
         :source_id => item_id,
         :title => col.title,

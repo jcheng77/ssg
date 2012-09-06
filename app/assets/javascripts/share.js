@@ -9,32 +9,6 @@ $(document).ready(function () {
     });
   }
 
-  $('#input_buy_url_next').click(
-    function() {
-    //TODO: Ajax call to get taobao item infomation
-    //$('#select_view').hide();
-
-    //$('#select_share_btn').show();
-    //$('#create_view').show();
-
-    // get the id from taobao url
-
-    var url = $('#taobao_url')[0].value;
-    var regTaobaoId = new RegExp('.*[?&]id=(\\d+).*');
-    var regNumber = new RegExp('^\\d+$');
-
-    if(url.match(regTaobaoId)){
-      //location.href='/items/new?id=' + url.replace(regTaobaoId, "$1");
-      location.href='/collect?url=' + url;
-    }else if(url.match(regNumber)){
-      //location.href='/items/new?id=' + url;
-      location.href='/collect?url=' + url;
-    }else{
-      alert ('请输入有效的宝贝链接或商品ID')
-    }
-  }
-  )
-
   $('#select_from_sys_next').click(
     function() {
     //TODO: Ajax call to get searched item infomation
