@@ -67,7 +67,7 @@ module TaggableHelper
 
     def tags_separator(separator = nil)
       @tags_separator = separator if separator
-      @tags_separator || ','
+      @tags_separator || ' '
     end
 
     def tags_index_collection_name
