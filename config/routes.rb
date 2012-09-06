@@ -1,8 +1,6 @@
 Ssg::Application.routes.draw do
   root :to => 'home#index'
 
-  #devise_for :users
-
   resources :items do
     member do
       get 'add'
@@ -62,12 +60,8 @@ Ssg::Application.routes.draw do
 
   resources :choices
   resources :invitations
-  resources :sessions
 
-  match "login" => "sessions#new", :as => :login
   match "logout" => "sessions#destroy", :as => :logout
-  match "home/account" => "home#account", :as => :account
-  match "home/index" => "home#index", :as => :home
   match "syncs/:type/new" => "syncs#new", :as => :sync_new
   match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback
   #match "taobao/callback" => "taobao#callback", :as => :taobao_callback

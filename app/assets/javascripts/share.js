@@ -9,30 +9,6 @@ $(document).ready(function () {
     });
   }
 
-  $('#input_buy_url_next').click(
-    function() {
-    //TODO: Ajax call to get taobao item infomation
-    //$('#select_view').hide();
-
-    //$('#select_share_btn').show();
-    //$('#create_view').show();
-
-    // get the id from taobao url
-
-    var url = $('#taobao_url')[0].value;
-    var regTaobaoId = new RegExp('.*[?&]id=(\\d+).*');
-    var regNumber = new RegExp('^\\d+$');
-
-    if(url.match(regTaobaoId)){
-      location.href='/items/new?id=' + url.replace(regTaobaoId, "$1");
-    }else if(url.match(regNumber)){
-      location.href='/items/new?id=' + url;
-    }else{
-      alert ('请输入有效的宝贝链接或商品ID')
-    }
-  }
-  )
-
   $('#select_from_sys_next').click(
     function() {
     //TODO: Ajax call to get searched item infomation
@@ -92,13 +68,15 @@ $(document).ready(function () {
     }
   });
 
-  $('div#rating_comp').raty({
-    readOnly:  false,
-    start: $('div#rating_comp').attr("stars"),
-    scoreName: $('div#rating_comp').attr("scoreName"),
-    path: '/images/smallStars',
-    hintList:     ['', '', '', '', '']
-  });
+  if($('#rating_comp').length > 0) {
+    $('div#rating_comp').raty({
+      readOnly:  false,
+      start: $('div#rating_comp').attr("stars"),
+      scoreName: $('div#rating_comp').attr("scoreName"),
+      path: '/assets/smallStars',
+      hintList:     ['', '', '', '', '']
+    });
+  };
 
   $('.img_others_item').hover(
     function() {
@@ -117,6 +95,4 @@ $(document).ready(function () {
     $('#share_img_src').attr("src", b_img_url);
   }
   )
-
-
 });

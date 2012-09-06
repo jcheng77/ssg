@@ -27,6 +27,7 @@
     margin: 4px 0 5px 0;
     line-height: 27px;
     background-color: white;
+    display: none;
   }
 
   .images_picker {
@@ -39,8 +40,8 @@
   }
 
   .image_frame img {
-    height: 135px;
-    width: 135px;
+    height: 250px;
+    width: 250px;
   }
 
   #bookmarklet_container > h2 {

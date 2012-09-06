@@ -35,7 +35,7 @@ module BookmarkletHelper
             i += 1
             @imgs <<  node["src"].gsub('/n5/','/n1/')
           end
-      end
+        end
       end
 
     end
@@ -65,11 +65,14 @@ module BookmarkletHelper
 
       case @site
       when 'taobao'
+        req_hash = Rack::Utils.parse_nested_query uri.query
         @item_id = req_hash["id"]
       when 'tmall'
+        req_hash = Rack::Utils.parse_nested_query uri.query
         @item_id = req_hash["id"]
       when 'amazon'
-        @item_id = path[path.index("product")+1]
+        preindex = path.index("product") || path.index("dp")
+        @item_id = path[preindex + 1] if preindex
       when '360buy'
         @item_id = path[path.index("product")+1].split('.').first
       else
@@ -85,20 +88,21 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+      binding.pry
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
-      @price = node.children.first.text.to_i/100
+      @price = node.children.first.text.to_i/100 if node
       @title = item.get_element('ItemAttributes').get('Title')
       node2 = item/'DetailPageURL'
-      @purchase_url = node2.first.text
+      @purchase_url = node2.first.text if node
       when 'taobao','tmall'
-      product = get_item item_id
-      @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
-      @price = product['price']
-      @title = product['title']
-      @purchase_url = convert_item_url item_id
-      @purchase_url ||= taobao_url(item_id)
+        product = get_item item_id
+        @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
+        @price = product['price']
+        @title = product['title']
+        @purchase_url = convert_item_url item_id
+        @purchase_url ||= taobao_url(item_id)
       when '360buy'
         collecter
       end
@@ -109,7 +113,7 @@ module BookmarkletHelper
     end
 
     def title
-     @title
+      @title
     end
 
     def price
