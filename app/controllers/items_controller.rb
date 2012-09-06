@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ItemsController < ApplicationController
   layout 'application'
   # GET /items
@@ -42,20 +43,19 @@ class ItemsController < ApplicationController
     @item = Item.new
     @share = Share.new
 
-    if item_id
-
-        @item = Item.new({
-                             :source_id => item_id,
-                             :title => col.title,
-                             #:image => product['pic_url'],
-                             :image => @imgs.first,
-                             :purchase_url => col.purchase_url
-                         })
-        @share = Share.new({
-                               :source => item_id,
-                               #:seller => product['nick'],
-                               :price => col.price
-                           })
+    if item_id != 'invalid'
+      @item = Item.new({
+        :source_id => item_id,
+        :title => col.title,
+        #:image => product['pic_url'],
+        :image => @imgs.first,
+        :purchase_url => col.purchase_url
+      })
+      @share = Share.new({
+        :source => item_id,
+        #:seller => product['nick'],
+        :price => col.price
+      })
     end
 
     respond_to do |format|
@@ -120,41 +120,6 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
-    end
-  end
-
-  # GET /items/new
-  # GET /items/new.json
-  def new
-    @item = Item.new
-    @share = Share.new
-    @item_imgs = Array.new
-
-    @id = params[:id]
-
-    if @id
-      product = get_item @id
-      if product
-        @item_imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
-        converted_url = convert_item_url @id
-        converted_url ||= taobao_url(@id)
-        @item = Item.new({
-          :source_id => product['num_iid'],
-          :title => product['title'],
-          #:image => product['pic_url'],
-          :image => @item_imgs.first,
-          :purchase_url => converted_url
-        })
-        @share = Share.new({
-          :source => product['num_iid'],
-          #:seller => product['nick'],
-          :price => product['price']
-        })
-      end
-    end
-
-    respond_to do |format|
-      format.html { render layout: 'application1' }
     end
   end
 

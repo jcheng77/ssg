@@ -1,16 +1,20 @@
 <div class="thumbnail row friend-block">
-    <%= image_tag small_avatar_url(summary.avatar), :width => '50', class: "pull-left" %>
-    <div class="pull-right friend-info">
-        <h5><%= link_to summary.nick_name, account_user_path(summary) %></h5>
-        <ul>
-            <li>推荐 <%= summary.shares.size%></li>
-            <li>购买 <%= summary.bags.size%></li>
-            <li>愿望 <%= summary.wishes.size%></li>
-        </ul>
-        <% summary.recent_shares.each do |share| %>
-            <%= link_to share do %>
-                <%= image_tag share.item.image, width: 100 %>
-            <% end %>
+  <%= image_tag small_avatar_url(summary.avatar), :width => '50', class: "pull-left" %>
+  <div class="pull-right friend-info">
+    <h5><%= link_to summary.nick_name, account_user_path(summary) %></h5>
+    <ul>
+      <li>推荐 <%= summary.shares.size%></li>
+      <li>购买 <%= summary.bags.size%></li>
+      <li>愿望 <%= summary.wishes.size%></li>
+    </ul>
+    <ul class="images-list">
+      <% summary.recent_shares.each do |share| %>
+        <li>
+        <%= link_to share do %>
+          <%= image_tag share.item.image %>
         <% end %>
-    </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
