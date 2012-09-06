@@ -121,3 +121,10 @@ ul.category:after{
     width: 430px;
 }
 
+ul.images-list li {
+  margin-right: 5px;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
