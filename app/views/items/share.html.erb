@@ -1,28 +1,28 @@
 <div id="createShare_main">
-    <div class="container_24">
-        <div class="clear"></div>
-        <div class="grid_24 main_content">
-            <div id="select_view" style="display: block;">
-                <div id="select_from_buy_list">
-                    <h3 class="select_sub_title_1">从淘宝购买记录分享<span class="secondary_color">（推荐）</span></h3>
+  <div class="container_24">
+    <div class="clear"></div>
+    <div class="grid_24 main_content">
+      <div id="select_view" style="display: block;">
+        <div id="select_from_buy_list">
+          <h3 class="select_sub_title_1">从淘宝购买记录分享<span class="secondary_color">（推荐）</span></h3>
 
-                    <div class="description">
-                        <div class="text_12 dark_color">分享真实的购买记录，结识相同品味的朋友</div>
-                    </div>
-                    <div id="input_buy_url">
-                        <div class="select_sub_title"><span class="dark_color text_12">或&nbsp;</span>输入淘宝商品链接</div>
-                        <div>
-                            <input type="text" placeholder="在这里输入淘宝商品链接地址" id="taobao_url" value="http://item.taobao.com/item.htm?id=15218695443"/>
-                            <a href="javascript:void(0);" id="input_buy_url_next" class="secondary_color">下一步</a>
-                        </div>
-                    </div>
-
-                    <div id="bookmarklet_toolbar">
-                        <h1>拖拽   
-                            <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'hunch_bookmarklet','left=100,top=100,width=680,height=500,personalbar=0,toolbar=0,scrollbars=1,resizable=1')})()">菠萝蜜分享</a> 到浏览器收藏夹栏</h1>
-                    </div>
-                </div>
+          <div class="description">
+            <div class="text_12 dark_color">分享真实的购买记录，结识相同品味的朋友</div>
+          </div>
+          <div id="input_buy_url">
+            <div class="select_sub_title"><span class="dark_color text_12">或&nbsp;</span>输入淘宝商品链接</div>
+            <div>
+              <input type="text" placeholder="在这里输入淘宝商品链接地址" id="taobao_url" value="http://item.taobao.com/item.htm?id=15218695443"/>
+              <a href="javascript:void(0);" id="input_buy_url_next" class="secondary_color">下一步</a>
             </div>
+          </div>
+
+          <div id="bookmarklet_toolbar">
+            <h1>拖拽   
+              <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'hunch_bookmarklet','left=100,top=100,width=680,height=500,personalbar=0,toolbar=0,scrollbars=1,resizable=1')})()">菠萝蜜分享</a> 到浏览器收藏夹栏</h1>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
