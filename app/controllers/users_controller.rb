@@ -142,8 +142,10 @@ class UsersController < ApplicationController
   # PUT /users/1/update_preferences
   def update_preferences
     @user = User.find(params[:id])
-    @user.update_attributes(params[:user])
-    session[:current_categories] = params[:user][:preferences]
+    @user.unset("")
+    preferences = params[:user].blank? ? [] : params[:user][:preferences]
+    @user.update_attribute :preferences, preferences
+    session[:current_categories] = preferences
 
     respond_to do |format|
       format.html { redirect_to dashboard_user_path(@user) }
