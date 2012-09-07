@@ -212,7 +212,7 @@
                    me.notifications = data.notifications
                },
                error: function() {
-                   alert('error occured!');
+                   // alert('error occured!');
                }
            });
        },me.options.pollingInterval);
