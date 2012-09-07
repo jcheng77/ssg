@@ -127,6 +127,12 @@ class Weibo
     @client.upload_image(message,image_path)
   end
 
+  def upload_image_url(access_token,token_secret,message,image_path)
+    load_from_db(access_token,token_secret)
+    #message.force_encoding('utf-8')
+    @client.upload_image_url(message,image_path)
+  end
+
   private
 
   def build_oauth_token_key(name , oauth_token)

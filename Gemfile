@@ -38,7 +38,7 @@ gem 'heroku'
 gem 'whenever'
 
 gem 'oauth'
-gem 'oauth_china'
+gem 'oauth_china', '0.5.0'
 gem 'weibo_2'
 
 gem 'json', '~>1.7.3'
