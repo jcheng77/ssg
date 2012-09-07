@@ -123,15 +123,12 @@ ul.category:after{
 
 ul.images-list {
   margin: 10px 0;
+  min-height: 111px;
   li {
     margin-right: 5px;
     img {
       width: 100px;
       height: 100px;
     }
-  }
-  p.text-info {
-    color: #3A87AD;
-    font-size: 17px;
   }
 }
