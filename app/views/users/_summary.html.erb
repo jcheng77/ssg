@@ -8,6 +8,9 @@
       <li>愿望 <%= summary.wishes.size%></li>
     </ul>
     <ul class="images-list">
+    <% if summary.recent_shares.count == 0 %>
+      <p class="text-info">这位亲还没有分享过商品哦</p>
+    <% else %>
       <% summary.recent_shares.each do |share| %>
         <li>
         <%= link_to share do %>
@@ -15,6 +18,7 @@
         <% end %>
         </li>
       <% end %>
+    <% end -%>
     </ul>
   </div>
 </div>
