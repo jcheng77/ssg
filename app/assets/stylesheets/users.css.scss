@@ -121,10 +121,17 @@ ul.category:after{
     width: 430px;
 }
 
-ul.images-list li {
-  margin-right: 5px;
-  img {
-    width: 100px;
-    height: 100px;
+ul.images-list {
+  margin: 10px 0;
+  li {
+    margin-right: 5px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  p.text-info {
+    color: #3A87AD;
+    font-size: 17px;
   }
 }
