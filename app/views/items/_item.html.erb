@@ -1,8 +1,6 @@
 <li>
     <div class="thumbnail browse_item">
-        <a class="img_frame medium_picture">
-            <%= image_tag item.image %>
-        </a>
+        <%= link_to image_tag(item.image , :class =>'img_frame medium_picture') , item %>
         <%= link_to item do %>
             <h5 class="title"> <%= item.title %> </h5>
         <% end %>

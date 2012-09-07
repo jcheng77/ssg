@@ -23,7 +23,7 @@
 <div class="row">
     <div class="span4">
         <div class="thumbnail">
-            <%= image_tag @item.image, :width => '360' %>
+          <%= link_to image_tag(@item.image, :width => '360') , @item.purchase_url %>
 
             <div class="caption">
                 <ul class="nav nav-pills info" style="font-size: 16px;">
