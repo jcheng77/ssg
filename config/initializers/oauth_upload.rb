@@ -1,7 +1,23 @@
 require 'open-uri'
 require 'uri'
+require 'oauth2'
+
+#WeiboOAuth2::Api::V2::Statuses.class_eval do
+#
+#  def upload(status, pic, opt={})
+#   if ( pic =~ URI::regexp).nil?
+#    pic = File.open(pic,"rb") 
+#    else
+#    pic = open(pic,"rb")
+#    end
+#    multipart = Base.build_multipart_bodies({"status" => status, "pic" => pic}.merge(opt))
+#    hashie post("statuses/upload.json", :headers => multipart[:headers], :body => multipart[:body])
+#  end
+#end
+
 
 OauthChina::Sina.class_eval do
+
   def upload_image(content, image_path, options = {})
   if (image_path =~ URI::regexp).nil?
     pic = File.open(image_path,"rb") 
