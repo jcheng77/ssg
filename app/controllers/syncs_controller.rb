@@ -12,8 +12,12 @@ class SyncsController < ApplicationController
       wb.write_to_cache
       redirect_to wb.client.authorize_url
     else
-      client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3', :redirect_uri => 'http://boluo.me/syncs/sina/callback/')
-      #client = WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a', :redirect_uri => 'http://127.0.0.1:3000/syncs/sina/callback/')
+      client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3')
+      WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
+
+      #client = WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
+      #WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/' 
+
       redirect_to client.authorize_url
     end
   end
@@ -29,10 +33,14 @@ class SyncsController < ApplicationController
       token_secret = session[:token_secret] = results[:access_token_secret]
       userinfo = wb.get_user_info_hash
     else
-      #sina weibo localhost test api client
-      #client = WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a', :redirect_uri => 'http://127.0.0.1:3000/syncs/sina/callback/')
       #sina weibo production test api client
-      client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3', :redirect_uri => 'http://boluo.me/syncs/sina/callback/')
+      client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3')
+      WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
+
+      #sina weibo localhost test api client
+      #client = WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
+      #WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/' 
+
       code = client.auth_code.get_token(params[:code])
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
