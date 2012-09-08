@@ -57,7 +57,6 @@ class SyncsController < ApplicationController
       users = User.all
 
       users.each do |user|
-        binding.pry
         account = user.accounts.where(type: params[:type] , aid: userinfo["id"].to_s).first
         break if account
       end
