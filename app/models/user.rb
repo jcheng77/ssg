@@ -82,11 +82,9 @@ class User
     users = User.all
     users.each do |user|
     account = user.accounts.first
-    unless account.nil?
-      if account.friends.to_a.include?(sns_account.aid.to_i)
+      if account && sns_account && account.friends.to_a.include?(sns_account.aid.to_i)
         friend_users << user
       end
-    end
     end
     return friend_users
   end
