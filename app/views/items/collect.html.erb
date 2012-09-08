@@ -1,3 +1,51 @@
+<div id="bookmarklet_container" class="row">
+  <div class="span3">
+    <div class="images_picker">
+      <div class="image_frame">
+        <img src="<%= @imgs[0] %>" alt=""/>
+        <div class="dimension"></div>
+      </div>
+      <ul class="image_list">
+        <% @imgs.each do |img| %>
+          <li><img src="<%= img %>" alt=""></li>
+        <% end %>
+        <div class='clear'></div>
+      </ul>
+    </div>
+    <div class="share-to">
+      <p>同步分享到微博:</p>
+      <%= check_box_tag :share_to, :sina %>新浪微博
+      <%= check_box_tag :share_to, :qq %>腾讯微博
+    </div>
+  </div>
+
+  <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6' }) do |f| %>
+    <%= hidden_field_tag "share[source]", @share.source %>
+    <%= hidden_field_tag "item[image]", @item.image %>
+    <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
+
+    <%= f.input :title, :label => '商品名称', input_html: { class: 'input-xlarge' } %>
+    <%= f.input :category, :label => '分类' do %>
+      <%= f.select :category, Hash[categories.map.with_index{|*ki| ki}], include_blank: false %>
+    <% end -%>
+    <%= f.input :rating_comp, :label => '推荐指数' do %>
+      <div id="rating_comp"></div>
+    <% end -%>
+    <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge' } %>
+    <%= f.input :comment, :label => '推荐评论' do %>
+      <%= text_area_tag "share[comment]", @share.comment_content,  rows: "5", class: 'input-xlarge' %>
+    <% end -%>
+    <div class="controls">
+      <%= radio_button_tag :add_to, :wish %>愿望清单
+      <%= radio_button_tag :add_to, :bag %>购物背包
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
+    </div>
+  <% end -%>
+</div>
+
 <script>
   var GLOBAL_IMAGES_FROM_BOOKMARK = [];
   <% @imgs.each do |img| %>
@@ -28,42 +76,3 @@
     });
   });
 </script>
-
-<div id="bookmarklet_container">
-  <div class="row">
-    <div class="span3 images_picker">
-      <div class="image_frame">
-        <img src="<%= @imgs[0] %>" alt=""/>
-        <div class="dimension"></div>
-      </div>
-      <ul class="image_list">
-        <% @imgs.each do |img| %>
-          <li>
-          <img src="<%= img %>" alt="">
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    <!-- /.span -->
-    <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6' }) do |f| %>
-      <%= hidden_field_tag "share[source]", @share.source %>
-      <%= hidden_field_tag "item[image]", @item.image %>
-      <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
-
-      <%= f.input :title, :label => '商品名称', input_html: { class: 'input-xlarge' } %>
-      <%= f.input :category, :label => '分类' do %>
-        <%= f.select :category, Hash[categories.map.with_index{|*ki| ki}], include_blank: false %>
-      <% end -%>
-      <%= f.input :rating_comp, :label => '推荐指数' do %>
-        <div id="rating_comp"></div>
-      <% end -%>
-      <%= f.input :comment, :label => '推荐评论' do %>
-        <%= text_area_tag "share[comment]", @share.comment_content %>
-      <% end -%>
-      <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge' } %>
-      <div class="form-actions">
-        <%= f.submit '提交分享', :class => 'btn btn-primary' %>
-      </div>
-    <% end -%>
-  </div>
-</div>
