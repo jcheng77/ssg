@@ -146,4 +146,21 @@ ul li .line2 img {
   margin-left: -4px;
 }
 }
+
 /*images list end*/
+
+#bookmarklet_container {
+  width: 960px;
+  margin: 0 auto;
+  .share-to {
+    float: left;
+    text-align: left;
+  }
+  form.form-horizontal {
+    padding-top: 25px;
+  }
+}
+
+.clear {
+  clear: both;
+}

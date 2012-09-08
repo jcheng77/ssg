@@ -80,6 +80,10 @@ module BookmarkletHelper
       end
     end
 
+    def correct?
+      @item_id != "invalid"
+    end
+
     def item_id
       @item_id
     end
