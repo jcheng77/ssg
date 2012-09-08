@@ -24,9 +24,8 @@ class Item
   enable_tags_index!
   tags_index_group_by :category
 
-  def self.in_categories(categories = [])
-    return [] if categories.blank?
-    self.where(:category.in => categories).desc(:created_at);
+  def self.in_categories(categories, page, per_page = 16)
+    self.where(:category.in => categories).desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
   def self.new_with_collector(collector)

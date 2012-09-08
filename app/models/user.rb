@@ -51,18 +51,12 @@ class User
 
   before_save :encrypt_password
 
-  def followed_shares(categories = [])
-    return [] if categories.blank?
-    Share.desc(:created_at).followees_of(self).to_a.select do |share|
-      categories.include? share.item.category
-    end
+  def followed_shares(page, per_page = 8)
+    Share.desc(:created_at).followees_of(self).paginate(:page => page, :per_page => per_page)
   end
 
-  def my_shares(categories = [])
-    return [] if categories.blank?
-    self.shares.desc(:created_at).to_a.select do |share|
-      categories.include? share.item.category
-    end
+  def my_shares(page, per_page = 8)
+    self.shares.desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
   def recent_shares(limit = 10)
