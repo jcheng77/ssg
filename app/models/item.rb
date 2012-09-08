@@ -29,6 +29,21 @@ class Item
     self.where(:category.in => categories).desc(:created_at);
   end
 
+  def self.new_with_collector(collector)
+    @item = Item.new({
+      source_id: collector.item_id,
+      title: collector.title,
+      image: collector.imgs.first,
+      purchase_url: collector.purchase_url
+    })
+    @item.shares << Share.new({
+      source: collector.item_id,
+      price: collector.price
+    })
+
+    return @item
+  end
+
   def root_share
     self.root_share_id.nil? ? nil : Share.find(self.root_share_id)
   end
