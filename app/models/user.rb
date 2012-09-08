@@ -86,12 +86,14 @@ class User
     sns_account = self.accounts.where(type: snstype).first
     users = User.all
     users.each do |user|
-     if user.accounts.first.friends.to_a.include?(sns_account.aid.to_i)
-       users << user
+    friends_ids = user.accounts.first.friends
+    unless friends_ids.nil?
+      if friends_ids.to_a.include?(sns_account.aid.to_i)
+        users << user
+      end
     end
     end
-     binding.pry
-     return users
+    return users
   end
 
   # my firends shared with me
