@@ -24,5 +24,7 @@
                 <%= render :partial => "shares/share", :object => share %>
             <% end %>
         </div>
+
+        <%= bootstrap_will_paginate @shares %>
     </div>
 </div>
