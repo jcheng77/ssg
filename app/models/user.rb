@@ -84,16 +84,17 @@ class User
 
   def known_sns_friends(snstype)
     sns_account = self.accounts.where(type: snstype).first
+    friend_users = []
     users = User.all
     users.each do |user|
-    friends_ids = user.accounts.first.friends
-    unless friends_ids.nil?
-      if friends_ids.to_a.include?(sns_account.aid.to_i)
-        users << user
+    account = user.accounts.first
+    unless account.nil?
+      if account.friends.to_a.include?(sns_account.aid.to_i)
+        friend_users << user
       end
     end
     end
-    return users
+    return friend_users
   end
 
   # my firends shared with me
