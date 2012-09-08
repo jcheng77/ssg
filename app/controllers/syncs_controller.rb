@@ -45,7 +45,8 @@ class SyncsController < ApplicationController
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
       bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"])
-      client.statuses.upload( "Classic PX200", "http://product.it.sohu.com/img/product/picid/5168051.jpg")
+
+      #client.statuses.upload( "Classic PX200", "http://product.it.sohu.com/img/product/picid/5168051.jpg")
 
     end
 
@@ -67,7 +68,7 @@ class SyncsController < ApplicationController
         aid = userinfo.delete("id")
         userinfo = 
         cur_user = User.new(userinfo)
-        cur_user.accounts.new( :type => params[:type], :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token || params[:code], :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :friends => bi_friends.nil? ? [] : bi_friends["ids"] )
+        cur_user.accounts.new( :type => params[:type], :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token || params[:code], :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :friends => bi_friends.nil? ? [] : bi_friends["ids"]  )
 
         #user = User.create( :userid => userinfo["id"], :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"])
         session[:current_user] = cur_user
@@ -76,6 +77,7 @@ class SyncsController < ApplicationController
 
       else
 
+        account.user.known_sns_friends('sina')
         session[:current_user_id] = account.user._id
         if current_user.active == 1 || current_user.active == 0
           redirect_to dashboard_user_path(current_user)

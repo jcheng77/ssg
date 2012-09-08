@@ -8,7 +8,7 @@ class Account
   field :token_secret, type: String # authorization key
   field :session_key, type: String
   field :active, type: Boolean # false=no, true=yes
-  field :friends, type: Array
+  field :friends, type:Array
   field :profile_url, type: String
 
   embedded_in :user

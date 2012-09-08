@@ -27,7 +27,15 @@ class User
   email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
 
   # relations
-  embeds_many :accounts # second accounts
+  embeds_many :accounts do # second accounts
+    def sina
+      @target.select { |account| account.type == 'sina'}
+    end
+    def qq 
+      @target.select { |account| account.type == 'qq'}
+    end
+
+  end
 
   has_many :shares
   has_many :wishes
@@ -66,6 +74,18 @@ class User
   # my notifications
   def notifications
     Notification.where(receiver_id: self._id)
+  end
+
+  def known_sns_friends(snstype)
+    sns_account = self.accounts.where(type: snstype).first
+    users = User.all
+    users.each do |user|
+     if user.accounts.first.friends.to_a.include?(sns_account.aid.to_i)
+       users << user
+    end
+    end
+     binding.pry
+     return users
   end
 
   # my firends shared with me

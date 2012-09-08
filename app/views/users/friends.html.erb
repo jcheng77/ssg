@@ -8,6 +8,7 @@
     <div class="span">
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#friends" data-toggle="tab">我的好友</a></li>
+        <li class=""><a href="#all" data-toggle="tab">可能感兴趣的人</a></li>
         <li class=""><a href="#all" data-toggle="tab">全部用户</a></li>
       </ul>
 
@@ -24,12 +25,19 @@
         <div class="tab-pane fade in" id="all">
           <div class="row" style="margin-left: 0px;">
             <ul class="thumbnails">
-              <% @a_users.each do |user| %>
+              <% @i_users.each do |user| %>
                 <%= render :partial => "summary", :object => user %>
               <% end %>
             </ul>
           </div>
         </div>
+        <div class="row" style="margin-left: 0px;">
+            <ul class="thumbnails">
+              <% @f_users.each do |user| %>
+                <%= render :partial => "summary", :object => user %>
+              <% end %>
+            </ul>
+          </div>
       </div>
     </div>
   </div>

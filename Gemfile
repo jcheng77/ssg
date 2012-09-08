@@ -5,8 +5,8 @@ require 'net/http'
 require 'uri'
 require 'digest/md5'
 
-source 'http://rubygems.org'
-#source 'http://ruby.taobao.org/'
+#source 'http://rubygems.org'
+source 'http://ruby.taobao.org/'
 
 gem 'rails', '3.1.3'
 gem 'sprockets', '~> 2.0.0.beta.14'
@@ -32,11 +32,16 @@ gem 'simple_form'
 #gem 'devise-mongo_mapper' ,:git => 'git://github.com/collectiveidea/devise-mongo_mapper'
 
 group :development, :test do
-  gem 'pry', :group => :development
-  gem 'pry-nav' , :group => :development
+  gem 'pry', '~> 0.9.9', :group => :development
   gem 'pry-remote', :group => :development
   gem 'git-commit-notifier', :group => :development
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
+  gem 'slop', '3.3.3'
+  gem 'jazz_hands'
 end
+
 gem 'heroku'
 gem 'whenever'
 
