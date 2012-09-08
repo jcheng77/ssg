@@ -92,7 +92,6 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
-      binding.pry
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
