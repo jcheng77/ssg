@@ -35,6 +35,7 @@ class ItemsController < ApplicationController
 
   def collect
     collector = Collector.new(params[:url])
+    binding.pry
     @imgs = collector.imgs
 
     if collector.correct?
