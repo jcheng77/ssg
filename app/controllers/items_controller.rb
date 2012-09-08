@@ -1,9 +1,5 @@
 # encoding: utf-8
 class ItemsController < ApplicationController
-  layout 'application'
-  # GET /items
-  # GET /items.json
-
   include TaobaoApiHelper
   include BookmarkletHelper
   include ItemsHelper
@@ -37,30 +33,16 @@ class ItemsController < ApplicationController
   end
 
   def collect
-    col = Collector.new(params[:url])
-    @imgs = col.imgs
-    item_id = col.item_id
-    @item = Item.new
-    @share = Share.new
+    collector = Collector.new(params[:url])
+    @imgs = collector.imgs
 
-    if item_id != 'invalid'
-      @item = Item.new({
-        :source_id => item_id,
-        :title => col.title,
-        #:image => product['pic_url'],
-        :image => @imgs.first,
-        :purchase_url => col.purchase_url
-      })
-      @share = Share.new({
-        :source => item_id,
-        #:seller => product['nick'],
-        :price => col.price
-      })
-    end
-
-    respond_to do |format|
-      format.js { render json: @imgs }
-      format.html
+    if collector.correct?
+      @item = Item.new_with_collector(collector)
+      @share = @item.shares.last
+    else
+      # TODO: 错误处理
+      @item = Item.new
+      @share = Share.new
     end
   end
 
@@ -111,8 +93,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/1
-  # GET /items/1.json
   def show
     @item = Item.find(params[:id])
     @share = @item.shares.new
@@ -123,14 +103,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/share
-  def share
-    respond_to do |format|
-      format.html { render layout: 'application' }
-    end
-  end
-
-  # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
     @share = Share.first(conditions: {item_id: @item._id, user_id: current_user._id})
@@ -142,8 +114,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # POST /items
-  # POST /items.json
   def create
     respond_to do |format|
       if save_item
@@ -156,8 +126,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PUT /items/1
-  # PUT /items/1.json
   def update
     respond_to do |format|
       if save_item
@@ -170,8 +138,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.json
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
