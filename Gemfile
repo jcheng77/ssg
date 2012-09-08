@@ -19,8 +19,11 @@ gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'mongoid_session_store'
 
+# Form Helper
+gem 'simple_form'
+
 #gem 'therubyracer', :platforms => :ruby
-#
+
 #gem "mongo_mapper-rails3", :require => "mongo_mapper"
 #gem 'mongo_session_store-rails3'
 
