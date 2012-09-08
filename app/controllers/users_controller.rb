@@ -38,6 +38,7 @@ class UsersController < ApplicationController
   def friends
     @user = User.find(params[:id])
     @f_users = @user.followees_by_type(User.name)
+    @i_users = @user.known_sns_friends('sina')
     @a_users = User.all
 
     respond_to do |format|
