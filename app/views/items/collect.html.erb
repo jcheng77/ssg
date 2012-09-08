@@ -45,61 +45,25 @@
       </ul>
     </div>
     <!-- /.span -->
-    <div class="span6">
-      <fieldset>
-        <%= form_for @item, :url => {:controller => "items", :action => "create"}, :html => {:class => "form-horizontal"} do |f| %>
-          <%= hidden_field_tag "item[image]", @item.image %>
-          <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
-          <div class="control-group">
-            <label class="control-label" for="input01"><span class="required">*</span>商品名称:</label>
+    <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6' }) do |f| %>
+      <%= hidden_field_tag "share[source]", @share.source %>
+      <%= hidden_field_tag "item[image]", @item.image %>
+      <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
 
-            <div class="controls">
-              <%= f.text_field :title, :class => 'input-xlarge' %>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="select01"><span class="required">*</span>分类:</label>
-
-            <div class="controls">
-              <select id="category" name="item[category]">
-                <% categories.each do |c| %>
-                  <option value="<%= c %>"><%= c %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="rating_comp"><span class="required">*</span>推荐指数:</label>
-            <div class="controls">
-              <div id="rating_comp"></div>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="textarea"><span class="required">*</span>推荐评论:</label>
-
-            <div class="controls">
-              <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="textarea">标签:</label>
-
-            <div class="controls">
-              <input type="hidden" id="tags" name="item[tags]">
-
-              <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%= Item.tags %>'>
-                <ul class="tags">
-                  <li><input type="text" style="width:30px;"/></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <%= hidden_field_tag "share[source]", @share.source %>
-          <div class="form-actions">
-            <%= f.submit "提交分享", :class => 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </fieldset>
-    </div>
+      <%= f.input :title, :label => '商品名称', input_html: { class: 'input-xlarge' } %>
+      <%= f.input :category, :label => '分类' do %>
+        <%= f.select :category, Hash[categories.map.with_index{|*ki| ki}], include_blank: false %>
+      <% end -%>
+      <%= f.input :rating_comp, :label => '推荐指数' do %>
+        <div id="rating_comp"></div>
+      <% end -%>
+      <%= f.input :comment, :label => '推荐评论' do %>
+        <%= text_area_tag "share[comment]", @share.comment_content %>
+      <% end -%>
+      <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge' } %>
+      <div class="form-actions">
+        <%= f.submit '提交分享', :class => 'btn btn-primary' %>
+      </div>
+    <% end -%>
   </div>
 </div>
