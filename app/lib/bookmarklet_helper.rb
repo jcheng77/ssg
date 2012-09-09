@@ -18,7 +18,6 @@ module BookmarkletHelper
 
     def collecter
       doc = Nokogiri::HTML(open(@url))
-      domain_checker
       if @css_mark
         doc.css(@css_mark).each do |node|
           @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
@@ -88,7 +87,7 @@ module BookmarkletHelper
     end
 
     def correct?
-      @item_id != "invalid"
+      @item_id != "invalid" && @img != []
     end
 
     def item_id
@@ -131,7 +130,7 @@ module BookmarkletHelper
     end
 
     def purchase_url
-      @purchase_url
+      @purchase_url ||= @url
     end
 
 
