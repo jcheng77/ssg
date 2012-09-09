@@ -32,11 +32,11 @@
       <%= f.select :category, Hash[categories.map{|c| [c, c]}], include_blank: false %>
     <% end -%>
     <%= f.input :rating_comp, :label => '推荐指数' do %>
-      <div id="rating_comp"></div>
+      <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
     <% end -%>
-    <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge' } %>
+    <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge', id: 'tags' } %>
     <%= f.input :comment, :label => '推荐评论' do %>
-      <%= text_area_tag "share[comment]", @share.comment_content,  rows: "5", class: 'input-xlarge' %>
+      <%= text_area_tag "share[comment]", @share.comment_content,  rows: "5", class: 'input-xlarge', id: 'desc' %>
     <% end -%>
     <div class="controls">
       <%= radio_button_tag :add_to, :wish %>愿望清单
