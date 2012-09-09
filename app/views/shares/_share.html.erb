@@ -43,7 +43,7 @@ $(document).ready(function(){
             <% if share['price'] %>
                 价格：<%= share['price'] %>元
             <% end %>
-            <a href="<%= share.item.purchase_url %>">去淘宝购买</a>
+            <a href="<%= share.item.purchase_url %>">去看看</a>
         </p>
         <% if share.comment %>
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">

@@ -1,6 +1,6 @@
 require 'oauth2'
 
-include UsersHelper
+include WeiboHelper 
 
 class SyncsController < ApplicationController
   skip_before_filter :authenticate
