@@ -25,6 +25,9 @@
     <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
 
     <%= f.input :title, :label => '商品名称', input_html: { class: 'input-xlarge' } %>
+    <%= f.input :price, :label => '价格' do %>
+      <%= text_field_tag "share[price]", @share.price, class: 'input-xlarge' %>
+    <% end -%>
     <%= f.input :category, :label => '分类' do %>
       <%= f.select :category, Hash[categories.map{|c| [c, c]}], include_blank: false %>
     <% end -%>
