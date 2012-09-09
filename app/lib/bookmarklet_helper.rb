@@ -38,7 +38,13 @@ module BookmarkletHelper
         end
       end
 
-    end
+      if @title_mark
+        first_title = doc.xpath(@title_mark).first
+        @title = first_title.text if first_title
+      end
+
+      end
+
 
     def domain_checker
       case URI(@url).host
@@ -54,6 +60,7 @@ module BookmarkletHelper
       when /360buy/
         @site ='360buy'
         @xpath_mark = '//img'
+        @title_mark = '//title'
       else
         @site ='others'
       end

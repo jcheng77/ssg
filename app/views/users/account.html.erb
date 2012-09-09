@@ -19,7 +19,9 @@
             <dd><%= account_info @user.city %></dd>
             <dt>个人简介</dt>
             <dd><%= account_info @user.description %></dd>
-        </dl>
+            <dt>我的微博</dt>
+            <dd><%= account_info @user.accounts.first.profile_url %></dd>
+</dl>
         <dl class="page-header">
             <dt>感兴趣的分类
                 <% if current_user == @user then %> &minus; <%= link_to "编辑", edit_preferences_user_path(@user) %><% end %></dt>
@@ -33,13 +35,21 @@
 <div class="row" style="margin-top: 30px;">
     <div class="span12">
         <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#wishes" data-toggle="tab">我的愿望</a></li>
+            <li class="active"><a href="#shares" data-toggle="tab">我的分享</a></li>
+            <li class=""><a href="#wishes" data-toggle="tab">我的愿望</a></li>
             <li class=""><a href="#bags" data-toggle="tab">我的背包</a></li>
-            <li class=""><a href="#shares" data-toggle="tab">我的分享</a></li>
         </ul>
-
+            <div class="tab-pane fade in active" id="shares">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_shares.each do |share| %>
+                            <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share.item.root_share} %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="wishes">
+            <div class="tab-pane fade in " id="wishes">
                 <div class="row" style="margin-left: 0px;">
                     <ul class="thumbnails">
                         <% @user.recent_wishes.each do |wish| %>
@@ -53,15 +63,6 @@
                     <ul class="thumbnails">
                         <% @user.recent_bags.each do |bag| %>
                             <%= render :partial => "items/item", :object => bag.item, :locals => {:tags => nil, :share => bag} %>
-                        <% end %>
-                    </ul>
-                </div>
-            </div>
-            <div class="tab-pane fade in" id="shares">
-                <div class="row" style="margin-left: 0px;">
-                    <ul class="thumbnails">
-                        <% @user.recent_shares.each do |share| %>
-                            <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share.item.root_share} %>
                         <% end %>
                     </ul>
                 </div>
