@@ -281,7 +281,7 @@
   , placement: 'in bottom'
   , trigger: 'hover'
   , title: ''
-  , template: '<div class="notification"><div class="notification-arrow"></div><div class="notification-inner"><div class="notification-title">Notifications</div><div class="notification-content"></div></div></div>'
+  , template: '<div class="notification"><div class="notification-arrow"></div><div class="notification-inner"><div class="notification-title">最新通知</div><div class="notification-content"></div></div></div>'
   }
     
   $(document).ready(function(){

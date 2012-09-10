@@ -17,6 +17,7 @@ class NotificationObserver < Mongoid::Observer
         target_object = object.root
         if target_object.is_a?(Share) || target_object.is_a?(Wish) || target_object.is_a?(Bag)
           type = Notification::TYPE_COMMENT
+          target_object = target_object.comment
         end
       end
     end
