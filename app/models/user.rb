@@ -59,7 +59,7 @@ class User
     self.shares.desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
-  def recent_shares(limit = 10)
+  def recent_shares(limit = 6)
     self.shares.desc(:created_at).limit(limit)
   end
 

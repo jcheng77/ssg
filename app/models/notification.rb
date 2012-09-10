@@ -27,59 +27,63 @@ class Notification
 
   def object
     case self.type
-    when TYPE_FOLLOW
-      nil
-    when TYPE_ACTIVATE
-      nil
-    when TYPE_SHARE
-      Share.find self.target_id
-    when TYPE_BAG
-      Bag.find self.target_id
-    when TYPE_WISH
-      Wish.find self.target_id
-    when TYPE_COMMENT
-      Comment.find self.target_id
-    when TYPE_AT_SHARE
-      Share.find self.target_id
-    when TYPE_AT_COMMENT
-      Comment.find self.target_id
-    else
-      nil
+      when TYPE_FOLLOW
+        nil
+      when TYPE_ACTIVATE
+        nil
+      when TYPE_SHARE
+        Share.find self.target_id
+      when TYPE_BAG
+        Bag.find self.target_id
+      when TYPE_WISH
+        Wish.find self.target_id
+      when TYPE_COMMENT
+        Comment.find self.target_id
+      when TYPE_AT_SHARE
+        Share.find self.target_id
+      when TYPE_AT_COMMENT
+        Comment.find self.target_id
+      else
+        nil
     end
   end
 
   def target_object
     object = self.object
     case self.type
-    when TYPE_COMMENT
-      object.root
-    when TYPE_AT_COMMENT
-      object.root
-    else
-      object
+      when TYPE_COMMENT
+        object.root
+      when TYPE_AT_COMMENT
+        object.root
+      else
+        object
     end
   end
 
   def to_s
     case self.type
-    when TYPE_FOLLOW then
-      return "<em>#{sender.nick_name}</em> 关注了你"
-    when TYPE_ACTIVATE then
-      return "#{sender.nick_name} is activated"
-    when TYPE_SHARE then
-      return "<em>#{sender.nick_name}</em> 有了新的分享"
-    when TYPE_BAG then
-      return "<em>#{sender.nick_name}</em> 更新了背包"
-    when TYPE_WISH then
-      return "<em>#{sender.nick_name}</em> 有了新的愿望"
-    when TYPE_COMMENT then
-      return "<em>#{sender.nick_name}</em> 评论了你的分享"
-    when TYPE_AT_SHARE then
-      return "#{sender.nick_name} @ you in his/her share"
-    when TYPE_AT_COMMENT then
-      return "#{sender.nick_name} @ you in his/her comment"
-    else
-      "Invalid Notification Type#{type}"
+      when TYPE_FOLLOW then
+        return "<em>#{sender.nick_name}</em> 关注了你"
+      when TYPE_ACTIVATE then
+        return "#{sender.nick_name} is activated"
+      when TYPE_SHARE then
+        return "<em>#{sender.nick_name}</em> 有了新的分享"
+      when TYPE_BAG then
+        return "<em>#{sender.nick_name}</em> 更新了背包"
+      when TYPE_WISH then
+        return "<em>#{sender.nick_name}</em> 有了新的愿望"
+      when TYPE_COMMENT then
+        if self.target_object.user._id == self.receiver_id
+          return "<em>#{sender.nick_name}</em> 评论了你的分享"
+        else
+          return "<em>#{sender.nick_name}</em> 回复了你"
+        end
+      when TYPE_AT_SHARE then
+        return "#{sender.nick_name} @ you in his/her share"
+      when TYPE_AT_COMMENT then
+        return "#{sender.nick_name} @ you in his/her comment"
+      else
+        "Invalid Notification Type#{type}"
     end
   end
 
