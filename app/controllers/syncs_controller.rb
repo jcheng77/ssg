@@ -80,7 +80,7 @@ class SyncsController < ApplicationController
 
         session[:current_user_id] = account.user._id
 
-        if account.friends.blank?
+        if params[:type] == 'sina' && account.friends.blank?
           friends = client.friendships.friends_bilateral_ids(code.params["uid"])
           if friends
           new = current_user.accounts.build( friends: friends["ids"] )
