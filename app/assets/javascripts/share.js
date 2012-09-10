@@ -96,7 +96,7 @@ $(document).ready(function () {
   }
   );
 
-  $("#bookmarklet_container form").bind("keypress", function(e) {
+  $("#bookmarklet_container form ul.tags").bind("keypress", function(e) {
     if (e.keyCode == 13) return false;
   });
 });
