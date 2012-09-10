@@ -114,6 +114,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     current_user.follow @user
     @success = current_user.follower_of? @user
+    @user.shares.each { |share| current_user.follow share } if @success
 
     respond_to do |format|
       format.js
@@ -125,6 +126,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     current_user.unfollow @user
     @success = !current_user.follower_of?(@user)
+    @user.shares.each { |share| current_user.unfollow share } if @success
 
     respond_to do |format|
       format.js

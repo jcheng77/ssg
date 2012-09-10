@@ -21,6 +21,8 @@ class Item
   has_many :bags
   # has_one :category
 
+  validates_presence_of :image, :purchase_url, :title, :category
+
   enable_tags_index!
   tags_index_group_by :category
 

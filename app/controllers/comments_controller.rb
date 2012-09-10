@@ -36,6 +36,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.save
     current_user.follow @comment.root
+    current_user.follow @comment.root.comment
     respond_to do |format|
       format.html { redirect_to @comment.root }
       format.js { render @comment.is_root_comment? ? "create_root" : "create_child" }
