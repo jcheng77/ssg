@@ -69,9 +69,9 @@
       imageFrame.src = src;
       dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
     });
-    $('form').on('submit', function (event) {
+    $('#bookmarklet_container form').on('submit', function (event) {
       if($('#desc').val().length == 0){
-        alert('comment can not be empty');
+        alert('请输入推荐评论');
         return false;
       }
       var val = $('[data-provide="tageditor"]').data('tageditor').getValue();

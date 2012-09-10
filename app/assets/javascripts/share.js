@@ -85,7 +85,7 @@ $(document).ready(function () {
     $(this).removeClass("hover_img_bg");
 
   }
-  )
+  );
 
   $('.img_others_item').click(
     function() {
@@ -94,5 +94,9 @@ $(document).ready(function () {
 
     $('#share_img_src').attr("src", b_img_url);
   }
-  )
+  );
+
+  $("#bookmarklet_container form").bind("keypress", function(e) {
+    if (e.keyCode == 13) return false;
+  });
 });
