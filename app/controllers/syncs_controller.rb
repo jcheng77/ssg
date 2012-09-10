@@ -79,6 +79,16 @@ class SyncsController < ApplicationController
       else
 
         session[:current_user_id] = account.user._id
+
+        if account.friends.blank?
+          friends = client.friendships.friends_bilateral_ids(code.params["uid"])
+          if friends
+          new = current_user.accounts.build( friends: friends["ids"] )
+          new.save
+          end
+        end
+
+
         if current_user.active == 1 || current_user.active == 0
           redirect_to dashboard_user_path(current_user)
         else
