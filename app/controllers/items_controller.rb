@@ -121,7 +121,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
-        format.html { render action: "new" }
+        format.html { render action: "collect" }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -156,30 +156,30 @@ class ItemsController < ApplicationController
     @share = Share.first(conditions: {source: params[:share][:source]})
     if @share
       @item = Item.first(conditions: {_id: @share.item_id})
-      return false if !@item.update_attributes(params[:item])
+      return false unless @item.update_attributes(params[:item])
     else
       @item = Item.new(params[:item])
-      return false if !@item.save
+      return false unless @item.save
     end
 
     @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
     if @share
-      return false if !@share.update_attributes(params[:share])
+      return false unless @share.update_attributes(params[:share])
     else
-
       # @category = Category.first(conditions: {cid: params[:category]})
       # @item.add_tag(params[:category])
 
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
-      return false if !@share.save
-      @share.create_comment_by_sharer(params[:share][:comment]) if params[:share][:comment] != ""
+      return false unless @share.save
+      @share.create_comment_by_sharer(params[:share][:comment]) if params[:share][:comment].present?
       @item.update_attribute(:root_share_id, @share._id)
       current_user.follow @item
       current_user.follow @share
       current_user.followers_by_type(User.name).each { |user| user.follow @share }
     end
+
     return true
   end
 end
