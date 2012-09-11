@@ -34,7 +34,14 @@
     <%= f.input :rating_comp, :label => '推荐指数' do %>
       <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
     <% end -%>
-    <%= f.input :tags, :label => '标签', input_html: { class: 'input-xlarge', id: 'tags' } %>
+    <%= f.input :tags, :label => '标签' do %>
+      <input type="hidden" id="tags" name="item[tags]">
+      <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
+        <ul class="tags">
+          <li><input type="text" style="width:30px;"/></li>
+        </ul>
+      </div>
+    <% end -%>
     <%= f.input :comment, :label => '推荐评论' do %>
       <%= text_area_tag "share[comment]", @share.comment_content,  rows: "5", class: 'input-xlarge', id: 'desc' %>
     <% end -%>
@@ -42,6 +49,7 @@
       <%= radio_button_tag :add_to, :wish %>愿望清单
       <%= radio_button_tag :add_to, :bag %>购物背包
     </div>
+
 
     <div class="form-actions">
       <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
