@@ -10,7 +10,9 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= render 'layouts/navbar' %>
+    <% unless need_empty_layout %>
+      <%= render 'layouts/navbar' %>
+    <% end -%>
 
     <div class="container">
       <%= yield %>
