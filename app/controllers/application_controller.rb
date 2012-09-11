@@ -10,7 +10,8 @@ require 'iconv'
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate
-  helper_method :current_user, :categories, :current_categories
+
+  helper_method :current_user, :categories, :current_categories, :need_empty_layout
 
   def current_user
     @current_user ||= session[:current_user_id] && User.where(:_id => session[:current_user_id]).first
@@ -46,5 +47,15 @@ class ApplicationController < ActionController::Base
     unless session[:current_user_id].nil? || current_user.nil?
       @current_user
     end
+  end
+
+  def select_layout(selector='default')
+    @layout_selector = selector
+  end
+
+  def need_empty_layout
+    return unless @layout_selector == 'empty'
+
+    true
   end
 end

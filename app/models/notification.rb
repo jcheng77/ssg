@@ -58,7 +58,7 @@ class Notification
     end
   end
 
-  def shown_object
+  def shown_url
     object = self.target_object
     case self.type
       when TYPE_COMMENT

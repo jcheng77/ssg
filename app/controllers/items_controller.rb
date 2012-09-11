@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
   include ItemsHelper
   include ImageHelper
 
+  before_filter { select_layout('empty') }
+
   def index
     categories = current_categories(params[:category])
     @items = Item.in_categories categories, params[:page]
