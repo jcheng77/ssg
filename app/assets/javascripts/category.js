@@ -5,7 +5,7 @@ $(document).ready(function () {
     if(index != -1) {
       url = url.substring(0, index);
     }
-    var param = "?category=" + $(this).attr("value");
+    var param = "?category=" + encodeURIComponent($(this).attr("value"));
     $(location).attr("href",  url + param);
   });
 });
