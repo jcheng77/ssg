@@ -17,7 +17,7 @@ class NotificationsController < ApplicationController
     @notification.set_checked
 
     respond_to do |format|
-      format.html { redirect_to @notification.target_object, :flash => {:highlighted => @notification.target_id} }
+      format.html { redirect_to @notification.shown_object, :flash => {:highlighted => @notification.highlighted_object._id} }
     end
   end
 end

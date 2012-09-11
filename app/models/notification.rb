@@ -25,7 +25,7 @@ class Notification
   field :type, type: String # e.g. share with me/comment to my share or comment/at/followed me/recommended to me
   field :checked, type: Boolean, default: false # if this notification has been checked
 
-  def object
+  def target_object
     case self.type
       when TYPE_FOLLOW
         nil
@@ -48,13 +48,27 @@ class Notification
     end
   end
 
-  def target_object
-    object = self.object
+  def highlighted_object
+    object = self.target_object
+    case self.type
+      when TYPE_SHARE
+        object.comment
+      else
+        object
+    end
+  end
+
+  def shown_object
+    object = self.target_object
     case self.type
       when TYPE_COMMENT
         object.root
       when TYPE_AT_COMMENT
         object.root
+      when TYPE_WISH
+        {:controller => "users", :action => "my_wishes", :id => self.sender}
+      when TYPE_BAG
+        {:controller => "users", :action => "my_bags", :id => self.sender}
       else
         object
     end
@@ -73,7 +87,7 @@ class Notification
       when TYPE_WISH then
         return "<em>#{sender.nick_name}</em> 有了新的愿望"
       when TYPE_COMMENT then
-        if self.target_object.user._id == self.receiver_id
+        if self.target_object.root.user._id == self.receiver_id
           return "<em>#{sender.nick_name}</em> 评论了你的分享"
         else
           return "<em>#{sender.nick_name}</em> 回复了你"

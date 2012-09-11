@@ -13,7 +13,9 @@
             setTimeout(function () {
                 comment.removeClass("highlighted");
             }, 5000);
-            $("div ul a", comment.parent().prev()).first().click();
+            if (comment.hasClass("comment-sub")) {
+                $("div ul a", comment.parent().prev()).first().click();
+            }
             <% end %>
         });
     </script>
