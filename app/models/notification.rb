@@ -28,7 +28,7 @@ class Notification
   def target_object
     case self.type
       when TYPE_FOLLOW
-        nil
+        self.receiver
       when TYPE_ACTIVATE
         nil
       when TYPE_SHARE
@@ -69,6 +69,8 @@ class Notification
         {:controller => "users", :action => "my_wishes", :id => self.sender}
       when TYPE_BAG
         {:controller => "users", :action => "my_bags", :id => self.sender}
+      when TYPE_FOLLOW
+        {:controller => "users", :action => "followers", :id => self.receiver}
       else
         object
     end
