@@ -1,0 +1,24 @@
+.imgpost {
+    float: left;
+    // margin: 0px 20px 20px 0px;
+    // position: relative;
+}
+
+/* so that image still floats and looks nice even if JS is turned off */
+.imgpost img,
+img.captionme {
+    // float: left;
+    // background-color: #fff;
+    // border: 1px solid #d7d7d7;
+    // padding: 4px;
+}
+
+.imgpost .thecaption {
+    background: url(caption.png) no-repeat left bottom;
+    bottom: 10px;
+    color: #fff;
+    left: -23px;
+    padding: 8px 0px 18px 13px;
+    position: absolute;
+    width: 40%;
+}
