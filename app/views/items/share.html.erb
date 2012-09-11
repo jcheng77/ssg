@@ -1,18 +1,15 @@
-<div id="createShare_main">
-  <div id="select_view" style="display: block;">
-    <div id="select_from_buy_list">
-      <h3 class="select_sub_title">推荐你的发现 晒晒你的愿望清单、入手宝贝 </span></h3>
-
-      <div class="select_sub_title_1"><span class="dark_color text_2"></span><span class="secondary_color">目前支持亚马逊、京东、淘宝链接</span></div>
-
-      <%= form_tag collecter_url, :class => 'form-inline' do %>
-          <%= text_field_tag :url, "", :class => 'span4', placeholder: "粘帖链接到这里..." %>
-          <%= submit_tag '下一步', :class => 'btn' %>
+<div id="shareItem">
+  <div class="shareContent">
+    <div class="shareInfo">
+      <h1>推荐你的<strong>发现</strong> 晒晒你的<strong>愿望清单</strong>、<strong>入手宝贝</strong></h1>
+      <span>目前支持<strong>亚马逊</strong>、<strong>京东</strong>、<strong>淘宝</strong>链接</span>
+      <%= form_tag collecter_url, :class => 'form-inline shareForm' do %>
+        <%= text_field_tag :url, nil, :class => 'input-medium search-query shareUrl', placeholder: "请输入需要分享的商品链接..." %>
+        <button class="btn btn-large btn-primary" type="submit">下一步</button>
       <% end -%>
-      <div id="bookmarklet_toolbar">
-        <h1>拖拽
-          <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'hunch_bookmarklet','left=100,top=100,width=680,height=500,personalbar=0,toolbar=0,scrollbars=1,resizable=1')})()">菠萝蜜分享</a> 到浏览器收藏夹栏</h1>
-      </div>
+    </div>
+    <div id="bookmarklet_toolbar">
+      <h1>拖拽<a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'hunch_bookmarklet','left=100,top=100,width=680,height=500,personalbar=0,toolbar=0,scrollbars=1,resizable=1')})()">菠萝蜜分享</a> 到浏览器收藏夹栏</h1>
     </div>
   </div>
 </div>
