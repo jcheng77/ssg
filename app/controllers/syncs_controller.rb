@@ -50,7 +50,7 @@ class SyncsController < ApplicationController
 #      WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/' 
 
       code = client.auth_code.get_token(params[:code])
-      client.statuses.upload( :status => 'Apple design', :url => 'http://ww4.sinaimg.cn/bmiddle/718878b5jw1dwsx1vkrwaj.jpg')
+      client.statuses.upload( 'Apple design', :url => 'http://ww4.sinaimg.cn/bmiddle/718878b5jw1dwsx1vkrwaj.jpg')
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
       bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"])
