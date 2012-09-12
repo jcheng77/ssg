@@ -80,7 +80,7 @@ module BookmarkletHelper
         preindex = path.index("product") || path.index("dp")
         @item_id = path[preindex + 1] if preindex
       when '360buy'
-        @item_id = path[path.index("product")+1].split('.').first
+        @item_id = path.last.split('.').first
       else
         @item_id = "invalid"
       end
