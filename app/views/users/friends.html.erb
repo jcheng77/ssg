@@ -35,7 +35,7 @@
         <div class="row" style="margin-left: 0px;">
             <ul class="thumbnails">
               <% @a_users.each do |user| %>
-                <% if user.name %>
+                <% if user.nick_name %>
                 <%= render :partial => "summary", :object => user %>
                 <% end %>
               <% end %>
