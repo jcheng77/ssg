@@ -34,10 +34,6 @@ gem 'simple_form'
 group :development, :test do
   gem 'pry', '~> 0.9.9', :group => :development
   gem 'pry-remote', :group => :development
-  gem 'git-commit-notifier', :group => :development
-  gem 'pry-remote'
-  gem 'pry-stack_explorer'
-  gem 'pry-debugger'
   gem 'slop', '3.3.3'
   gem 'jazz_hands'
 end
