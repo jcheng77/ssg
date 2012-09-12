@@ -14,7 +14,7 @@ class SyncsController < ApplicationController
     else
       #sina weibo production test api client
       client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3')
-      WeiboOAuth2::Config.redirect_uri = 'http://localhost:3000/syncs/sina/callback/' 
+      WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
       #client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
       #WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
@@ -40,7 +40,7 @@ class SyncsController < ApplicationController
     else
       #sina weibo production test api client
       client = WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3')
-      WeiboOAuth2::Config.redirect_uri = 'http://localhost.com:3000/syncs/sina/callback/' 
+      WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
       #client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
       #WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
@@ -50,7 +50,6 @@ class SyncsController < ApplicationController
 #      WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/' 
 
       code = client.auth_code.get_token(params[:code])
-      #client.statuses.upload_url_text( :status => 'Apple design', :url => 'http://ww4.sinaimg.cn/bmiddle/718878b5jw1dwsx1vkrwaj.jpg')
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
       bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"])
