@@ -49,6 +49,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def select_empty_layout
+    select_layout('empty')
+  end
+
   def select_layout(selector='default')
     @layout_selector = selector
   end

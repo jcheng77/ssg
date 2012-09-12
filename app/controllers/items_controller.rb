@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   include ItemsHelper
   include ImageHelper
 
-  before_filter { select_layout('empty') }
+  before_filter :select_empty_layout, only: :share
 
   def index
     categories = current_categories(params[:category])
