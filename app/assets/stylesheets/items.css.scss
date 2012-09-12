@@ -23,7 +23,7 @@
     max-width: 240px;
     max-height: 14px;
     overflow: hidden;
-    margin: 8px 0;
+    margin: 8px 0 3px;
 }
 .browse_item .user-comment{
     height: 100px;
@@ -55,4 +55,45 @@
 }
 .items .description{
     width: 300px;
+}
+
+/*Tags Style*/
+p.tags_list {
+  padding: 0 10px;
+  a.blingy {
+    color: white;
+    background-image: url('/assets/blingy_tag_sprite_blue.png');
+    font-size: 8px;
+    background-position: 0 -60px;
+    background-repeat: repeat-x;
+    text-transform: uppercase;
+    line-height: 14px;
+    margin: 0 16px -9px 0;
+    padding: 4px 0 11px 0;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    span {
+      color: white;
+      background-image: url('/assets/blingy_tag_sprite_blue.png');
+      width: 9px;
+      height: 23px;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+    }
+    span.left {
+      background-position: 0 -30px;
+      left: -9px;
+    }
+    span.right {
+      background-position: 0 0;
+      right: -9px;
+    }
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

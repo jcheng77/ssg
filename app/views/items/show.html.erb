@@ -39,7 +39,7 @@
         <ul class="tag-block">
             <% @item.tags_each do |t| %>
                 <li>
-                    <button class="btn btn-info"><%= t %></button>
+                    <button class="btn btn-info uppercase">#<%= t %></button>
                 </li>
             <% end %>
         </ul>
