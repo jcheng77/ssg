@@ -46,10 +46,15 @@ module BookmarkletHelper
 
 
     def domain_checker
-      case URI(@url).host
+      host = URI(@url).host
+ 
+      case host
       when /taobao/
         @site =  'taobao'
         @css_mark =  'div.tb-pic img'
+        if /tradearchive/.match(host)
+          @url = get_item_url
+        end
       when /tmall/
         @site = 'tmall'
         @css_mark =  'div.tb-pic img'
@@ -115,6 +120,11 @@ module BookmarkletHelper
       when '360buy'
         collecter
       end
+    end
+
+    def get_item_url
+      doc = open(@url).read
+      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) || @url )
     end
 
     def imgs
