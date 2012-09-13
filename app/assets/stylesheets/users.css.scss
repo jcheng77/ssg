@@ -58,6 +58,10 @@ ul.category:after{
     }
     h1 {
         font-size: 20px;
+        .user-block-link {
+          display: inline;
+          margin-left: 11px;
+        }
     }
     dt {
         line-height: 20px;
