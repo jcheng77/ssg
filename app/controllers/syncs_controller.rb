@@ -52,7 +52,7 @@ class SyncsController < ApplicationController
       code = client.auth_code.get_token(params[:code])
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
-      bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"])
+      bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"], :count => 300)
 
       #client.statuses.upload( "Classic PX200", "http://product.it.sohu.com/img/product/picid/5168051.jpg")
 
@@ -87,7 +87,7 @@ class SyncsController < ApplicationController
         session[:current_user_id] = account.user._id
 
         if params[:type] == 'sina' && account.friends.blank?
-          friends = client.friendships.friends_bilateral_ids(code.params["uid"])
+          friends = client.friendships.friends_bilateral_ids(code.params["uid"] , :count => 300)
           if friends
           new = current_user.accounts.build( friends: friends["ids"] )
           new.save
