@@ -73,11 +73,12 @@
     height: 0;
 }
 .notification-badge{
-    border-radius: 12px;
+    border-radius: 3px;
     background-color: #D44937;
     padding: 4px 10px;
     margin: 5px 10px 0 0;
     position: relative;
+    color: white;
 }
 .notification-title{
     font-weight: bold;

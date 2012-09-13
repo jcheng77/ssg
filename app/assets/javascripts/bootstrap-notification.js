@@ -43,7 +43,7 @@
       this.enabled = true
 
       if (this.options.trigger != 'manual') {
-        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
+        eventIn  = this.options.trigger == 'hover' ? 'click' : 'focus'
         eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
         this.$element.on(eventIn, this.options.selector, $.proxy(this.enter, this))
         this.$element.on(eventOut, this.options.selector, $.proxy(this.leave, this))
@@ -283,7 +283,7 @@
   , title: ''
   , template: '<div class="notification"><div class="notification-arrow"></div><div class="notification-inner"><div class="notification-title">最新通知</div><div class="notification-content"></div></div></div>'
   }
-    
+
   $(document).ready(function(){
       $('#notification-badge').notification().css('display','none');
       var instance = $('#notification-badge').data('notification');
