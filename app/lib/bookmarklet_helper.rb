@@ -46,7 +46,13 @@ module BookmarkletHelper
 
 
     def domain_checker
-      case URI(@url).host
+      host = URI(@url).host
+      if /t.cn/.match(host)
+        uri = open(@url).base_uri
+        @url = uri.scheme + '://' + uri.host + uri.path + '?' + ( uri.query  || '' )
+        host = uri.host
+      end
+      case host
       when /taobao/
         @site =  'taobao'
         @css_mark =  'div.tb-pic img'
