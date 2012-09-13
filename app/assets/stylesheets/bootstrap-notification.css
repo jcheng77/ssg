@@ -80,6 +80,10 @@
     position: relative;
     color: white;
 }
+a.notification-badge:hover {
+  color: white;
+  text-decoration: none;
+}
 .notification-title{
     font-weight: bold;
 }
