@@ -279,7 +279,7 @@
         , items: 8
         , menu: '<ul class="tagsmenu dropdown-menu"></ul>'
         , item: '<li><a href="#"></a></li>'
-        , insert: '<li class="tag" value="0"><span class="uppercase">#{0}</span><a>x</a></li>'
+        , insert: '<li class="tag" value="0"><span class="uppercase">{0}</span><a>x</a></li>'
     }
 
     $.fn.tageditor.Constructor = Tageditor
