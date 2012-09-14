@@ -33,11 +33,11 @@ ul.category:after{
     .checked {
         border-color: #08C;
         span.selected_pref{
-            padding: 8px;
+            padding: 56px;
             margin: -8px 0 0 -8px;
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 87%;
+            left: 30%;
             z-index: 1000;
             background: url(selected.png) no-repeat left top;
         }
