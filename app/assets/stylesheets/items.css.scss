@@ -97,3 +97,18 @@ p.tags_list {
 .uppercase {
   text-transform: uppercase;
 }
+
+form.well.tag-form {
+  .tageditor {
+    width: auto;
+    float: left;
+    .tags {
+      width: 220px;
+      height: 28px;
+    }
+  }
+  .btn.add-tag {
+    float: right;
+    margin: 4px;
+  }
+}

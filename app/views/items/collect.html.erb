@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6' }) do |f| %>
+  <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6 tag-form' }) do |f| %>
     <%= hidden_field_tag "share[source]", @share.source %>
     <%= hidden_field_tag "item[image]", @item.image %>
     <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
@@ -82,8 +82,6 @@
         alert('请输入推荐评论');
         return false;
       }
-      var val = $('[data-provide="tageditor"]').data('tageditor').getValue();
-      $('#tags').val(val);
     });
   });
 </script>

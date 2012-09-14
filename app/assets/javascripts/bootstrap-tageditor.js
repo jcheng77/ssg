@@ -295,6 +295,13 @@
             e.preventDefault()
             $this.tageditor($this.data())
         })
+    });
+
+    $(document).ready(function(){
+      $('form.tag-form').on('submit', function (event) {
+        var val = $('[data-provide="tageditor"]').data('tageditor').getValue();
+        $('#tags').val(val);
+      });
     })
 
 }( window.jQuery );

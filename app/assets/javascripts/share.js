@@ -106,7 +106,7 @@ $(document).ready(function () {
         }
     );
 
-    $("#bookmarklet_container form ul.tags").bind("keypress", function (e) {
+    $("form ul.tags").bind("keypress", function (e) {
         if (e.keyCode == 13) return false;
     });
 });

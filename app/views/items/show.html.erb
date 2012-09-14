@@ -43,9 +43,16 @@
                 </li>
             <% end %>
         </ul>
-        <%= form_tag add_tag_item_path(@item), class: "well form-inline" do %>
-            <%= text_field_tag 'tag' %>
-            <%= submit_tag "添加标签", class: "btn btn-info" %>
+        <%= form_tag add_tag_item_path(@item), class: "well form-inline tag-form" do %>
+          <input type="hidden" id="tags" name="tag">
+          <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
+            <ul class="tags">
+              <li><input type="text" style="width:30px;"/></li>
+            </ul>
+          </div>
+
+          <%= submit_tag "添加标签", class: "add-tag btn btn-info" %>
+          <div class="clear"></div>
         <% end %>
     </div>
     <div class="span8">
