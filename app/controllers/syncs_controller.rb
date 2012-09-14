@@ -49,7 +49,9 @@ class SyncsController < ApplicationController
 
       if account.nil?
 
+        if params[:type] == 'sina'
         bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"] , :count => 300)
+        end
         aid = userinfo.delete("id")
         cur_user = User.new(userinfo)
         cur_user.accounts.new( :type => params[:type], :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token || params[:code], :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :friends => bi_friends.nil? ? [] : bi_friends["ids"]  )
