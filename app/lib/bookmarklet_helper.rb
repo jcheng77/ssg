@@ -13,7 +13,9 @@ module BookmarkletHelper
       @imgs = []
       domain_checker
       get_item_id
+      if correct?
       retrieve_product_info
+      end
     end
 
     def collecter
@@ -98,7 +100,7 @@ module BookmarkletHelper
     end
 
     def correct?
-      @item_id != "invalid" && @img != []
+      @item_id && @item_id != "invalid" && @img != []
     end
 
     def item_id
@@ -117,7 +119,7 @@ module BookmarkletHelper
       node2 = item/'DetailPageURL'
       @purchase_url = node2.first.text if node
       when 'taobao','tmall'
-        product = get_item item_id
+        product = get_item @item_id
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
