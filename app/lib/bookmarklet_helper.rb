@@ -58,7 +58,8 @@ module BookmarkletHelper
       when /taobao/
         @site =  'taobao'
         @css_mark =  'div.tb-pic img'
-        if /tradearchive/.match(host)
+        binding.pry
+        if /trade/.match(host)
           @url = get_item_url
         end
       when /tmall/
