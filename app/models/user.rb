@@ -145,4 +145,16 @@ class User
   def activate
     self.active = 1 if self.active == 0
   end
+
+
+  def follow_my_own_share(share)
+    if item
+      follow share
+      follow share.item
+    end
+    end
+
+  def push_new_share_to_my_follower
+     followers_by_type(User.name).each { |user| user.follow @share }
+  end
 end

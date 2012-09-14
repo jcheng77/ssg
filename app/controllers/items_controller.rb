@@ -168,8 +168,6 @@ class ItemsController < ApplicationController
     if @share
       return false if !@share.update_attributes(params[:share]) || params[:share][:comment].blank?
     else
-      # @category = Category.first(conditions: {cid: params[:category]})
-      # @item.add_tag(params[:category])
 
       @share = Share.new(params[:share])
       @share.item_id = @item._id
@@ -177,9 +175,8 @@ class ItemsController < ApplicationController
       return false if !@share.save
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
-      current_user.follow @item
-      current_user.follow @share.comment
-      current_user.followers_by_type(User.name).each { |user| user.follow @share }
+      current_user.follow_my_own_share(@share) 
+      current_user.push_new_share_to_my_follower
     end
 
     return true

@@ -17,20 +17,42 @@ module WeiboHelper
 
 
   def monitor_mention
-      client = session[:client]
 
       mentions = client.statuses.mentions
       text = mentions["statuses"].first.text
       t_hash = text.split(' ')
-      url = t_hash.delete_if {|x| /http:\/\/t.cn.*/.match(x) }
+      url = t_hash.select {|x| /http:\/\/t.cn.*/.match(x) }
       cmt = t_hash.select {|a| !a.index('boluome')}.join(" ")
-      col = Collector.new(url)
-      comment = Comment.new(cmt)
-      item = Item.new_with_collector(col)
-      item.category ||= "数码"
-      item.save!
+      url.pop
+      url << 'http://item.taobao.com/item.htm?id=15203028631&ali_trackid=2:mm_30329713_0_0:1347637282_4k5_183895383&spm=2014.12483819.1.0'
+      col = Collector.new(url.first) if url
+      item = Item.first(conditions: { _id: col.item_id })
 
+      if item.nil?
+      #item = Item.new_with_collector(col)
       binding.pry
+      item = Item.create(
+      source_id: col.item_id,
+      title: col.title,
+      image: col.imgs.first,
+      purchase_url: col.purchase_url,
+      category: '数码'
+    )
+      sharer = User.first
+      share = Share.new(
+      source: col.item_id,
+      price: col.price,
+      user_id: sharer._id,
+      item_id: item._id
+      )
+      share.save
+      share.create_comment_by_sharer(cmt)
+      item.update_attribute(:root_share_id, share._id)
+      sharer.follow item
+      sharer.follow share.comment
+      sharer.followers_by_type(User.name).each { |user| user.follow @share }
+
+      end
   end
 
 end

@@ -23,6 +23,8 @@ class Share
   belongs_to :user, index: true
   belongs_to :seller, index: true
 
+  validates_presence_of :price
+
   def root_share
     parent_share = self.parent_share
     parent_share.nil? ? self : parent_share.root_share
