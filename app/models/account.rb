@@ -12,4 +12,16 @@ class Account
   field :profile_url, type: String
 
   embedded_in :user
+
+
+  def full_profile_url
+    if self.profile_url.nil?
+    ''
+    elsif self.type == 'sina'
+       'http://weibo.com/' + self.profile_url
+    elsif self.type == 'qq'
+       'http://t.qq.com/' + self.profile_url
+    end
+  end
+ 
 end
