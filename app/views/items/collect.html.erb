@@ -1,87 +1,108 @@
 <div id="bookmarklet_container" class="row">
-  <div class="span3">
-    <div class="images_picker">
-      <div class="image_frame">
-        <img src="<%= @imgs[0] %>" alt=""/>
-        <div class="dimension"></div>
-      </div>
-      <ul class="image_list">
-        <% @imgs.each do |img| %>
-          <li><img src="<%= img %>" alt=""></li>
-        <% end %>
-        <div class='clear'></div>
-      </ul>
-    </div>
-    <div class="share-to">
-      <p>同步分享到微博:</p>
-      <%= check_box_tag :share_to, :sina %>新浪微博
-      <%= check_box_tag :share_to, :qq %>腾讯微博
-    </div>
-  </div>
+    <div class="span3">
+        <div class="images_picker">
+            <div class="image_frame">
+                <img src="<%= @imgs[0] %>" alt=""/>
 
-  <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6 tag-form' }) do |f| %>
-    <%= hidden_field_tag "share[source]", @share.source %>
-    <%= hidden_field_tag "item[image]", @item.image %>
-    <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
-
-    <%= f.input :title, :label => '商品名称', input_html: { class: 'input-xlarge' } %>
-    <%= f.input :price, :label => '价格' do %>
-      <%= text_field_tag "share[price]", @share.price, class: 'input-xlarge' %>
-    <% end -%>
-    <%= f.input :category, :label => '分类' do %>
-      <%= f.select :category, Hash[categories.map{|c| [c, c]}], include_blank: false %>
-    <% end -%>
-    <%= f.input :rating_comp, :label => '推荐指数' do %>
-      <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
-    <% end -%>
-    <%= f.input :tags, :label => '标签' do %>
-      <input type="hidden" id="tags" name="item[tags]">
-      <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
-        <ul class="tags">
-          <li><input type="text" style="width:30px;"/></li>
-        </ul>
-      </div>
-    <% end -%>
-    <%= f.input :comment, :label => '推荐评论' do %>
-      <%= text_area_tag "share[comment]", @share.comment_content,  rows: "5", class: 'input-xlarge', id: 'desc' %>
-    <% end -%>
-    <div class="controls">
-      <%= radio_button_tag :add_to, :wish %>愿望清单
-      <%= radio_button_tag :add_to, :bag %>购物背包
+                <div class="dimension"></div>
+            </div>
+            <ul class="image_list">
+                <% @imgs.each do |img| %>
+                    <li><img src="<%= img %>" alt=""></li>
+                <% end %>
+                <div class='clear'></div>
+            </ul>
+        </div>
+        <div class="share-to">
+            <p>同步分享到微博:</p>
+            <label class="checkbox">
+                <%= check_box_tag :share_to, :sina %>新浪微博
+            </label>
+            <label class="checkbox">
+                <%= check_box_tag :share_to, :qq %>腾讯微博
+            </label>
+        </div>
     </div>
 
+    <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6 tag-form'}) do |f| %>
+        <%= hidden_field_tag "share[source]", @share.source %>
+        <%= hidden_field_tag "item[image]", @item.image %>
+        <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
 
-    <div class="form-actions">
-      <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
-    </div>
-  <% end -%>
+        <%= f.input :title, :label => '商品名称', input_html: {class: 'input-xlarge'} %>
+        <%= f.input :price, :label => '价格' do %>
+            <%= text_field_tag "share[price]", @share.price, class: 'input-xlarge' %>
+        <% end -%>
+        <%= f.input :category, :label => '分类' do %>
+            <%= f.select :category, Hash[categories.map { |c| [c, c] }], include_blank: false %>
+        <% end -%>
+        <%= f.input :rating_comp, :label => '推荐指数' do %>
+            <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
+        <% end -%>
+        <%= f.input :tags, :label => '标签' do %>
+            <input type="hidden" id="tags" name="item[tags]">
+
+            <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%= Item.tags %>'>
+                <ul class="tags">
+                    <li><input type="text" style="width:30px;"/></li>
+                </ul>
+            </div>
+        <% end -%>
+        <%= f.input :comment, :label => '推荐评论' do %>
+            <%= text_area_tag "share[comment]", @share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
+        <% end -%>
+        <div class="controls">
+            <label class="radio">
+                <%= radio_button_tag :add_to, Share::TYPE_SHARE, true %>发布分享
+            </label>
+            <label class="radio">
+                <%= radio_button_tag :add_to, Share::TYPE_WISH %>愿望清单
+            </label>
+            <label class="radio">
+                <%= radio_button_tag :add_to, Share::TYPE_BAG %>购物背包
+            </label>
+            <br />
+            <%= select_tag :wish_tag, options_for_select(Hash[Share::WISH_TAGS.map{|c| [c, c]}]), style: "width: 240px; display: none;" %>
+        </div>
+
+        <div class="form-actions">
+            <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
+        </div>
+    <% end -%>
 </div>
 
 <script>
-  var GLOBAL_IMAGES_FROM_BOOKMARK = [];
-  <% @imgs.each do |img| %>
+    var GLOBAL_IMAGES_FROM_BOOKMARK = [];
+    <% @imgs.each do |img| %>
     GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
-  <% end %>
-  $(document).ready(function () {
-    var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
-    dimension = $('#bookmarklet_container .dimension')[0],
-    imageFrame = $('#bookmarklet_container .image_frame img')[0];
-    dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
-    $('.image_list li').click(function () {
-      if (selected) {
-        selected.removeClass('selected');
-      }
-      selected = $(this);
-      selected.addClass('selected');
-      src = selected.find('img')[0].src;
-      imageFrame.src = src;
-      dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
+    <% end %>
+    $(document).ready(function () {
+        var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
+                dimension = $('#bookmarklet_container .dimension')[0],
+                imageFrame = $('#bookmarklet_container .image_frame img')[0];
+        dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
+        $('.image_list li').click(function () {
+            if (selected) {
+                selected.removeClass('selected');
+            }
+            selected = $(this);
+            selected.addClass('selected');
+            src = selected.find('img')[0].src;
+            imageFrame.src = src;
+            dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
+        });
+        $('#bookmarklet_container form').on('submit', function (event) {
+            if ($('#desc').val().length == 0) {
+                alert('请输入推荐评论');
+                return false;
+            }
+        });
+
+        $("#add_to_BAG, #add_to_SHA").click(function () {
+            $("#wish_tag").hide();
+        })
+        $("#add_to_WIS").click(function () {
+            $("#wish_tag").show();
+        })
     });
-    $('#bookmarklet_container form').on('submit', function (event) {
-      if($('#desc').val().length == 0){
-        alert('请输入推荐评论');
-        return false;
-      }
-    });
-  });
 </script>
