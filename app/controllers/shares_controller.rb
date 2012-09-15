@@ -31,6 +31,7 @@ class SharesController < ApplicationController
         if @wish.save
           @wish.add_tag params[:tag]
           @wish.create_comment_by_sharer params[:content]
+          @user.follow_my_own_share(@wish)
           @user.push_new_share_to_my_follower(@wish)
         end
       end
@@ -52,6 +53,7 @@ class SharesController < ApplicationController
       @bag = @user.shares.new @share.copy_attributes(:share_type => Share::TYPE_BAG)
       if @bag.save
         @bag.create_comment_by_sharer params[:comment]
+        @user.follow_my_own_share(@bag)
         @user.push_new_share_to_my_follower(@bag)
       end
     end
