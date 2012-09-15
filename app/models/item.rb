@@ -44,7 +44,7 @@ class Item
   end
 
   def latest_price
-    s = shares.select {|i| i.price}
+    s = shares.desc(:create_at).select {|i| i.price}
     s.present? ? s.last.price : '暂无价格'
   end
 
