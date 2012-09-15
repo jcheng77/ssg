@@ -21,7 +21,7 @@
     </script>
 <% end %>
 
-<div class="page-header"><h2><%= @item.title %></h2></div>
+<div class="page-header"><h3><%= @item.title %></h3></div>
 <div class="row">
     <div class="span4">
         <div class="thumbnail">
@@ -35,7 +35,10 @@
                 </ul>
             </div>
         </div>
-        <div class="page-header"><h4>标签</h4></div>
+        <div class="page-header item-price">
+          <a href="#"><img src="/assets/gobuy.png" alt="" /></a>
+          <b><%= number_to_currency(@item.latest_price, unit: '￥') %></b>
+        </div>
         <ul class="tag-block">
             <% @item.tags_each do |t| %>
                 <li>

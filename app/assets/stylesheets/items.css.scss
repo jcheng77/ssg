@@ -112,3 +112,19 @@ form.well.tag-form {
     margin: 4px;
   }
 }
+
+.item-price {
+  text-align: right;
+  height: 30px;
+  b {
+    float: right;
+    font-size: 18px;
+    line-height: 29px;
+    color: #F14382;
+    font-weight: normal;
+    margin-right: 25px;
+  }
+  a {
+    float: right;
+  }
+}

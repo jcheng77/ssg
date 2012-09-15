@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class Item
   include Mongoid::Document
   include Mongoid::Timestamps::Created
@@ -40,6 +41,11 @@ class Item
                               })
 
     return @item
+  end
+
+  def latest_price
+    s = shares.select {|i| i.price}
+    s.present? ? s.last.price : '暂无价格'
   end
 
   def root_share
