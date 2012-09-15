@@ -6,6 +6,10 @@ class Share
   include CommentableHelper
   include TaggableHelper
 
+  TYPE_SHARE = 'SHA'
+  TYPE_BAG = 'BAG'
+  TYPE_WISH = 'WIS'
+
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
   field :product_rating, type: Integer # 1-5
@@ -15,15 +19,16 @@ class Share
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
+  field :share_type, type: String, default: TYPE_SHARE
 
   acts_as_commentable
-  has_many :wishes
-  has_many :bags
   belongs_to :item, index: true
   belongs_to :user, index: true
   belongs_to :seller, index: true
 
   validates_presence_of :price
+
+  scope :recent_by_type, lambda { |type| where(share_type: type).desc(:created_at) }
 
   def root_share
     parent_share = self.parent_share

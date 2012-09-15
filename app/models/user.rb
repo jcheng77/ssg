@@ -29,17 +29,16 @@ class User
   # relations
   embeds_many :accounts do # second accounts
     def sina
-      @target.select { |account| account.type == 'sina'}
+      @target.select { |account| account.type == 'sina' }
     end
-    def qq 
-      @target.select { |account| account.type == 'qq'}
+
+    def qq
+      @target.select { |account| account.type == 'qq' }
     end
 
   end
 
   has_many :shares
-  has_many :wishes
-  has_many :bags
   has_many :choices
 
   # index
@@ -51,24 +50,32 @@ class User
 
   before_save :encrypt_password
 
-  def followed_shares(page, per_page = 8)
+  def followed_all(page, per_page = 8)
     Share.desc(:created_at).followees_of(self).paginate(:page => page, :per_page => per_page)
   end
 
   def my_shares(page, per_page = 8)
-    self.shares.desc(:created_at).paginate(:page => page, :per_page => per_page)
+    self.shares.recent_by_type(Share::TYPE_SHARE).paginate(:page => page, :per_page => per_page)
+  end
+
+  def my_wishes(page, per_page = 8)
+    self.shares.recent_by_type(Share::TYPE_WISH).paginate(:page => page, :per_page => per_page)
+  end
+
+  def my_bags(page, per_page = 8)
+    self.shares.recent_by_type(Share::TYPE_BAG).paginate(:page => page, :per_page => per_page)
   end
 
   def recent_shares(limit = 6)
-    self.shares.desc(:created_at).limit(limit)
+    self.shares.where(share_type: Share::TYPE_SHARE).desc(:created_at).limit(limit)
   end
 
   def recent_bags(limit = 10)
-    self.bags.desc(:created_at).limit(limit)
+    self.shares.where(share_type: Share::TYPE_BAG).desc(:created_at).limit(limit)
   end
 
   def recent_wishes(limit = 10)
-    self.wishes.desc(:created_at).limit(limit)
+    self.shares.where(share_type: Share::TYPE_WISH).limit(limit)
   end
 
   # my notifications
@@ -81,7 +88,7 @@ class User
     friend_users = []
     users = User.all
     users.each do |user|
-    account = user.accounts.first
+      account = user.accounts.first
       if account && sns_account && account.friends.to_a.include?(sns_account.aid.to_i)
         friend_users << user
       end
@@ -124,11 +131,11 @@ class User
     end
   end
 
-  def self.authenticate(input,password)
-    user ||= User.where(email:input).first
-    user ||= User.where(nick_name:input).first
+  def self.authenticate(input, password)
+    user ||= User.where(email :input).first
+    user ||= User.where(nick_name :input).first
 
-    if user && user.password == BCrypt::Engine.hash_secret(password,user.password_salt)
+    if user && user.password == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
       logger.info "user not found"
@@ -138,7 +145,7 @@ class User
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
-      self.password = BCrypt::Engine.hash_secret(password,password_salt)
+      self.password = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
 
@@ -146,15 +153,14 @@ class User
     self.active = 1 if self.active == 0
   end
 
-
   def follow_my_own_share(share)
     if item
-      follow share
+      follow share.comment
       follow share.item
     end
-    end
+  end
 
-  def push_new_share_to_my_follower
-     followers_by_type(User.name).each { |user| user.follow @share }
+  def push_new_share_to_my_follower(share)
+    followers_by_type(User.name).each { |user| user.follow share }
   end
 end

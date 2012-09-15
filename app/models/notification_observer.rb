@@ -1,5 +1,5 @@
 class NotificationObserver < Mongoid::Observer
-  observe :share, :wish, :bag, :comment, :follow
+  observe :share, :comment, :follow
 
   def after_create(object)
     type = nil
@@ -13,20 +13,19 @@ class NotificationObserver < Mongoid::Observer
       notify_objects << User.find(object.f_id)
     elsif object.is_a?(Share)
       notify_objects = object.user.followers_by_type(User.name)
-      type = Notification::TYPE_SHARE
-      sender_id = object.user_id
-    elsif object.is_a?(Wish)
-      notify_objects = object.user.followers_by_type(User.name)
-      type = Notification::TYPE_WISH
-      sender_id = object.user_id
-    elsif object.is_a?(Bag)
-      notify_objects = object.user.followers_by_type(User.name)
-      type = Notification::TYPE_BAG
+      type = case object.share_type
+               when Share::TYPE_SHARE then
+                 Notification::TYPE_SHARE
+               when Share::TYPE_WISH then
+                 Notification::TYPE_WISH
+               when Share::TYPE_BAG then
+                 Notification::TYPE_BAG
+             end
       sender_id = object.user_id
     elsif object.is_a? Comment
       unless object.is_root_comment?
         target_object = object.root
-        if target_object.is_a?(Share) || target_object.is_a?(Wish) || target_object.is_a?(Bag)
+        if target_object.is_a?(Share)
           notify_objects = target_object.comment.followers_by_type(User.name)
           type = Notification::TYPE_COMMENT
           sender_id = object.user_id

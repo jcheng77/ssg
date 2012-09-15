@@ -18,9 +18,11 @@
     <div class="span8">
         <div class="page-header"><h4>我的背包</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <% @user.bags.desc(:created_at).each do |bag| %>
+            <% @bags.each do |bag| %>
                 <%= render :partial => "shares/share", :object => bag %>
             <% end %>
         </div>
+
+        <%= bootstrap_will_paginate @bags %>
     </div>
 </div>

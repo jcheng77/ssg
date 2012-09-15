@@ -52,12 +52,10 @@ class ItemsController < ApplicationController
   # POST /items/1/add_tag
   def add_tag
     @item = Item.find(params[:id])
-    @share = @item.share_by_user current_user
     tag = params[:tag]
 
     unless tag.blank?
       @item.add_tag tag
-      @share.add_tag tag unless @share.nil?
     end
 
     respond_to do |format|
@@ -176,7 +174,7 @@ class ItemsController < ApplicationController
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
       current_user.follow_my_own_share(@share) 
-      current_user.push_new_share_to_my_follower
+      current_user.push_new_share_to_my_follower(@share)
     end
 
     return true

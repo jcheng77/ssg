@@ -17,9 +17,6 @@ class Item
   field :root_share_id, type: BSON::ObjectId
 
   has_many :shares
-  has_many :wishes
-  has_many :bags
-  # has_one :category
 
   validates_presence_of :image, :purchase_url, :title, :category
 
