@@ -19,10 +19,10 @@
       <dd><%= account_info @user.description %></dd>
       <dt>我的微博</dt>
       <% if @user.accounts.sina %>
-        <dd>新浪微博: <%= link_to account_info(@user.accounts.sina.full_profile_url),account_info(@user.accounts.sina.full_profile_url), {:target => '_blank'}    %></dd>
+        <dd>新浪微博: <%= link_to account_info(@user.accounts.sina.full_profile_url),@user.accounts.sina.full_profile_url, {:target => '_blank'}    %></dd>
       <% end %>
       <% if @user.accounts.qq %>
-        <dd>腾迅微博<%= link_to account_info(@user.accounts.qq.full_profile_url),account_info(@user.accounts.qq.full_profile_url), {:target => '_blank'}   %></dd>
+        <dd>腾迅微博<%= link_to account_info(@user.accounts.qq.full_profile_url),@user.accounts.qq.full_profile_url, {:target => '_blank'}   %></dd>
       <% end %>
     </dl>
     <dl class="page-header">
