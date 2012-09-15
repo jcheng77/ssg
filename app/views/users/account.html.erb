@@ -18,7 +18,12 @@
       <dt>个人简介</dt>
       <dd><%= account_info @user.description %></dd>
       <dt>我的微博</dt>
-      <dd><%= account_info @user.accounts.first.profile_url %></dd>
+      <% if @user.accounts.sina %>
+        <dd>新浪微博: <%= link_to account_info(@user.accounts.sina.full_profile_url),account_info(@user.accounts.sina.full_profile_url), {:target => '_blank'}    %></dd>
+      <% end %>
+      <% if @user.accounts.qq %>
+        <dd>腾迅微博<%= link_to account_info(@user.accounts.qq.full_profile_url),account_info(@user.accounts.qq.full_profile_url), {:target => '_blank'}   %></dd>
+      <% end %>
     </dl>
     <dl class="page-header">
       <dt>感兴趣的分类

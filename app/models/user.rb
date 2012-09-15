@@ -29,10 +29,10 @@ class User
   # relations
   embeds_many :accounts do # second accounts
     def sina
-      @target.select { |account| account.type == 'sina'}
+      @target.select { |account| account.type == 'sina'}.first
     end
     def qq 
-      @target.select { |account| account.type == 'qq'}
+      @target.select { |account| account.type == 'qq'}.first
     end
 
   end
