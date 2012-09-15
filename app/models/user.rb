@@ -50,6 +50,10 @@ class User
 
   before_save :encrypt_password
 
+  def has_shared?(type, item)
+    self.shares.where(:share_type => type, :item_id => item._id).exists?
+  end
+
   def followed_all(page, per_page = 8)
     Share.desc(:created_at).followees_of(self).paginate(:page => page, :per_page => per_page)
   end
@@ -66,16 +70,16 @@ class User
     self.shares.recent_by_type(Share::TYPE_BAG).paginate(:page => page, :per_page => per_page)
   end
 
-  def recent_shares(limit = 6)
+  def recent_shares(limit = 8)
     self.shares.where(share_type: Share::TYPE_SHARE).desc(:created_at).limit(limit)
   end
 
-  def recent_bags(limit = 10)
+  def recent_bags(limit = 8)
     self.shares.where(share_type: Share::TYPE_BAG).desc(:created_at).limit(limit)
   end
 
-  def recent_wishes(limit = 10)
-    self.shares.where(share_type: Share::TYPE_WISH).limit(limit)
+  def recent_wishes(limit = 8)
+    self.shares.where(share_type: Share::TYPE_WISH).desc(:created_at).limit(limit)
   end
 
   # my notifications

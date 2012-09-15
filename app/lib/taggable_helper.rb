@@ -132,6 +132,10 @@ module TaggableHelper
       self.class.save_tags_index!
     end
 
+    def clear_tags
+      self.update_attribute(:tags_array, [])
+    end
+
     def tags_each
       (self.tags_array || []).each { |tag| yield tag }
     end

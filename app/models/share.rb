@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Share
   include Mongoid::Document
   include Mongoid::Timestamps::Created
@@ -9,6 +11,8 @@ class Share
   TYPE_SHARE = 'SHA'
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
+
+  WISH_TAGS = ["生日礼物", "同学聚会", "婚礼礼品"]
 
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
@@ -28,7 +32,16 @@ class Share
 
   validates_presence_of :price
 
-  scope :recent_by_type, lambda { |type| where(share_type: type).desc(:created_at) }
+  scope :by_type, lambda { |type| where(share_type: type) }
+  scope :recent_by_type, lambda { |type| by_type(type).desc(:created_at) }
+
+  def copy_attributes(attributes = {})
+    {:source => self.source,
+     :price => self.price,
+     :parent_share_id => self._id,
+     :item_id => self.item.id
+    }.merge(attributes)
+  end
 
   def root_share
     parent_share = self.parent_share

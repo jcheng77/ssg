@@ -66,31 +66,25 @@ class ItemsController < ApplicationController
   # POST /items/1/recommend
   def recommend
     @item = Item.find(params[:id])
-    @recommend = @item.share_by_user current_user
-    @comment = Comment.new(params[:comment])
-    has_shared = false
+    @user = current_user
 
-    if @recommend.nil?
-      @recommend = @item.shares.create user_id: current_user._id, parent_share_id: @comment.root_id
-      @comment = @recommend.create_comment_by_sharer @comment.content
+    if params[:comment][:content].blank? || @user.has_shared?(Share::TYPE_SHARE, @item)
+      @recommend = nil
+      @comment = nil
     else
-      has_shared = true
+      @comment = Comment.new(params[:comment])
+      share = @comment.root.blank? ? @item.root_share : @comment.root
+      @recommend = @user.shares.new share.copy_attributes(:share_type => Share::TYPE_SHARE)
+      if @recommend.save
+        @comment = @recommend.create_comment_by_sharer @comment.content
+        current_user.follow_my_own_share(@recommend)
+        current_user.push_new_share_to_my_follower(@recommend)
+      end
     end
 
-    if @recommend.persisted? && @comment.persisted?
-      current_user.follow @item
-      current_user.follow @recommend
-      current_user.followers_by_type(User.name).each { |user| user.follow @recommend }
-      respond_to do |format|
-        format.html { redirect_to @recommend }
-        format.js { render "comments/create_root" }
-      end
-    else
-      @recommend.destroy if !has_shared
-      respond_to do |format|
-        format.html { redirect_to @item }
-        format.js { render "comments/create_root" }
-      end
+    respond_to do |format|
+      format.html { redirect_to @item }
+      format.js { render "comments/create_root" }
     end
   end
 
@@ -170,10 +164,11 @@ class ItemsController < ApplicationController
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
+      @share.share_type = Share::TYPE_SHARE
       return false if !@share.save
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
-      current_user.follow_my_own_share(@share) 
+      current_user.follow_my_own_share(@share)
       current_user.push_new_share_to_my_follower(@share)
     end
 

@@ -22,11 +22,17 @@ class SharesController < ApplicationController
   def add_to_wish
     @share = Share.find(params[:id])
     @user = current_user
-    @wish = @user.wishes.find_or_initialize_by item_id: @share.item._id
-    unless params[:tag].blank?
-      if @wish.save
-        @wish.add_tag params[:tag]
-        @wish.create_comment(user_id: @user._id, content: params[:tag])
+
+    if params[:content].blank? || @user.has_shared?(Share::TYPE_WISH, @share.item)
+      @wish = nil
+    else
+      @wish = @user.shares.new @share.copy_attributes(:share_type => Share::TYPE_WISH)
+      unless params[:tag].blank?
+        if @wish.save
+          @wish.add_tag params[:tag]
+          @wish.create_comment_by_sharer params[:content]
+          @user.push_new_share_to_my_follower(@wish)
+        end
       end
     end
 
@@ -39,9 +45,15 @@ class SharesController < ApplicationController
   def add_to_bag
     @share = Share.find(params[:id])
     @user = current_user
-    @bag = @user.bags.find_or_initialize_by item_id: @share.item._id
-    unless params[:comment].blank?
-      @bag.create_comment(user_id: @user._id, content: params[:comment]) if @bag.save
+
+    if params[:comment].blank? || @user.has_shared?(Share::TYPE_BAG, @share.item)
+      @bag = nil
+    else
+      @bag = @user.shares.new @share.copy_attributes(:share_type => Share::TYPE_BAG)
+      if @bag.save
+        @bag.create_comment_by_sharer params[:comment]
+        @user.push_new_share_to_my_follower(@bag)
+      end
     end
 
     respond_to do |format|

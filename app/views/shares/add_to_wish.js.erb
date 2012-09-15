@@ -1,5 +1,5 @@
 $('#<%= escape_javascript "#{@share._id}-wish-btn" %>').modal('hide');
-<% if @wish.persisted? %>
+<% if !@wish.blank? && @wish.persisted? %>
 alert("添加愿望成功！");
 <% else %>
 alert("添加愿望失败！");

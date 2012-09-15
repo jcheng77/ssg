@@ -11,7 +11,7 @@
     <% if summary.recent_shares.count == 0 %>
       <p class="text-info">这位亲还没有分享过商品哦</p>
     <% else %>
-      <% summary.recent_shares.each do |share| %>
+      <% summary.recent_shares(6).each do |share| %>
         <li>
         <%= link_to share do %>
           <%= image_tag share.item.image %>

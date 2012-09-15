@@ -11,9 +11,9 @@ class Item
   field :price_low, type: Float # lowest price
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
-  # field :tags, type: Array # string[]
+                                     # field :tags, type: Array # string[]
   field :category, type: String
-  field :purchase_url, type: String 
+  field :purchase_url, type: String
   field :root_share_id, type: BSON::ObjectId
 
   has_many :shares
@@ -29,15 +29,15 @@ class Item
 
   def self.new_with_collector(collector)
     @item = Item.new({
-      source_id: collector.item_id,
-      title: collector.title,
-      image: collector.imgs.first,
-      purchase_url: collector.purchase_url
-    })
+                         source_id: collector.item_id,
+                         title: collector.title,
+                         image: collector.imgs.first,
+                         purchase_url: collector.purchase_url
+                     })
     @item.shares << Share.new({
-      source: collector.item_id,
-      price: collector.price
-    })
+                                  source: collector.item_id,
+                                  price: collector.price
+                              })
 
     return @item
   end
@@ -50,26 +50,20 @@ class Item
     self.class.tagged_with_any(self.tags_array)
   end
 
-  def share_by_user(user)
-    self.shares.where(user_id: user._id).first
-  end
-
   def has_shared_by_user?(user)
     !self.share_by_user(user).nil?
   end
 
   def in_shares_num
-    self.shares.count
+    self.shares.by_type(Share::TYPE_SHARE).count
   end
 
   def in_wishes_num
-    share_ids = self.shares.all.map { |share| share._id }
-    share_ids.blank? ? 0 : Wish.any_in(share_id: share_ids).count
+    self.shares.by_type(Share::TYPE_WISH).count
   end
 
   def in_bags_num
-    share_ids = self.shares.all.map { |share| share._id }
-    share_ids.blank? ? 0 : Bag.any_in(share_id: share_ids).count
+    self.shares.by_type(Share::TYPE_BAG).count
   end
 
   def self.top_tags(category, num = 10)
