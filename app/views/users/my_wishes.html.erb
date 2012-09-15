@@ -19,9 +19,11 @@
     <div class="span8">
         <div class="page-header"><h4>我的愿望</h4></div>
         <div class="row" style="margin-left: 0px;">
-            <% @user.wishes.desc(:created_at).each do |wish| %>
+            <% @wishes.each do |wish| %>
                 <%= render :partial => "shares/share", :object => wish %>
             <% end %>
         </div>
+
+        <%= bootstrap_will_paginate @wishes %>
     </div>
 </div>

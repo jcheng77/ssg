@@ -1,4 +1,5 @@
 <div class="row">
+<<<<<<< HEAD
   <div class="span2">
     <%= render :partial => "avatar", :object => @user %>
   </div>
@@ -34,42 +35,73 @@
       <%= link_to "修改个人资料", edit_account_user_path(@user) %>
     <% end %>
   </div>
+    <div class="span2">
+        <%= render :partial => "avatar", :object => @user %>
+    </div>
+    <div class="span10 account">
+        <h1 class="page-header"><%= @user.nick_name %>
+            <% if current_user != @user %>
+                <div class="user-block-link <%= "#{@user._id}-follow" %>">
+                    <%=
+                        link_to_unless current_user.follower_of?(@user), '关注', follow_user_path(@user), remote: true, class: "btn btn-small btn-success" do
+                          link_to '取消关注', unfollow_user_path(@user), remote: true, class: "btn btn-small btn-success"
+                        end
+                    %>
+                </div>
+            <% end %>
+        </h1>
+        <dl class="page-header">
+            <dt>个人简介</dt>
+            <dd><%= account_info @user.description %></dd>
+            <dt>我的微博</dt>
+            <dd><%= account_info @user.accounts.first.profile_url %></dd>
+        </dl>
+        <dl class="page-header">
+            <dt>感兴趣的分类
+                <% if current_user == @user then %> &minus; <%= link_to "编辑", edit_preferences_user_path(@user) %>
+                <% end %></dt>
+            <dd><%= account_info @user.preferences.join(", ") %></dd>
+        </dl>
+        <% if current_user == @user then %>
+            <%= link_to "修改个人资料", edit_account_user_path(@user) %>
+        <% end %>
+    </div>
 </div>
 <div class="row" style="margin-top: 30px;">
-  <div class="span12">
-    <ul id="myTab" class="nav nav-tabs">
-      <li class="active"><a href="#shares" data-toggle="tab">我的分享</a></li>
-      <li class=""><a href="#wishes" data-toggle="tab">我的愿望</a></li>
-      <li class=""><a href="#bags" data-toggle="tab">我的背包</a></li>
-    </ul>
-    <div class="tab-pane fade in active" id="shares">
-      <div class="row" style="margin-left: 0px;">
-        <ul class="thumbnails">
-          <% @user.recent_shares.each do |share| %>
-            <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share.item.root_share} %>
-          <% end %>
+    <div class="span12">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#shares" data-toggle="tab">我的分享</a></li>
+            <li class=""><a href="#wishes" data-toggle="tab">我的愿望</a></li>
+            <li class=""><a href="#bags" data-toggle="tab">我的背包</a></li>
         </ul>
-      </div>
-    </div>
-    <div class="tab-content">
-      <div class="tab-pane fade in " id="wishes">
-        <div class="row" style="margin-left: 0px;">
-          <ul class="thumbnails">
-            <% @user.recent_wishes.each do |wish| %>
-              <%= render :partial => "items/item", :object => wish.item, :locals => {:tags => wish.tags, :share => nil} %>
-            <% end %>
-          </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="shares">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_shares.each do |share| %>
+                            <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share} %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade in " id="wishes">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_wishes.each do |wish| %>
+                            <%= render :partial => "items/item", :object => wish.item, :locals => {:tags => wish.tags, :share => wish} %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="bags">
+                <div class="row" style="margin-left: 0px;">
+                    <ul class="thumbnails">
+                        <% @user.recent_bags.each do |bag| %>
+                            <%= render :partial => "items/item", :object => bag.item, :locals => {:tags => bag.tags, :share => bag} %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="tab-pane fade in" id="bags">
-        <div class="row" style="margin-left: 0px;">
-          <ul class="thumbnails">
-            <% @user.recent_bags.each do |bag| %>
-              <%= render :partial => "items/item", :object => bag.item, :locals => {:tags => nil, :share => bag} %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

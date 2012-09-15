@@ -1,5 +1,5 @@
 $('#<%= escape_javascript "#{@share._id}-bag-btn" %>').modal('hide');
-<% if @bag.persisted? %>
+<% if !@bag.blank? && @bag.persisted? %>
 alert("添加到背包成功！");
 <% else %>
 alert("添加到背包失败！");

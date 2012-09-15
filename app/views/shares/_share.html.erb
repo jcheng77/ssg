@@ -80,7 +80,10 @@
         <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
         <%= form_tag add_to_wish_share_path(share), remote: true, class: "pull-right" do %>
             <div class="page-header"><h4>标签</h4></div>
-            <%= text_field_tag 'tag', nil, style: "width: 240px;" %>
+            <%= select_tag :tag, options_for_select(Hash[Share::WISH_TAGS.map{|c| [c, c]}]), style: "width: 240px;" %>
+            <br>
+            <div class="page-header"><h4>心语心愿</h4></div>
+            <%= text_area_tag :content, "", rows: 4, class: "input-large", style: "width: 240px;" %>
             <br>
             <%= submit_tag "加入愿望清单", class: "btn btn-primary" %>
         <% end %>
