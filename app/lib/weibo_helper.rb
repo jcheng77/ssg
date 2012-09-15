@@ -30,7 +30,6 @@ module WeiboHelper
 
       if item.nil?
       #item = Item.new_with_collector(col)
-      binding.pry
       item = Item.create(
       source_id: col.item_id,
       title: col.title,

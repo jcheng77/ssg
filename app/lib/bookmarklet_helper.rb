@@ -178,7 +178,6 @@ module BookmarkletHelper
       when '360buy'
       when 'amazon'
         cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
-        binding.pry
         @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
     end
