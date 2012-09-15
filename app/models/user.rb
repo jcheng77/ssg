@@ -148,7 +148,7 @@ class User
 
 
   def follow_my_own_share(share)
-    if item
+    if share
       follow share
       follow share.item
     end
