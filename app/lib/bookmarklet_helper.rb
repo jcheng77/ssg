@@ -4,8 +4,12 @@ require 'uri'
 
 include ImageHelper
 include TaobaoApiHelper
+#encoding: utf-8
 
 module BookmarkletHelper
+  #AMAZON_CATEGORY_MAP =  { "Home" => "家居" }
+
+
   class Collector
 
     def initialize(url)
@@ -13,9 +17,9 @@ module BookmarkletHelper
       @imgs = []
       domain_checker
       get_item_id
-      if correct?
+      #if correct?
       retrieve_product_info
-      end
+      #end
     end
 
     def collecter
@@ -61,7 +65,7 @@ module BookmarkletHelper
         @site =  'taobao'
         @css_mark =  'div.tb-pic img'
         if /trade/.match(host)
-          @url = get_item_url
+          @url = get_trade_snapshot_item
         end
       when /tmall/
         @site = 'tmall'
@@ -88,7 +92,7 @@ module BookmarkletHelper
         @item_id = req_hash["id"]
       when 'tmall'
         req_hash = Rack::Utils.parse_nested_query uri.query
-        @item_id = req_hash["mallstItemId"]
+        @item_id ||= (req_hash["id"] || req_hash["mallstItemId"])
       when 'amazon'
         preindex = path.index("product") || path.index("dp")
         @item_id = path[preindex + 1] if preindex
@@ -111,13 +115,17 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+      binding.pry
+      if !res.has_error?
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
       @price = node.children.first.text.to_i/100 if node
       @title = item.get_element('ItemAttributes').get('Title')
+      @category = item.get_element('ItemAttributes').get('ProductGroup')
       node2 = item/'DetailPageURL'
       @purchase_url = node2.first.text if node
+      end
       when 'taobao','tmall'
         binding.pry
         product = get_item @item_id
@@ -131,7 +139,7 @@ module BookmarkletHelper
       end
     end
 
-    def get_item_url
+    def get_trade_snapshot_item
       doc = open(@url).read
       @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) || @url )
     end
