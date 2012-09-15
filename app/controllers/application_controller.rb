@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   def client
      #sina weibo production test api client
       
-      @client = ( session[:client] || WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3'))
+      @client ||= ( session[:client] || WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3'))
       WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
      # client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
