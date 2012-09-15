@@ -15,9 +15,11 @@ class Account
 
 
   def full_profile_url
-    if self.type == 'sina' && self.profile_url
+    if self.profile_url.nil?
+    ''
+    elsif self.type == 'sina'
        'http://weibo.com/' + self.profile_url
-    else
+    elsif self.type == 'qq'
        'http://t.qq.com/' + self.profile_url
     end
   end
