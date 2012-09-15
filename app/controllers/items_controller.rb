@@ -160,14 +160,16 @@ class ItemsController < ApplicationController
     if @share
       return false if !@share.update_attributes(params[:share]) || params[:share][:comment].blank?
     else
-
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
-      @share.share_type = Share::TYPE_SHARE
+      @share.share_type = params[:add_to]
       return false if !@share.save
+
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
+      @share.add_tag(params[:wish_tag]) if @share.share_type == Share::TYPE_WISH
+
       current_user.follow_my_own_share(@share)
       current_user.push_new_share_to_my_follower(@share)
     end

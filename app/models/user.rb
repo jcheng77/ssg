@@ -54,7 +54,7 @@ class User
   end
 
   def followed_all(page, per_page = 8)
-    Share.desc(:created_at).followees_of(self).paginate(:page => page, :per_page => per_page)
+    Share.followees_of(self).reverse.paginate(:page => page, :per_page => per_page)
   end
 
   def my_shares(page, per_page = 8)

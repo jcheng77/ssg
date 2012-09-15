@@ -127,7 +127,6 @@ module BookmarkletHelper
       @purchase_url = node2.first.text if node
       end
       when 'taobao','tmall'
-        binding.pry
         product = get_item @item_id
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
