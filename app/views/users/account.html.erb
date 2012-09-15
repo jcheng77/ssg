@@ -1,4 +1,40 @@
 <div class="row">
+<<<<<<< HEAD
+  <div class="span2">
+    <%= render :partial => "avatar", :object => @user %>
+  </div>
+  <div class="span10 account">
+    <h1 class="page-header"><%= @user.nick_name %>
+      <% if current_user != @user %>
+        <div class="user-block-link <%= "#{@user._id}-follow" %>">
+          <%=
+            link_to_unless current_user.follower_of?(@user), '关注', follow_user_path(@user), remote: true, class: "btn btn-small btn-success" do
+              link_to '取消关注', unfollow_user_path(@user), remote: true, class: "btn btn-small btn-success"
+            end
+          %>
+        </div>
+      <% end %>
+    </h1>
+    <dl class="page-header">
+      <dt>个人简介</dt>
+      <dd><%= account_info @user.description %></dd>
+      <dt>我的微博</dt>
+      <% if @user.accounts.sina %>
+        <dd>新浪微博: <%= link_to account_info(@user.accounts.sina.full_profile_url),account_info(@user.accounts.sina.full_profile_url), {:target => '_blank'}    %></dd>
+      <% end %>
+      <% if @user.accounts.qq %>
+        <dd>腾迅微博<%= link_to account_info(@user.accounts.qq.full_profile_url),account_info(@user.accounts.qq.full_profile_url), {:target => '_blank'}   %></dd>
+      <% end %>
+    </dl>
+    <dl class="page-header">
+      <dt>感兴趣的分类
+      <% if current_user == @user then %> &minus; <%= link_to "编辑", edit_preferences_user_path(@user) %><% end %></dt>
+      <dd><%= account_info @user.preferences.join(", ") %></dd>
+    </dl>
+    <% if current_user == @user then %>
+      <%= link_to "修改个人资料", edit_account_user_path(@user) %>
+    <% end %>
+  </div>
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
     </div>

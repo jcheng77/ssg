@@ -31,17 +31,9 @@ class Notification
         self.receiver
       when TYPE_ACTIVATE
         nil
-      when TYPE_SHARE
+      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_AT_SHARE
         Share.find self.target_id
-      when TYPE_BAG
-        Bag.find self.target_id
-      when TYPE_WISH
-        Wish.find self.target_id
-      when TYPE_COMMENT
-        Comment.find self.target_id
-      when TYPE_AT_SHARE
-        Share.find self.target_id
-      when TYPE_AT_COMMENT
+      when TYPE_COMMENT, TYPE_AT_COMMENT
         Comment.find self.target_id
       else
         nil

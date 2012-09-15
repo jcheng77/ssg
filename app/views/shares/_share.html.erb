@@ -2,7 +2,7 @@
     <div class="title"><%= share.item.title %></div>
     <div class="pull-left item_left">
         <%= link_to share, :class => "img_frame large_picture" do %>
-            <%= image_tag share.item.image %>
+            <%= share_image_tag share %>
         <% end %>
 
         <div class="item_actions">
