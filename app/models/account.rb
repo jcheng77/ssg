@@ -15,7 +15,7 @@ class Account
 
 
   def full_profile_url
-    if self.type == 'sina'
+    if self.type == 'sina' && self.profile_url
        'http://weibo.com/' + self.profile_url
     else
        'http://t.qq.com/' + self.profile_url
