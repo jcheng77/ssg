@@ -1,13 +1,22 @@
+#encoding: utf-8
 require 'nokogiri'
 require 'open-uri'
 require 'uri'
 
 include ImageHelper
 include TaobaoApiHelper
-#encoding: utf-8
 
 module BookmarkletHelper
-  #AMAZON_CATEGORY_MAP =  { "Home" => "家居" }
+  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+  JJ = [ "Home", "Home Improvement" ,"厨具" ]
+  HW = ["运动"]
+  NZ = ["服饰"] 
+  SP = ["首饰"]
+
+  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
+  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+  
 
 
   class Collector
@@ -115,7 +124,6 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
-      binding.pry
       if !res.has_error?
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
@@ -123,6 +131,7 @@ module BookmarkletHelper
       @price = node.children.first.text.to_i/100 if node
       @title = item.get_element('ItemAttributes').get('Title')
       @category = item.get_element('ItemAttributes').get('ProductGroup')
+      determine_category
       node2 = item/'DetailPageURL'
       @purchase_url = node2.first.text if node
       end
@@ -157,6 +166,21 @@ module BookmarkletHelper
 
     def purchase_url
       @purchase_url ||= @url
+    end
+
+    def category
+     @category 
+    end
+
+    def determine_category
+      case @site
+      when 'taobao'
+      when '360buy'
+      when 'amazon'
+        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
+        binding.pry
+        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+      end
     end
 
 

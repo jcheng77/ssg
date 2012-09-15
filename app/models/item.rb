@@ -33,7 +33,8 @@ class Item
                          source_id: collector.item_id,
                          title: collector.title,
                          image: collector.imgs.first,
-                         purchase_url: collector.purchase_url
+                         purchase_url: collector.purchase_url,
+                         category: collector.category
                      })
     @item.shares << Share.new({
                                   source: collector.item_id,
