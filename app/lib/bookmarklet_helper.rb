@@ -88,7 +88,7 @@ module BookmarkletHelper
         @item_id = req_hash["id"]
       when 'tmall'
         req_hash = Rack::Utils.parse_nested_query uri.query
-        @item_id = req_hash["id"]
+        @item_id = req_hash["mallstItemId"]
       when 'amazon'
         preindex = path.index("product") || path.index("dp")
         @item_id = path[preindex + 1] if preindex
@@ -119,6 +119,7 @@ module BookmarkletHelper
       node2 = item/'DetailPageURL'
       @purchase_url = node2.first.text if node
       when 'taobao','tmall'
+        binding.pry
         product = get_item @item_id
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']

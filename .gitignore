@@ -46,6 +46,9 @@ log/*.log
 tmp/
 .sass-cache/
 tag/*
+*tag
+*tags
+*tag/
 tag
 tags
 tag/
