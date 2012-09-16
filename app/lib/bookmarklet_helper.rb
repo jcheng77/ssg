@@ -172,6 +172,10 @@ module BookmarkletHelper
      @category 
     end
 
+    def site
+      @site
+    end
+
     def determine_category
       case @site
       when 'taobao'

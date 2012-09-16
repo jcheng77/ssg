@@ -5,4 +5,16 @@ module ItemsHelper
     req_hash = Rack::Utils.parse_nested_query uri.query
     return req_hash["id"]
   end
+
+  def gotopic(site)
+    binding.pry
+    case site
+    when '360buy'
+      return '3_gobuy.png'
+    when 'amazon'
+      return 'a_gobuy.png'
+    when 'taobao'
+      return 't_gobuy.png'
+    end
+  end
 end
