@@ -1,5 +1,5 @@
-#encoding: utf-8
 require 'nokogiri'
+require 'net/http'
 require 'open-uri'
 require 'uri'
 
@@ -7,15 +7,15 @@ include ImageHelper
 include TaobaoApiHelper
 
 module BookmarkletHelper
-  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
-  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
-  JJ = [ "Home", "Home Improvement" ,"厨具" ]
-  HW = ["运动"]
-  NZ = ["服饰"] 
-  SP = ["首饰"]
-
-  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
-  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+#  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+#  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+#  JJ = [ "Home", "Home Improvement" ,"厨具" ]
+#  HW = ["运动"]
+#  NZ = ["服饰"] 
+#  SP = ["首饰"]
+#
+#  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
+#  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
   
 
 
@@ -32,25 +32,34 @@ module BookmarkletHelper
     end
 
     def collecter
+      #html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
+      #html.scan(/src.*http:\/\/img.*jpg"/)
       doc = Nokogiri::HTML(open(@url))
-      if @css_mark
-        doc.css(@css_mark).each do |node|
-          @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
-        end
+      html = Net::HTTP.get(URI.parse(@url))
+      if doc.count == 0
+      html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
+      @imgs = html.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
+      @imgs.uniq!
+      return
       end
+      #if @css_mark
+      #  doc.css(@css_mark).each do |node|
+      #    @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
+      #  end
+      #end
 
-      if @xpath_mark
-        i=0
-        doc.xpath(@xpath_mark).each do |node|
-          if i > 5
-            break
-          end
-          if node["onerror"]
-            i += 1
-            @imgs <<  node["src"].gsub('/n5/','/n1/')
-          end
-        end
-      end
+     # if @xpath_mark
+     #   i=0
+     #   doc.xpath(@xpath_mark).each do |node|
+     #     if i > 5
+     #       break
+     #     end
+     #     if node["onerror"]
+     #       i += 1
+     #       @imgs <<  node["src"].gsub('/n5/','/n1/')
+     #     end
+     #   end
+     # end
 
       if @title_mark
         first_title = doc.xpath(@title_mark).first
