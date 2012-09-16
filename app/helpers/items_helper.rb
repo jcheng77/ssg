@@ -15,7 +15,7 @@ module ItemsHelper
     when 'taobao'
       return 't_gobuy.png'
     else
-      't_bobuy.png'
+      't_gobuy.png'
     end
   end
 end
