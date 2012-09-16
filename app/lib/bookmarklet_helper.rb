@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'nokogiri'
 require 'open-uri'
 require 'uri'
@@ -6,6 +7,18 @@ include ImageHelper
 include TaobaoApiHelper
 
 module BookmarkletHelper
+  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+  JJ = [ "Home", "Home Improvement" ,"厨具" ]
+  HW = ["运动"]
+  NZ = ["服饰"] 
+  SP = ["首饰"]
+
+  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
+  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+  
+
+
   class Collector
 
     def initialize(url)
@@ -13,9 +26,9 @@ module BookmarkletHelper
       @imgs = []
       domain_checker
       get_item_id
-      if correct?
+      #if correct?
       retrieve_product_info
-      end
+      #end
     end
 
     def collecter
@@ -61,7 +74,7 @@ module BookmarkletHelper
         @site =  'taobao'
         @css_mark =  'div.tb-pic img'
         if /trade/.match(host)
-          @url = get_item_url
+          @url = get_trade_snapshot_item
         end
       when /tmall/
         @site = 'tmall'
@@ -88,7 +101,7 @@ module BookmarkletHelper
         @item_id = req_hash["id"]
       when 'tmall'
         req_hash = Rack::Utils.parse_nested_query uri.query
-        @item_id = req_hash["mallstItemId"]
+        @item_id ||= (req_hash["id"] || req_hash["mallstItemId"])
       when 'amazon'
         preindex = path.index("product") || path.index("dp")
         @item_id = path[preindex + 1] if preindex
@@ -111,13 +124,17 @@ module BookmarkletHelper
       case @site
       when 'amazon'
       res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+      if !res.has_error?
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
       @price = node.children.first.text.to_i/100 if node
       @title = item.get_element('ItemAttributes').get('Title')
+      @category = item.get_element('ItemAttributes').get('ProductGroup')
+      determine_category
       node2 = item/'DetailPageURL'
       @purchase_url = node2.first.text if node
+      end
       when 'taobao','tmall'
         product = get_item @item_id
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
@@ -130,7 +147,7 @@ module BookmarkletHelper
       end
     end
 
-    def get_item_url
+    def get_trade_snapshot_item
       doc = open(@url).read
       @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) || @url )
     end
@@ -149,6 +166,24 @@ module BookmarkletHelper
 
     def purchase_url
       @purchase_url ||= @url
+    end
+
+    def category
+     @category 
+    end
+
+    def site
+      @site
+    end
+
+    def determine_category
+      case @site
+      when 'taobao'
+      when '360buy'
+      when 'amazon'
+        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
+        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+      end
     end
 
 

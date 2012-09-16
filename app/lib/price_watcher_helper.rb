@@ -9,7 +9,6 @@ module PriceWatcherHelper
     items_udpated = [] 
     items = Item.all
     items.each do |item|
-      binding.pry
       item_json = get_item(item.source_id)
       price = item_json["price"]
       if price < item.price_low
