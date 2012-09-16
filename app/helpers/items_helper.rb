@@ -7,7 +7,6 @@ module ItemsHelper
   end
 
   def gotopic(site)
-    binding.pry
     case site
     when '360buy'
       return '3_gobuy.png'
@@ -15,6 +14,8 @@ module ItemsHelper
       return 'a_gobuy.png'
     when 'taobao'
       return 't_gobuy.png'
+    else
+      't_bobuy.png'
     end
   end
 end
