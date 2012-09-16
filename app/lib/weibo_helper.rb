@@ -25,8 +25,9 @@ module WeiboHelper
         share_hash = weibo_parser(status)
         put_share_in_queue(share_hash)
       end
+  end
 
-      def create_item_share_by_weibo
+  def create_item_share_by_weibo
       weibo_item = ShareQueue.desc(:weibo_status_id).first
       col = Collector.new(weibo_item.item_url)
       item = Item.first(conditions: { _id: col.item_id })
@@ -56,6 +57,7 @@ module WeiboHelper
       sharer.follow share.comment
       sharer.followers_by_type(User.name).each { |user| user.follow @share }
    end
+  end
 
 
   def weibo_parser(weibo_status)
