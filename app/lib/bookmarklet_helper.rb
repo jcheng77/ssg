@@ -178,7 +178,7 @@ module BookmarkletHelper
     end
 
     def category
-     @category 
+      @category
     end
 
     def site
@@ -190,8 +190,8 @@ module BookmarkletHelper
       when 'taobao'
       when '360buy'
       when 'amazon'
-        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
-        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+#        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
+#        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
     end
 
