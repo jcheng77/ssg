@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_categories(category = nil)
-    @current_categories = session[:current_categories]
+    @current_categories = session[:current_categories].to_a
     @current_categories = current_user.preferences if @current_categories.nil?
     unless category.blank?
       if @current_categories.include? category
@@ -27,7 +27,20 @@ class ApplicationController < ActionController::Base
       end
       session[:current_categories] = @current_categories
     end
-    @current_categories
+    @current_categories.to_a
+  end
+
+  def current_tags(tag = nil)
+    @current_tags = session[:current_tags].to_a
+    unless tag.blank?
+      if @current_tags.include? tag
+        @current_tags.delete tag
+      else
+        @current_tags << tag
+      end
+      session[:current_tags] = @current_tags
+    end
+    @current_tags.to_a
   end
 
 =begin

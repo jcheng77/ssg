@@ -1,22 +1,24 @@
 <li>
     <div class="thumbnail browse_item">
-        <%= link_to image_tag(item.image , :class =>'img_frame medium_picture') , item %>
+        <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
         <%= link_to item do %>
             <h5 class="title"> <%= item.title %> </h5>
         <% end %>
         <% unless tags.nil? %>
-          <p class="tags_list">
-            <% item.tags_each do |tag| %>
-              <a class="blingy" href="javascript:void(0);">#<%= tag %><span class="left"></span><span class="right"></span></a>
-            <% end -%>
-          </p>
+            <p class="tags_list">
+                <% item.tags_each do |tag| %>
+                    <%= link_to items_path(:tag => tag), :class => "blingy" do %>
+                        #<%= tag %><span class="left"></span><span class="right"></span>
+                    <% end %>
+                <% end -%>
+            </p>
         <% end %>
         <% unless share.nil? %>
             <div class="row user-comment">
                 <a class="img_frame mini_picture pull-left">
                     <%= image_tag small_avatar_url(share.user.avatar) %>
                 </a>
-                <%= link_to share.user.nick_name, account_user_path(share.user), :class=> "user_name" %>
+                <%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>
                 <p class="comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
             </div>
         <% end %>

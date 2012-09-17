@@ -113,6 +113,17 @@ form.well.tag-form {
   }
 }
 
+.page-header ul.tags {
+  padding: 15px 0px;
+  border: none;
+  height: auto;
+  width: auto;
+
+  li {
+    margin-right: 10px;
+  }
+}
+
 .item-price {
   text-align: right;
   height: 30px;

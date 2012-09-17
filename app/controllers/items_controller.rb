@@ -9,7 +9,8 @@ class ItemsController < ApplicationController
 
   def index
     categories = current_categories(params[:category])
-    @items = Item.in_categories categories, params[:page]
+    @tags = current_tags(params[:tag])
+    @items = Item.in_categories_and_tags categories, @tags, params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

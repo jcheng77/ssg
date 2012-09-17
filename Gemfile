@@ -14,7 +14,7 @@ gem 'sprockets', '~> 2.0.0.beta.14'
 #gem 'mongo_mapper'
 gem 'mongoid'
 gem 'nestful'
-gem 'topsdk'
+gem 'topsdk', :platforms => :ruby
 gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'mongoid_session_store'

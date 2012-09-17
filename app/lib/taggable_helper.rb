@@ -40,6 +40,10 @@ module TaggableHelper
       tags_index_collection.master.find.to_a.map { |r| r["_id"] }
     end
 
+    def has_tags(tags)
+      where(:tags_array.in => tags)
+    end
+
     # retrieve the list of tags with weight(i.e. count), this is useful for
     # create tags index
     def tags_with_weight(group = nil)
