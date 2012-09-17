@@ -5,7 +5,6 @@ require 'uri'
 require 'digest/md5'
 require 'json'
 require 'nestful'
-require 'iconv'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
