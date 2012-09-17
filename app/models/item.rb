@@ -4,6 +4,7 @@ class Item
   include Mongoid::Timestamps::Created
   include Mongo::Followable
   include TaggableHelper
+  include BookmarkletHelper
 
   field :s, as: :source_site, type:String
   field :source_id, type: String
@@ -13,7 +14,7 @@ class Item
   field :price_low, type: Float # lowest price
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
-                                     # field :tags, type: Array # string[]
+  # field :tags, type: Array # string[]
   field :category, type: String
   field :purchase_url, type: String
   field :root_share_id, type: BSON::ObjectId
@@ -31,19 +32,46 @@ class Item
 
   def self.new_with_collector(collector)
     @item = Item.new({
-                         source_id: collector.item_id,
-                         source_site: collector.site,
-                         title: collector.title,
-                         image: collector.imgs.first,
-                         purchase_url: collector.purchase_url,
-                         category: collector.category
-                     })
+      source_id: collector.item_id,
+      source_site: collector.site,
+      title: collector.title,
+      image: collector.imgs.first,
+      purchase_url: collector.purchase_url,
+      category: collector.category
+    })
     @item.shares << Share.new({
-                                  source: collector.item_id,
-                                  price: collector.price
-                              })
+      source: collector.item_id,
+      price: collector.price
+    })
 
     return @item
+  end
+
+  def self.sync_data
+    subscribed_items = all.select{|item| item.subscribed? }
+    subscribed_items.each do |item|
+      collector = Collector.new(item.purchase_url)
+      next unless new_price = collector.price
+      if new_price < price
+        item.markdown_inform(new_price)
+      end
+    end
+  end
+
+  def subscribed_shares
+    shares.select {|share| share.subscribed }
+  end
+
+  def subscribed?
+    subscribed_shares.present?
+  end
+
+  def markdown_inform(new_price)
+    item.subscribed_shares do |share|
+      user = share.user
+      # TODO: Send notification
+      puts "#{user.email}========#{new_price}"
+    end
   end
 
   def latest_price

@@ -24,6 +24,7 @@ class Share
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
   field :share_type, type: String, default: TYPE_SHARE
+  field :subscribed, type: Boolean
 
   acts_as_commentable
   belongs_to :item, index: true
