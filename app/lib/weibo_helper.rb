@@ -18,19 +18,21 @@ module WeiboHelper
 
   def monitor_mention
 
-      mentions = client.statuses.mentions
-      text = mentions["statuses"].first.text
-      t_hash = text.split(' ')
-      url = t_hash.select {|x| /http:\/\/t.cn.*/.match(x) }
-      cmt = t_hash.select {|a| !a.index('boluome')}.join(" ")
-      url.pop
-      url << 'http://item.taobao.com/item.htm?id=15203028631&ali_trackid=2:mm_30329713_0_0:1347637282_4k5_183895383&spm=2014.12483819.1.0'
-      col = Collector.new(url.first) if url
+      last_processed_weibo = ShareQueue.desc(:weibo_status_id).first
+      since_id = last_processed_weibo.nil? ? '' : last_processed_weibo.weibo_status_id
+      mentions = fetch_latest_mentions(since_id)
+      text = mentions["statuses"].each do |status|
+        share_hash = weibo_parser(status)
+        put_share_in_queue(share_hash)
+      end
+  end
+
+  def create_item_share_by_weibo
+      weibo_item = ShareQueue.desc(:weibo_status_id).first
+      col = Collector.new(weibo_item.item_url)
       item = Item.first(conditions: { _id: col.item_id })
 
       if item.nil?
-      #item = Item.new_with_collector(col)
-      binding.pry
       item = Item.create(
       source_id: col.item_id,
       title: col.title,
@@ -38,22 +40,46 @@ module WeiboHelper
       purchase_url: col.purchase_url,
       category: '数码'
     )
-      sharer = User.first
+       User.all.each do |user|
+         account = user.accounts.where(type: params[:type], aid: weibo_item.weibo_uid)
+       end
+      sharer = account.user._id,
       share = Share.new(
       source: col.item_id,
       price: col.price,
-      user_id: sharer._id,
+      user_id: sharer._id, 
       item_id: item._id
       )
       share.save
-      share.create_comment_by_sharer(cmt)
+      share.create_comment_by_sharer(weibo_item.share_comment)
       item.update_attribute(:root_share_id, share._id)
       sharer.follow item
       sharer.follow share.comment
       sharer.followers_by_type(User.name).each { |user| user.follow @share }
+   end
+  end
 
-      end
+
+  def weibo_parser(weibo_status)
+      t_id = weibo_status.id
+      t_hash = weibo_status.text.split(' ')
+      url = t_hash.select {|x| /http:\/\/t.cn.*/.match(x) }
+      cmt = t_hash.select {|a| !a.index('boluome')}.join(" ")
+      weibo_uid = weibo_status.user["idstr"]
+      { :weibo_uid => weibo_uid, :share_comment => cmt,:item_url => url.first , :weibo_status_id  =>  t_id }
+  end
+
+  def put_share_in_queue(hash)
+     q = ShareQueue.create(hash)
+     Status.create(q.weibo_status_id) if q
+  end
+
+  def fetch_latest_mentions(since_id)
+  if since_id
+  client.statuses.mentions(:since_id => since_id) 
+  else
+  client.statuses.mentions 
+  end
   end
 
 end
-

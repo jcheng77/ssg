@@ -5,6 +5,7 @@ class Item
   include Mongo::Followable
   include TaggableHelper
 
+  field :s, as: :source_site, type:String
   field :source_id, type: String
   field :title, type: String
   field :description, type: String
@@ -31,9 +32,11 @@ class Item
   def self.new_with_collector(collector)
     @item = Item.new({
                          source_id: collector.item_id,
+                         source_site: collector.site,
                          title: collector.title,
                          image: collector.imgs.first,
-                         purchase_url: collector.purchase_url
+                         purchase_url: collector.purchase_url,
+                         category: collector.category
                      })
     @item.shares << Share.new({
                                   source: collector.item_id,
