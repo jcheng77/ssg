@@ -81,7 +81,7 @@ class Item
     file = File.join(Rails.root, 'log/markdown.log')
     File.new(file, 'w+') unless File.exist?(file)
     logger = Logger.new(file)
-    logger.info("Item##{_id}'s price is from #{latest_price} to #{new_price}")
+    logger.info("#{Time.now}: Item##{_id}'s price is from #{latest_price} to #{new_price}")
     logger.close
   end
 
