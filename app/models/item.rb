@@ -70,10 +70,19 @@ class Item
       collector = Collector.new(item.purchase_url)
       next unless new_price = collector.price
       if new_price.to_f < item.latest_price
-        #TODO: Updated the last share's price
         item.markdown_inform(new_price)
+        item.log_markdown(new_price)
+        #TODO: Updated the last share's price
       end
     end
+  end
+
+  def log_markdown(new_price)
+    file = File.join(Rails.root, 'log/markdown.log')
+    File.new(file, 'w+') unless File.exist?(file)
+    logger = Logger.new(file)
+    logger.info("Item##{_id}'s price is from #{latest_price} to #{new_price}")
+    logger.close
   end
 
   def subscribed_shares
@@ -88,7 +97,6 @@ class Item
     subscribed_shares.each do |share|
       user = share.user
       # TODO: Send notification
-      puts "#{user.email}========#{new_price}"
     end
   end
 
