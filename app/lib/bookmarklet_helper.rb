@@ -40,8 +40,18 @@ module BookmarkletHelper
       html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       @imgs = html.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
       @imgs.uniq!
-      return
+      @imgs = @imgs[0..3]
+      @title = html.slice(/<title>.*>/)
+      @title = @title.slice(/>.*</).slice(1..-2)
       end
+
+
+      
+      #if @title_mark && doc.count = 0
+      #  first_title = doc.xpath(@title_mark).first
+      #  @title = first_title.text if first_title
+      #end
+      
       #if @css_mark
       #  doc.css(@css_mark).each do |node|
       #    @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
@@ -61,10 +71,6 @@ module BookmarkletHelper
      #   end
      # end
 
-      if @title_mark
-        first_title = doc.xpath(@title_mark).first
-        @title = first_title.text if first_title
-      end
 
       end
 
