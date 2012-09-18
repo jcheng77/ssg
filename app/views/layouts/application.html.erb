@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>菠萝蜜</title>
     <%= stylesheet_link_tag :application %>
@@ -8,17 +8,17 @@
     <%= javascript_include_tag :application %>
     <%= yield :javascripts %>
     <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <% unless need_empty_layout %>
-      <%= render 'layouts/navbar' %>
-    <% end -%>
+</head>
+<body>
+<% unless need_empty_layout %>
+    <%= render 'layouts/navbar' %>
+<% end -%>
 
-    <div class="container">
-      <%= yield %>
-      <footer class="footer">
+<div class="container">
+    <%= yield %>
+    <footer class="footer">
         <p>&copy; 2012 boluo.me. All rights reserved.</p>
-      </footer>
-    </div>
-  </body>
+    </footer>
+</div>
+</body>
 </html>

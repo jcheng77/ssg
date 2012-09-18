@@ -25,8 +25,25 @@ class Item
   enable_tags_index!
   tags_index_group_by :category
 
-  def self.in_categories(categories, page, per_page = 16)
-    self.where(:category.in => categories).desc(:created_at).paginate(:page => page, :per_page => per_page)
+  def self.in_categories_and_tags(categories, tags, page, per_page = 16)
+    query = self.where(:category.in => categories)
+    query = query.has_tags(tags) unless tags.blank?
+    query.desc(:created_at).paginate(:page => page, :per_page => per_page)
+  end
+
+  def self.search(content, page, per_page = 16)
+    item_tags = self.tags
+    search_contents = []
+    search_tags = []
+
+    content.strip.split(/\s+/).each do |sub|
+      if item_tags.include? sub
+        search_tags << sub
+      else
+        search_contents << sub
+      end
+    end
+    [search_tags, self.has_tags(search_tags).where(:title => /.*(#{search_contents.join "|"}).*/).paginate(:page => page, :per_page => per_page)]
   end
 
   def self.new_with_collector(collector)

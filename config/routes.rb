@@ -10,6 +10,7 @@ Ssg::Application.routes.draw do
     collection do
       get 'share'
       get 'tagged'
+      get 'search'
     end
   end
 
