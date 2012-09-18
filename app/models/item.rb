@@ -31,6 +31,21 @@ class Item
     query.desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
+  def self.search(content, page, per_page = 16)
+    item_tags = self.tags
+    search_contents = []
+    search_tags = []
+
+    content.strip.split(/\s+/).each do |sub|
+      if item_tags.include? sub
+        search_tags << sub
+      else
+        search_contents << sub
+      end
+    end
+    [search_tags, self.has_tags(search_tags).where(:title => /.*(#{search_contents.join "|"}).*/).paginate(:page => page, :per_page => per_page)]
+  end
+
   def self.new_with_collector(collector)
     @item = Item.new({
                          source_id: collector.item_id,

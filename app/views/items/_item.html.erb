@@ -7,7 +7,7 @@
         <% unless tags.nil? %>
             <p class="tags_list">
                 <% item.tags_each do |tag| %>
-                    <%= link_to items_path(:tag => tag), :class => "blingy" do %>
+                    <%= link_to items_path(:tag_action => "add", :tag => tag), :class => "blingy" do %>
                         #<%= tag %><span class="left"></span><span class="right"></span>
                     <% end %>
                 <% end -%>

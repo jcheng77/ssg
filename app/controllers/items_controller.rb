@@ -8,12 +8,22 @@ class ItemsController < ApplicationController
   before_filter :select_empty_layout, only: :share
 
   def index
-    categories = current_categories(params[:category])
-    @tags = current_tags(params[:tag])
-    @items = Item.in_categories_and_tags categories, @tags, params[:page]
+    categories = current_categories(params[:category_action], params[:category])
+    tags = current_tags(params[:tag_action], params[:tag])
+    @items = Item.in_categories_and_tags categories, tags, params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
+      format.json { render json: @items }
+    end
+  end
+
+  def search
+    tags, @items = Item.search params[:search_content], params[:page]
+    current_tags(:set, tags)
+
+    respond_to do |format|
+      format.html { render "index" } # index.html.erb
       format.json { render json: @items }
     end
   end
