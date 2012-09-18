@@ -70,9 +70,9 @@ class Item
       collector = Collector.new(item.purchase_url)
       next unless new_price = collector.price
       if new_price.to_f < item.latest_price
-        item.markdown_inform(new_price)
         item.log_markdown(new_price)
-        #TODO: Updated the last share's price
+        item.markdown_inform(new_price)
+        item.update_price_for_shares(new_price)
       end
     end
   end
@@ -96,7 +96,13 @@ class Item
   def markdown_inform(new_price)
     subscribed_shares.each do |share|
       user = share.user
-      # TODO: Send notification
+      # TODO: Send notification to user
+    end
+  end
+
+  def update_price_for_shares(new_price)
+    shares.each do |share|
+      share.update_attributes(price: new_price)
     end
   end
 
