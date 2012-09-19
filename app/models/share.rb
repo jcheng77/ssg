@@ -24,6 +24,8 @@ class Share
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
   field :share_type, type: String, default: TYPE_SHARE
+  field :last_inform_price, type: Float
+  field :subscribed, type: Boolean
 
   acts_as_commentable
   belongs_to :item, index: true
@@ -62,5 +64,12 @@ class Share
 
   def items_with_any_same_tags
     Item.tagged_with_any(self.item.tags_array)
+  end
+
+  def markdown_inform(new_price)
+    share_price = last_inform_price || price
+    return if share_price < new_price
+    # TODO: Send notification to user
+    update_attributes(last_inform_price: new_price)
   end
 end

@@ -50,7 +50,10 @@
             </div>
         <% end -%>
         <%= f.input :comment, :label => '推荐评论' do %>
-            <%= text_area_tag "share[comment]", @share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
+          <%= text_area_tag "share[comment]", @share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
+        <% end -%>
+        <%= f.input :subscribed, :label => '订阅降价通知' do %>
+          <%= check_box_tag 'share[subscribed]', 1, true %>
         <% end -%>
         <div class="controls">
             <label class="radio">
