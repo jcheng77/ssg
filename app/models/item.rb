@@ -66,23 +66,19 @@ class Item
 
   def self.sync_data
     subscribed_items = all.select{|item| item.subscribed? }
+
     subscribed_items.each do |item|
       collector = Collector.new(item.purchase_url)
-      next unless new_price = collector.price
-      if new_price.to_f < item.latest_price
-        item.log_markdown(new_price)
-        item.markdown_inform(new_price)
-        #item.update_price_for_shares(new_price)
+      next unless new_price = collector.price.try(:to_f)
+
+      if item.price_low.nil? || item.price_low > new_price
+        item.update_attributes(price_low: new_price)
+      end
+
+      item.subscribed_shares.each do |share|
+        share.markdown_inform(new_price)
       end
     end
-  end
-
-  def log_markdown(new_price)
-    file = File.join(Rails.root, 'log/markdown.log')
-    File.new(file, 'w+') unless File.exist?(file)
-    logger = Logger.new(file)
-    logger.info("#{Time.now}: Item##{_id}'s price is from #{latest_price} to #{new_price}")
-    logger.close
   end
 
   def subscribed_shares
@@ -92,19 +88,6 @@ class Item
   def subscribed?
     subscribed_shares.present?
   end
-
-  def markdown_inform(new_price)
-    subscribed_shares.each do |share|
-      user = share.user
-      # TODO: Send notification to user
-    end
-  end
-
-  #def update_price_for_shares(new_price)
-    #shares.each do |share|
-      #share.update_attributes(price: new_price)
-    #end
-  #end
 
   def latest_price
     s = shares.desc(:create_at).select {|i| i.price}
