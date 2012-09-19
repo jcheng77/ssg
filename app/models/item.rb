@@ -72,7 +72,7 @@ class Item
       if new_price.to_f < item.latest_price
         item.log_markdown(new_price)
         item.markdown_inform(new_price)
-        item.update_price_for_shares(new_price)
+        #item.update_price_for_shares(new_price)
       end
     end
   end
@@ -100,11 +100,11 @@ class Item
     end
   end
 
-  def update_price_for_shares(new_price)
-    shares.each do |share|
-      share.update_attributes(price: new_price)
-    end
-  end
+  #def update_price_for_shares(new_price)
+    #shares.each do |share|
+      #share.update_attributes(price: new_price)
+    #end
+  #end
 
   def latest_price
     s = shares.desc(:create_at).select {|i| i.price}
