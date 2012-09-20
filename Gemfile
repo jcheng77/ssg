@@ -38,6 +38,8 @@ group :development, :test do
   gem 'jazz_hands'
 end
 
+gem "daemons"
+gem 'delayed_job_mongoid'
 gem 'heroku'
 gem 'whenever'
 

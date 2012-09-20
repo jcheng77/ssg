@@ -166,4 +166,9 @@ class User
   def push_new_share_to_my_follower(share)
     followers_by_type(User.name).each { |user| user.follow share }
   end
+
+  def is_official_weibo_account?
+    self.accounts.sina.aid == '2884474434'
+  end
+
 end

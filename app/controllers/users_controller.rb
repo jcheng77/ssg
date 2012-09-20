@@ -1,3 +1,4 @@
+include WeiboHelper
 class UsersController < ApplicationController
   layout 'application'
   #before_filter :authenticate_user!
@@ -304,4 +305,32 @@ class UsersController < ApplicationController
       format.html { redirect_to notifications_url(@user) }
     end
   end
+
+
+  def refresh_mention
+    @user = current_user
+    if @user.is_official_weibo_account?
+    @client = weibo_client
+    @mentions = fetch_latest_mentions(@client)
+    process_weibo_mentions(@mentions)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to items_path }
+    end
+
+  end
+
+  def notify_price
+    @user = current_user
+    if @user.is_official_weibo_account?
+    @client = weibo_client
+    send_weibo_notification(@client)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to items_path }
+    end
+  end
+
 end

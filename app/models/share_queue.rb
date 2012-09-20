@@ -1,5 +1,6 @@
 class ShareQueue
   include Mongoid::Document
+  field :ws, as: :weibo_source, type:String
   field :uid, as: :weibo_uid, type:String
   field :cmt, as: :share_comment, type:String
   field :url, as: :item_url, type:String

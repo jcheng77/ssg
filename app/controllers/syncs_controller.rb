@@ -1,5 +1,3 @@
-require 'oauth2'
-
 include WeiboHelper 
 
 class SyncsController < ApplicationController
@@ -12,7 +10,7 @@ class SyncsController < ApplicationController
       wb.write_to_cache
       redirect_to wb.client.authorize_url
     else
-      redirect_to client.authorize_url
+      redirect_to weibo_client.authorize_url
     end
   end
 
@@ -29,9 +27,16 @@ class SyncsController < ApplicationController
       userinfo = wb.get_user_info_hash
     else
 
+      client = weibo_client
       code = client.auth_code.get_token(params[:code])
+      session[:access_token] = code.token
+      session[:refresh_token] = code.refresh_token
+      session[:expires_at] = code.expires_at
+
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
+
+
       
 
       #client.statuses.upload( "Classic PX200", "http://product.it.sohu.com/img/product/picid/5168051.jpg")
@@ -80,9 +85,9 @@ class SyncsController < ApplicationController
           new = current_user.accounts.build( friends: friends["ids"] )
           new.save
           end
+        #running the monitoring weibo status
         end
-
-          redirect_to dashboard_user_path(current_user)
+        redirect_to dashboard_user_path(current_user)
       end
 
     else

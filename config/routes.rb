@@ -39,6 +39,7 @@ Ssg::Application.routes.draw do
       get 'signup'
       get 'recent_notifications'
       get 'all_notifications'
+      get 'refresh_mention'
     end
   end
 
