@@ -44,7 +44,10 @@ class Item
         search_contents << sub
       end
     end
-    [search_tags, self.has_tags(search_tags).where(:title => /.*(#{search_contents.join "|"}).*/).paginate(:page => page, :per_page => per_page)]
+
+    query = self.where(:title => /.*(#{search_contents.join "|"}).*/)
+    query = query.has_tags(search_tags) unless search_tags.blank?
+    [search_tags, query.paginate(:page => page, :per_page => per_page)]
   end
 
   def self.new_with_collector(collector)

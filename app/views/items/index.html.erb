@@ -8,7 +8,8 @@
                 <h4>标签</h4>
                 <ul class="tags">
                     <% current_tags.each do |tag| %>
-                        <li class="tag" value="0"><span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a></li>
+                        <li class="tag" value="0">
+                            <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a></li>
                     <% end %>
                 </ul>
             </div>
@@ -17,18 +18,22 @@
                     $(".tags .tag a").click(function () {
                         var url = "<%= items_path %>";
                         var param = "?tag_action=delete&tag=" + encodeURIComponent($(this).attr("title"));
-                        $(location).attr("href",  url + param);
+                        $(location).attr("href", url + param);
                     });
                 });
             </script>
         <% end %>
 
         <!--<div class="page-header"></div>-->
-        <ul class="thumbnails">
-            <% @items.each do |item| %>
-                <%= render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
-            <% end %>
-        </ul>
+        <% unless @items.blank? %>
+            <ul class="thumbnails">
+                <% @items.each do |item| %>
+                    <%= render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
+                <% end %>
+            </ul>
+        <% else %>
+            <h4>没有找到对应的宝贝。</h4>
+        <% end %>
     </div>
 </div>
 <%= bootstrap_will_paginate @items %>
