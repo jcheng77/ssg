@@ -1,4 +1,5 @@
 <div id="bookmarklet_container" class="row">
+    <%= simple_form_for(@item, :html => {:class => 'form-horizontal tag-form'}) do |f| %>
     <div class="span3">
         <div class="images_picker">
             <div class="image_frame">
@@ -16,15 +17,15 @@
         <div class="share-to">
             <p>同步分享到微博:</p>
             <label class="checkbox">
-                <%= check_box_tag :share_to, :sina %>新浪微博
+              <%= check_box_tag "share_to[]", "sina" %>新浪微博
             </label>
             <label class="checkbox">
-                <%= check_box_tag :share_to, :qq %>腾讯微博
+              <%= check_box_tag "share_to[]", "qq" %>腾讯微博
             </label>
         </div>
     </div>
 
-    <%= simple_form_for(@item, :html => {:class => 'form-horizontal span6 tag-form'}) do |f| %>
+    <div class="span6">
         <%= hidden_field_tag "share[source]", @share.source %>
         <%= hidden_field_tag "item[image]", @item.image %>
         <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
@@ -72,6 +73,7 @@
         <div class="form-actions">
             <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
         </div>
+    </div>
     <% end -%>
 </div>
 
