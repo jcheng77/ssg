@@ -11,6 +11,7 @@ class Notification
   TYPE_COMMENT = 'CMT'
   TYPE_AT_SHARE = 'ATS'
   TYPE_AT_COMMENT = 'ATC'
+  TYPE_MARKDOWN = 'MAD'
 
   # user A followed user B, :object_id = A, sender = A, :receiver = B, type = TYPE_FOLLOW
   # user A followed user B, but user B was inactive, now B is activated :object_id = B, sender = B, :receiver = A, type = TYPE_ACTIVATE
@@ -31,7 +32,7 @@ class Notification
         self.receiver
       when TYPE_ACTIVATE
         nil
-      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_AT_SHARE
+      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_AT_SHARE, TYPE_MARKDOWN
         Share.find self.target_id
       when TYPE_COMMENT, TYPE_AT_COMMENT
         Comment.find self.target_id
@@ -90,6 +91,8 @@ class Notification
         return "#{sender.nick_name} @ you in his/her share"
       when TYPE_AT_COMMENT then
         return "#{sender.nick_name} @ you in his/her comment"
+      when TYPE_MARKDOWN then
+        return "你有新的降价通知"
       else
         "Invalid Notification Type#{type}"
     end

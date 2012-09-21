@@ -70,6 +70,7 @@ class Share
     share_price = last_inform_price || price
     return if share_price < new_price
     # TODO: Send notification to user
+    Notification.create(receiver_id: user._id, type: Notification::TYPE_MARKDOWN, target_id: _id)
     update_attributes(last_inform_price: new_price)
   end
 end
