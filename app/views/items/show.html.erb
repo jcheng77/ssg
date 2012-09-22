@@ -38,6 +38,7 @@
         <div class="page-header item-price">
           <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
           <b><%= number_to_currency(@item.latest_price, unit: '￥') %></b>
+          <b><%= @item.sub_shop_name %></b>
         </div>
         <ul class="tag-block">
             <% @item.tags_each do |t| %>

@@ -33,6 +33,7 @@
         <%= hidden_field_tag "share[source]", @share.source %>
         <%= hidden_field_tag "item[image]", @item.image %>
         <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
+        <%= hidden_field_tag "item[sub_shop_name]", @item.sub_shop_name%>
 
         <%= hidden_field_tag "item[source_site]", @item.source_site%>
         <%= f.input :title, :label => '商品名称', input_html: {class: 'input-xlarge'} %>
