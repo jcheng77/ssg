@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
@@ -43,6 +45,8 @@ module BookmarkletHelper
       @imgs = @imgs[0..3]
       @title = html.slice(/<title>.*>/)
       @title = @title.slice(/>.*</).slice(1..-2)
+      price_tag = html.scan(/price:.\d*.\d*/)
+      @price = price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
       end
 
 

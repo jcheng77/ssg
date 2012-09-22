@@ -73,4 +73,14 @@ class Share
     Notification.create(receiver_id: user._id, type: Notification::TYPE_MARKDOWN, target_id: _id)
     update_attributes(last_inform_price: new_price)
   end
+
+  def sync_to_weibo(sns_type_arr,client)
+    if sns_type_arr.is_a?(Array)
+    sns_type_arr.each do |sns| 
+    self.user.update_weibo_status(sns,client,self.comment.content + " "*5 + self.item.purchase_url ,self.item.image)
+  end
+  else
+    self.user.update_weibo_status(sns_type_arr,client,self.comment.content + " "*5 + self.item.purchase_url ,self.item.image)
+  end
+  end
 end

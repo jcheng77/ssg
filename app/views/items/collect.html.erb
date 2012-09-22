@@ -16,12 +16,16 @@
         </div>
         <div class="share-to">
             <p>同步分享到微博:</p>
+            <% unless current_user.accounts.sina.blank? %> 
             <label class="checkbox">
               <%= check_box_tag "share_to[]", "sina" %>新浪微博
             </label>
+            <% end %>
+            <% unless current_user.accounts.qq.blank? %> 
             <label class="checkbox">
               <%= check_box_tag "share_to[]", "qq" %>腾讯微博
             </label>
+            <% end %>
         </div>
     </div>
 
