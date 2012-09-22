@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
     case sns_type
     when 'sina'
     #production sina app key
-    @client ||= (WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
+    @client ||= WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
     WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
     #localhost.com local test app key with sending pic permission
