@@ -9,6 +9,7 @@ class Item
   include BookmarkletHelper
 
   field :s, as: :source_site, type:String
+  field :sub, as: :sub_shop_name, type:String
   field :source_id, type: String
   field :title, type: String
   field :description, type: String
@@ -55,6 +56,7 @@ class Item
   def self.new_with_collector(collector)
     @item = Item.new({
       source_id: collector.item_id,
+      sub_shop_name: collector.shop_name,
       source_site: collector.site,
       title: collector.title,
       image: collector.imgs.first,

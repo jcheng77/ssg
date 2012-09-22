@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 =end
 
   def categories
-    @categories ||= ['数码', '户外运动', '男装', '女装', '箱包','饰品', '化妆品', '居家', '食品','汽车','图书影像','生活文化'  ]
+    @categories ||= ['数码', '户外运动', '男装', '女装', '箱包','饰品', '化妆品', '居家', '食品','汽车','图书影像','创意礼品'  ]
   end
 
   def authenticate

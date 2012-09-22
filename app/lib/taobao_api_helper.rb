@@ -35,7 +35,6 @@ module TaobaoApiHelper
     url = URI.parse(REST_URL)
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
-    #binding.pry
 
     if(json['error_response'])
       puts json
@@ -51,11 +50,21 @@ module TaobaoApiHelper
   def get_item (item_id)
     params = {
       "num_iid"=> item_id,
-      "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"
+      #"fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,skus"
+      "fields" => "detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,pic_url,num,location,price,has_discount,freight_payer,product_id,property_alias,item_img,prop_img,sku,outer_id,is_virtual,skus"
     }
 
     json = call_taobao "taobao.item.get", params
     return json["item_get_response"]["item"] if json!=EMPTY_JSON
+  end
+
+  def get_shop_info(seller_id)
+    params = {
+    "nick" => seller_id,
+    "fields" =>  "sid,cid,title,nick"
+    }
+    json = call_taobao "taobao.shop.get", params
+    return json["shop_get_response"]["shop"] if json!=EMPTY_JSON
   end
 
   # shopping history
