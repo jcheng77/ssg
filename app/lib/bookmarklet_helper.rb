@@ -28,9 +28,7 @@ module BookmarkletHelper
       @imgs = []
       domain_checker
       get_item_id
-      #if correct?
-      retrieve_product_info
-      #end
+      retrieve_product_info if correct?
     end
 
     def collecter
@@ -168,7 +166,7 @@ module BookmarkletHelper
 
     def get_trade_snapshot_item
       doc = open(@url).read
-      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) || @url )
+      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) ||  doc.slice(/http:\/\/detail.tmall.com\/.*\d/) || @url )
     end
 
     def imgs

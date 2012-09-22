@@ -35,7 +35,6 @@ module TaobaoApiHelper
     url = URI.parse(REST_URL)
     resp  = Net::HTTP.post_form(url, p)
     json = JSON.parse(resp.body.force_encoding('UTF-8'))
-    #binding.pry
 
     if(json['error_response'])
       puts json
