@@ -92,23 +92,26 @@ class ApplicationController < ActionController::Base
     #@client ||= ( session[:client] || WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3'))
     #WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
 
-    # client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
-    # WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
-
+     
     sns_type ||= ( session[:sns_type] || params[:type] )
     case sns_type
     when 'sina'
-
-    @client ||= (session[:client] || WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1'))
+    #production sina app key
+    @client ||= (WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
     WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
+    #localhost.com local test app key with sending pic permission
+    #you need to add an entry in your /etc/hosts:  127.0.0.1 localhost.com
+     #@client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
+     #WeiboOAuth2::Config.redirect_uri = 'http://localhost.com:3000/syncs/sina/callback/'
+
+    #127.0.0.1 test app key
     #@client ||= WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
     #WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/'
 
     if !@client.authorized? && !session[:access_token].nil?
       @client.get_token_from_hash(:access_token => session[:access_token], :refresh_token => session[:refresh_token] , :expires_at => session[:expires_at] )
     end
-
   when 'qq'
     @client ||= Weibo.new('qq')
     @client.load_from_db(session[:access_token],session[:token_secret])
