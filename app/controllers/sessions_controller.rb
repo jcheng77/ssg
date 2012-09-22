@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 class SessionsController < ApplicationController
   def destroy
     #Weibo.new('qq').add_status(session[:access_token],session[:token_secret],'Knowledge is power. Pass it on...')
@@ -15,6 +13,9 @@ class SessionsController < ApplicationController
     session[:access_token] = nil
     session[:token_secret] = nil
     session[:current_categories] = nil
-    redirect_to root_url
+    session[:sns_type] = nil
+    session[:expires_at] = nil
+    session[:refresh_token] = nil
+     redirect_to root_url
   end
 end

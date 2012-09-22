@@ -121,6 +121,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+
     respond_to do |format|
       if save_item
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -180,6 +181,7 @@ class ItemsController < ApplicationController
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
       @share.add_tag(params[:wish_tag]) if @share.share_type == Share::TYPE_WISH
+      @share.sync_to_weibo(params[:share_to],weibo_client)
 
       current_user.follow_my_own_share(@share)
       current_user.push_new_share_to_my_follower(@share)
