@@ -34,13 +34,16 @@ class ApplicationController < ActionController::Base
 
   def current_tags(action = nil, tag = nil)
     @current_tags = session[:current_tags].to_a
-    case action.to_s
-      when 'delete'
-        @current_tags.delete tag unless tag.blank?
-      when 'add'
-        @current_tags << tag unless @current_tags.include?(tag) || tag.blank?
-      when 'set'
-        @current_tags = tag.to_a
+    unless tag.blank?
+      case action.to_s
+        when 'delete'
+          @current_tags.delete tag
+        when 'add'
+          @current_tags << tag unless @current_tags.include? tag
+        when 'set'
+          @current_tags = tag.to_a
+      end
+      session[:current_tags] = @current_tags
     end
     session[:current_tags] = @current_tags
     @current_tags.to_a
@@ -59,7 +62,7 @@ class ApplicationController < ActionController::Base
 =end
 
   def categories
-    @categories ||= ['数码', '户外', '男装', '女装', '饰品', '化妆品', '居家', '其他']
+    @categories ||= ['数码', '户外运动', '男装', '女装', '箱包','饰品', '化妆品', '居家', '食品','汽车','图书影像','生活文化'  ]
   end
 
   def authenticate
@@ -92,10 +95,10 @@ class ApplicationController < ActionController::Base
 
     sns_type ||= (session[:sns_type] || params[:type])
     case sns_type
-      when 'sina'
-        #production sina app key
-        @client ||= WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
-        WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
+    when 'sina'
+    #production sina app key
+    @client ||= WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
+    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
 
         #localhost.com local test app key with sending pic permission
         #you need to add an entry in your /etc/hosts:  127.0.0.1 localhost.com

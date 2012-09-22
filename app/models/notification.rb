@@ -76,16 +76,16 @@ class Notification
       when TYPE_ACTIVATE then
         return "#{sender.nick_name} is activated"
       when TYPE_SHARE then
-        return "<em>#{sender.nick_name}</em> 有了新的分享"
+        return "<em>#{sender.nick_name}</em> 有了新的推荐"
       when TYPE_BAG then
-        return "<em>#{sender.nick_name}</em> 更新了背包"
+        return "<em>#{sender.nick_name}</em> 添加了新的已购宝贝"
       when TYPE_WISH then
-        return "<em>#{sender.nick_name}</em> 有了新的愿望"
+        return "<em>#{sender.nick_name}</em> 许了新的愿望"
       when TYPE_COMMENT then
         if self.target_object.root.user._id == self.receiver_id
-          return "<em>#{sender.nick_name}</em> 评论了你的分享"
+          return "<em>#{sender.nick_name}</em> 评论了你的推荐"
         else
-          return "<em>#{sender.nick_name}</em> 回复了你"
+          return "<em>#{sender.nick_name}</em> 回复了你的评论"
         end
       when TYPE_AT_SHARE then
         return "#{sender.nick_name} @ you in his/her share"

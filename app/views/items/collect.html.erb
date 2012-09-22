@@ -62,13 +62,13 @@
         <% end -%>
         <div class="controls">
             <label class="radio">
-                <%= radio_button_tag :add_to, Share::TYPE_SHARE, true %>发布分享
+                <%= radio_button_tag :add_to, Share::TYPE_SHARE, true %>推荐
             </label>
             <label class="radio">
                 <%= radio_button_tag :add_to, Share::TYPE_WISH %>愿望清单
             </label>
             <label class="radio">
-                <%= radio_button_tag :add_to, Share::TYPE_BAG %>购物背包
+                <%= radio_button_tag :add_to, Share::TYPE_BAG %>已购清单
             </label>
             <br />
             <%= select_tag :wish_tag, options_for_select(Hash[Share::WISH_TAGS.map{|c| [c, c]}]), style: "width: 240px; display: none;" %>

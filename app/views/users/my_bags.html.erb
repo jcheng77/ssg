@@ -16,7 +16,7 @@
         <%= render :partial => "links"  %>
     </div>
     <div class="span8">
-        <div class="page-header"><h4>我的背包</h4></div>
+        <div class="page-header"><h4>我的已购</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @bags.each do |bag| %>
                 <%= render :partial => "shares/share", :object => bag %>
