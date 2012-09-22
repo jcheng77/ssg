@@ -9,6 +9,6 @@
         <%= link_to "我的愿望", my_wishes_user_path(current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'my_bags') do %>
-        <%= link_to "我的背包", my_bags_user_path(current_user) %>
+        <%= link_to "我的已购", my_bags_user_path(current_user) %>
     <% end %>
 </ul>
