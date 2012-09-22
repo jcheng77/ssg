@@ -6,11 +6,14 @@
         <% end %>
         <% unless tags.nil? %>
             <p class="tags_list">
+                <% i ||= 0%>
                 <% item.tags_each do |tag| %>
                     <%= link_to items_path(:tag_action => "add", :tag => tag), :class => "blingy" do %>
                         #<%= tag %><span class="left"></span><span class="right"></span>
-                    <% end %>
-                <% end -%>
+                        <% end %>
+                        <% i += 1%> 
+                  <% break if i > 2%>
+                      <%end %>
             </p>
         <% end %>
         <% unless share.nil? %>
