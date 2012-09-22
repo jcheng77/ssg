@@ -154,6 +154,8 @@ module BookmarkletHelper
       end
       when 'taobao','tmall'
         product = get_item @item_id
+        shop = get_shop_info product['nick']
+        @shop_name = shop['title']
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
@@ -191,6 +193,10 @@ module BookmarkletHelper
 
     def site
       @site
+    end
+
+    def shop_name
+      @shop_name
     end
 
     def determine_category
