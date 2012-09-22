@@ -12,7 +12,7 @@ class Share
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
 
-  WISH_TAGS = ["生日礼物", "同学聚会", "婚礼礼品"]
+  WISH_TAGS = ["生日礼物", "情人节", "光棍节", "婚礼礼品", "节日礼品", "情侣示爱", "想送就送"]
 
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
