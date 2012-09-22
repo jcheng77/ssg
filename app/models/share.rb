@@ -77,10 +77,10 @@ class Share
   def sync_to_weibo(sns_type_arr,client)
     if sns_type_arr.is_a?(Array)
     sns_type_arr.each do |sns| 
-    self.user.update_weibo_status(sns,client,self.comment.content + " "*5 + self.item.purchase_url ,self.item.image)
+    self.user.update_weibo_status(sns,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
   end
   else
-    self.user.update_weibo_status(sns_type_arr,client,self.comment.content + " "*5 + self.item.purchase_url ,self.item.image)
+    self.user.update_weibo_status(sns_type_arr,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
   end
   end
 end
