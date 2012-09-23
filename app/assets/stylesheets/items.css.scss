@@ -124,38 +124,18 @@ form.well.tag-form {
   }
 }
 
-.item-title {
-  margin: 18px 0;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.item-desc {
+.item-price {
+  text-align: right;
   height: 30px;
-  span.item-shop{
-    width: 45%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-  }
-  span.item-shop span{
-    color: #08c;
-  }
-  span.item-text{
-    line-height: 29px;
-    font-weight: normal;
-  }
-  span.item-price{
+  b {
+    float: right;
     font-size: 18px;
+    line-height: 29px;
     color: #F14382;
+    font-weight: normal;
     margin-right: 25px;
   }
-  span.item-price, a{
+  a {
     float: right;
   }
 }
