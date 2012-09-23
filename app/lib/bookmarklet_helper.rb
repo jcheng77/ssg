@@ -31,7 +31,7 @@ module BookmarkletHelper
       retrieve_product_info if correct?
     end
 
-    def 360buy_collecter
+    def collecter
       # Nokogiri parse doesn't work well for 360page due to the encoding issue
       # so use native html read instead
       html = Net::HTTP.get(URI.parse(@url))
@@ -131,7 +131,7 @@ module BookmarkletHelper
         @purchase_url = convert_item_url item_id
         @purchase_url ||= taobao_url(item_id)
       when '360buy'
-        360buy_collecter
+        collecter
       end
     end
 
