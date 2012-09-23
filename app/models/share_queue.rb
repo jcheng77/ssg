@@ -28,5 +28,7 @@ class ShareQueue
     else
       share.update_attributes(share_params)
     end
+
+    update_attributes(sid: share.id)
   end
 end
