@@ -37,6 +37,15 @@ class Share
   scope :by_type, lambda { |type| where(share_type: type) }
   scope :recent_by_type, lambda { |type| by_type(type).desc(:created_at) }
 
+  def self.init_params(user, item, collector)
+    {
+      source: collector.item_id,
+      price: collector.price,
+      user_id: user._id,
+      item_id: item._id
+    }
+  end
+
   def copy_attributes(attributes = {})
     {:source => self.source,
      :price => self.price,
