@@ -1,6 +1,6 @@
 $('#<%= escape_javascript "#{@share._id}-bag-btn" %>').modal('hide');
 <% if !@bag.blank? && @bag.persisted? %>
-alert("添加到背包成功！");
+alert("添加到已购清单成功！");
 <% else %>
-alert("添加到背包失败！");
+alert("添加到己购清单失败！");
 <% end %>

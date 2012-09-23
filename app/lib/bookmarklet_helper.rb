@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
@@ -26,9 +28,7 @@ module BookmarkletHelper
       @imgs = []
       domain_checker
       get_item_id
-      #if correct?
-      retrieve_product_info
-      #end
+      retrieve_product_info if correct?
     end
 
     def collecter
@@ -43,6 +43,8 @@ module BookmarkletHelper
       @imgs = @imgs[0..3]
       @title = html.slice(/<title>.*>/)
       @title = @title.slice(/>.*</).slice(1..-2)
+      price_tag = html.scan(/price:.\d*.\d*/)
+      @price = price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
       end
 
 
@@ -152,6 +154,8 @@ module BookmarkletHelper
       end
       when 'taobao','tmall'
         product = get_item @item_id
+        shop = get_shop_info product['nick']
+        @shop_name = shop['title']
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
@@ -164,7 +168,7 @@ module BookmarkletHelper
 
     def get_trade_snapshot_item
       doc = open(@url).read
-      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) || @url )
+      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) ||  doc.slice(/http:\/\/detail.tmall.com\/.*\d/) || @url )
     end
 
     def imgs
@@ -189,6 +193,10 @@ module BookmarkletHelper
 
     def site
       @site
+    end
+
+    def shop_name
+      @shop_name
     end
 
     def determine_category

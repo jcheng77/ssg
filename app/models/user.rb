@@ -180,4 +180,13 @@ class User
     self.accounts.sina.aid == '2884474434'
   end
 
+  def update_weibo_status(sns_type,client,text,pic)
+    case sns_type
+    when 'sina'
+    client.statuses.upload_url_text({:status => text,:url => pic} )
+  when 'qq'
+   client.upload_image_url(text,pic) 
+  end
+  end
+
 end

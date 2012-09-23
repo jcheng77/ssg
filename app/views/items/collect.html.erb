@@ -16,12 +16,16 @@
         </div>
         <div class="share-to">
             <p>同步分享到微博:</p>
+            <% unless current_user.accounts.sina.blank? %> 
             <label class="checkbox">
               <%= check_box_tag "share_to[]", "sina" %>新浪微博
             </label>
+            <% end %>
+            <% unless current_user.accounts.qq.blank? %> 
             <label class="checkbox">
               <%= check_box_tag "share_to[]", "qq" %>腾讯微博
             </label>
+            <% end %>
         </div>
     </div>
 
@@ -29,6 +33,7 @@
         <%= hidden_field_tag "share[source]", @share.source %>
         <%= hidden_field_tag "item[image]", @item.image %>
         <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
+        <%= hidden_field_tag "item[sub_shop_name]", @item.sub_shop_name%>
 
         <%= hidden_field_tag "item[source_site]", @item.source_site%>
         <%= f.input :title, :label => '商品名称', input_html: {class: 'input-xlarge'} %>
@@ -58,13 +63,13 @@
         <% end -%>
         <div class="controls">
             <label class="radio">
-                <%= radio_button_tag :add_to, Share::TYPE_SHARE, true %>发布分享
+                <%= radio_button_tag :add_to, Share::TYPE_SHARE, true %>推荐
             </label>
             <label class="radio">
                 <%= radio_button_tag :add_to, Share::TYPE_WISH %>愿望清单
             </label>
             <label class="radio">
-                <%= radio_button_tag :add_to, Share::TYPE_BAG %>购物背包
+                <%= radio_button_tag :add_to, Share::TYPE_BAG %>已购清单
             </label>
             <br />
             <%= select_tag :wish_tag, options_for_select(Hash[Share::WISH_TAGS.map{|c| [c, c]}]), style: "width: 240px; display: none;" %>

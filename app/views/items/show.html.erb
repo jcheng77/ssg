@@ -31,13 +31,14 @@
                 <ul class="nav nav-pills info" style="font-size: 16px;">
                     <li><a href="#"><strong><%= @item.in_shares_num %></strong><span>推荐</span></a></li>
                     <li><a href="#"><strong><%= @item.in_wishes_num %></strong><span>愿望</span></a></li>
-                    <li><a href="#"><strong><%= @item.in_bags_num %></strong><span>背包</span></a></li>
+                    <li><a href="#"><strong><%= @item.in_bags_num %></strong><span>已购</span></a></li>
                 </ul>
             </div>
         </div>
         <div class="page-header item-price">
           <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
           <b><%= number_to_currency(@item.latest_price, unit: '￥') %></b>
+          <b><%= @item.sub_shop_name %></b>
         </div>
         <ul class="tag-block">
             <% @item.tags_each do |t| %>

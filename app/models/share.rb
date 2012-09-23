@@ -12,7 +12,7 @@ class Share
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
 
-  WISH_TAGS = ["生日礼物", "同学聚会", "婚礼礼品"]
+  WISH_TAGS = ["生日礼物", "情人节", "光棍节", "婚礼礼品", "节日礼品", "情侣示爱", "想送就送"]
 
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
@@ -81,5 +81,15 @@ class Share
     # TODO: Send notification to user
     Notification.create(receiver_id: user._id, type: Notification::TYPE_MARKDOWN, target_id: _id)
     update_attributes(last_inform_price: new_price)
+  end
+
+  def sync_to_weibo(sns_type_arr,client)
+    if sns_type_arr.is_a?(Array)
+    sns_type_arr.each do |sns| 
+    self.user.update_weibo_status(sns,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
+  end
+  else
+    self.user.update_weibo_status(sns_type_arr,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
+  end
   end
 end

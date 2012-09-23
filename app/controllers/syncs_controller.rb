@@ -16,6 +16,7 @@ class SyncsController < ApplicationController
 
 
   def callback
+    session[:sns_type] =  params[:type]
     if params[:type] == 'qq'
       wb = Weibo.new(params[:type])
       wb.load_client(params[:oauth_token])
