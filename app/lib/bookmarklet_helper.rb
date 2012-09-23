@@ -36,7 +36,7 @@ module BookmarkletHelper
       # so use native html read instead
       html = Net::HTTP.get(URI.parse(@url))
       html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      @imgs = html.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
+      @imgs = html.scan(/src=\"http:\/\/img\S*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d+\//,'/n1/') }
       @imgs.uniq!
       @imgs = @imgs[0..3]
       @title = html.slice(/<title>.*>/)
