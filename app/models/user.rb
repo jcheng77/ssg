@@ -145,6 +145,15 @@ class User
     end
   end
 
+  def self.find_by_weibo_uid(weibo_uid)
+    target_user = nil
+    all.each do |user|
+      accounts = user.accounts.where(type: 'sina', aid: weibo_uid)
+      target_user = user if accounts.present?
+    end
+    return target_user
+  end
+
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt

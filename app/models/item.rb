@@ -71,6 +71,18 @@ class Item
     return @item
   end
 
+  def self.update_or_create_by_collector(collector)
+    # TODO: category
+    item_params = init_params_with_collector(collector)
+    if item = first(conditions: { source_id: collector.item_id})
+      item.update_attributes(item_params)
+    else
+      item = create(item_params)
+    end
+
+    return item
+  end
+
   def self.sync_data
     subscribed_items = all.select{|item| item.subscribed? }
 
@@ -86,6 +98,16 @@ class Item
         share.markdown_inform(new_price)
       end
     end
+  end
+
+  def self.init_params_with_collector(collector)
+    {
+      source_id: collector.item_id,
+      title: collector.title,
+      image: collector.imgs.first,
+      purchase_url: collector.purchase_url,
+      category: collector.category
+    }
   end
 
   def subscribed_shares

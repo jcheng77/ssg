@@ -65,7 +65,7 @@ module Ssg
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.mongoid.observers = :point_observer, :notification_observer  
+    config.mongoid.observers = :point_observer, :notification_observer, :share_queue_observer
     #added for heroku deployment. suggested https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
     config.assets.initialize_on_precompile = false
   end
