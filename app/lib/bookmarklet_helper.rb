@@ -31,12 +31,10 @@ module BookmarkletHelper
       retrieve_product_info if correct?
     end
 
-    def collecter
-      #html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      #html.scan(/src.*http:\/\/img.*jpg"/)
-      doc = Nokogiri::HTML(open(@url))
+    def 360buy_collecter
+      # Nokogiri parse doesn't work well for 360page due to the encoding issue
+      # so use native html read instead
       html = Net::HTTP.get(URI.parse(@url))
-      if doc.count == 0
       html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       @imgs = html.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
       @imgs.uniq!
@@ -45,36 +43,7 @@ module BookmarkletHelper
       @title = @title.slice(/>.*</).slice(1..-2)
       price_tag = html.scan(/price:.\d*.\d*/)
       @price = price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
-      end
-
-
-      
-      #if @title_mark && doc.count = 0
-      #  first_title = doc.xpath(@title_mark).first
-      #  @title = first_title.text if first_title
-      #end
-      
-      #if @css_mark
-      #  doc.css(@css_mark).each do |node|
-      #    @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
-      #  end
-      #end
-
-     # if @xpath_mark
-     #   i=0
-     #   doc.xpath(@xpath_mark).each do |node|
-     #     if i > 5
-     #       break
-     #     end
-     #     if node["onerror"]
-     #       i += 1
-     #       @imgs <<  node["src"].gsub('/n5/','/n1/')
-     #     end
-     #   end
-     # end
-
-
-      end
+    end
 
 
     def domain_checker
@@ -162,7 +131,7 @@ module BookmarkletHelper
         @purchase_url = convert_item_url item_id
         @purchase_url ||= taobao_url(item_id)
       when '360buy'
-        collecter
+        360buy_collecter
       end
     end
 
