@@ -16,6 +16,7 @@
 
 .browse_item {
     width: 240px;
+    height: 375px;
 }
 
 .browse_item .title{
@@ -158,4 +159,28 @@ form.well.tag-form {
   span.item-price, a{
     float: right;
   }
+}
+
+/* Override Nav Pills for category */
+.cat-bar .nav-pills > li > a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #e3e3e3;
+}
+
+.cat-bar .category .checked {
+  color: white;
+  background-color: #08c;
+}
+
+.cat-bar .category .checked:hover, .span12 .category a:hover {
+  color: white;
+  background-color: #eee !important;
+}
+
+.cat-bar .category::after {
+  top: 0;
+  left: 0;
+  border: 0;
 }
