@@ -47,10 +47,10 @@ module BookmarkletHelper
 
 
     def domain_checker
-      host = URI(@url).host
+      host = URI.parse(URI.encode(@url.strip)).host
 
       if /t.cn/.match(host)
-        uri = open(URI.encode(@url)).base_uri
+        uri = open(URI.encode(@url.strip)).base_uri
         @url = uri.scheme + '://' + uri.host + uri.path + '?' + ( uri.query  || '' )
         host = uri.host
       end
@@ -78,7 +78,7 @@ module BookmarkletHelper
     end
 
     def get_item_id
-      uri = URI(@url)
+      uri = URI.parse(URI.encode(@url.strip))
       path = uri.path.split('/')
 
       case @site
