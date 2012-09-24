@@ -285,7 +285,7 @@
   }
 
   $(document).ready(function(){
-      $('#notification-badge').notification().css('display','none');
+      $('#notification-badge').notification();
       var instance = $('#notification-badge').data('notification');
       instance.prepareData();
   })
