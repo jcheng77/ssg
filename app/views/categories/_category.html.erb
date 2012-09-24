@@ -1,8 +1,11 @@
 <div class="row" style="margin-left: 0px;">
-    <ul class="nav nav-pills well category">
+    <ul class="nav nav-pills category">
         <% categories.each_with_index do |c, i| %>
             <li>
-                <a href="javascript: void(0);" value="<%= c %>" class="<%= current_categories.include?(c) ? "checked" : "" %>"><%= c %></a>
+            <a href="javascript: void(0);" value="<%= c %>" class="<%= current_categories.include?(c) ? "checked" : "" %>">
+            <%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
+          </a>
+                
             </li>
         <% end %>
     </ul>
