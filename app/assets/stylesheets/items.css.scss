@@ -16,6 +16,7 @@
 
 .browse_item {
     width: 240px;
+    heigth: 375px;
 }
 
 .browse_item .title{
@@ -138,4 +139,28 @@ form.well.tag-form {
   a {
     float: right;
   }
+}
+
+/* Override Nav Pills for category */
+.span12 .nav-pills > li > a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #e3e3e3;
+}
+
+.span12 .category .checked {
+  color: white;
+  background-color: #08c;
+}
+
+.span12 .category .checked:hover, .span12 .category a:hover {
+  color: white;
+  background-color: #eee !important;
+}
+
+.span12 .category::after {
+  top: 0;
+  left: 0;
+  border: 0;
 }
