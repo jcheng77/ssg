@@ -81,6 +81,11 @@ module BookmarkletHelper
       host = URI.parse(URI.encode(@url.strip)).host
 
       if /t.cn/.match(host)
+        begin
+          RestClient.get(@url)
+        rescue URI::InvalidURIError
+          @url = $!.to_s.split("bad URI(is not URI?): ")[1]
+        end
         uri = open(URI.encode(@url.strip)).base_uri
         @url = uri.scheme + '://' + uri.host + uri.path + '?' + ( uri.query  || '' )
         host = uri.host
