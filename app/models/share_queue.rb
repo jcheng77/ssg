@@ -28,6 +28,7 @@ class ShareQueue
     else
       share.update_attributes(share_params)
     end
+    share.create_comment_by_sharer(share_comment)
 
     update_attributes(sid: share.id)
   end
