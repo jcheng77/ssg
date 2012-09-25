@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
 
   helper_method :current_user, :categories, :current_categories, :current_tags, :need_empty_layout, :weibo_client
-  helper_method :current_user, :categories, :current_categories, :current_tags, :need_empty_layout
 
   def current_user
     @current_user ||= session[:current_user_id] && User.where(:_id => session[:current_user_id]).first

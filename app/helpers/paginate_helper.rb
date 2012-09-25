@@ -45,7 +45,13 @@ module PaginateHelper
     end
   end
 
-  def bootstrap_will_paginate(pages)
-    will_paginate(pages, :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer, :previous_label => '&laquo;'.html_safe, :next_label => '&raquo;'.html_safe)
+  def bootstrap_will_paginate(pages, hash = {})
+    params = {:class => 'pagination',
+              :inner_window => 2,
+              :outer_window => 0,
+              :renderer => BootstrapLinkRenderer,
+              :previous_label => '&laquo;'.html_safe,
+              :next_label => '&raquo;'.html_safe}.merge(hash)
+    will_paginate(pages, params)
   end
 end
