@@ -1,14 +1,14 @@
 <ul class="nav nav-pills nav-stacked sidebars" style="margin-top: 15px;">
     <%= actived_li_if current_page?(:controller => 'users', :action => 'dashboard') do %>
-        <%= link_to "我的关注", dashboard_user_path(current_user) %>
+        <%= link_to "我的关注", dashboard_user_path(@user ? @user : current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'my_shares') do %>
-        <%= link_to "我的分享", my_shares_user_path(current_user) %>
+        <%= link_to "我的分享", my_shares_user_path(@user ? @user : current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'my_wishes') do %>
-        <%= link_to "我的愿望", my_wishes_user_path(current_user) %>
+        <%= link_to "我的愿望", my_wishes_user_path(@user ? @user : current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'my_bags') do %>
-        <%= link_to "我的已购", my_bags_user_path(current_user) %>
+        <%= link_to "我的已购", my_bags_user_path(@user ? @user : current_user) %>
     <% end %>
 </ul>

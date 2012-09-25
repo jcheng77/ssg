@@ -39,9 +39,9 @@ class UsersController < ApplicationController
   # GET /users/1/friends
   def friends
     @user = User.find(params[:id])
-    @f_users = @user.followees_by_type(User.name)
-    @i_users = @user.known_sns_friends(@user.accounts.first.type)
-    @a_users = User.all
+    @f_users = @user.followees_by_type(User.name).paginate(:page => params[:f_users_page], :per_page => 8)
+    @i_users = @user.known_sns_friends(@user.accounts.first.type).paginate(:page => params[:i_users_page], :per_page => 8)
+    @a_users = User.all.sort { |a, b| -(a.shares.size <=> b.shares.size) }.paginate(:page => params[:a_users_page], :per_page => 8)
 
     respond_to do |format|
       format.html { render layout: 'application' } # friends.html.erb
