@@ -18,7 +18,6 @@
         </div>
         <ul class="thumbnails">
             <% categories.each_with_index do |c, i| %>
-              <% break if i == categories.count-1  %>
                 <li class="span3">
                     <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
                       <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
@@ -53,6 +52,10 @@
         }
     });
     $("#submit").click(function () {
-        $("#submit_checkbox").click();
+        if (num > 0) {
+            $("#submit_checkbox").click();
+        } else {
+            alert("请至少选择一个偏好！");
+        }
     });
 </script>
