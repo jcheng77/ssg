@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
@@ -32,18 +30,15 @@ module BookmarkletHelper
     end
 
     def collecter
-      # Nokogiri parse doesn't work well for 360page due to the encoding issue
-      # so use native html read instead
-      html = Net::HTTP.get(URI.parse(@url))
       html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      @imgs = html.scan(/src=\"http:\/\/img\S*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d+\//,'/n1/') }
-      @imgs.uniq!
-      @imgs = @imgs[0..3]
-      @title = html.slice(/<title>.*>/)
-      @title = @title.slice(/>.*</).slice(1..-2)
-      price_tag = html.scan(/price:.\d*.\d*/)
-      @price = price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
+      @imgs = get_jd_imgs(html)
+      begin
+      @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
+    rescue
+      puts 'encoding error or no price tag found'
     end
+      @title = get_jd_title(html)
+      end
 
 
     def domain_checker
@@ -181,6 +176,50 @@ module BookmarkletHelper
 #        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
 #        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
+    end
+
+
+
+
+    def parse_price_pic(pic)
+      RTesseract.new(pic).to_s.sub(/Y|\s/, '').match(/\d+(\.\d+)?/).to_s.to_f
+    end
+
+    def download_pic(url)
+      open(url) { |f|
+        File.open( jd_pic_file,'wb' ) do |file|
+          file.puts f.read
+        end
+      }
+    end
+
+    def jd_pic_file
+      ['tmp','png'].join('.')
+    end
+
+    def get_jd_price_by_pic(item_page_source)
+      png_tags = item_page_source.scan(/p-price.*png/)
+      unless png_tags.blank
+      price_pic_url = png_tags.first.slice(/http.*png/) 
+      download_pic(price_pic_url)
+      parse_price_pic jd_pic_file
+    end
+    end
+
+    def get_jd_imgs(item_page_source)
+      imgs =  item_page_source.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
+      imgs.uniq!
+      imgs[0..3]
+    end
+
+    def get_jd_price_by_staic_tag(item_page_source)
+      price_tag = item_page_source.scan(/price:.\d*.\d*/)
+      price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
+    end
+
+    def get_jd_title(item_page_source)
+      title = item_page_source.slice(/<title>.*>/)
+      title.slice(/>.*</).slice(1..-2)
     end
 
 
