@@ -1,3 +1,4 @@
+# encoding: utf-8
 include WeiboHelper
 class UsersController < ApplicationController
   layout 'application'
@@ -310,15 +311,28 @@ class UsersController < ApplicationController
   def refresh_mention
     @user = current_user
     if @user.is_official_weibo_account?
-    @client = weibo_client
-    @mentions = fetch_latest_mentions(@client)
-    process_weibo_mentions(@mentions)
+      @client = weibo_client
+      @mentions = fetch_latest_mentions(@client)
+      process_weibo_mentions(@mentions)
     end
 
     respond_to do |format|
       format.html { redirect_to items_path }
     end
+  end
 
+  def send_weibo_notifications
+    @user = current_user
+    if @user.is_official_weibo_account?
+      @client = weibo_client
+      WeiboQueue.all.each do |weibo_queue|
+        share = Share.find(weibo_queue.share_id)
+        msg = "@#{share.user.name} 你关注的某个商品的价格降低了到#{share.last_inform_price}元，速速来点击查看吧 boluo.me"
+        send_weibo_notification(@client, msg)
+        weibo_queue.delete
+      end
+    end
+    redirect_to root_path
   end
 
   def notify_price
