@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 require 'nokogiri'
 require 'net/http'
 require 'open-uri'
@@ -32,48 +30,14 @@ module BookmarkletHelper
     end
 
     def collecter
-      #html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      #html.scan(/src.*http:\/\/img.*jpg"/)
-      doc = Nokogiri::HTML(open(@url))
-      html = Net::HTTP.get(URI.parse(@url))
-      if doc.count == 0
       html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      @imgs = html.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
-      @imgs.uniq!
-      @imgs = @imgs[0..3]
-      @title = html.slice(/<title>.*>/)
-      @title = @title.slice(/>.*</).slice(1..-2)
-      price_tag = html.scan(/price:.\d*.\d*/)
-      @price = price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
-      end
-
-
-      
-      #if @title_mark && doc.count = 0
-      #  first_title = doc.xpath(@title_mark).first
-      #  @title = first_title.text if first_title
-      #end
-      
-      #if @css_mark
-      #  doc.css(@css_mark).each do |node|
-      #    @imgs << conv_pic_to_310(node.values.first) if node.values.first.match(/^http/)
-      #  end
-      #end
-
-     # if @xpath_mark
-     #   i=0
-     #   doc.xpath(@xpath_mark).each do |node|
-     #     if i > 5
-     #       break
-     #     end
-     #     if node["onerror"]
-     #       i += 1
-     #       @imgs <<  node["src"].gsub('/n5/','/n1/')
-     #     end
-     #   end
-     # end
-
-
+      @imgs = get_jd_imgs(html)
+      begin
+      @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
+    rescue
+      puts 'encoding error or no price tag found'
+    end
+      @title = get_jd_title(html)
       end
 
 
@@ -212,6 +176,50 @@ module BookmarkletHelper
 #        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
 #        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
+    end
+
+
+
+
+    def parse_price_pic(pic)
+      RTesseract.new(pic).to_s.sub(/Y|\s/, '').match(/\d+(\.\d+)?/).to_s.to_f
+    end
+
+    def download_pic(url)
+      open(url) { |f|
+        File.open( jd_pic_file,'wb' ) do |file|
+          file.puts f.read
+        end
+      }
+    end
+
+    def jd_pic_file
+      ['tmp','png'].join('.')
+    end
+
+    def get_jd_price_by_pic(item_page_source)
+      png_tags = item_page_source.scan(/p-price.*png/)
+      unless png_tags.blank
+      price_pic_url = png_tags.first.slice(/http.*png/) 
+      download_pic(price_pic_url)
+      parse_price_pic jd_pic_file
+    end
+    end
+
+    def get_jd_imgs(item_page_source)
+      imgs =  item_page_source.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
+      imgs.uniq!
+      imgs[0..3]
+    end
+
+    def get_jd_price_by_staic_tag(item_page_source)
+      price_tag = item_page_source.scan(/price:.\d*.\d*/)
+      price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
+    end
+
+    def get_jd_title(item_page_source)
+      title = item_page_source.slice(/<title>.*>/)
+      title.slice(/>.*</).slice(1..-2)
     end
 
 
