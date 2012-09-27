@@ -189,4 +189,12 @@ class User
   end
   end
 
+  def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil)
+    aid = userinfo.delete("id")
+    profile_url = userinfo.delete("profile_url")
+    cur_user = User.new(userinfo)
+    cur_user.accounts.new( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids)
+    return cur_user
+  end
+
 end
