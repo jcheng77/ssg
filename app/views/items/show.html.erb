@@ -21,9 +21,9 @@
     </script>
 <% end %>
 
-<div class="page-header"><h3><%= @item.title %></h3></div>
 <div class="row">
     <div class="span4">
+        <div class="item-title" title="<%= @item.title %>"><%= @item.title %></div>
         <div class="thumbnail">
           <%= link_to image_tag(@item.image, :width => '360') , @item.purchase_url %>
 
@@ -35,10 +35,12 @@
                 </ul>
             </div>
         </div>
-        <div class="page-header item-price">
-          <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
-          <b><%= number_to_currency(@item.latest_price, unit: '￥') %></b>
-          <b><%= @item.sub_shop_name %></b>
+         <div class="page-header item-desc">
+            <% unless @item.sub_shop_name.blank? %>
+                <span class='item-shop'>来自:&#160;<span class="item-text" title="<%= @item.sub_shop_name %>"><%= @item.sub_shop_name %></span></span>
+            <% end %>
+            <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
+            <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
         </div>
         <ul class="tag-block">
             <% @item.tags_each do |t| %>
