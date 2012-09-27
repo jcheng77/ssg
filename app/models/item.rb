@@ -110,6 +110,12 @@ class Item
     }
   end
 
+  def update_rating
+    ratings = shares.inject([]) {|ratings, share| ratings << share.product_rating if share.product_rating > 0 }
+    sum = ratings.inject {|sum, n| sum + n }
+    update_attributes(product_rating: sum/ratings.count)
+  end
+
   def subscribed_shares
     shares.select {|share| share.subscribed }
   end
