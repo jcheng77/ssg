@@ -119,6 +119,8 @@ module TaggableHelper
 
       self.collection.master.map_reduce(map, reduce, :out => tags_index_collection_name)
     end
+
+    handle_asynchronously :save_tags_index! if defined?(Delayed)
   end
 
   module InstanceMethods
