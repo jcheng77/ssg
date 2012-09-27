@@ -1,11 +1,11 @@
 development:
-      key:    "3788831273"
-      secret: "cd9072acaac30aaa6d7a45dc8fff57e3"
+      key:    "419180446"
+      secret: "8d97de6064802d452a721e9a64c82310"
       url:    "boluo.me"
-      callback: "http://localhost:3000/syncs/sina/callback"
+      callback: "http://localhost.com:3000/syncs/sina/callback/"
 production:
-      key:    "3788831273"
-      secret: "cd9072acaac30aaa6d7a45dc8fff57e3"
+      key:    "1734028369"
+      secret: "281bbd8a50b59ce1cdadb9d5e8380ab1"
       url:    "boluo.me"
       callback: "http://boluo.me/syncs/sina/callback"
 

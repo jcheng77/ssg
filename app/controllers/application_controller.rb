@@ -96,13 +96,12 @@ class ApplicationController < ActionController::Base
     case sns_type
     when 'sina'
     #production sina app key
-    @client ||= WeiboOAuth2::Client.new('1734028369', '281bbd8a50b59ce1cdadb9d5e8380ab1')
-    WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/' 
+    unless is_sina_app_key_load?
+      load_sina_config
+    end
 
-        #localhost.com local test app key with sending pic permission
-        #you need to add an entry in your /etc/hosts:  127.0.0.1 localhost.com
-        #@client = WeiboOAuth2::Client.new( '419180446','8d97de6064802d452a721e9a64c82310')
-        #WeiboOAuth2::Config.redirect_uri = 'http://localhost.com:3000/syncs/sina/callback/'
+    @client ||= WeiboOAuth2::Client.new(session[:appkey], session[:appsecret])
+    WeiboOAuth2::Config.redirect_uri = session[:callback]
 
         #127.0.0.1 test app key
         #@client ||= WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
@@ -116,6 +115,18 @@ class ApplicationController < ActionController::Base
         @client.load_from_db(session[:access_token], session[:token_secret])
     end
     @client
+  end
+
+
+  def is_sina_app_key_load?
+    !(session[:appkey].nil? || session[:appsecret].nil? || session[:callback].nil?)
+  end
+
+  def load_sina_config
+  sina = YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
+  session[:appkey] = sina["key"]
+  session[:appsecret] = sina["secret"]
+  session[:callback] = sina["callback"]
   end
 
 end

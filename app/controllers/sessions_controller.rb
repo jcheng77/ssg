@@ -15,6 +15,9 @@ class SessionsController < ApplicationController
     session[:sns_type] = nil
     session[:expires_at] = nil
     session[:refresh_token] = nil
-     redirect_to root_url
+    session[:appkey] = nil
+    session[:appsecret] = nil
+    session[:callback] = nil
+    redirect_to root_url
   end
 end
