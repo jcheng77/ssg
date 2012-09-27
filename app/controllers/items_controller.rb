@@ -158,6 +158,7 @@ class ItemsController < ApplicationController
   protected
 
   def save_item
+    # TODO: To be refactor
     user = current_user
     @share = Share.first(conditions: {source: params[:share][:source]})
     if @share

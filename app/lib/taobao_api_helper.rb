@@ -21,6 +21,7 @@ module TaobaoApiHelper
     app_sec = 'ef1f67fba35584ee3cbf63cd093e6ddd' #production
 
     p = {
+#  gem 'capybara-webkit'
       'method' => method, #'taobao.user.get',
       #'session' => 'sandbox88bf3a4b3d1c9dff28d4890e9'
       'timestamp' => Time.now.strftime("%Y-%m-%d %H:%M:%S"),
@@ -356,7 +357,3 @@ end
 #TestTaobaoApiHelper.get_traderates
 #TestTaobaoApiHelper.get_itemcats(0, 0)
 #TestTaobaoApiHelper.get_report_taobaoke
-
-CommissionHelper.commission_calculator.each do |x,y|
-  p x,": ",y,"\n"
-end
