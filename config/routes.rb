@@ -40,6 +40,7 @@ Ssg::Application.routes.draw do
       get 'recent_notifications'
       get 'all_notifications'
       get 'refresh_mention'
+      get 'send_weibo_notifications'
     end
   end
 

@@ -98,8 +98,7 @@ module WeiboHelper
   end
 
 
-  def send_weibo_notification(client)
-    client.statuses.update('the price of one time in your watching list has been dropped. @username')
+  def send_weibo_notification(client, msg)
+    client.statuses.update(msg)
   end
-
 end

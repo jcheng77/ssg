@@ -30,8 +30,8 @@
                     <ul class="nav pull-right">
                         <li class="divider-vertical"></li>
                         <li class="dropdown" id="menu">
-                            <a href="#" data-toggle="dropdown" href="#menu"><%= current_user.nick_name %> </a>
-                            <ul class="dropdown-menu">
+                            <a class="dropdown-toggle" id='preference-button' data-toggle="dropdown" href="#"><%= current_user.nick_name %> </a>
+                            <ul id='preference-panel' class="dropdown-menu" aria-labelledby="preference-button">
                                 <li><%= empty_link_if(current_user.nil?, "偏好设置") { edit_preferences_user_path(current_user) } %></li>
                                 <li><%= empty_link_if(current_user.nil?, "帐号信息") { account_user_path(current_user) } %></li>
                                 <li><%= empty_link_if(current_user.nil?, "通知中心") { notifications_path(current_user) } %></li>
@@ -41,10 +41,14 @@
                     </ul>
                     <%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>
                 <% end %>
-                <a href="#" class="pull-right notification-badge" id="notification-badge">0</a>
+                <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
+                <ul class='pull-right notification-cont'>
+                    <li class="dropdown" id="notifications">
+                        <a class="dropdown-toggle notification-badge" id="notification-badge" style="display:none" data-toggle="dropdown" href="#">0</a>
+                        <ul class="dropdown-menu notification-panel" id="notification-panel" aria-labelledby="notification-badge" role="menu"></ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
-
-

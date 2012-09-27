@@ -35,8 +35,10 @@
                 </ul>
             </div>
         </div>
-        <div class="page-header item-desc">
-            <span class='item-shop'>来自:&#160;<span class="item-text" title="<%= @item.sub_shop_name %>"><%= @item.sub_shop_name %></span></span>
+         <div class="page-header item-desc">
+            <% unless @item.sub_shop_name.blank? %>
+                <span class='item-shop'>来自:&#160;<span class="item-text" title="<%= @item.sub_shop_name %>"><%= @item.sub_shop_name %></span></span>
+            <% end %>
             <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
             <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
         </div>
