@@ -325,12 +325,11 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.is_official_weibo_account?
       @client = weibo_client
-      WeiboQueue.all.each do |weibo_queue|
-        share = Share.find(weibo_queue.share_id)
-        msg = "@#{share.user.name} 你关注的某个商品的价格降低了到#{share.last_inform_price}元，速速来点击查看吧 boluo.me"
+      WeiboQueue.target_hash.each do |name, count|
+        msg = "@#{name} 你关注的#{count}个商品有价格变动，速速来查看吧 boluo.me"
         send_weibo_notification(@client, msg)
-        weibo_queue.delete
       end
+      WeiboQueue.delete_all
     end
     redirect_to root_path
   end
