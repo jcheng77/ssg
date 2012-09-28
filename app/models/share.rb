@@ -27,6 +27,8 @@ class Share
   field :last_inform_price, type: Float
   field :subscribed, type: Boolean
 
+  after_save :update_item_rating
+
   acts_as_commentable
   belongs_to :item, index: true
   belongs_to :user, index: true
@@ -48,9 +50,9 @@ class Share
 
   def copy_attributes(attributes = {})
     {:source => self.source,
-     :price => self.price,
-     :parent_share_id => self._id,
-     :item_id => self.item.id
+      :price => self.price,
+      :parent_share_id => self._id,
+      :item_id => self.item.id
     }.merge(attributes)
   end
 
@@ -85,11 +87,15 @@ class Share
 
   def sync_to_weibo(sns_type_arr,client)
     if sns_type_arr.is_a?(Array)
-    sns_type_arr.each do |sns| 
-    self.user.update_weibo_status(sns,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
+      sns_type_arr.each do |sns| 
+        self.user.update_weibo_status(sns,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
+      end
+    else
+      self.user.update_weibo_status(sns_type_arr,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
+    end
   end
-  else
-    self.user.update_weibo_status(sns_type_arr,client,[self.comment.content, self.item.purchase_url].join('    ') ,self.item.image)
-  end
+
+  def update_item_rating
+    item.update_rating
   end
 end

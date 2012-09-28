@@ -13,7 +13,7 @@ class Item
   field :source_id, type: String
   field :title, type: String
   field :description, type: String
-  field :product_rating, type: Float # overall product rating 
+  field :product_rating, type: Integer # overall product rating 
   field :price_low, type: Float # lowest price
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
