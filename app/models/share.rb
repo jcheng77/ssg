@@ -96,6 +96,6 @@ class Share
   end
 
   def update_item_rating
-    item.update_rating
+    item.delay.update_rating
   end
 end
