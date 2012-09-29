@@ -17,10 +17,9 @@ class ShareQueue
     collector = Collector.new(url)
     return unless collector.correct?
 
-    # 先找是否有人分享过同样的item，如果有的话，update，没有就创建一个
+    # TODO: Add to transaction
     item = Item.update_or_create_by_collector(collector)
 
-    # 如果share为nil，创建一个share，否则更新它
     share = Share.first(conditions: {item_id: item._id, user_id: user._id})
     share_params = Share.init_params(user, item, collector)
     if share.nil?
@@ -29,6 +28,8 @@ class ShareQueue
       share.update_attributes(share_params)
     end
     share.create_comment_by_sharer(share_comment)
+
+    item.update_attributes(root_share_id: share._id) if item.root_share.nil?
 
     update_attributes(sid: share.id)
   end
