@@ -275,6 +275,17 @@ body {
 .item_actions{
     display: none;
     position: absolute;
-    left: 20%;
-    top: 0;
+}
+
+.item_block {
+    .item_actions{
+        left: 20%;
+        top: 0;
+    }
+}
+
+.browse_item {
+    .item_actions{
+        left: 10%;
+    }
 }
