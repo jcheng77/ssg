@@ -111,7 +111,11 @@ class Item
   end
 
   def update_rating
-    ratings = shares.inject([]) {|ratings, share| ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0 } || []
+    ratings = []
+    shares.each do |share|
+      ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0
+    end
+    #ratings = shares.inject([]) {|ratings, share| ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0 } || []
     if ratings.blank?
       update_attributes(product_rating: 0)
     else
