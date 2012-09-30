@@ -111,7 +111,7 @@ class Notification
   end
 
   def self.recent_limit(user_id, num = 5)
-    Notification.recent_all(user_id).limit(num)
+    Notification.where(:checked => false, :receiver_id => user_id).desc(:created_at).limit(num)
   end
 
   def self.all_of_user(user_id, page, per_page = 10)
