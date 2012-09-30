@@ -1,6 +1,13 @@
 <li>
     <div class="thumbnail browse_item">
+        <div class="item_actions">
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">已购</a>
+        </div>
+
         <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+
         <%= link_to item do %>
             <h5 class="title"> <%= item.title %> </h5>
         <% end %>
@@ -26,4 +33,6 @@
             </div>
         <% end %>
     </div>
+
+    <%= render :partial => "shares/form", :locals => {:share => share} %>
 </li>
