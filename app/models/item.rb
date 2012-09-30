@@ -72,7 +72,6 @@ class Item
   end
 
   def self.update_or_create_by_collector(collector)
-    # TODO: category
     item_params = init_params_with_collector(collector)
     if item = first(conditions: { source_id: collector.item_id})
       item.update_attributes(item_params)
@@ -101,12 +100,13 @@ class Item
   end
 
   def self.init_params_with_collector(collector)
+    # TODO: category
     {
       source_id: collector.item_id,
       title: collector.title,
       image: collector.imgs.first,
       purchase_url: collector.purchase_url,
-      category: collector.category
+      category: collector.category || '创意礼品'
     }
   end
 

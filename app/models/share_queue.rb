@@ -19,6 +19,7 @@ class ShareQueue
 
     # TODO: Add to transaction
     item = Item.update_or_create_by_collector(collector)
+    return unless item.persisted?
 
     share = Share.first(conditions: {item_id: item._id, user_id: user._id})
     share_params = Share.init_params(user, item, collector)
