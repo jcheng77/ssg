@@ -141,6 +141,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit_preferences
   def edit_preferences
     @user = User.find(params[:id])
+    @user.update_attribute(:preferences, @user.preferences & categories)
 
     respond_to do |format|
       format.html { render "preferences", layout: 'application' }

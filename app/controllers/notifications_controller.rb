@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   # GET /users/1/notifications
   # GET /users/1/notifications.json
   def index
-    @notifications = Notification.recent_all params[:id]
+    @notifications = Notification.all_of_user params[:id], params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

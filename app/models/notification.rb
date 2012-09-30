@@ -114,8 +114,8 @@ class Notification
     Notification.recent_all(user_id).limit(num)
   end
 
-  def self.recent_all(user_id)
-    Notification.receiver_unchecked(user_id).desc(:created_at)
+  def self.all_of_user(user_id, page, per_page = 10)
+    Notification.where(:receiver_id => user_id).desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
   def self.receiver_unchecked(user_id)
