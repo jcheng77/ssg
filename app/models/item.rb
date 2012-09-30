@@ -86,15 +86,19 @@ class Item
     subscribed_items = all.select{|item| item.subscribed? }
 
     subscribed_items.each do |item|
-      collector = Collector.new(item.purchase_url)
-      next unless new_price = collector.price.try(:to_f)
+      begin
+        collector = Collector.new(item.purchase_url)
+        next unless collector.price != 0 && new_price = collector.price.try(:to_f)
 
-      if item.price_low.nil? || item.price_low > new_price
-        item.update_attributes(price_low: new_price)
-      end
+        if item.price_low.nil? || item.price_low > new_price
+          item.update_attributes(price_low: new_price)
+        end
 
-      item.subscribed_shares.each do |share|
-        share.markdown_inform(new_price)
+        item.subscribed_shares.each do |share|
+          share.markdown_inform(new_price)
+        end
+      rescue
+        next
       end
     end
   end
