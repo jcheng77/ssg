@@ -88,7 +88,8 @@ class Item
     subscribed_items.each do |item|
       begin
         collector = Collector.new(item.purchase_url)
-        next unless collector.price != 0 && new_price = collector.price.try(:to_f)
+        next if collector.price.to_f == 0
+        next unless new_price = collector.price.to_f
 
         if item.price_low.nil? || item.price_low > new_price
           item.update_attributes(price_low: new_price)
