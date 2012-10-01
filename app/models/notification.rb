@@ -99,7 +99,7 @@ class Notification
   end
 
   def sender
-    User.find self.sender_id
+    User.find(sender_id) if sender_id
   end
 
   def receiver

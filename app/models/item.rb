@@ -86,15 +86,20 @@ class Item
     subscribed_items = all.select{|item| item.subscribed? }
 
     subscribed_items.each do |item|
-      collector = Collector.new(item.purchase_url)
-      next unless new_price = collector.price.try(:to_f)
+      begin
+        collector = Collector.new(item.purchase_url)
+        next if collector.price.to_f == 0
+        next unless new_price = collector.price.to_f
 
-      if item.price_low.nil? || item.price_low > new_price
-        item.update_attributes(price_low: new_price)
-      end
+        if item.price_low.nil? || item.price_low > new_price
+          item.update_attributes(price_low: new_price)
+        end
 
-      item.subscribed_shares.each do |share|
-        share.markdown_inform(new_price)
+        item.subscribed_shares.each do |share|
+          share.markdown_inform(new_price)
+        end
+      rescue
+        next
       end
     end
   end
@@ -111,7 +116,11 @@ class Item
   end
 
   def update_rating
-    ratings = shares.inject([]) {|ratings, share| ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0 } || []
+    ratings = []
+    shares.each do |share|
+      ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0
+    end
+    #ratings = shares.inject([]) {|ratings, share| ratings << share.product_rating if share.product_rating.present? && share.product_rating > 0 } || []
     if ratings.blank?
       update_attributes(product_rating: 0)
     else

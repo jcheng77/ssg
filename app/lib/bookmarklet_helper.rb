@@ -22,6 +22,7 @@ module BookmarkletHelper
   class Collector
 
     def initialize(url)
+      Rails.logger.info "processing " + url
       @url = url
       @imgs = []
       domain_checker
