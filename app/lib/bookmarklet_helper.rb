@@ -30,7 +30,7 @@ module BookmarkletHelper
     end
 
     def collecter
-      html = open(@url, "r:binary").read.encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
+      html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       @imgs = get_jd_imgs(html)
       begin
       @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
@@ -99,7 +99,7 @@ module BookmarkletHelper
     end
 
     def correct?
-      @item_id && @item_id != "invalid" && @img != []
+      @item_id && @item_id != "invalid" 
     end
 
     def item_id
