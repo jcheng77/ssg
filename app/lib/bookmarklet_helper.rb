@@ -115,7 +115,7 @@ module BookmarkletHelper
       item = res.first_item
       @imgs << item.get_hash("LargeImage")["URL"]
       node = item/'Price/Amount'
-      @price = node.children.first.text.to_i/100 if node
+      @price = node.children.first.text.to_i/100.to_f if node
       @title = item.get_element('ItemAttributes').get('Title')
       @category = item.get_element('ItemAttributes').get('ProductGroup')
       determine_category
