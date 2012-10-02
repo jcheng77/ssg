@@ -16,6 +16,17 @@ class Comment
   validates_presence_of :user_id, :content, :allow_nil => false
   before_create :reset_commentable_id
 
+  AT_USER_SYMBOL = '@'
+  AT_USER_REGEXP = /#{AT_USER_SYMBOL}(\w+)\b/
+
+  def self.replace_at_user_exp(content)
+    content.gsub(AT_USER_REGEXP) { |exp| yield AT_USER_REGEXP.match(exp)[1] }
+  end
+
+  def self.each_at_user_name(content)
+    content.scan(AT_USER_REGEXP) { |exp| yield exp[0] }
+  end
+
   # Get uer object.
   def user
     User.find(self.user_id)

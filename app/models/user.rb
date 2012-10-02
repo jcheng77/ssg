@@ -25,7 +25,7 @@ class User
   field :city, type: String
   field :address, type: String
 
-  email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+  EMAIL_REGEXP = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
 
   # relations
   embeds_many :accounts do # second accounts
@@ -35,7 +35,6 @@ class User
     def qq 
       @target.select { |account| account.type == 'qq'}.first
     end
-
   end
 
   accepts_nested_attributes_for :accounts
@@ -47,9 +46,13 @@ class User
 
   # validation
   validates_uniqueness_of :nick_name
-  validates_format_of :email, :with => email_regexp , :message => "邮箱格式不正确"
+  validates_format_of :email, :with => EMAIL_REGEXP , :message => "邮箱格式不正确"
 
   before_save :encrypt_password
+
+  def self.find_if_exists(conditions)
+    self.where(conditions).exists? ? self.where(conditions).first : nil
+  end
 
   def has_shared?(type, item)
     self.shares.where(:share_type => type, :item_id => item._id).exists?

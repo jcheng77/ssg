@@ -6,7 +6,7 @@
             <%= link_to child_comment.user.nick_name, account_user_path(child_comment.user) %><span><%= child_comment.created_at.to_s :db %></span>
         </p>
 
-        <%= simple_format child_comment.content %>
+        <%= comment_format child_comment.content %>
         <ul class="the-icons">
             <%= link_to vote_comment_path(child_comment), remote: true do %>
                 <li><i class="icon-star"></i>

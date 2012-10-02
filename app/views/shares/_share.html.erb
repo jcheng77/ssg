@@ -21,7 +21,7 @@
                 <%= link_to share.user.nick_name, account_user_path(share.user) %>
             </div>
 
-            <div class="user_comment"><%= share.comment_content %></div>
+            <div class="user_comment"><%= comment_format share.comment_content %></div>
         </div>
         <p class="price_info">
             <% if share['price'] %>

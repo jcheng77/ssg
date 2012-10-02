@@ -6,7 +6,7 @@
             <%= link_to root_comment.user.nick_name, account_user_path(root_comment.user) %><span><%= root_comment.created_at.to_s :db %></span>
         </p>
 
-        <%= simple_format root_comment.content %>
+        <%= comment_format root_comment.content %>
         <ul class="the-icons">
             <%= link_to "javascript: void(0);", class: "link-child-comments" do %>
                 <li><i class="icon-comment"></i> <small id="<%= "#{root_comment._id}-child-num" %>"><%= root_comment.child_comments.size %></small></li>

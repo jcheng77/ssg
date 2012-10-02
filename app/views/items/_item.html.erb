@@ -29,7 +29,7 @@
                     <%= image_tag small_avatar_url(share.user.avatar) %>
                 </a>
                 <%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>
-                <p class="comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
+                <p class="comment" title="<%= share.comment_content %>"><%= comment_format share.comment_content %></p>
             </div>
         <% end %>
     </div>

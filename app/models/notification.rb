@@ -9,7 +9,6 @@ class Notification
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
   TYPE_COMMENT = 'CMT'
-  TYPE_AT_SHARE = 'ATS'
   TYPE_AT_COMMENT = 'ATC'
   TYPE_MARKDOWN = 'MAD'
 
@@ -32,7 +31,7 @@ class Notification
         self.receiver
       when TYPE_ACTIVATE
         nil
-      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_AT_SHARE, TYPE_MARKDOWN
+      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_MARKDOWN
         Share.find self.target_id
       when TYPE_COMMENT, TYPE_AT_COMMENT
         Comment.find self.target_id
@@ -54,9 +53,7 @@ class Notification
   def shown_url
     object = self.target_object
     case self.type
-      when TYPE_COMMENT
-        object.root
-      when TYPE_AT_COMMENT
+      when TYPE_COMMENT, TYPE_AT_COMMENT
         object.root
       when TYPE_WISH
         {:controller => "users", :action => "my_wishes", :id => self.sender}
@@ -87,10 +84,8 @@ class Notification
         else
           return "<em>#{sender.nick_name}</em> 回复了你的评论"
         end
-      when TYPE_AT_SHARE then
-        return "#{sender.nick_name} @ you in his/her share"
       when TYPE_AT_COMMENT then
-        return "#{sender.nick_name} @ you in his/her comment"
+        return "<em>#{sender.nick_name}</em> 在评论中@了你"
       when TYPE_MARKDOWN then
         return "你有新的降价通知"
       else

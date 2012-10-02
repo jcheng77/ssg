@@ -31,6 +31,11 @@ class NotificationObserver < Mongoid::Observer
           sender_id = object.user_id
         end
       end
+
+      Comment.each_at_user_name(object.content) do |name|
+        at_user = User.find_if_exists nick_name: name
+        Notification.create sender_id: object.user_id, receiver_id: at_user._id, type: Notification::TYPE_AT_COMMENT, target_id: object._id unless at_user.nil?
+      end
     end
     if type != nil
       notify_objects.each do |user|
