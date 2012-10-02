@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
@@ -37,15 +38,16 @@ class User
 
   end
 
+  accepts_nested_attributes_for :accounts
   has_many :shares
   has_many :choices
 
   # index
-  index :nick_name, unique: true
+  index :nick_name, unique: true , :message => "用户名已存在"
 
   # validation
   validates_uniqueness_of :nick_name
-  validates_format_of :email, :with => email_regexp, :on => :update
+  validates_format_of :email, :with => email_regexp , :message => "邮箱格式不正确"
 
   before_save :encrypt_password
 
@@ -189,11 +191,11 @@ class User
   end
   end
 
-  def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil)
+  def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil, friends_names = nil)
     aid = userinfo.delete("id")
     profile_url = userinfo.delete("profile_url")
     cur_user = User.new(userinfo)
-    cur_user.accounts.new( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids)
+    cur_user.accounts.build( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids , :friends_names => friends_names)
     return cur_user
   end
 
