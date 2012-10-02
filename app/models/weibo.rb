@@ -114,11 +114,11 @@ class Weibo
   end
 
   def extract_friends_list(qqhash)
-    if qqhash.has_key?('data')
+    friends_ids  = []
+    friends_names = []
+    unless qqhash['data'].blank?
       friends_list = qqhash['data']['info']
-      friends_ids  = []
-      friends_names = []
-      friends_list.each do |friend| 
+      friends_list.to_a.each do |friend|
         friends_ids << friend["openid"]
         friends_names << friend["name"]
       end
