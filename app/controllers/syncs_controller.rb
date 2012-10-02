@@ -17,6 +17,9 @@ class SyncsController < ApplicationController
 
   def callback
     session[:sns_type] =  params[:type]
+    bi_friends = []
+    friends_ids =  []
+    friends_names = []
 
     if params[:type] == 'qq'
       wb = Weibo.new(params[:type])
@@ -27,6 +30,8 @@ class SyncsController < ApplicationController
       access_token = session[:access_token] = results[:access_token]
       token_secret = session[:token_secret] = results[:access_token_secret]
       userinfo = wb.get_user_info_hash
+      
+      friends_ids , friends_names = wb.get_friends_list userinfo["id"]
     else
 
       client = weibo_client
@@ -37,6 +42,13 @@ class SyncsController < ApplicationController
 
       userinfo = client.users.show_by_uid(code.params["uid"])
       userinfo = extract_user_info(userinfo)
+      bi_friends = client.friendships.friends_bilateral(code.params["uid"] , :count => 200)
+      if bi_friends.has_key?("users")
+        bi_friends["users"].each do |u|
+        friends_ids << u["idstr"].to_s
+        friends_names << u["screen_name"]
+      end
+    end
     end
 
     if (access_token && token_secret) || code
@@ -48,23 +60,22 @@ class SyncsController < ApplicationController
         break if account
       end
 
+
       if account.nil?
 
-        bi_friends = []
-        if params[:type] == 'sina'
-          bi_friends = client.friendships.friends_bilateral_ids(code.params["uid"] , :count => 300)
-        end
-
+        
         access_token ||= ( session[:aaccess_token] || code.token )
         token_secret ||=  session[:token_secret]
-        cur_user = User.create_user_account_with_weibo_hash(params[:type],userinfo,access_token, token_secret,bi_friends["ids"])
+        cur_user = User.create_user_account_with_weibo_hash(params[:type],userinfo,access_token, token_secret,friends_ids,friends_names)
 
         session[:current_user] = cur_user
         redirect_to :controller => "users", :action => "signup"
 
       else
 
+
         session[:current_user_id] = account.user._id
+        account.update_attributes({friends: friends_ids, friends_names: friends_names})
         redirect_to dashboard_user_path(current_user)
 
       end

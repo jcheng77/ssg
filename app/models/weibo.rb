@@ -53,12 +53,22 @@ class Weibo
   end
 
   #get the friends list that the given person follows
+  def get_friends_ids_names(uid)
+    case @type
+    when 'sina'
+      resp = @client.get '/friends/ids.json'
+    when 'qq'
+      resp = @client.get('http://open.t.qq.com/api/friends/mutual_list?format=json&fopenid='+ uid + '&startindex=0&req_num=30')
+    end
+    return resp
+  end
+
   def get_friends_ids
     case @type
     when 'sina'
       resp = @client.get '/friends/ids.json'
     when 'qq'
-      resp = @client.get 'http://open.t.qq.com/api/friends/idollist_s?format=json'
+      resp = @client.get 'http://open.t.qq.com/api/friends/mutual_list?format=json' 
     end
     return resp
   end
@@ -79,13 +89,12 @@ class Weibo
     return extract_user_info(userhash)
   end
 
-  def get_friends_list
+  def get_friends_list(uid)
     if @client
-      resp = get_friends_ids
+      resp = get_friends_ids_names(uid)
       friends_json= resp.body 
       friends_hash = ActiveSupport::JSON.decode(friends_json) 
     end
-    friends_hash.each_key {|key| Rails.logger.info "#{key} => #{friends_hash[key]}"}
     if @type == 'qq'
       return extract_friends_list(friends_hash)
     else
@@ -107,12 +116,14 @@ class Weibo
   def extract_friends_list(qqhash)
     if qqhash.has_key?('data')
       friends_list = qqhash['data']['info']
-      friends_ids = friends_names = []
+      friends_ids  = []
+      friends_names = []
       friends_list.each do |friend| 
         friends_ids << friend["openid"]
         friends_names << friend["name"]
       end
     end
+    [friends_ids, friends_names]
   end
 
   def add_status(access_token,token_secret,message)
