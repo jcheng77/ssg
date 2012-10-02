@@ -218,23 +218,28 @@ class UsersController < ApplicationController
     if session[:current_user]
       @user = session[:current_user]
       @user.update_attributes(params[:user])
-      session[:current_user_id] = @user._id
-      session[:current_user] = nil
     else
       @user = User.new(params[:user])
     end
+    
+      #session[:current_user_id] = @user._id
+      #session[:current_user] = nil
 
     respond_to do |format|
-      if @user.save
+      if !@user.valid?  
+        flash[:error] = @user.errors.messages
+        format.html { render action: "signup" }
+      elsif @user.save!
         session[:current_user_id] = @user._id
         format.html { redirect_to edit_preferences_user_url(@user) }
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new" }
+        format.html { render action: "signup" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # PUT /users/1
   # PUT /users/1.json
