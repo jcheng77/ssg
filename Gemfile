@@ -55,6 +55,8 @@ gem 'amazon-ecs'
 gem 'rtesseract'
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'ensure-encoding', '0.1'
+
 
 #gem "weibo_oauth2", "~> 0.0.5"
 

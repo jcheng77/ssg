@@ -5,6 +5,8 @@ require 'uri'
 
 include ImageHelper
 include TaobaoApiHelper
+include ItemHelper
+include EtaoHelper
 
 module BookmarkletHelper
 #  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
@@ -28,17 +30,20 @@ module BookmarkletHelper
       domain_checker
       get_item_id
       retrieve_product_info if correct?
+      search_item_on_etao unless succeed?
     end
 
     def collecter
-      html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
-      @imgs = get_jd_imgs(html)
+      #html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
+      res = Faraday.get @url
+      html = res.body.ensure_encoding('UTF-8', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
       begin
+      @imgs = get_jd_imgs(html)
       @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
-    rescue
-      puts 'encoding error or no price tag found'
-    end
       @title = get_jd_title(html)
+    rescue
+      Rails.logger.info 'encoding error...will retry with etao query at the end of this process'
+    end
       end
 
 
@@ -73,6 +78,8 @@ module BookmarkletHelper
         @site ='360buy'
         @xpath_mark = '//img'
         @title_mark = '//title'
+      when /newegg/
+        @site = 'newegg'
       else
         @site ='others'
       end
@@ -94,6 +101,9 @@ module BookmarkletHelper
         @item_id = path[preindex + 1] if preindex
       when '360buy'
         @item_id = path.last.split('.').first
+      when 'newegg'
+        preindex = path.index("Product") || path.index("dp")
+        @item_id = path[preindex + 1].split('.htm').first if preindex
       else
         @item_id = "invalid"
       end
@@ -101,6 +111,10 @@ module BookmarkletHelper
 
     def correct?
       @item_id && @item_id != "invalid" 
+    end
+
+    def succeed?
+      !( @imgs.blank? || @price.nil? || @title.nil? )
     end
 
     def item_id
@@ -128,7 +142,6 @@ module BookmarkletHelper
         shop = get_shop_info product['nick']
         @shop_name = shop['title']
         @shop_url = taobaoke_item["shop_click_url"]
-        binding.pry
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
@@ -216,7 +229,7 @@ module BookmarkletHelper
     def get_jd_imgs(item_page_source)
       imgs =  item_page_source.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
       imgs.uniq!
-      imgs[0..3]
+      imgs[1..3]
     end
 
     def get_jd_price_by_staic_tag(item_page_source)
@@ -229,6 +242,13 @@ module BookmarkletHelper
       title.slice(/>.*</).slice(1..-2)
     end
 
+    def search_item_on_etao
+      e = Etao.new(@url)
+      etao_result = e.get_item_info
+      @price  =  etao_result[:price]
+      @title = etao_result[:title]
+      @imgs = [etao_result[:image]]
+    end
 
   end
 end

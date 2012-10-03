@@ -111,7 +111,6 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.ump.promotion.get", params
-    binding.pry
     return json["ump_promotion_get_response"]["promotions"] if json!=EMPTY_JSON
   end
  
@@ -122,7 +121,6 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.marketing.promotions.get", params
-    binding.pry
     return json["marketing_promotions_get_response"]["promotions"] if json!=EMPTY_JSON
   end
 
