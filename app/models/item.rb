@@ -7,6 +7,7 @@ class Item
   include Mongo::Followable
   include TaggableHelper
   include BookmarkletHelper
+  include ItemHelper
 
   field :s, as: :source_site, type:String
   field :sub, as: :sub_shop_name, type:String
@@ -89,7 +90,7 @@ class Item
 
     subscribed_items.each do |item|
       begin
-        collector = Collector.new(item.restore_url)
+        collector = Collector.new(item.restore_item_url)
         next if collector.price.to_f == 0
         next unless new_price = collector.price.to_f
 
@@ -173,24 +174,9 @@ class Item
     tags.first(num).map { |t| t[0] }
   end
 
-  def etao_query_url
-    ['/item.htm?tb_lm_id=t_fangshan_wuzhao&url', restore_url ].join('=')
-  end
 
-  def restore_url
-    s_id = shares.first.source
-    case self.source_site
-    when 'taobao'
-    prefix = 'http://item.taobao.com/item.htm?id='
-    when 'tmall'
-      prefix = 'http://detail.tmall.com/item.htm?id='
-    when '360buy'
-      prefix = 'http://www.360buy.com/product/'
-      suffix = '.html'
-    when 'amazon'
-      prefix = 'http://www.amazon.cn/dp/'
-    end
-    return [prefix, s_id, suffix].join
+  def restore_item_url
+    restore_url(self.source_site, self.shares.first.source)
   end
 
 end
