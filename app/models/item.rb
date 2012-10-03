@@ -170,4 +170,25 @@ class Item
     tags = self.tags_with_weight(category).sort_by { |k| -k[1] }
     tags.first(num).map { |t| t[0] }
   end
+
+  def etao_query_url
+    ['/item.htm?tb_lm_id=t_fangshan_wuzhao&url', restore_url ].join('=')
+  end
+
+  def restore_url
+    s_id = shares.first.source
+    case self.source_site
+    when 'taobao'
+    prefix = 'http://item.taobao.com/item.htm?id='
+    when 'tmall'
+      prefix = 'http://detail.tmall.com/item.htm?id='
+    when '360buy'
+      prefix = 'http://www.360buy.com/product/'
+      suffix = '.html'
+    when 'amazon'
+      prefix = 'http://www.amazon.cn/dp/'
+    end
+    return [prefix, s_id, suffix].join
+  end
+
 end
