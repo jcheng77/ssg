@@ -10,6 +10,7 @@ class Item
 
   field :s, as: :source_site, type:String
   field :sub, as: :sub_shop_name, type:String
+  field :sub_url, as: :sub_shop_url, type:String
   field :source_id, type: String
   field :title, type: String
   field :description, type: String
@@ -57,6 +58,7 @@ class Item
     @item = Item.new({
       source_id: collector.item_id,
       sub_shop_name: collector.shop_name,
+      sub_shop_url: collector.shop_url,
       source_site: collector.site,
       title: collector.title,
       image: collector.imgs.first,

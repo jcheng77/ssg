@@ -79,6 +79,8 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    faraday_middleware (0.8.8)
+      faraday (>= 0.7.4, < 0.9)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -261,6 +263,8 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   daemons
   delayed_job_mongoid
+  faraday
+  faraday_middleware
   heroku
   jazz_hands
   jquery-rails

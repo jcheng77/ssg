@@ -124,12 +124,14 @@ module BookmarkletHelper
       end
       when 'taobao','tmall'
         product = get_item @item_id
+        taobaoke_item = convert_items_taobaoke(@item_id)
         shop = get_shop_info product['nick']
         @shop_name = shop['title']
+        @shop_url = taobaoke_item["shop_click_url"]
+        binding.pry
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
-        @purchase_url = convert_item_url item_id
         @purchase_url ||= taobao_url(item_id)
       when '360buy'
         collecter
@@ -167,6 +169,10 @@ module BookmarkletHelper
 
     def shop_name
       @shop_name
+    end
+
+    def shop_url
+      @shop_url
     end
 
     def determine_category

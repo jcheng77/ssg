@@ -101,8 +101,31 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.taobaoke.items.convert", params
-    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"] if json!=EMPTY_JSON
+    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first if json!=EMPTY_JSON
   end
+
+ def get_ump_promotion(item_id)
+    params = {
+      "num_iids" => item_id
+      #"fields" => "promotion_id,promotion_title,num_iid,discount_value,discount_type,status"
+    }
+
+    json = call_taobao "taobao.ump.promotion.get", params
+    binding.pry
+    return json["ump_promotion_get_response"]["promotions"] if json!=EMPTY_JSON
+  end
+ 
+ def get_marketing_promotion(item_id)
+    params = {
+      "num_iids" => item_id,
+      "fields" => "promotion_id,promotion_title,num_iid,discount_value,discount_type,status"
+    }
+
+    json = call_taobao "taobao.marketing.promotions.get", params
+    binding.pry
+    return json["marketing_promotions_get_response"]["promotions"] if json!=EMPTY_JSON
+  end
+
 
   def convert_item_url(item_id)
     params = {
