@@ -53,6 +53,8 @@ gem 'will_paginate_mongoid'
 gem 'nokogiri'
 gem 'amazon-ecs'
 gem 'rtesseract'
+gem 'faraday'
+gem 'faraday_middleware'
 
 #gem "weibo_oauth2", "~> 0.0.5"
 
