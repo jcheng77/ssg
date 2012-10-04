@@ -80,6 +80,7 @@ class Share
   def markdown_inform(new_price)
     share_price = last_inform_price || price
     return if share_price <= new_price
+    Rails.logger.info  [user._id , self.item._id, share_price, new_price].join('|').to_s
     Notification.create(sender_id: user._id, receiver_id: user._id, type: Notification::TYPE_MARKDOWN, target_id: _id)
     update_attributes(last_inform_price: new_price)
     WeiboQueue.create(share_id: _id)
