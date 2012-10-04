@@ -36,7 +36,7 @@ module BookmarkletHelper
     def collecter
       #html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       res = Faraday.get @url
-      html = res.body.ensure_encoding('UTF-8', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
+      html = res.body.ensure_encoding('UTF-7', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
       begin
       @imgs = get_jd_imgs(html)
       @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
@@ -80,6 +80,12 @@ module BookmarkletHelper
         @title_mark = '//title'
       when /newegg/
         @site = 'newegg'
+      when /yihaodian/
+        @site = '1shop'
+      when /gome.com/
+        @site = 'gome'
+      when /dangdang/
+        @site = 'dangdang'
       else
         @site ='others'
       end
@@ -88,6 +94,7 @@ module BookmarkletHelper
     def get_item_id
       uri = URI.parse(URI.encode(@url.strip))
       path = uri.path.split('/')
+      query = uri.query.split('=')
 
       case @site
       when 'taobao'
@@ -101,9 +108,14 @@ module BookmarkletHelper
         @item_id = path[preindex + 1] if preindex
       when '360buy'
         @item_id = path.last.split('.').first
-      when 'newegg'
-        preindex = path.index("Product") || path.index("dp")
+      when 'newegg', 'gome'
+        preindex = path.index("Product") || path.index("product") || path.index("dp") 
         @item_id = path[preindex + 1].split('.htm').first if preindex
+      when '1shop'
+        @item_id = path.last
+      when 'dangdang'
+        preindex = query.index("product_id")
+        @item_id = query[preindex+1] if preindex
       else
         @item_id = "invalid"
       end
