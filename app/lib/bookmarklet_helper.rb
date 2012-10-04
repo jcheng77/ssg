@@ -36,7 +36,7 @@ module BookmarkletHelper
     def collecter
       #html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       res = Faraday.get @url
-      html = res.body.ensure_encoding('UTF-7', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
+      html = res.body.ensure_encoding('UTF-8', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
       begin
       @imgs = get_jd_imgs(html)
       @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
@@ -94,7 +94,7 @@ module BookmarkletHelper
     def get_item_id
       uri = URI.parse(URI.encode(@url.strip))
       path = uri.path.split('/')
-      query = uri.query.split('=')
+      query = uri.query
 
       case @site
       when 'taobao'
@@ -114,6 +114,7 @@ module BookmarkletHelper
       when '1shop'
         @item_id = path.last
       when 'dangdang'
+        query = query.split('=')
         preindex = query.index("product_id")
         @item_id = query[preindex+1] if preindex
       else
