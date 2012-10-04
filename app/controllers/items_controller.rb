@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
     collector = Collector.new(params[:url])
     @imgs = collector.imgs
 
-    if collector.correct?
+    if collector.succeed?
       @item = Item.new_with_collector(collector)
       @share = @item.shares.last
     else

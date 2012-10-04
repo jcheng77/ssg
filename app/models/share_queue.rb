@@ -15,7 +15,7 @@ class ShareQueue
   def create_share
     return unless user = User.find_by_weibo_uid(uid)
     collector = Collector.new(url)
-    return unless collector.correct?
+    return unless collector.succeed?
 
     # TODO: Add to transaction
     item = Item.update_or_create_by_collector(collector)
