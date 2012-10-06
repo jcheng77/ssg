@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'net/http'
 require 'open-uri'
 require 'uri'
+require 'cgi'
 
 include ImageHelper
 include TaobaoApiHelper
@@ -182,7 +183,7 @@ module BookmarkletHelper
     end
 
     def purchase_url
-      @purchase_url ||= @url
+      @purchase_url ||= convert_url(@url)
     end
 
     def category
@@ -261,6 +262,21 @@ module BookmarkletHelper
       @price  =  etao_result[:price]
       @title = etao_result[:title]
       @imgs = [etao_result[:image]]
+    end
+
+    def convert_url(url)
+      case @site
+      when 'taobao', 'tmall' , '360buy'
+        @url
+      when '1shop'
+        [@url, 'tracker_u=107128006'].join('?')
+      when 'dangdang'
+        ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
+      when 'gome'
+        @url
+      when 'newegg'
+        @url
+      end
     end
 
   end
