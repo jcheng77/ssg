@@ -65,20 +65,15 @@ module BookmarkletHelper
       case host
       when /taobao/
         @site =  'taobao'
-        @css_mark =  'div.tb-pic img'
         if /trade/.match(host)
           @url = get_trade_snapshot_item
         end
       when /tmall/
         @site = 'tmall'
-        @css_mark =  'div.tb-pic img'
       when /amazon/
         @site = 'amazon'
-        @css_mark = 'prodimage'
       when /360buy/
         @site ='360buy'
-        @xpath_mark = '//img'
-        @title_mark = '//title'
       when /newegg/
         @site = 'newegg'
       when /yihaodian/
@@ -118,6 +113,9 @@ module BookmarkletHelper
         query = query.split('=')
         preindex = query.index("product_id")
         @item_id = query[preindex+1] if preindex
+      when 'vancl'
+        pp = path.select {|p| p.slice(/\d+.html/)}
+        @item_id = pp.first.slice(/\d+/)
       else
         @item_id = "invalid"
       end
@@ -266,15 +264,14 @@ module BookmarkletHelper
 
     def convert_url(url)
       case @site
-      when 'taobao', 'tmall' , '360buy'
-        @url
       when '1shop'
         [@url, 'tracker_u=107128006'].join('?')
       when 'dangdang'
         ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
-      when 'gome'
-        @url
-      when 'newegg'
+      when 'vancl'
+        connector = ( @url.index('?') > 0 ? '&' : '?')
+        [@url, 'source=boluome'].join(connector)
+      else 
         @url
       end
     end
