@@ -86,6 +86,8 @@ module BookmarkletHelper
         @site = 'vancl'
       when /suning/
         @site = 'suning'
+      when /51buy/
+        @site = '51buy'
       else
         @site ='others'
       end
@@ -117,7 +119,7 @@ module BookmarkletHelper
         query = query.split('=')
         preindex = query.index("product_id")
         @item_id = query[preindex+1] if preindex
-      when 'vancl'
+      when 'vancl','51buy'
         pp = path.select {|p| p.slice(/\d+.html/)}
         @item_id = pp.first.slice(/\d+/)
       when 'suning'
