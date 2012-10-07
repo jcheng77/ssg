@@ -82,6 +82,10 @@ module BookmarkletHelper
         @site = 'gome'
       when /dangdang/
         @site = 'dangdang'
+      when /vancl/
+        @site = 'vancl'
+      when /suning/
+        @site = 'suning'
       else
         @site ='others'
       end
@@ -116,6 +120,8 @@ module BookmarkletHelper
       when 'vancl'
         pp = path.select {|p| p.slice(/\d+.html/)}
         @item_id = pp.first.slice(/\d+/)
+      when 'suning'
+        @item_id = (path.last.split('.').first if path.last.index('html') > 0)
       else
         @item_id = "invalid"
       end
