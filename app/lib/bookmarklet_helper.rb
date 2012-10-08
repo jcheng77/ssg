@@ -279,6 +279,8 @@ module BookmarkletHelper
       when 'vancl'
         connector = ( @url.index('?') > 0 ? '&' : '?')
         [@url, 'source=boluome'].join(connector)
+      when 'newegg'
+        [@url, 'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode'].join('&')
       else 
         @url
       end
