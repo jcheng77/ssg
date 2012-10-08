@@ -3,7 +3,7 @@ class Comment
   include Mongoid::MultiParameterAttributes
   include Mongoid::Timestamps::Created
   include Mongo::Voteable
-  include Mongo::Followable
+  include Mongo::Followable::Followed
 
   field :user_id, type: BSON::ObjectId # user who writes this comment
   field :content, type: String # content of the comment

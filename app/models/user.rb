@@ -3,8 +3,8 @@ class User
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
   include Mongo::Voter
-  include Mongo::Follower
-  include Mongo::Followable
+  include Mongo::Followable::Followed
+  include Mongo::Followable::Follower
 
   #devise :registerable, :database_authenticatable, :recoverable
 

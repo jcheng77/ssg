@@ -4,7 +4,7 @@
 class Item
   include Mongoid::Document
   include Mongoid::Timestamps::Created
-  include Mongo::Followable
+  include Mongo::Followable::Followed
   include TaggableHelper
   include BookmarkletHelper
   include ItemHelper

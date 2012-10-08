@@ -3,7 +3,7 @@
 class Share
   include Mongoid::Document
   include Mongoid::Timestamps::Created
-  include Mongo::Followable
+  include Mongo::Followable::Followed
   include VisibleToHelper
   include CommentableHelper
   include TaggableHelper

@@ -25,7 +25,7 @@
     <div class="span4">
         <div class="item-title" title="<%= @item.title %>"><%= @item.title %></div>
         <div class="thumbnail">
-          <%= link_to image_tag(@item.image, :width => '360') , @item.purchase_url , {:target => '_blank' }%>
+            <%= link_to image_tag(@item.image, :width => '360'), @item.purchase_url, {:target => '_blank'} %>
 
             <div class="caption">
                 <ul class="nav nav-pills info" style="font-size: 16px;">
@@ -35,17 +35,18 @@
                 </ul>
             </div>
         </div>
-         <div class="page-header item-desc">
+        <div class="page-header item-desc">
             <% unless @item.sub_shop_name.blank? %>
-
-              <span class='item-shop'>来自:&#160; <%= link_to  @item.sub_shop_url , {:class => 'item-shop', :target => '_blank'} do  %>
-                  <span class="item-text" title="<%= @item.sub_shop_name %>"><%= @item.sub_shop_name %></span>
-              <% end %>
-              </span>
+                <span class='item-shop'>来自:&#160;
+                    <span class="item-text" title="<%= @item.sub_shop_name %>">
+                        <%= link_to @item.sub_shop_name, @item.sub_shop_url, {:target => '_blank'} %>
+                    </span>
+                </span>
             <% end %>
-            <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url , { :target => '_blank'}  %>
+            <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url, {:target => '_blank'} %>
             <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
         </div>
+
         <ul class="tag-block">
             <% @item.tags_each do |t| %>
                 <li>
@@ -54,15 +55,16 @@
             <% end %>
         </ul>
         <%= form_tag add_tag_item_path(@item), class: "well form-inline tag-form" do %>
-          <input type="hidden" id="tags" name="tag">
-          <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%=Item.tags%>'>
-            <ul class="tags">
-              <li><input type="text" style="width:30px;"/></li>
-            </ul>
-          </div>
+            <input type="hidden" id="tags" name="tag">
 
-          <%= submit_tag "添加标签", class: "add-tag btn btn-info" %>
-          <div class="clear"></div>
+            <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%= Item.tags %>'>
+                <ul class="tags">
+                    <li><input type="text" style="width:30px;"/></li>
+                </ul>
+            </div>
+
+            <%= submit_tag "添加标签", class: "add-tag btn btn-info" %>
+            <div class="clear"></div>
         <% end %>
     </div>
     <div class="span8">
@@ -88,7 +90,7 @@
     <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
             <% unless @item == item %>
-                <%= render :partial => "items/item", :object => item, :locals => { :tags => item.tags, :share => item.root_share} %>
+                <%= render :partial => "items/item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
             <% end %>
         <% end %>
     </ul>

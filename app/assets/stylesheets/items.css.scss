@@ -155,11 +155,15 @@ form.well.tag-form {
   span.item-text{
     line-height: 29px;
     font-weight: normal;
+
+    a {
+      float: none;
+    }
   }
   span.item-price{
     font-size: 18px;
     color: #F14382;
-    margin-right: 25px;
+    margin-right: 15px;
   }
   span.item-price, a{
     float: right;
