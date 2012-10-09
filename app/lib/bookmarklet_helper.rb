@@ -161,7 +161,7 @@ module BookmarkletHelper
         taobaoke_item = convert_items_taobaoke(@item_id)
         shop = get_shop_info product['nick']
         @shop_name = shop['title']
-        @shop_url = taobaoke_item["shop_click_url"]
+        @shop_url = taobaoke_item["shop_click_url"] unless taobaoke_item.nil?
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
