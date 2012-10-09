@@ -1,6 +1,5 @@
-#encoding: utf-8
+# encoding: utf-8
 
-# -*- encoding: utf-8 -*-
 class Item
   include Mongoid::Document
   include Mongoid::Timestamps::Created
@@ -9,9 +8,9 @@ class Item
   include BookmarkletHelper
   include ItemHelper
 
-  field :s, as: :source_site, type:String
-  field :sub, as: :sub_shop_name, type:String
-  field :sub_url, as: :sub_shop_url, type:String
+  field :s, as: :source_site, type: String
+  field :sub, as: :sub_shop_name, type: String
+  field :sub_url, as: :sub_shop_url, type: String
   field :source_id, type: String
   field :title, type: String
   field :description, type: String
@@ -19,7 +18,7 @@ class Item
   field :price_low, type: Float # lowest price
   field :price_high, type: Float # highest price
   field :image, type: String # title picture
-  # field :tags, type: Array # string[]
+
   field :category, type: String
   field :purchase_url, type: String
   field :root_share_id, type: BSON::ObjectId
@@ -31,7 +30,7 @@ class Item
   enable_tags_index!
   tags_index_group_by :category
 
-  def self.in_categories_and_tags(categories, tags, page, per_page = 16)
+  def self.in_categories_and_tags(categories, tags, page, per_page = 24)
     query = self.where(:category.in => categories)
     query = query.has_tags(tags) unless tags.blank?
     query.desc(:created_at).paginate(:page => page, :per_page => per_page)
@@ -57,26 +56,26 @@ class Item
 
   def self.new_with_collector(collector)
     @item = Item.new({
-      source_id: collector.item_id,
-      sub_shop_name: collector.shop_name,
-      sub_shop_url: collector.shop_url,
-      source_site: collector.site,
-      title: collector.title,
-      image: collector.imgs.first,
-      purchase_url: collector.purchase_url,
-      category: collector.category
-    })
+                         source_id: collector.item_id,
+                         sub_shop_name: collector.shop_name,
+                         sub_shop_url: collector.shop_url,
+                         source_site: collector.site,
+                         title: collector.title,
+                         image: collector.imgs.first,
+                         purchase_url: collector.purchase_url,
+                         category: collector.category
+                     })
     @item.shares << Share.new({
-      source: collector.item_id,
-      price: collector.price
-    })
+                                  source: collector.item_id,
+                                  price: collector.price
+                              })
 
     return @item
   end
 
   def self.update_or_create_by_collector(collector)
     item_params = init_params_with_collector(collector)
-    if item = first(conditions: { source_id: collector.item_id})
+    if item = first(conditions: {source_id: collector.item_id})
       item.update_attributes(item_params)
     else
       item = create(item_params)
@@ -86,7 +85,7 @@ class Item
   end
 
   def self.sync_data
-    subscribed_items = all.select{|item| item.subscribed? }
+    subscribed_items = all.select { |item| item.subscribed? }
 
     subscribed_items.each do |item|
       begin
@@ -110,11 +109,11 @@ class Item
   def self.init_params_with_collector(collector)
     # TODO: category
     {
-      source_id: collector.item_id,
-      title: collector.title,
-      image: collector.imgs.first,
-      purchase_url: collector.purchase_url,
-      category: collector.category || '创意礼品'
+        source_id: collector.item_id,
+        title: collector.title,
+        image: collector.imgs.first,
+        purchase_url: collector.purchase_url,
+        category: collector.category || '创意礼品'
     }
   end
 
@@ -127,13 +126,13 @@ class Item
     if ratings.blank?
       update_attributes(product_rating: 0)
     else
-      sum = ratings.inject {|sum, n| sum + n } || 0
+      sum = ratings.inject { |sum, n| sum + n } || 0
       update_attributes(product_rating: sum/ratings.count)
     end
   end
 
   def subscribed_shares
-    shares.select {|share| share.subscribed }
+    shares.select { |share| share.subscribed }
   end
 
   def subscribed?
@@ -141,7 +140,7 @@ class Item
   end
 
   def latest_price
-    s = shares.desc(:create_at).select {|i| i.price}
+    s = self.shares.desc(:create_at).select { |i| i.price }
     s.present? ? s.last.price : '暂无价格'
   end
 

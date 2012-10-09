@@ -1,0 +1,6 @@
+<% unless @item.nil? %>
+$("#overlay-detail").html("<%= escape_javascript render(:partial => "items/form", :locals => {:item => @item, :share => @share, :imgs => @imgs}) %>");
+<% else %>
+$("#overlay-detail").html("");
+alert("出错啦！");
+<% end %>

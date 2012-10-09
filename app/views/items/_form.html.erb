@@ -1,56 +1,127 @@
-<%= form_for(@item) do |f| %>
-    <div class="grid_9">
-        <div class="share_img_view">
-            <img id="share_img_src" src="<%= @item_imgs.first if @item_imgs %>"/>
-            <%= hidden_field_tag "item[image]", @item.image %>
-            <%= hidden_field_tag "item[purchase_url]", @item.purchase_url %>
+<%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form'}) do |f| %>
+    <div id="bookmarklet_container" style='width: 800px;' class="row">
+        <div style="background-color:#e3e3e3; height: 28px; line-height: 28px; padding: 2px 15px;"><%= item.title %></div>
+        <div class="span3" style="margin: 0">
+            <div class="images_picker" style="background-color: #fff">
+                <div class="image_frame">
+                    <img src="<%= imgs.first %>" alt=""/>
+
+                    <div class="dimension"></div>
+                </div>
+                <ul class="image_list">
+                    <% imgs.each do |img| %>
+                        <li><img src="<%= img %>" alt=""></li>
+                    <% end %>
+                    <div class='clear'></div>
+                </ul>
+            </div>
         </div>
-        <div class="share_img_others">
-            <ul>
-                <% @item_imgs.each do |img| %>
-                    <li><img src="<%= img + "_40x40.jpg" %>"/></li>
-                <% end %>
-            </ul>
+
+        <div class="span6" style="width: 500px; margin-top: 20px;">
+            <%= hidden_field_tag "share[source]", share.source %>
+            <%= hidden_field_tag "item[image]", item.image %>
+            <%= hidden_field_tag "item[purchase_url]", item.purchase_url %>
+            <%= hidden_field_tag "item[sub_shop_name]", item.sub_shop_name %>
+            <%= hidden_field_tag "item[sub_shop_url]", item.sub_shop_url %>
+            <%= hidden_field_tag "item[source_site]", item.source_site %>
+            <%= hidden_field_tag "item[title]", item.title %>
+            <%= hidden_field_tag "share[price]", share.price %>
+
+            <%= f.input :category, :label => '分类' do %>
+                <%= f.select :category, Hash[categories.map { |c| [c, c] }], include_blank: false %>
+            <% end -%>
+            <%= f.input :rating_comp, :label => '推荐指数' do %>
+                <div id="rating_comp" stars="<%= share.product_rating %>" scoreName="share[product_rating]"></div>
+            <% end -%>
+            <%= f.input :tags, :label => '标签' do %>
+                <input type="hidden" id="tags" name="item[tags]">
+
+                <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%= Item.tags %>'>
+                    <ul class="tags">
+                        <li><input type="text" style="width: 30px;"/></li>
+                    </ul>
+                </div>
+            <% end -%>
+            <%= f.input :comment, :label => '推荐评论' do %>
+                <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
+            <% end -%>
+            <div class="controls">
+
+                <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;加入愿望&#160;&#160;&#160;&#160;
+                <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;加入已购
+
+                <div id='wisth_type_list' class="btn-group" data-toggle="buttons-checkbox" style='display:none;margin-top:15px'>
+                    <button type="button" class="btn">生日礼物</button>
+                    <button type="button" class="btn">情人节</button>
+                    <button type="button" class="btn">光棍节</button>
+                    <button type="button" class="btn">结婚礼物</button>
+                    <button type="button" class="btn">想送就送</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="grid_11">
-        <div class="input_field" style="margin-top:0px;">
-            <label for="title">标题：</label>
-            <input type="text" name="item[title]" id="title" value="<%= @item.title %>"/>
-        </div>
-        <div class="input_field">
-            <label for="price">价格：</label>
-            <input type="text" name="share[price]" id="price" value="<%= @share.price %>"/>
-        </div>
-        <div class="input_field">
-            <label class="rating_comp_label" for="rating">评分：</label>
+    <div id="overlay-footer" style="line-height:45px;height:45px;text-align:center;background-color:#e3e3e3;padding: 0 15px">
+        <a style='float: left;'>点击试试菠萝蜜书签收集</a>
 
-            <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
+        <div style='float: right;'>
+            <input type="checkbox" name="add_to_bought"/>&#160;&#160;分享到微博&#160;&#160;&#160;&#160;
+            <input type="checkbox" name="add_to_wish"/>&#160;&#160;订阅降价通知
         </div>
-        <div class="input_field">
-            <label class="top_label" for="desc">描述：</label>
-            <%= text_area_tag "share[comment]", @share.comment_content, :id => 'desc' %>
-        </div>
-        <div class="input_field">
-            <label for="category">分类：</label>
-            <select name="item[category]">
-                <% categories.each do |c| %>
-                    <option value="<%= c %>"><%= c %></option>
-                <% end %>
-            </select>
-        </div>
-        <div class="input_field">
-            <label class="top_label" for="tags">标签：</label>
-            <textarea id="tags" name="item[tags]"></textarea>
-        </div>
-
-        <div class="submit_field">
-            <%= hidden_field_tag "share[user_id]", current_user._id %>
-            <%= hidden_field_tag "share[source]", @share.source %>
-            <div class="submit_link"><a class="submit_btn" href="javascript:$('form')[0].submit();void(0);">提交分享</a>
-            </div>
-            <div class="share_wb_link"><input type="checkbox" checked/><span>分享到新浪微博</span></div>
-        </div>
+        <%= f.submit '我要推荐', :class => 'btn btn-warning', :style => 'clean: both;' %>
     </div>
 <% end %>
+<script>
+    var GLOBAL_IMAGES_FROM_BOOKMARK = [];
+    <% @imgs.each do |img| %>
+    GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
+    <% end %>
 
+    $(document).ready(function () {
+        var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
+                dimension = $('#bookmarklet_container .dimension')[0],
+                imageFrame = $('#bookmarklet_container .image_frame img')[0];
+        dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
+        $('.image_list li').click(function () {
+            if (selected) {
+                selected.removeClass('selected');
+            }
+            selected = $(this);
+            selected.addClass('selected');
+            src = selected.find('img')[0].src;
+            imageFrame.src = src;
+            dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
+            $('#item_image').val(src);
+        });
+        $('#bookmarklet_container form').on('submit', function (event) {
+            if ($('#desc').val().length == 0) {
+                alert('请输入推荐评论');
+                return false;
+            }
+        });
+
+        if ($('#rating_comp').length > 0) {
+            $('div#rating_comp').raty({
+                readOnly:false,
+                start:$('div#rating_comp').attr("stars"),
+                scoreName:$('div#rating_comp').attr("scoreName"),
+                path:'/assets/smallStars',
+                hintList:['', '', '', '', '']
+            });
+        };
+
+        $('#add_to_wish').click(function () {
+            if (this.checked) {
+                $('#wisth_type_list').css('display', 'block');
+                $('#add_to_bought').attr('checked', false);
+            } else {
+                $('#wisth_type_list').css('display', 'none');
+            }
+        });
+        $('#add_to_bought').click(function () {
+            if (this.checked) {
+                $('#add_to_wish').attr('checked', false);
+                $('#wisth_type_list').css('display', 'none');
+            }
+        });
+    });
+</script>
