@@ -161,19 +161,6 @@ module BookmarkletHelper
             node2 = item/'DetailPageURL'
             @purchase_url = node2.first.text if node
           end
-        when 'taobao', 'tmall'
-          product = get_item @item_id
-          taobaoke_item = convert_items_taobaoke(@item_id)
-          shop = get_shop_info product['nick']
-          @shop_name = shop['title']
-          @shop_url = taobaoke_item["shop_click_url"]
-          @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
-          @price = product['price']
-          @title = product['title']
-          @purchase_url ||= taobao_url(item_id)
-        when '360buy'
-          collecter
-      end
       when 'taobao','tmall'
         product = get_item @item_id
         taobaoke_item = convert_items_taobaoke(@item_id)
