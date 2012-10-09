@@ -101,7 +101,8 @@ module TaobaoApiHelper
     }
 
     json = call_taobao "taobao.taobaoke.items.convert", params
-    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first if json!=EMPTY_JSON
+    return json["taobaoke_items_convert_response"]["taobaoke_items"]["taobaoke_item"].first if json!=EMPTY_JSON && json["taobaoke_items_convert_response"]["total_results"]!=0
+ 
   end
 
  def get_ump_promotion(item_id)
