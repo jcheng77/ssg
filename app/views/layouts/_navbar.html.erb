@@ -40,6 +40,8 @@
                         </li>
                     </ul>
                     <%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>
+                    <!--<a id='share-btn' role="button" class="btn btn-warning pull-right" rel="#share-panel">我要分享</a>-->
+            
                 <% end %>
                 <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
                 <ul class='pull-right notification-cont'>
@@ -52,3 +54,136 @@
         </div>
     </div>
 </div>
+
+<% if current_user %>
+   
+    <div class="simple_overlay" id="share-panel">
+        <div class="overlay-link">
+            <%= text_field_tag :url, nil, :style => 'width:600px', :class => 'input-medium search-query shareUrl', placeholder: "请输入需要分享的商品链接..." %>
+            <button class="btn btn-primary" type="button" id='parseUrl-btn'>下一步</button>
+        </div> 
+        <!-- following part is static hard code for demo, will be removed when ajaxcall is avaliable -->
+        <div id="overlay-detail" style="display:none">
+            <form accept-charset="UTF-8" action="" class="simple_form form-horizontal tag-form" >
+            <div id="bookmarklet_container" style='width:800px;' class="row">
+                <div style="background-color:#e3e3e3; height: 28px; line-height: 28px; padding: 2px 15px;">飞利浦旗舰店 三刀头充电式剃须刀PT720 可全身水洗 599.0</div>
+                <div class="span3" style="margin: 0">
+                    <div class="images_picker" style="background-color: #fff">
+                        <div class="image_frame">
+                            <img src="http://img03.taobaocdn.com/bao/uploaded/i3/T14b2RXapfXXbAK_Q9_104701.jpg" alt="">
+                            <div class="dimension">104701</div>
+                        </div>
+                        <ul class="image_list">
+                            <li><img src="http://img03.taobaocdn.com/bao/uploaded/i3/T14b2RXapfXXbAK_Q9_104701.jpg" alt=""></li>
+                            <li><img src="http://img03.taobaocdn.com/bao/uploaded/i3/92686194/T2A8tEXlNMXXXXXXXX_!!92686194.jpg" alt=""></li>
+                            <li><img src="http://img04.taobaocdn.com/bao/uploaded/i4/92686194/T2lWmwXdhXXXXXXXXX_!!92686194.jpg" alt=""></li>
+                            <li><img src="http://img01.taobaocdn.com/bao/uploaded/i1/92686194/T2HqqwXblXXXXXXXXX_!!92686194.jpg" alt=""></li>
+                            <li><img src="http://img04.taobaocdn.com/bao/uploaded/i4/92686194/T2_GuwXXpXXXXXXXXX_!!92686194.jpg" alt=""></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="span6" style="width:500px;margin-top:20px">
+                    <div class="control-group string required">
+                        <label class="string required control-label" for="item_category">分类</label>
+                        <div class="controls">
+                            <select id="item_category" name="item[category]">
+                                <option value="数码">数码</option>
+                                <option value="户外运动">户外运动</option>
+                                <option value="男装">男装</option>
+                                <option value="女装">女装</option>
+                                <option value="箱包">箱包</option>
+                                <option value="饰品">饰品</option>
+                                <option value="化妆品">化妆品</option>
+                                <option value="居家">居家</option>
+                                <option value="食品">食品</option>
+                                <option value="汽车">汽车</option>
+                                <option value="图书影像">图书影像</option>
+                                <option value="创意礼品">创意礼品</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group string optional">
+                        <label class="string optional control-label" for="item_rating_comp">推荐指数</label>
+                        <div class="controls">
+                            <div id="rating_comp" stars="" scorename="share[product_rating]" style="width: 100px; cursor: pointer; ">
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="control-group string optional">
+                        <label class="string optional control-label" for="item_tags">标签</label>
+                        <div class="controls">
+                            <input type="hidden" id="tags" name="item[tags]">
+                            <div tabindex="0" class="tageditor" data-provide="tageditor" data-source="[&quot;27寸&quot;, &quot;3G&quot;, &quot;AKG&quot;, &quot;Apple TV&quot;, &quot;Galaxy&quot;, &quot;HDMI&quot;, &quot;PS3&quot;, &quot;Ruby元编程&quot;, &quot;SSD&quot;, &quot;TPLINK&quot;, &quot;Thinkpad&quot;, &quot;USB&quot;, &quot;apple&quot;, &quot;ceo&quot;, &quot;coach&quot;, &quot;comic&quot;, &quot;facebook&quot;, &quot;ipad&quot;, &quot;ipad3&quot;, &quot;iphone&quot;, &quot;iphone5&quot;, &quot;macbook&quot;, &quot;macbook pro&quot;, &quot;pro&quot;, &quot;ruby&quot;, &quot;t恤&quot;, &quot;u盘&quot;, &quot;三星&quot;, &quot;东芝&quot;, &quot;个性&quot;, &quot;书&quot;, &quot;书包 儿童&quot;, &quot;代购&quot;, &quot;休闲&quot;, &quot;冰河世纪&quot;, &quot;冰箱&quot;, &quot;化妆镜&quot;, &quot;单肩包&quot;, &quot;卧室&quot;, &quot;厨房&quot;, &quot;古着&quot;, &quot;吊坠&quot;, &quot;吊灯&quot;, &quot;周鸿祎&quot;, &quot;和记忆&quot;, &quot;围裙&quot;, &quot;墙纸&quot;, &quot;壁灯&quot;, &quot;壁画&quot;, &quot;外套&quot;, &quot;大家电&quot;, &quot;大衣&quot;, &quot;奇虎360&quot;, &quot;女鞋&quot;, &quot;好看好看！&quot;, &quot;宠物&quot;, &quot;小外套&quot;, &quot;小家电&quot;, &quot;小电器&quot;, &quot;小礼品&quot;, &quot;小米&quot;, &quot;小西装&quot;, &quot;帅！&quot;, &quot;帆布包&quot;, &quot;帐篷&quot;, &quot;床单 三件套&quot;, &quot;心理学&quot;, &quot;情侣&quot;, &quot;戒指&quot;, &quot;户外&quot;, &quot;手工&quot;, &quot;手工制作 超级复古&quot;, &quot;手机&quot;, &quot;手机配件&quot;, &quot;手表&quot;, &quot;手链&quot;, &quot;手镯&quot;, &quot;打底&quot;, &quot;投影机&quot;, &quot;拖鞋&quot;, &quot;数据相机&quot;, &quot;数据线&quot;, &quot;数码&quot;, &quot;文学&quot;, &quot;旅行&quot;, &quot;日本&quot;, &quot;日用品&quot;, &quot;日系&quot;, &quot;显示器&quot;, &quot;李晨&quot;, &quot;杯具&quot;, &quot;杯子&quot;, &quot;格兰仕&quot;, &quot;框子&quot;, &quot;桌游&quot;, &quot;椅子&quot;, &quot;模特&quot;, &quot;欧美&quot;, &quot;死或生&quot;, &quot;毛衣&quot;, &quot;气质&quot;, &quot;沙发&quot;, &quot;浪漫&quot;, &quot;淑女&quot;, &quot;游戏&quot;, &quot;漫画&quot;, &quot;潮男&quot;, &quot;灯&quot;, &quot;点心&quot;, &quot;煮锅&quot;, &quot;牛仔&quot;, &quot;猫咪&quot;, &quot;猫食&quot;, &quot;玩具&quot;, &quot;甜美&quot;, &quot;电池&quot;, &quot;电热锅&quot;, &quot;电脑桌&quot;, &quot;男装&quot;, &quot;畅销&quot;, &quot;秋装&quot;, &quot;移动电源&quot;, &quot;移动硬盘&quot;, &quot;童装&quot;, &quot;简约&quot;, &quot;绿植&quot;, &quot;编程&quot;, &quot;罗技&quot;, &quot;美女&quot;, &quot;美鞋&quot;, &quot;羽毛球&quot;, &quot;羽绒服&quot;, &quot;耳机&quot;, &quot;胶片&quot;, &quot;英伦&quot;, &quot;苹果&quot;, &quot;茶几&quot;, &quot;萌&quot;, &quot;落地灯&quot;, &quot;衣服&quot;, &quot;装饰&quot;, &quot;裤子&quot;, &quot;调味瓶&quot;, &quot;运动服&quot;, &quot;连帽杉&quot;, &quot;钱包&quot;, &quot;门垫&quot;, &quot;雨伞&quot;, &quot;零食&quot;, &quot;鞋子&quot;, &quot;韩寒&quot;, &quot;韩版&quot;, &quot;项链&quot;, &quot;风衣&quot;, &quot;餐具&quot;, &quot;首饰&quot;, &quot;魔兽&quot;]">
+                                <ul class="tags">
+                                    <li><input type="text" style="width:30px;"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>        
+                    <div class="control-group string optional">
+                        <label class="string optional control-label" for="item_comment">推荐评论</label>
+                        <div class="controls">
+                            <textarea class="input-xlarge" id="desc" name="share[comment]" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="controls">
+
+                        <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;加入愿望&#160;&#160;&#160;&#160;
+                        <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;加入已购
+                        
+                        <div id='wisth_type_list' class="btn-group" data-toggle="buttons-checkbox" style='display:none;margin-top:15px'>
+                            <button type="button" class="btn">生日礼物</button>
+                            <button type="button" class="btn">情人节</button>
+                            <button type="button" class="btn">光棍节</button>
+                            <button type="button" class="btn">结婚礼物</button>
+                            <button type="button" class="btn">想送就送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div id="overlay-footer" style="line-height:45px;height:45px;text-align:center;background-color:#e3e3e3;padding: 0 15px">
+                <a style='float:left'>点击试试菠萝蜜书签收集</a>
+                <div style='float:right;'>
+                    <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;分享到微博&#160;&#160;&#160;&#160;
+                    <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;订阅降价通知
+                </div>
+                <a role="button" class="btn btn-warning" style='clean:both'>我要推荐</a>
+            </div>
+        </div>
+        <!-- end of static part -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#share-btn").overlay({fixed:false});
+
+            $("#share-btn").overlay().onClose(function(){
+                $('#share-panel').css('height', 'auto');
+                $('#overlay-detail').css('display','none');
+            });
+
+            $('#parseUrl-btn').click(function(){
+                //$('#share-panel').css('height', '550px');
+                $('#overlay-detail').css('display','block');
+            });
+
+            $('#add_to_wish').click(function(){
+                if(this.checked){
+                    $('#wisth_type_list').css('display','block');
+                    $('#add_to_bought').attr('checked', false);
+                } else {
+                    $('#wisth_type_list').css('display','none');
+                }
+            });
+            $('#add_to_bought').click(function(){
+                if(this.checked){
+                    $('#add_to_wish').attr('checked', false);
+                    $('#wisth_type_list').css('display','none');
+                }
+            });
+        });
+    </script>
+<% end %>
