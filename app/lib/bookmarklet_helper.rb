@@ -22,6 +22,7 @@ module BookmarkletHelper
   
 
 
+
   class Collector
 
     def initialize(url)
@@ -68,33 +69,33 @@ module BookmarkletHelper
       end
 
       case host
-        when /taobao/
-          @site = 'taobao'
-          if /trade/.match(host)
-            @url = get_trade_snapshot_item
-          end
-        when /tmall/
-          @site = 'tmall'
-        when /amazon/
-          @site = 'amazon'
-        when /360buy/
-          @site ='360buy'
-        when /newegg/
-          @site = 'newegg'
-        when /yihaodian/
-          @site = '1shop'
-        when /gome.com/
-          @site = 'gome'
-        when /dangdang/
-          @site = 'dangdang'
-        when /vancl/
-          @site = 'vancl'
-        when /suning/
-          @site = 'suning'
-        when /51buy/
-          @site = '51buy'
-        else
-          @site ='others'
+      when /taobao/
+        @site = 'taobao'
+        if /trade/.match(host)
+          @url = get_trade_snapshot_item
+        end
+      when /tmall/
+        @site = 'tmall'
+      when /amazon/
+        @site = 'amazon'
+      when /360buy/
+        @site ='360buy'
+      when /newegg/
+        @site = 'newegg'
+      when /yihaodian/
+        @site = '1shop'
+      when /gome.com/
+        @site = 'gome'
+      when /dangdang/
+        @site = 'dangdang'
+      when /vancl/
+        @site = 'vancl'
+      when /suning/
+        @site = 'suning'
+      when /51buy/
+        @site = '51buy'
+      else
+        @site ='others'
       end
     end
 
@@ -104,33 +105,33 @@ module BookmarkletHelper
       query = uri.query
 
       case @site
-        when 'taobao'
-          req_hash = Rack::Utils.parse_nested_query uri.query
-          @item_id = req_hash["id"]
-        when 'tmall'
-          req_hash = Rack::Utils.parse_nested_query uri.query
-          @item_id ||= (req_hash["id"] || req_hash["mallstItemId"])
-        when 'amazon'
-          preindex = path.index("product") || path.index("dp")
-          @item_id = path[preindex + 1] if preindex
-        when '360buy'
-          @item_id = path.last.split('.').first
-        when 'newegg', 'gome'
-          preindex = path.index("Product") || path.index("product") || path.index("dp")
-          @item_id = path[preindex + 1].split('.htm').first if preindex
-        when '1shop'
-          @item_id = path.last
-        when 'dangdang'
-          query = query.split('=')
-          preindex = query.index("product_id")
-          @item_id = query[preindex+1] if preindex
-        when 'vancl', '51buy'
-          pp = path.select { |p| p.slice(/\d+.html/) }
-          @item_id = pp.first.slice(/\d+/)
-        when 'suning'
-          @item_id = (path.last.split('.').first if path.last.index('html') > 0)
-        else
-          @item_id = "invalid"
+      when 'taobao'
+        req_hash = Rack::Utils.parse_nested_query uri.query
+        @item_id = req_hash["id"]
+      when 'tmall'
+        req_hash = Rack::Utils.parse_nested_query uri.query
+        @item_id ||= (req_hash["id"] || req_hash["mallstItemId"])
+      when 'amazon'
+        preindex = path.index("product") || path.index("dp")
+        @item_id = path[preindex + 1] if preindex
+      when '360buy'
+        @item_id = path.last.split('.').first
+      when 'newegg', 'gome'
+        preindex = path.index("Product") || path.index("product") || path.index("dp")
+        @item_id = path[preindex + 1].split('.htm').first if preindex
+      when '1shop'
+        @item_id = path.last
+      when 'dangdang'
+        query = query.split('=')
+        preindex = query.index("product_id")
+        @item_id = query[preindex+1] if preindex
+      when 'vancl', '51buy'
+        pp = path.select { |p| p.slice(/\d+.html/) }
+        @item_id = pp.first.slice(/\d+/)
+      when 'suning'
+        @item_id = (path.last.split('.').first if path.last.index('html') > 0)
+      else
+        @item_id = "invalid"
       end
     end
 
@@ -148,19 +149,31 @@ module BookmarkletHelper
 
     def retrieve_product_info
       case @site
-        when 'amazon'
-          res = Amazon::Ecs.item_lookup(@item_id, {:country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
-          if !res.has_error?
-            item = res.first_item
-            @imgs << item.get_hash("LargeImage")["URL"]
-            node = item/'Price/Amount'
-            @price = node.children.first.text.to_i/100.to_f if node
-            @title = item.get_element('ItemAttributes').get('Title')
-            @category = item.get_element('ItemAttributes').get('ProductGroup')
-            determine_category
-            node2 = item/'DetailPageURL'
-            @purchase_url = node2.first.text if node
-          end
+      when 'amazon'
+        res = Amazon::Ecs.item_lookup(@item_id, {:country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+        if !res.has_error?
+          item = res.first_item
+          @imgs << item.get_hash("LargeImage")["URL"]
+          node = item/'Price/Amount'
+          @price = node.children.first.text.to_i/100.to_f if node
+          @title = item.get_element('ItemAttributes').get('Title')
+          @category = item.get_element('ItemAttributes').get('ProductGroup')
+          determine_category
+          node2 = item/'DetailPageURL'
+          @purchase_url = node2.first.text if node
+        end
+      when 'taobao', 'tmall'
+        product = get_item @item_id
+        taobaoke_item = convert_items_taobaoke(@item_id)
+        shop = get_shop_info product['nick']
+        @shop_name = shop['title']
+        @shop_url = taobaoke_item["shop_click_url"]
+        @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
+        @price = product['price']
+        @title = product['title']
+        @purchase_url ||= taobao_url(item_id)
+      when '360buy'
+        collecter
       when 'taobao','tmall'
         product = get_item @item_id
         taobaoke_item = convert_items_taobaoke(@item_id)
@@ -215,11 +228,11 @@ module BookmarkletHelper
 
     def determine_category
       case @site
-        when 'taobao'
-        when '360buy'
-        when 'amazon'
-#        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
-#        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+      when 'taobao'
+      when '360buy'
+      when 'amazon'
+        #        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
+        #        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
     end
 
@@ -275,17 +288,17 @@ module BookmarkletHelper
 
     def convert_url(url)
       case @site
-        when '1shop'
-          [@url, 'tracker_u=107128006'].join('?')
-        when 'dangdang'
-          ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
-        when 'vancl'
-          connector = (@url.index('?') > 0 ? '&' : '?')
-          [@url, 'source=boluome'].join(connector)
-        when 'newegg'
-          [@url, 'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode'].join('&')
-        else
-          @url
+      when '1shop'
+        [@url, 'tracker_u=107128006'].join('?')
+      when 'dangdang'
+        ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
+      when 'vancl'
+        connector = (@url.index('?') > 0 ? '&' : '?')
+        [@url, 'source=boluome'].join(connector)
+      when 'newegg'
+        [@url, 'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode'].join('&')
+      else
+        @url
       end
     end
 
