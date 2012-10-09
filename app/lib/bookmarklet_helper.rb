@@ -10,16 +10,16 @@ include ItemHelper
 include EtaoHelper
 
 module BookmarkletHelper
-#  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
-#  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
-#  JJ = [ "Home", "Home Improvement" ,"厨具" ]
-#  HW = ["运动"]
-#  NZ = ["服饰"] 
-#  SP = ["首饰"]
-#
-#  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
-#  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
-  
+  #  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+  #  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+  #  JJ = [ "Home", "Home Improvement" ,"厨具" ]
+  #  HW = ["运动"]
+  #  NZ = ["服饰"] 
+  #  SP = ["首饰"]
+  #
+  #  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
+  #  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+
 
 
   class Collector
@@ -28,10 +28,15 @@ module BookmarkletHelper
       Rails.logger.info "processing " + url
       @url = url
       @imgs = []
-      domain_checker
-      get_item_id
-      retrieve_product_info if correct?
-      search_item_on_etao unless succeed?
+
+      begin
+        domain_checker
+        get_item_id
+        retrieve_product_info if correct?
+        search_item_on_etao unless succeed?
+      rescue => ex
+        Rails.logger.error ex
+      end
     end
 
     def collecter
@@ -64,7 +69,7 @@ module BookmarkletHelper
 
       case host
       when /taobao/
-        @site =  'taobao'
+        @site = 'taobao'
         if /trade/.match(host)
           @url = get_trade_snapshot_item
         end
@@ -111,7 +116,7 @@ module BookmarkletHelper
       when '360buy'
         @item_id = path.last.split('.').first
       when 'newegg', 'gome'
-        preindex = path.index("Product") || path.index("product") || path.index("dp") 
+        preindex = path.index("Product") || path.index("product") || path.index("dp")
         @item_id = path[preindex + 1].split('.htm').first if preindex
       when '1shop'
         @item_id = path.last
@@ -119,8 +124,8 @@ module BookmarkletHelper
         query = query.split('=')
         preindex = query.index("product_id")
         @item_id = query[preindex+1] if preindex
-      when 'vancl','51buy'
-        pp = path.select {|p| p.slice(/\d+.html/)}
+      when 'vancl', '51buy'
+        pp = path.select { |p| p.slice(/\d+.html/) }
         @item_id = pp.first.slice(/\d+/)
       when 'suning'
         @item_id = (path.last.split('.').first if path.last.index('html') > 0)
@@ -213,8 +218,8 @@ module BookmarkletHelper
       when 'taobao'
       when '360buy'
       when 'amazon'
-#        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
-#        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+        #        cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
+        #        @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
       end
     end
 
@@ -277,11 +282,11 @@ module BookmarkletHelper
       when 'dangdang'
         ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
       when 'vancl'
-        connector = ( @url.index('?') > 0 ? '&' : '?')
+        connector = (@url.index('?') > 0 ? '&' : '?')
         [@url, 'source=boluome'].join(connector)
       when 'newegg'
         [@url, 'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode'].join('&')
-      else 
+      else
         @url
       end
     end
