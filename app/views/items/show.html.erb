@@ -23,7 +23,7 @@
 
 <div class="row">
     <div class="span4">
-        <div class="item-title" title="<%= @item.title %>"><%= @item.title %></div>
+      <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site,'.png'].join)%><%= @item.title %></div>
         <div class="thumbnail">
             <%= link_to image_tag(@item.image, :width => '360'), @item.purchase_url, {:target => '_blank'} %>
 
