@@ -10,16 +10,16 @@ include ItemHelper
 include EtaoHelper
 
 module BookmarkletHelper
-#  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
-#  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
-#  JJ = [ "Home", "Home Improvement" ,"厨具" ]
-#  HW = ["运动"]
-#  NZ = ["服饰"] 
-#  SP = ["首饰"]
-#
-#  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
-#  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
-  
+  #  SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+  #  QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+  #  JJ = [ "Home", "Home Improvement" ,"厨具" ]
+  #  HW = ["运动"]
+  #  NZ = ["服饰"] 
+  #  SP = ["首饰"]
+  #
+  #  SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
+  #  CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+
 
 
 
