@@ -42,7 +42,7 @@
             <%= text_field_tag "share[price]", @share.price, class: 'input-xlarge' %>
         <% end -%>
         <%= f.input :category, :label => '分类' do %>
-            <%= f.select :category, Hash[categories.map { |c| [c, c] }], include_blank: false %>
+            <%= f.select :category, Hash[categories.map { |c| [c, c] }], include_blank: '请选择' %>
         <% end -%>
         <%= f.input :rating_comp, :label => '推荐指数' do %>
             <div id="rating_comp" stars="<%= @share.product_rating %>" scoreName="share[product_rating]"></div>
@@ -60,7 +60,7 @@
           <%= text_area_tag "share[comment]", @share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
         <% end -%>
         <%= f.input :subscribed, :label => '订阅降价通知' do %>
-          <%= check_box_tag 'share[subscribed]', 1, true %>
+          <%= check_box_tag 'share[subscribed]', 1, false %>
         <% end -%>
         <div class="controls">
             <label class="radio">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="form-actions">
-            <%= f.submit '我要推荐', :class => 'btn btn-primary' %>
+            <%= f.submit '我要推荐', :class => 'btn btn-primary', id: 'collect-item' %>
         </div>
     </div>
     <% end -%>
@@ -103,12 +103,6 @@
             imageFrame.src = src;
             dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
             $('#item_image').val(src);
-        });
-        $('#bookmarklet_container form').on('submit', function (event) {
-            if ($('#desc').val().length == 0) {
-                alert('请输入推荐评论');
-                return false;
-            }
         });
 
         $("#add_to_BAG, #add_to_SHA").click(function () {
