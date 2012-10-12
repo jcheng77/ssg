@@ -3,7 +3,7 @@
         <% categories.each_with_index do |c, i| %>
             <% if current_user.preferences.include?(c) %>
             <li>
-                <%= link_to items_path(:category => c), :remote => true, :value => c, do %>
+                <%= link_to items_path(:category => c), :remote => true, :value => c do %>
             		<%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
                 <% end %>
             </li>
@@ -15,7 +15,7 @@
         <% categories.each_with_index do |c, i| %>
             <% if !current_user.preferences.include?(c) %>
             <li>
-                <%= link_to "javascript: void(0);", :remote => true, :value => c, :path => items_path(:category => c), "cat-type" => "extra", do %>
+                <%= link_to "javascript: void(0);", :remote => true, :value => c, :path => items_path(:category => c), "cat-type" => "extra" do %>
                     <%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
                 <% end %>
             </li>
