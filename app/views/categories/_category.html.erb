@@ -1,12 +1,32 @@
 <div class="row cat-bar" style="margin-left: 0px;">
     <ul class="nav nav-pills category">
         <% categories.each_with_index do |c, i| %>
+            <% if current_categories.include?(c) %>
             <li>
-            <a href="javascript: void(0);" value="<%= c %>" class="<%= current_categories.include?(c) ? "checked" : "" %>">
-            <%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
-          </a>
-                
+            	<a href="javascript: void(0);" value="<%= c %>">
+            		<%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
+          		</a> 
             </li>
+            <% end %>
         <% end %>
     </ul>
+
+    <ul class="nav nav-pills category" style='display:none'>
+        <% categories.each_with_index do |c, i| %>
+            <% if !current_categories.include?(c) %>
+            <li>
+                <a href="javascript: void(0);" value="<%= c %>" cat-type="extra">
+                    <%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
+                </a> 
+            </li>
+            <% end %>
+        <% end %>
+    </ul>
+
+    <ul class="nav nav-pills category">
+        <li>
+            <a href="javascript: void(0);" class='exp-cat' value="expend">&gt;</a>
+        </li>
+    </ul>
+        
 </div>

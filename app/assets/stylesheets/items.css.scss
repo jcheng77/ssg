@@ -183,13 +183,26 @@ form.well.tag-form {
   background-color: #08c;
 }
 
-.cat-bar .category .checked:hover, .span12 .category a:hover {
+.cat-bar .category a:hover, .span12 .category a:hover {
   color: white;
-  background-color: #eee !important;
+  background-color: #eee;
+}
+
+.cat-bar .category .checked:hover, .span12 .category a.checked:hover {
+  color: white;
+  background-color: #08c;
 }
 
 .cat-bar .category::after {
   top: 0;
   left: 0;
   border: 0;
+}
+
+.cat-bar .category a.exp-cat{
+  height:50px;
+  line-height:50px;
+  margin:2px;
+  padding:8px 4px;
+  color: #fff;
 }
