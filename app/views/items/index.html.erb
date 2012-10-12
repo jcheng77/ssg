@@ -26,7 +26,7 @@
 
         <!--<div class="page-header"></div>-->
         <% unless @items.blank? %>
-            <ul class="thumbnails">
+            <ul id="items" class="thumbnails">
                 <% @items.each do |item| %>
                     <%= render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
                 <% end %>

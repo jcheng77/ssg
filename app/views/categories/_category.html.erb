@@ -1,11 +1,11 @@
 <div class="row cat-bar" style="margin-left: 0px;">
     <ul class="nav nav-pills category">
         <% categories.each_with_index do |c, i| %>
-            <% if current_categories.include?(c) %>
+            <% if current_user.preferences.include?(c) %>
             <li>
-            	<a href="javascript: void(0);" value="<%= c %>">
-            		<%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
-          		</a> 
+                <%= link_to items_path(:category => c), :remote => true, :value => c, do %>
+            		<%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
+                <% end %>
             </li>
             <% end %>
         <% end %>
@@ -13,11 +13,11 @@
 
     <ul class="nav nav-pills category" style='display:none'>
         <% categories.each_with_index do |c, i| %>
-            <% if !current_categories.include?(c) %>
+            <% if !current_user.preferences.include?(c) %>
             <li>
-                <a href="javascript: void(0);" value="<%= c %>" cat-type="extra">
-                    <%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
-                </a> 
+                <%= link_to "javascript: void(0);", :remote => true, :value => c, :path => items_path(:category => c), "cat-type" => "extra", do %>
+                    <%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
+                <% end %>
             </li>
             <% end %>
         <% end %>

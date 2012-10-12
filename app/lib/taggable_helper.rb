@@ -40,7 +40,7 @@ module TaggableHelper
       tags_index_collection.master.find.to_a.map { |r| r["_id"] }
     end
 
-    def has_tags(tags)
+    def in_tags(tags)
       where(:tags_array.in => tags)
     end
 

@@ -10,6 +10,8 @@ $(document).ready(function () {
         } else if('extra' == $(this).attr("cat-type")){
             $("ul.category:eq(0)").append("<li></li>");
             var newAddCat = $(this).clone();
+            newAddCat.attr("href", newAddCat.attr("path"));
+            newAddCat.attr("path", "");
             newAddCat.attr("cat-type", "");
             newAddCat.click(selectCatHandler);
             $("ul.category:eq(0) li:last").append(newAddCat);

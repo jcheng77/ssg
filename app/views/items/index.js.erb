@@ -1,0 +1,7 @@
+<%
+  items_html = @items.inject("") do |html, item|
+    html += render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share}
+  end
+%>
+
+$("#items").html("<%= escape_javascript raw(items_html) %>");

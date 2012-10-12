@@ -32,7 +32,7 @@ class Item
 
   def self.in_categories_and_tags(categories, tags, page, per_page = 24)
     query = self.where(:category.in => categories)
-    query = query.has_tags(tags) unless tags.blank?
+    query = query.in_tags(tags) unless tags.blank?
     query.desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
@@ -50,7 +50,7 @@ class Item
     end
 
     query = self.where(:title => /.*(#{search_contents.join "|"}).*/)
-    query = query.has_tags(search_tags) unless search_tags.blank?
+    query = query.in_tags(search_tags) unless search_tags.blank?
     [search_tags, query.paginate(:page => page, :per_page => per_page)]
   end
 
