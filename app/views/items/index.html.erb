@@ -42,6 +42,38 @@
     <li><%= link_to "更多宝贝", "javascript: void(0);", :remote => true, :id => "more", :path => items_path, :cat => "", :page => 1 %></li>
 </ul>
 <script type="text/javascript">
+    var moreBtn = $("#more");
+    var noticeBar = $("#notice");
+    var progressBar = $("#progress");
+    var itemPanel = $("#items");
+
+    var ItemController = {
+        clearNotice:function () {
+            noticeBar.empty();
+        },
+        clearItems:function () {
+            moreBtn.removeClass("finished");
+            itemPanel.empty();
+        },
+        appendItem:function (html) {
+            itemPanel.append(html).children("li:last").hide().fadeIn(2000);
+        },
+        changeCategory:function (category) {
+            moreBtn.attr("cat", category);
+            moreBtn.attr("page", 1);
+            moreBtn.show();
+        },
+        notFound:function () {
+            this.clearItems();
+            noticeBar.html("没有找到对应的宝贝。");
+            moreBtn.hide();
+        },
+        noMore:function () {
+            moreBtn.addClass("finished");
+            moreBtn.hide();
+        }
+    };
+
     $(function () {
         var arrivedAtBottom = function () {
             return $(document).scrollTop() + $(window).height() == $(document).height();
@@ -49,24 +81,21 @@
 
         $(window).scroll(function () {
             if (arrivedAtBottom()) {
-                var el = $("#more");
-                var page = parseInt(el.attr("page"));
-                if (page < 5 && !el.hasClass("finished")) {
-                    el.click();
+                var page = parseInt(moreBtn.attr("page"));
+                if (page < 5 && !moreBtn.hasClass("finished")) {
+                    moreBtn.click();
                 }
             }
         });
 
-        $("#more").click(function () {
-            var el = $(this);
-            var page = parseInt(el.attr("page")) + 1;
-            el.attr("page", page);
-            var href = el.attr("path") + "?" + "category=" + el.attr("cat") + "&page=" + page;
-            el.attr("href", href);
+        moreBtn.click(function () {
+            var page = parseInt(moreBtn.attr("page")) + 1;
+            moreBtn.attr("page", page);
+            var href = moreBtn.attr("path") + "?" + "category=" + moreBtn.attr("cat") + "&page=" + page;
+            moreBtn.attr("href", href);
         });
 
-        var progressBar = $("#progress");
-        $("#more").on("ajax:before",function () {
+        moreBtn.on("ajax:before", function () {
             progressBar.show();
         }).on("ajax:complete", function () {
             progressBar.hide();
