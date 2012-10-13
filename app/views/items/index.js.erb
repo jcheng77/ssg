@@ -1,0 +1,35 @@
+var moreBtn = $("#more");
+var noticeBar = $("#notice");
+<%
+items_html = @items.inject("") { |html, item| html += render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} }
+
+if params[:page].to_i <= 1
+  if @items.blank?
+%>
+$("#items").html("");
+noticeBar.html("没有找到对应的宝贝。");
+moreBtn.hide();
+<%
+  else
+%>
+$("#items").html("<%= escape_javascript raw(items_html) %>");
+noticeBar.html("");
+moreBtn.attr("cat", "<%= params[:category] %>");
+moreBtn.attr("page", 1);
+moreBtn.show();
+<%
+  end
+else
+  if @items.blank?
+%>
+moreBtn.addClass("finished");
+moreBtn.hide();
+<%
+  else
+%>
+$("#items").append("<%= escape_javascript raw(items_html) %>");
+noticeBar.html("");
+<%
+  end
+end
+%>
