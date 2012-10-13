@@ -15,10 +15,11 @@ module ItemHelper
   end
 
   def append_track_id(site,url,track_id)
+    binding.pry
     case site
     when 'taobao', 'tmall'
      if is_taobaoke_url?(url) && track_id
-       url + '&unid=xxx' + track_id
+       url + '&unid=' + track_id
      else
        url
      end
@@ -28,7 +29,7 @@ module ItemHelper
   end
 
   def is_taobaoke_url?(url)
-    url.match(/s.click.taoabo/)
+    url.match(/s.click.taobao/)
   end
 
 end
