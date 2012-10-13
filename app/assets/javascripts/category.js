@@ -10,8 +10,7 @@ $(document).ready(function () {
         } else if('extra' == $(this).attr("cat-type")){
             $("ul.category:eq(0)").append("<li></li>");
             var newAddCat = $(this).clone();
-            newAddCat.attr("href", newAddCat.attr("path"));
-            newAddCat.attr("path", "");
+            newAddCat.attr("href", newAddCat.attr("path-cat"));
             newAddCat.attr("cat-type", "");
             newAddCat.click(selectCatHandler);
             $("ul.category:eq(0) li:last").append(newAddCat);
@@ -28,8 +27,11 @@ $(document).ready(function () {
             var toggleClass = el.hasClass("checked");
             $("ul.category:eq(0) a.checked").removeClass("checked");
             if(!toggleClass) {
-              el.addClass("checked");  
-            } 
+                el.attr("href", el.attr("path-cat"));
+                el.addClass("checked");
+            } else {
+                el.attr("href", el.attr("path-all"));
+            }
         }
         //TODO: 根据选中category加载tags和items, 未选中则加载第一个category列表中所有类别对应的tags和items
 
