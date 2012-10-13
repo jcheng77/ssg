@@ -1,14 +1,18 @@
 <% if params[:page].to_i <= 1 && @items.blank? %>
 ItemController.notFound();
-<% elsif params[:page].to_i > 1 && @items.blank? %>
-ItemController.noMore();
 <% elsif !@items.blank? %>
 <% if params[:page].to_i <= 1 %>
-ItemController.clearItems();
 ItemController.changeCategory("<%= params[:category] %>");
 <% end %>
 <% @items.each do |i| %>
 ItemController.appendItem("<%= escape_javascript render(:partial => "item", :object => i, :locals => {:tags => i.tags, :share => i.root_share}) %>");
 <% end %>
+activeItems();
 ItemController.clearNotice();
+<% end %>
+
+<% if @items.blank? || @items.offset + @items.length >= @items.total_entries %>
+ItemController.noMore();
+<% else %>
+ItemController.hasMore();
 <% end %>

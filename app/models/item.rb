@@ -173,9 +173,7 @@ class Item
     tags.first(num).map { |t| t[0] }
   end
 
-
   def restore_item_url
     restore_url(self.source_site, self.shares.first.source)
   end
-
 end

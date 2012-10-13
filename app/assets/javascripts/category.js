@@ -22,15 +22,19 @@ $(document).ready(function () {
             } else {
                 $("ul.category:last").detach();
             }
+            newAddCat.click();
+
+            var allBtn = $(".category li a:first");
+            var newCat = " " + newAddCat.attr("value");
+            allBtn.attr("value", allBtn.attr("value") + newCat);
+            allBtn.attr("href", allBtn.attr("href") + encodeURIComponent(newCat));
         } else {
             var el = $(this);
             var toggleClass = el.hasClass("checked");
             $("ul.category:eq(0) a.checked").removeClass("checked");
-            if(!toggleClass) {
-                el.attr("href", el.attr("path-cat"));
-                el.addClass("checked");
-            } else {
-                el.attr("href", el.attr("path-all"));
+            el.addClass("checked");
+            if(toggleClass) {
+                return false;
             }
         }
         //TODO: 根据选中category加载tags和items, 未选中则加载第一个category列表中所有类别对应的tags和items
@@ -53,4 +57,5 @@ $(document).ready(function () {
     };
 
     $(".category li a").click(selectCatHandler);
+    $(".category li a:first").click();
 });

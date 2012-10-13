@@ -3,6 +3,10 @@
 
         <%= render "categories/category" %>
 
+        <div id="progress_load" class="progress progress-info progress-striped active">
+            <div class="bar" style="width: 100%;"></div>
+        </div>
+
         <% unless current_tags.blank? %>
             <div class="page-header">
                 <h4>标签</h4>
@@ -24,27 +28,20 @@
             </script>
         <% end %>
 
-        <!--<div class="page-header"></div>-->
         <h4 id="notice"></h4>
-        <ul id="items" class="thumbnails">
-            <% unless @items.blank? %>
-                <% @items.each do |item| %>
-                    <%= render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
-                <% end %>
-            <% end %>
-        </ul>
+        <ul id="items" class="thumbnails"></ul>
     </div>
 </div>
-<div id="progress" class="progress progress-info progress-striped active" style="width: 200px; margin: 15px auto; display: none;">
+<div id="progress_more" class="progress progress-info progress-striped active">
     <div class="bar" style="width: 100%;"></div>
 </div>
 <ul class="pager">
-    <li><%= link_to "更多宝贝", "javascript: void(0);", :remote => true, :id => "more", :path => items_path, :cat => "", :page => 1 %></li>
+    <li><%= link_to "更多宝贝", "javascript: void(0);", :remote => true, :id => "more", :path => items_path, :cat => "", :page => 1, :style => "display: none;" %></li>
 </ul>
 <script type="text/javascript">
     var moreBtn = $("#more");
     var noticeBar = $("#notice");
-    var progressBar = $("#progress");
+    var progressBar = $("#progress_more");
     var itemPanel = $("#items");
 
     var ItemController = {
@@ -52,25 +49,33 @@
             noticeBar.empty();
         },
         clearItems:function () {
-            moreBtn.removeClass("finished");
             itemPanel.empty();
         },
         appendItem:function (html) {
             itemPanel.append(html).children("li:last").hide().fadeIn(2000);
         },
         changeCategory:function (category) {
+            this.clearItems();
+            moreBtn.removeClass("finished");
             moreBtn.attr("cat", category);
             moreBtn.attr("page", 1);
-            moreBtn.show();
         },
         notFound:function () {
             this.clearItems();
             noticeBar.html("没有找到对应的宝贝。");
-            moreBtn.hide();
         },
         noMore:function () {
             moreBtn.addClass("finished");
             moreBtn.hide();
+        },
+        hasMore:function () {
+            if (!this.autoLoad()) {
+                moreBtn.show();
+            }
+        },
+        autoLoad:function() {
+            var page = parseInt(moreBtn.attr("page"));
+            return page < 5 ? true : false
         }
     };
 
@@ -81,9 +86,12 @@
 
         $(window).scroll(function () {
             if (arrivedAtBottom()) {
-                var page = parseInt(moreBtn.attr("page"));
-                if (page < 5 && !moreBtn.hasClass("finished")) {
-                    moreBtn.click();
+                if (!moreBtn.hasClass("finished")) {
+                    if(ItemController.autoLoad())  {
+                        moreBtn.click();
+                    } else {
+                        moreBtn.show();
+                    }
                 }
             }
         });
@@ -91,14 +99,23 @@
         moreBtn.click(function () {
             var page = parseInt(moreBtn.attr("page")) + 1;
             moreBtn.attr("page", page);
-            var href = moreBtn.attr("path") + "?" + "category=" + moreBtn.attr("cat") + "&page=" + page;
+            var href = moreBtn.attr("path") + "?" + "category=" + encodeURIComponent(moreBtn.attr("cat")) + "&page=" + page;
             moreBtn.attr("href", href);
         });
 
+        var progressMore = $("#progress_more");
         moreBtn.on("ajax:before", function () {
-            progressBar.show();
+            moreBtn.hide();
+            progressMore.show();
         }).on("ajax:complete", function () {
-            progressBar.hide();
+            progressMore.hide();
+        });
+
+        var progressLoad = $("#progress_load");
+        $(".category li a").on("ajax:before", function () {
+            progressLoad.show();
+        }).on("ajax:complete", function () {
+            progressLoad.hide();
         });
     });
 </script>
