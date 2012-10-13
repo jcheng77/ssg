@@ -10,16 +10,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate
 
-  helper_method :current_user, :categories, :current_categories, :current_tags, :need_empty_layout, :weibo_client
+  helper_method :current_user, :categories, :current_tags, :need_empty_layout, :weibo_client
 
   def current_user
     @current_user ||= session[:current_user_id] && User.where(:_id => session[:current_user_id]).first
-  end
-
-  def current_categories
-    @current_categories = session[:current_categories].to_a
-    @current_categories = current_user.preferences if @current_categories.blank?
-    session[:current_categories] = @current_categories
   end
 
   def current_tags(action = nil, tag = nil)

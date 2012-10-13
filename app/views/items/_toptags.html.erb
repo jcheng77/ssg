@@ -1,10 +1,11 @@
-<% current_categories.each do |c| %>
-    <ul class="tag">
-        <%= "#{c} >>" %>
-        <% Item.top_tags(c).each do |tag| %>
-            <li><a href="#"><%= tag %></a></li>
-        <% end %>
-    </ul>
-<% end %>
+<div class="page-header">
+    <h4>热门标签</h4>
+</div>
+<ul class="tag-block">
+    <% toptags.each do |t| %>
+        <li><a class="btn btn-info uppercase">#<%= t %></a></li>
+    <% end %>
+</ul>
+<hr class="bs-docs-separator"/>
 
 

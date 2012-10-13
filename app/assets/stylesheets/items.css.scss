@@ -104,6 +104,19 @@ p.tags_list {
   text-transform: uppercase;
 }
 
+.tag-block {
+    list-style-type: none;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    line-height: 35px;
+
+    li {
+        display: inline;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
+
 form.well.tag-form {
   .tageditor {
     width: auto;
@@ -117,6 +130,7 @@ form.well.tag-form {
     float: right;
     margin: 4px;
   }
+  margin-top: 20px;
 }
 
 .page-header ul.tags {

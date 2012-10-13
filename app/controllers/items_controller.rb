@@ -9,9 +9,10 @@ class ItemsController < ApplicationController
   before_filter :select_empty_layout, only: :share
 
   def index
-    categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
+    @current_categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
+    @hot_tags = Item.top_tags(@current_categories);
     tags = current_tags(params[:tag_action], params[:tag])
-    @items = Item.in_categories_and_tags categories, tags, params[:page]
+    @items = Item.in_categories_and_tags @current_categories, tags, params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

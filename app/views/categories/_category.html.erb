@@ -1,12 +1,12 @@
 <div class="row cat-bar" style="margin-left: 0px;">
     <ul class="nav nav-pills category">
         <li>
-            <%= link_to items_path(:category => current_user.preferences.join(" ")), :remote => true, :value => current_user.preferences.join(" "), :style => "width: 45px; line-height: 49px;" do %>
+            <%= link_to items_path(:category => category.join(" ")), :remote => true, :value => category.join(" "), :style => "width: 45px; line-height: 49px;" do %>
                 全部
             <% end %>
         </li>
         <% categories.each_with_index do |c, i| %>
-            <% if current_user.preferences.include?(c) %>
+            <% if category.include?(c) %>
             <li>
                 <%= link_to items_path(:category => c), :remote => true, :value => c do %>
             		<%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
@@ -18,7 +18,7 @@
 
     <ul class="nav nav-pills category" style='display:none'>
         <% categories.each_with_index do |c, i| %>
-            <% if !current_user.preferences.include?(c) %>
+            <% if !category.include?(c) %>
             <li>
                 <%= link_to "javascript: void(0);", :remote => true, :value => c, "path-cat" => items_path(:category => c), "cat-type" => "extra" do %>
                     <%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>

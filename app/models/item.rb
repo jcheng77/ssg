@@ -168,8 +168,8 @@ class Item
     self.shares.by_type(Share::TYPE_BAG).count
   end
 
-  def self.top_tags(category, num = 10)
-    tags = self.tags_with_weight(category).sort_by { |k| -k[1] }
+  def self.top_tags(categories = [], num = 10)
+    tags = self.tags_with_weight(categories).sort_by { |k| -k[1] }
     tags.first(num).map { |t| t[0] }
   end
 

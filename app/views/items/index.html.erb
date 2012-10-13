@@ -1,19 +1,20 @@
 <div class="row">
     <div class="span12">
 
-        <%= render "categories/category" %>
+        <%= render :partial => "categories/category", :object => @current_categories %>
 
-        <div id="progress_load" class="progress progress-info progress-striped active">
+        <div id="progress_load" class="progress progress-info progress-striped active" style="display: block;">
             <div class="bar" style="width: 100%;"></div>
         </div>
 
         <% unless current_tags.blank? %>
             <div class="page-header">
-                <h4>标签</h4>
+                <h4>搜索标签</h4>
                 <ul class="tags">
                     <% current_tags.each do |tag| %>
                         <li class="tag" value="0">
-                            <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a></li>
+                            <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a>
+                        </li>
                     <% end %>
                 </ul>
             </div>
@@ -27,6 +28,8 @@
                 });
             </script>
         <% end %>
+
+        <div id="hot_tags" style="display: none;"></div>
 
         <h4 id="notice"></h4>
         <ul id="items" class="thumbnails"></ul>
@@ -43,6 +46,7 @@
     var noticeBar = $("#notice");
     var progressBar = $("#progress_more");
     var itemPanel = $("#items");
+    var hotTagPanel = $("#hot_tags");
 
     var ItemController = {
         clearNotice:function () {
@@ -54,14 +58,20 @@
         appendItem:function (html) {
             itemPanel.append(html).children("li:last").hide().fadeIn(2000);
         },
+        renderTags:function (html)  {
+            $(hotTagPanel).html(html);
+        },
         changeCategory:function (category) {
             this.clearItems();
+            hotTagPanel.show();
+            $("ul", hotTagPanel).empty();
             moreBtn.removeClass("finished");
             moreBtn.attr("cat", category);
             moreBtn.attr("page", 1);
         },
         notFound:function () {
             this.clearItems();
+            hotTagPanel.hide();
             noticeBar.html("没有找到对应的宝贝。");
         },
         noMore:function () {
@@ -73,7 +83,7 @@
                 moreBtn.show();
             }
         },
-        autoLoad:function() {
+        autoLoad:function () {
             var page = parseInt(moreBtn.attr("page"));
             return page < 5 ? true : false
         }
@@ -87,7 +97,7 @@
         $(window).scroll(function () {
             if (arrivedAtBottom()) {
                 if (!moreBtn.hasClass("finished")) {
-                    if(ItemController.autoLoad())  {
+                    if (ItemController.autoLoad()) {
                         moreBtn.click();
                     } else {
                         moreBtn.show();
@@ -104,18 +114,18 @@
         });
 
         var progressMore = $("#progress_more");
-        moreBtn.on("ajax:before", function () {
+        moreBtn.on("ajax:before",function () {
             moreBtn.hide();
             progressMore.show();
         }).on("ajax:complete", function () {
-            progressMore.hide();
-        });
+                    progressMore.hide();
+                });
 
         var progressLoad = $("#progress_load");
-        $(".category li a").on("ajax:before", function () {
+        $(".category li a").on("ajax:before",function () {
             progressLoad.show();
         }).on("ajax:complete", function () {
-            progressLoad.hide();
-        });
+                    progressLoad.hide();
+                });
     });
 </script>
