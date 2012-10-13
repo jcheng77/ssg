@@ -15,7 +15,6 @@ module ItemHelper
   end
 
   def append_track_id(site,url,track_id)
-    binding.pry
     case site
     when 'taobao', 'tmall'
      if is_taobaoke_url?(url) && track_id
