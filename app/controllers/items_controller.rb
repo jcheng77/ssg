@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class ItemsController < ApplicationController
   include TaobaoApiHelper
   include BookmarkletHelper
@@ -47,16 +48,20 @@ class ItemsController < ApplicationController
   end
 
   def collect
-    collector = Collector.new(params[:url])
+    collector = BookmarkletHelper::Collector.new(params[:url])
     @imgs = collector.imgs
 
     if collector.succeed?
       @item = Item.new_with_collector(collector)
       @share = @item.shares.last
     else
-      # TODO: 错误处理
-      @item = Item.new
-      @share = Share.new
+      @item = nil
+      @share = nil
+    end
+
+    respond_to do |format|
+      format.html # collect.html.erb
+      format.js # collect.js.erb
     end
   end
 
@@ -176,7 +181,10 @@ class ItemsController < ApplicationController
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
+
+      params[:add_to] = Share::TYPE_SHARE if params[:add_to].blank?
       @share.share_type = params[:add_to]
+
       return false if !@share.save
 
       @share.create_comment_by_sharer(params[:share][:comment])

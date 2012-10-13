@@ -22,6 +22,7 @@ module BookmarkletHelper
 
 
 
+
   class Collector
 
     def initialize(url)
@@ -42,15 +43,15 @@ module BookmarkletHelper
     def collecter
       #html = open(@url, "r:binary").read.force_encoding('GB2312').encode("utf-8", "GB2312",  :invalid => :replace, :undef => :replace)
       res = Faraday.get @url
-      html = res.body.ensure_encoding('UTF-8', :external_encoding  => 'GB2312' , :invalid_characters =>:drop)
+      html = res.body.ensure_encoding('UTF-8', :external_encoding => 'GB2312', :invalid_characters => :drop)
       begin
-      @imgs = get_jd_imgs(html)
-      @price = ( get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html) )
-      @title = get_jd_title(html)
-    rescue
-      Rails.logger.info 'encoding error...will retry with etao query at the end of this process'
-    end
+        @imgs = get_jd_imgs(html)
+        @price = (get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html))
+        @title = get_jd_title(html)
+      rescue
+        Rails.logger.info 'encoding error...will retry with etao query at the end of this process'
       end
+    end
 
 
     def domain_checker
@@ -63,7 +64,7 @@ module BookmarkletHelper
           @url = $!.to_s.split("bad URI(is not URI?): ")[1]
         end
         uri = open(URI.encode(@url.strip)).base_uri
-        @url = uri.scheme + '://' + uri.host + uri.path + '?' + ( uri.query  || '' )
+        @url = uri.scheme + '://' + uri.host + uri.path + '?' + (uri.query || '')
         host = uri.host
       end
 
@@ -135,11 +136,11 @@ module BookmarkletHelper
     end
 
     def correct?
-      @item_id && @item_id != "invalid" 
+      @item_id && @item_id != "invalid"
     end
 
     def succeed?
-      !( @imgs.blank? || @price.nil? || @title.nil? )
+      !(@imgs.blank? || @price.nil? || @title.nil?)
     end
 
     def item_id
@@ -149,18 +150,30 @@ module BookmarkletHelper
     def retrieve_product_info
       case @site
       when 'amazon'
-      res = Amazon::Ecs.item_lookup( @item_id, { :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
-      if !res.has_error?
-      item = res.first_item
-      @imgs << item.get_hash("LargeImage")["URL"]
-      node = item/'Price/Amount'
-      @price = node.children.first.text.to_i/100.to_f if node
-      @title = item.get_element('ItemAttributes').get('Title')
-      @category = item.get_element('ItemAttributes').get('ProductGroup')
-      determine_category
-      node2 = item/'DetailPageURL'
-      @purchase_url = node2.first.text if node
-      end
+        res = Amazon::Ecs.item_lookup(@item_id, {:country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+        if !res.has_error?
+          item = res.first_item
+          @imgs << item.get_hash("LargeImage")["URL"]
+          node = item/'Price/Amount'
+          @price = node.children.first.text.to_i/100.to_f if node
+          @title = item.get_element('ItemAttributes').get('Title')
+          @category = item.get_element('ItemAttributes').get('ProductGroup')
+          determine_category
+          node2 = item/'DetailPageURL'
+          @purchase_url = node2.first.text if node
+        end
+      when 'taobao', 'tmall'
+        product = get_item @item_id
+        taobaoke_item = convert_items_taobaoke(@item_id)
+        shop = get_shop_info product['nick']
+        @shop_name = shop['title']
+        @shop_url = taobaoke_item["shop_click_url"]
+        @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
+        @price = product['price']
+        @title = product['title']
+        @purchase_url ||= taobao_url(item_id)
+      when '360buy'
+        collecter
       when 'taobao','tmall'
         product = get_item @item_id
         taobaoke_item = convert_items_taobaoke(@item_id)
@@ -178,7 +191,7 @@ module BookmarkletHelper
 
     def get_trade_snapshot_item
       doc = open(@url).read
-      @url = ( doc.slice(/http:\/\/item.taobao.com.*\d/) ||  doc.slice(/http:\/\/detail.tmall.com\/.*\d/) || @url )
+      @url = (doc.slice(/http:\/\/item.taobao.com.*\d/) || doc.slice(/http:\/\/detail.tmall.com\/.*\d/) || @url)
     end
 
     def imgs
@@ -224,35 +237,33 @@ module BookmarkletHelper
     end
 
 
-
-
     def parse_price_pic(pic)
       RTesseract.new(pic).to_s.sub(/Y|\s/, '').match(/\d+(\.\d+)?/).to_s.to_f
     end
 
     def download_pic(url)
       open(url) { |f|
-        File.open( jd_pic_file,'wb' ) do |file|
+        File.open(jd_pic_file, 'wb') do |file|
           file.puts f.read
         end
       }
     end
 
     def jd_pic_file
-      ['tmp','png'].join('.')
+      ['tmp', 'png'].join('.')
     end
 
     def get_jd_price_by_pic(item_page_source)
       png_tags = item_page_source.scan(/p-price.*png/)
       unless png_tags.blank
-      price_pic_url = png_tags.first.slice(/http.*png/) 
-      download_pic(price_pic_url)
-      parse_price_pic jd_pic_file
-    end
+        price_pic_url = png_tags.first.slice(/http.*png/)
+        download_pic(price_pic_url)
+        parse_price_pic jd_pic_file
+      end
     end
 
     def get_jd_imgs(item_page_source)
-      imgs =  item_page_source.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//,'/n1/') }
+      imgs = item_page_source.scan(/src.*http:\/\/img.*jpg"/).map { |img| img.slice(/http.*jpg/).gsub(/\/n\d\//, '/n1/') }
       imgs.uniq!
       imgs[1..3]
     end
@@ -270,7 +281,7 @@ module BookmarkletHelper
     def search_item_on_etao
       e = Etao.new(@url)
       etao_result = e.get_item_info
-      @price  =  etao_result[:price]
+      @price = etao_result[:price]
       @title = etao_result[:title]
       @imgs = [etao_result[:image]]
     end

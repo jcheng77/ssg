@@ -275,6 +275,52 @@ body {
 .item_actions{
     display: none;
     position: absolute;
-    left: 20%;
+    left: 16%;
     top: 0;
+}
+
+/* the overlayed element */
+.simple_overlay {
+ 
+    /* must be initially hidden */
+    display:none;
+ 
+    /* place overlay on top of other elements */
+    z-index:10000;
+ 
+    /* styling */
+    background-color:#fff;
+ 
+    width:800px;
+    border:1px solid #e3e3e3;
+ 
+    /* CSS3 styling for latest browsers */
+    -moz-box-shadow:0 0 10px 5px #eee;
+    -webkit-box-shadow: 0 0 10px #eee;
+}
+ 
+/* close button positioned on upper right corner */
+.simple_overlay .close {
+    background-image:url('close.png');
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.simple_overlay .overlay-link{
+    padding: 15px;
+    background-color: #eee;
+}
+
+.form-horizontal .control-label{
+    width: 60px;
+}
+
+.form-horizontal .controls {
+    margin-left: 80px;
 }

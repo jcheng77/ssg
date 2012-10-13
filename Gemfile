@@ -52,15 +52,16 @@ gem 'slim'
 gem 'will_paginate_mongoid'
 gem 'nokogiri'
 gem 'amazon-ecs'
+
 gem 'rtesseract'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'ensure-encoding', '0.1'
 
-
 #gem "weibo_oauth2", "~> 0.0.5"
 
 gem 'jquery-rails'
+gem 'jquery-tools' 
 gem 'chosen-rails'
 
 gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
