@@ -178,4 +178,8 @@ class Item
     restore_url(self.source_site, self.shares.first.source)
   end
 
+  def trackable_purchase_url(uid)
+    append_track_id(self.source_site,self.purchase_url,uid)
+  end
+
 end
