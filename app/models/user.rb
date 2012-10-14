@@ -5,6 +5,7 @@ class User
   include Mongo::Voter
   include Mongo::Followable::Followed
   include Mongo::Followable::Follower
+  include WeiboHelper
 
   #devise :registerable, :database_authenticatable, :recoverable
 
@@ -159,6 +160,11 @@ class User
     return target_user
   end
 
+  def self.find_official_weibo_account
+    #find_by_weibo_uid('2884474434')
+    find_by_weibo_uid('3023348901')
+  end
+
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
@@ -182,7 +188,7 @@ class User
   end
 
   def is_official_weibo_account?
-    self.accounts.sina.aid == '2884474434'
+    self.accounts.sina && self.accounts.sina.aid == '3023348901' 
   end
 
   def update_weibo_status(sns_type,client,text,pic)
@@ -200,6 +206,16 @@ class User
     cur_user = User.new(userinfo)
     cur_user.accounts.build( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids , :friends_names => friends_names, :expires_at => expires_at)
     return cur_user
+  end
+
+  def refresh_official_weibo_mention
+    if is_official_weibo_account?
+      wb = Weibo.new(self.accounts.first.type)
+      wb.init_client
+      wb.load_from_db(self.accounts.first.access_token, self.accounts.first.token_secret, self.accounts.first.expires_at)
+      @mentions = wb.fetch_latest_mentions
+      process_weibo_mentions(@mentions)
+    end
   end
 
 end

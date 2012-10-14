@@ -132,6 +132,15 @@ class Weibo
     @client.upload_image_url(message.force_encoding('utf-8'),image_path)
   end
 
+  def fetch_latest_mentions
+    if Status.exists?
+      @client.statuses.mentions(:since_id => Status.all.last.last_since_id) 
+    else
+      @client.statuses.mentions
+    end
+  end
+
+
   private
 
   def build_oauth_token_key(name , oauth_token)
@@ -141,6 +150,7 @@ class Weibo
   def load_sina_config
     YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
   end
+
 
 
 end
