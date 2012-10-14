@@ -1,15 +1,30 @@
 <li>
     <div class="thumbnail browse_item">
-        <div class="item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">已购</a>
+        <div class="btn-group item_actions">
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">想买</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购</a>
         </div>
 
-        <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+        <div class='item-thumb'>
+            <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+            <% unless share.nil? %>
+                <a class="img_frame mini_picture avatar">
+                    <%= image_tag small_avatar_url(share.user.avatar) %>
+                </a>
+            <% end %>
+            <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>
+        </div> 
 
         <%= link_to item do %>
-            <h5 class="title"> <%= item.title %> </h5>
+            <h5 class='title'>
+            <ul class="nav nav-pills item-share-info">
+                <li>愿望:&#160;&#160;<span>0</span></li>
+                <li>推荐:&#160;&#160;<span>0</span></li>
+                <li>已购:&#160;&#160;<span>0</span></li>
+                <li>评论:&#160;&#160;<span>0</span></li>
+            </ul>
+            </h5>
         <% end %>
         <% unless tags.nil? %>
             <p class="tags_list">
@@ -24,13 +39,7 @@
             </p>
         <% end %>
         <% unless share.nil? %>
-            <div class="row user-comment">
-                <a class="img_frame mini_picture pull-left">
-                    <%= image_tag small_avatar_url(share.user.avatar) %>
-                </a>
-                <%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>
-                <p class="comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
-            </div>
+            <p class="item-comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
         <% end %>
     </div>
 

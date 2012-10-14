@@ -1,11 +1,10 @@
-<div class="page-header">
-    <h4>热门标签</h4>
-</div>
-<ul class="tag-block">
+<hr class="bs-docs-separator"/>
+<div class="pull-left tag-desc">热门标签:&#160;&#160;</div>
+<ul class="nav nav-pills tag-block">
     <% toptags.each do |t| %>
-        <li><a class="btn btn-info uppercase">#<%= t %></a></li>
+        <!-- TODO: 若tag被选中，li的class设为active-->
+        <!-- TODO: 每次category有变化，该列表应相应变化-->
+        <li class=""><a href="#"><%= t %></a></li>
     <% end %>
 </ul>
 <hr class="bs-docs-separator"/>
-
-

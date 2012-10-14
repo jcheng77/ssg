@@ -18,6 +18,7 @@
     position: relative;
     width: 240px;
     height: 375px;
+    padding: 0;
 }
 
 .browse_item .title{
@@ -25,7 +26,6 @@
     max-width: 240px;
     max-height: 14px;
     overflow: hidden;
-    margin: 8px 0 3px;
 }
 .browse_item .user-comment{
     height: 100px;
@@ -219,4 +219,61 @@ form.well.tag-form {
   margin:2px;
   padding:8px 4px;
   color: #fff;
+}
+
+.item_actions {
+  border-color: #fff #E6E6E6 #BFBFBF;
+}
+
+.item_actions a.btn,
+.item_actions a.btn:first-child,
+.item_actions a.btn:last-child, {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  
+}
+
+.item_actions a.red {
+  border: 0;
+  border-left: 4px solid #f66;
+}
+
+.item_actions a.yellow {
+  border: 0;
+  border-left: 4px solid #ff0;
+}
+
+.item_actions a.blue {
+  border: 0;
+  border-left: 4px solid #65B8FD;
+}
+
+.item-thumb {
+  position: relative;
+}
+
+.item-thumb .avatar{
+  position: absolute;
+  top: 204px;
+}
+
+.item-thumb .item-price{
+  position: absolute;
+  top: 210px;
+  right: 0;
+  height: 20px;
+  line-height:20px;
+  background-color: #ccc;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.item-comment {
+  margin: 0;
+  padding: 4px;
+}
+
+.item-share-info li{
+  padding-right: 4px;
 }

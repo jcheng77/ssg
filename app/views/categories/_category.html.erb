@@ -1,7 +1,7 @@
 <div class="row cat-bar" style="margin-left: 0px;">
     <ul class="nav nav-pills category">
         <li>
-            <%= link_to items_path(:category => category.join(" ")), :remote => true, :value => category.join(" "), :style => "width: 45px; line-height: 49px;" do %>
+            <%= link_to items_path(:category => category.join(" ")), :remote => true, :value => category.join(" "), :class => "cat-all" do %>
                 全部
             <% end %>
         </li>
