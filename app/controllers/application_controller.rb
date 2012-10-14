@@ -85,30 +85,19 @@ class ApplicationController < ActionController::Base
   end
 
   def weibo_client(sns_type = nil)
-    #sina weibo production test api client
-
-
-    #@client ||= ( session[:client] || WeiboOAuth2::Client.new( '3788831273','cd9072acaac30aaa6d7a45dc8fff57e3'))
-    #WeiboOAuth2::Config.redirect_uri = 'http://boluo.me/syncs/sina/callback/'
-
 
     sns_type ||= (session[:sns_type] || params[:type])
     case sns_type
     when 'sina'
-    #production sina app key
     unless is_sina_app_key_load?
-      load_sina_config
+      put_sina_config_into_session load_sina_config
     end
 
     @client ||= WeiboOAuth2::Client.new(session[:appkey], session[:appsecret])
     WeiboOAuth2::Config.redirect_uri = session[:callback]
 
-        #127.0.0.1 test app key
-        #@client ||= WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
-        #WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/'
-
-        if !@client.authorized? && !session[:access_token].nil?
-          @client.get_token_from_hash(:access_token => session[:access_token], :refresh_token => session[:refresh_token], :expires_at => session[:expires_at])
+    if !@client.authorized? && !session[:access_token].nil?
+        @client.get_token_from_hash(:access_token => session[:access_token], :refresh_token => session[:refresh_token], :expires_at => session[:expires_at])
         end
       when 'qq'
         @client ||= Weibo.new('qq')
@@ -117,16 +106,20 @@ class ApplicationController < ActionController::Base
     @client
   end
 
+  private
 
   def is_sina_app_key_load?
     !(session[:appkey].nil? || session[:appsecret].nil? || session[:callback].nil?)
   end
 
   def load_sina_config
-  sina = YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
-  session[:appkey] = sina["key"]
-  session[:appsecret] = sina["secret"]
-  session[:callback] = sina["callback"]
+    YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
+  end
+
+  def put_sina_config_into_session(sina)
+    session[:appkey] = sina["key"]
+    session[:appsecret] = sina["secret"]
+    session[:callback] = sina["callback"]
   end
 
 end
