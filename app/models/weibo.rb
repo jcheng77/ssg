@@ -8,11 +8,15 @@ class Weibo
 
   def init_client
     case @type
-    when 'sina'
-      @client = OauthChina::Sina.new
     when 'qq'
       @client = OauthChina::Qq.new
+    when 'sina'
+    sinaapp = load_sina_config
+    binding.pry
+    @client = WeiboOAuth2::Client.new(sinaapp["key"], sinaapp["secret"])
+    WeiboOAuth2::Config.redirect_uri = sinaapp["callback"]
     end
+ 
   end
 
   def client
@@ -25,51 +29,36 @@ class Weibo
 
   def load_client(oauth_token)
     case @type
-    when 'sina'
-      @client = OauthChina::Sina.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
     when 'qq'
       @client = OauthChina::Qq.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
+    when 'sina'
+      @client.get_token_from_hash(:access_token => oauth_token[:access_token], :refresh_token => oauth_token[:refresh_token], :expires_at => oauth_token[:expires_at])
     end
   end
 
-  def load_from_db(access_token,token_secret)
+  def load_from_db(access_token,token_secret, expires_at = nil)
     case @type
-    when 'sina'
-      @client = OauthChina::Sina.load(:access_token => access_token,:access_token_secret => token_secret)
     when 'qq'
       @client = OauthChina::Qq.load(:access_token => access_token,:access_token_secret => token_secret)
+    when 'sina'
+      @client.get_token_from_hash(:access_token => access_token, :refresh_token => token_secret, :expires_at => expires_at)
     end
   end
 
   #verify account info
   def get_account_info
-    case @type
-    when 'sina'
-      resp = @client.get '/account/verify_credentials.json' 
-    when 'qq'
       resp = @client.get 'http://open.t.qq.com/api/user/info?format=json'
-    end
     return resp
   end
 
   #get the friends list that the given person follows
   def get_friends_ids_names(uid)
-    case @type
-    when 'sina'
-      resp = @client.get '/friends/ids.json'
-    when 'qq'
       resp = @client.get('http://open.t.qq.com/api/friends/mutual_list?format=json&fopenid='+ uid + '&startindex=0&req_num=30')
-    end
     return resp
   end
 
   def get_friends_ids
-    case @type
-    when 'sina'
-      resp = @client.get '/friends/ids.json'
-    when 'qq'
       resp = @client.get 'http://open.t.qq.com/api/friends/mutual_list?format=json' 
-    end
     return resp
   end
 
@@ -95,11 +84,7 @@ class Weibo
       friends_json= resp.body 
       friends_hash = ActiveSupport::JSON.decode(friends_json) 
     end
-    if @type == 'qq'
       return extract_friends_list(friends_hash)
-    else
-      return friends_hash["ids"]
-    end
   end
 
   #extract id and name and profile image infomation from the json object returned from QQ weibo
@@ -126,26 +111,46 @@ class Weibo
     [friends_ids, friends_names]
   end
 
-  def add_status(access_token,token_secret,message)
-    load_from_db(access_token,token_secret)
-    #message.force_encoding('utf-8')
+  def add_status(message)
+    case @type
+    when 'qq'
+    message.force_encoding('utf-8')
     @client.add_status(message)
+    when 'sina'
+    message.force_encoding('utf-8')
+    @client.statuses.update(message)
+    end
   end
 
   def upload_image(access_token,token_secret,message,image_path)
     load_from_db(access_token,token_secret)
-    #message.force_encoding('utf-8')
+    message.force_encoding('utf-8')
     @client.upload_image(message,image_path)
   end
 
   def upload_image_url(message,image_path)
-    
     @client.upload_image_url(message.force_encoding('utf-8'),image_path)
   end
+
+  def fetch_latest_mentions
+    if Status.exists?
+      @client.statuses.mentions(:since_id => Status.all.last.last_since_id) 
+    else
+      @client.statuses.mentions
+    end
+  end
+
 
   private
 
   def build_oauth_token_key(name , oauth_token)
     [name,oauth_token].join("_")
   end
+
+  def load_sina_config
+    YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
+  end
+
+
+
 end

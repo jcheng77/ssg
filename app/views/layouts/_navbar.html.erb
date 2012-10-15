@@ -39,8 +39,8 @@
                             </ul>
                         </li>
                     </ul>
-                    <%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>
-                    <!--<a id='share-btn' role="button" class="btn btn-warning pull-right" rel="#share-panel">我要分享</a>-->
+                    <!--<%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>-->
+                    <a id='share-btn' role="button" class="btn btn-warning pull-right" rel="#share-panel">我要分享</a>
 
                 <% end %>
                 <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
@@ -74,7 +74,7 @@
     <script>
         $(document).ready(function () {
             $("#share-btn").overlay({fixed:false});
-            $("#share-btn").overlay().onClose(function () {
+            $("#share-btn").overlay().close(function () {
                 $('#share-panel').css('height', 'auto');
                 $('#overlay-detail').css('display', 'none');
             });

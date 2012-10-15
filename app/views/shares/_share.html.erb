@@ -1,4 +1,4 @@
-<div class="row item_block">
+<div class="row item_block items">
     <div class="title"><%= share.item.title %></div>
     <div class="pull-left item_left">
         <%= link_to share, :class => "img_frame large_picture" do %>
@@ -6,9 +6,9 @@
         <% end %>
 
         <div class="item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">已购</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">想买</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购</a>
         </div>
     </div>
     <div class="item_right">

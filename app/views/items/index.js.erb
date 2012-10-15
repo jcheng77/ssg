@@ -1,0 +1,18 @@
+<% if params[:page].to_i <= 1 && @items.blank? %>
+ItemController.notFound();
+<% elsif !@items.blank? %>
+<% if params[:page].to_i <= 1 %>
+ItemController.changeCategory("<%= @current_categories.join(" ") %>");
+<% end %>
+<% @items.each do |i| %>
+ItemController.appendItem("<%= escape_javascript render(:partial => "items/item", :object => i, :locals => {:tags => i.tags, :share => i.root_share}) %>");
+<% end %>
+ItemController.renderTags("<%= escape_javascript render(:partial => "categories/toptags", :object => @hot_tags, :locals => {:current_categories => @current_categories, :current_tags => @current_tags}) %>");
+ItemController.clearNotice();
+<% end %>
+
+<% if @items.blank? || @items.offset + @items.length >= @items.total_entries %>
+ItemController.noMore();
+<% else %>
+ItemController.hasMore();
+<% end %>

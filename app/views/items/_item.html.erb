@@ -1,36 +1,43 @@
 <li>
     <div class="thumbnail browse_item">
-        <div class="item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn">想买</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn">推荐</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn">已购</a>
+        <div class="btn-group item_actions">
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">愿望 <span><%= item.in_wishes_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐 <span><%= item.in_shares_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购 <span><%= item.in_bags_num %></span></a>
         </div>
 
-        <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+        <div class='item-thumb'>
+            <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+            <% unless share.nil? %>
+                <a class="img_frame mini_picture avatar">
+                    <%= image_tag small_avatar_url(share.user.avatar) %>
+                </a>
+            <% end %>
+            <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>
+        </div> 
 
-        <%= link_to item do %>
-            <h5 class="title"> <%= item.title %> </h5>
-        <% end %>
+        <!--
+        <h5 class='title item-share-info'>
+                <span>愿望:&#160;&#160;&#160;&#160;<span><%= item.in_wishes_num %></span></span>
+                <span>推荐:&#160;&#160;&#160;&#160;<span><%= item.in_shares_num %></span></span>
+                <span>已购:&#160;&#160;&#160;&#160;<span><%= item.in_bags_num %></span></span>
+        </h5>
+        -->
+
         <% unless tags.nil? %>
             <p class="tags_list">
-                <% i ||= 0%>
+                <% i ||= 0 %>
                 <% item.tags_each do |tag| %>
                     <%= link_to items_path(:tag_action => "add", :tag => tag), :class => "blingy" do %>
                         #<%= tag %><span class="left"></span><span class="right"></span>
-                        <% end %>
-                        <% i += 1%> 
-                  <% break if i > 2%>
-                      <%end %>
+                    <% end %>
+                    <% i += 1 %>
+                    <% break if i > 2 %>
+                <% end %>
             </p>
         <% end %>
         <% unless share.nil? %>
-            <div class="row user-comment">
-                <a class="img_frame mini_picture pull-left">
-                    <%= image_tag small_avatar_url(share.user.avatar) %>
-                </a>
-                <%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>
-                <p class="comment" title="<%= share.comment_content %>"><%= comment_format share.comment_content %></p>
-            </div>
+            <p class="item-comment" title="<%= share.comment_content %>"><%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>:<%= share.comment_content %></p>
         <% end %>
     </div>
 

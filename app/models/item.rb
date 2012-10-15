@@ -30,9 +30,9 @@ class Item
   enable_tags_index!
   tags_index_group_by :category
 
-  def self.in_categories_and_tags(categories, tags, page, per_page = 24)
+  def self.in_categories_and_tags(categories, tags, page, per_page = 20)
     query = self.where(:category.in => categories)
-    query = query.has_tags(tags) unless tags.blank?
+    query = query.in_tags(tags) unless tags.blank?
     query.desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
@@ -50,7 +50,7 @@ class Item
     end
 
     query = self.where(:title => /.*(#{search_contents.join "|"}).*/)
-    query = query.has_tags(search_tags) unless search_tags.blank?
+    query = query.in_tags(search_tags) unless search_tags.blank?
     [search_tags, query.paginate(:page => page, :per_page => per_page)]
   end
 
@@ -168,18 +168,12 @@ class Item
     self.shares.by_type(Share::TYPE_BAG).count
   end
 
-  def self.top_tags(category, num = 10)
-    tags = self.tags_with_weight(category).sort_by { |k| -k[1] }
+  def self.top_tags(categories = [], num = 10)
+    tags = self.tags_with_weight(categories).sort_by { |k| -k[1] }
     tags.first(num).map { |t| t[0] }
   end
-
 
   def restore_item_url
     restore_url(self.source_site, self.shares.first.source)
   end
-
-  def trackable_purchase_url(uid)
-    append_track_id(self.source_site,self.purchase_url,uid)
-  end
-
 end

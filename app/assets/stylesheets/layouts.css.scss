@@ -1,10 +1,7 @@
 body {
     position: relative;
     padding-top: 60px;
-}
-
-.pagination {
-    text-align: center;
+    background-color: whitesmoke;
 }
 
 .footer {
@@ -35,11 +32,11 @@ body {
 }
 
 .category {
-    margin-bottom: 0px;
     font-size: 16px;
-    padding: 8px;
+    padding: 0;
+    padding-right: 16px;
     float: left;
-    margin-bottom: 20px;
+    margin: 0;
 
     li {
         text-align: center;
@@ -52,6 +49,20 @@ body {
             color: #005580;
         }
     }
+
+    a.cat-all {
+        width: 45px; 
+        line-height: 49px; 
+        height: 49px; 
+        color: #fff; 
+        font-weight:bold
+    }
+}
+
+.progress {
+    width: 200px;
+    margin: 0px auto 30px auto;
+    display: none;
 }
 
 .auto_show{
@@ -230,18 +241,6 @@ body {
     }
 }
 
-.tag-block {
-    list-style-type: none;
-    margin-left: 0px;
-    margin-bottom: 20px;
-    line-height: 35px;
-    
-    li {
-        display: inline;
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-}
 .title{
     background-color: #F0F0F0;
     overflow: hidden;
@@ -275,8 +274,9 @@ body {
 .item_actions{
     display: none;
     position: absolute;
-    left: 16%;
-    top: 0;
+    left: 10%;
+    top: 8px;
+    z-index: 100;
 }
 
 /* the overlayed element */
@@ -295,6 +295,7 @@ body {
     border:1px solid #e3e3e3;
  
     /* CSS3 styling for latest browsers */
+    box-shadow: 0 0 10px #eee;
     -moz-box-shadow:0 0 10px 5px #eee;
     -webkit-box-shadow: 0 0 10px #eee;
 }
@@ -323,4 +324,32 @@ body {
 
 .form-horizontal .controls {
     margin-left: 80px;
+}
+
+#hot_tags .bs-docs-separator {
+    box-shadow: 1px 2px 10px #eee;
+    -moz-box-shadow: 1px 2px 10px #eee;
+    -webkit-box-shadow: 1px 2px 10px #eee;
+
+    margin: 8px 0;
+}
+
+.tag-block a {
+    font-size: 12px;
+}
+
+.tag-desc {
+    font-size: 12px;
+    font-weight: bold;
+    line-height:35px;
+}
+
+#hot_tags {
+    margin: 10px 0;
+}
+
+#hot_tags .nav-pills .active > a, 
+#hot_tags .nav-pills .active > a:hover {
+    color: white;
+    background-color: #09f;
 }

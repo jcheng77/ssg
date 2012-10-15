@@ -85,13 +85,13 @@ module WeiboHelper
 
   def put_share_in_queue(hash)
     q = ShareQueue.create(hash)
-    Status.create(:last_since_id => q.weibo_status_id) if q
+    Status.create(last_since_id: q.weibo_status_id) if q
   end
 
 
   def fetch_latest_mentions(client)
     if Status.exists?
-      client.statuses.mentions(:since_id => Status.all.first.last_since_id) 
+      client.statuses.mentions(:since_id => Status.all.last.last_since_id) 
     else
       client.statuses.mentions
     end
