@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('ul.items').on({
+    $('.items').on({
         mouseover:function () {
             $(this).find('.item_actions').css('display', 'block');
         },

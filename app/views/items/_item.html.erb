@@ -19,9 +19,9 @@
         <%= link_to item do %>
             <h5 class='title'>
             <ul class="nav nav-pills item-share-info">
-                <li>愿望:&#160;&#160;<span>0</span></li>
-                <li>推荐:&#160;&#160;<span>0</span></li>
-                <li>已购:&#160;&#160;<span>0</span></li>
+                <li>愿望:&#160;&#160;<span><%= item.in_wishes_num %></span></li>
+                <li>推荐:&#160;&#160;<span><%= item.in_shares_num %></span></li>
+                <li>已购:&#160;&#160;<span><%= item.in_bags_num %></span></li>
                 <li>评论:&#160;&#160;<span>0</span></li>
             </ul>
             </h5>
