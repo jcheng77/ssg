@@ -1,31 +1,12 @@
 <div class="row cat-bar" style="margin-left: 0px;">
     <ul class="nav nav-pills category">
         <% categories.each_with_index do |c, i| %>
-            <% if current_user.preferences.include?(c) %>
             <li>
-                <%= link_to "javascript: void(0);", :remote => true, :value => c, "path-cat" => items_path(:category => c), "path-all" => items_path do %>
-            		<%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
-                <% end %>
+            <a href="javascript: void(0);" value="<%= c %>" class="<%= current_categories.include?(c) ? "checked" : "" %>">
+            <%= image_tag(( 'cat_pic_' + (i+1).to_s + '.png'), :size => '45x50')%>
+          </a>
+                
             </li>
         <% end %>
     </ul>
-
-    <ul class="nav nav-pills category" style='display:none'>
-        <% categories.each_with_index do |c, i| %>
-            <% if !current_user.preferences.include?(c) %>
-            <li>
-                <%= link_to "javascript: void(0);", :remote => true, :value => c, "path-cat" => items_path(:category => c), "path-all" => items_path, "cat-type" => "extra" do %>
-                    <%= image_tag(("cat_pic_#{i + 1}.png"), :size => '45x50')%>
-                <% end %>
-            </li>
-            <% end %>
-        <% end %>
-    </ul>
-
-    <ul class="nav nav-pills category">
-        <li>
-            <a href="javascript: void(0);" class='exp-cat' value="expend">&gt;</a>
-        </li>
-    </ul>
-        
 </div>
