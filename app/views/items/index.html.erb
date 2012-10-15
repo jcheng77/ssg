@@ -25,15 +25,51 @@
         <% end %>
 
         <!--<div class="page-header"></div>-->
-        <% unless @items.blank? %>
-            <ul class="thumbnails">
+        <h4 id="notice"></h4>
+        <ul id="items" class="thumbnails">
+            <% unless @items.blank? %>
                 <% @items.each do |item| %>
                     <%= render :partial => "item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
                 <% end %>
-            </ul>
-        <% else %>
-            <h4>没有找到对应的宝贝。</h4>
-        <% end %>
+            <% end %>
+        </ul>
     </div>
 </div>
-<%= bootstrap_will_paginate @items %>
+<div id="progress" class="progress progress-info progress-striped active" style="width: 200px; margin: 15px auto; display: none;">
+    <div class="bar" style="width: 100%;"></div>
+</div>
+<ul class="pager">
+    <li><%= link_to "更多宝贝", "javascript: void(0);", :remote => true, :id => "more", :path => items_path, :cat => "", :page => 1 %></li>
+</ul>
+<script type="text/javascript">
+    $(function () {
+        var arrivedAtBottom = function () {
+            return $(document).scrollTop() + $(window).height() == $(document).height();
+        }
+
+        $(window).scroll(function () {
+            if (arrivedAtBottom()) {
+                var el = $("#more");
+                var page = parseInt(el.attr("page"));
+                if (page < 5 && !el.hasClass("finished")) {
+                    el.click();
+                }
+            }
+        });
+
+        $("#more").click(function () {
+            var el = $(this);
+            var page = parseInt(el.attr("page")) + 1;
+            el.attr("page", page);
+            var href = el.attr("path") + "?" + "category=" + el.attr("cat") + "&page=" + page;
+            el.attr("href", href);
+        });
+
+        var progressBar = $("#progress");
+        $("#more").on("ajax:before",function () {
+            progressBar.show();
+        }).on("ajax:complete", function () {
+            progressBar.hide();
+        });
+    });
+</script>

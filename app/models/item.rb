@@ -30,7 +30,7 @@ class Item
   enable_tags_index!
   tags_index_group_by :category
 
-  def self.in_categories_and_tags(categories, tags, page, per_page = 24)
+  def self.in_categories_and_tags(categories, tags, page, per_page = 20)
     query = self.where(:category.in => categories)
     query = query.has_tags(tags) unless tags.blank?
     query.desc(:created_at).paginate(:page => page, :per_page => per_page)
