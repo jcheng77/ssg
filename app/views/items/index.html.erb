@@ -107,7 +107,8 @@
         moreBtn.click(function () {
             var page = parseInt(moreBtn.attr("page")) + 1;
             moreBtn.attr("page", page);
-            var href = moreBtn.attr("path") + "?" + "category=" + encodeURIComponent(moreBtn.attr("cat")) + "&page=" + page;
+            var tags = $(".category-tags").attr("tags");
+            var href = moreBtn.attr("path") + "?category=" + encodeURIComponent(moreBtn.attr("cat")) + "&tag=" + encodeURIComponent(tags) + "&page=" + page;
             moreBtn.attr("href", href);
         });
 
