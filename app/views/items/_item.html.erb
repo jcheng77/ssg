@@ -13,14 +13,14 @@
         <% end %>
         <% unless tags.nil? %>
             <p class="tags_list">
-                <% i ||= 0 %>
+                <% i ||= 0%>
                 <% item.tags_each do |tag| %>
                     <%= link_to items_path(:tag_action => "add", :tag => tag), :class => "blingy" do %>
                         #<%= tag %><span class="left"></span><span class="right"></span>
-                    <% end %>
-                    <% i += 1 %>
-                    <% break if i > 2 %>
-                <% end %>
+                        <% end %>
+                        <% i += 1%> 
+                  <% break if i > 2%>
+                      <%end %>
             </p>
         <% end %>
         <% unless share.nil? %>
@@ -29,7 +29,7 @@
                     <%= image_tag small_avatar_url(share.user.avatar) %>
                 </a>
                 <%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>
-                <p class="comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
+                <p class="comment" title="<%= share.comment_content %>"><%= comment_format share.comment_content %></p>
             </div>
         <% end %>
     </div>

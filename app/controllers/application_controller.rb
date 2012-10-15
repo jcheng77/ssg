@@ -16,10 +16,19 @@ class ApplicationController < ActionController::Base
     @current_user ||= session[:current_user_id] && User.where(:_id => session[:current_user_id]).first
   end
 
-  def current_categories
+  def current_categories(action = nil, category = nil)
     @current_categories = session[:current_categories].to_a
     @current_categories = current_user.preferences if @current_categories.blank?
-    session[:current_categories] = @current_categories
+    unless category.blank?
+      case action
+        when 'delete'
+          @current_categories.delete category
+        when 'add'
+          @current_categories << category unless @current_categories.include? category
+      end
+      session[:current_categories] = @current_categories
+    end
+    @current_categories.to_a
   end
 
   def current_tags(action = nil, tag = nil)
@@ -52,7 +61,7 @@ class ApplicationController < ActionController::Base
 =end
 
   def categories
-    @categories ||= ['数码', '户外运动', '男装', '女装', '箱包', '饰品', '化妆品', '居家', '食品', '汽车', '图书影像', '创意礼品']
+    @categories ||= ['数码', '户外运动', '男装', '女装', '箱包','饰品', '化妆品', '居家', '食品','汽车','图书影像','创意礼品'  ]
   end
 
   def authenticate
@@ -79,14 +88,13 @@ class ApplicationController < ActionController::Base
 
     sns_type ||= (session[:sns_type] || params[:type])
     case sns_type
-      when 'sina'
-        #production sina app key
-        unless is_sina_app_key_load?
-          load_sina_config
-        end
+    when 'sina'
+    unless is_sina_app_key_load?
+      put_sina_config_into_session load_sina_config
+    end
 
-        @client ||= WeiboOAuth2::Client.new(session[:appkey], session[:appsecret])
-        WeiboOAuth2::Config.redirect_uri = session[:callback]
+    @client ||= WeiboOAuth2::Client.new(session[:appkey], session[:appsecret])
+    WeiboOAuth2::Config.redirect_uri = session[:callback]
 
     if !@client.authorized? && !session[:access_token].nil?
         @client.get_token_from_hash(:access_token => session[:access_token], :refresh_token => session[:refresh_token], :expires_at => session[:expires_at])
@@ -105,10 +113,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_sina_config
-    sina = YAML.load_file(Rails.root.join("config/oauth", "sina.yml"))[Rails.env]
-    session[:appkey] = sina["key"]
-    session[:appsecret] = sina["secret"]
-    session[:callback] = sina["callback"]
+    YAML.load_file(Rails.root.join("config/oauth","sina.yml"))[Rails.env]
   end
 
   def put_sina_config_into_session(sina)
