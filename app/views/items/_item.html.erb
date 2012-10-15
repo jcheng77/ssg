@@ -1,9 +1,9 @@
 <li>
     <div class="thumbnail browse_item">
         <div class="btn-group item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">想买</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">愿望 <span><%= item.in_wishes_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐 <span><%= item.in_shares_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购 <span><%= item.in_bags_num %></span></a>
         </div>
 
         <div class='item-thumb'>
@@ -16,16 +16,14 @@
             <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>
         </div> 
 
-        <%= link_to item do %>
-            <h5 class='title'>
-            <ul class="nav nav-pills item-share-info">
-                <li>愿望:&#160;&#160;<span><%= item.in_wishes_num %></span></li>
-                <li>推荐:&#160;&#160;<span><%= item.in_shares_num %></span></li>
-                <li>已购:&#160;&#160;<span><%= item.in_bags_num %></span></li>
-                <li>评论:&#160;&#160;<span>0</span></li>
-            </ul>
-            </h5>
-        <% end %>
+        <!--
+        <h5 class='title item-share-info'>
+                <span>愿望:&#160;&#160;&#160;&#160;<span><%= item.in_wishes_num %></span></span>
+                <span>推荐:&#160;&#160;&#160;&#160;<span><%= item.in_shares_num %></span></span>
+                <span>已购:&#160;&#160;&#160;&#160;<span><%= item.in_bags_num %></span></span>
+        </h5>
+        -->
+
         <% unless tags.nil? %>
             <p class="tags_list">
                 <% i ||= 0 %>
@@ -39,7 +37,7 @@
             </p>
         <% end %>
         <% unless share.nil? %>
-            <p class="item-comment" title="<%= share.comment_content %>"><%= share.comment_content %></p>
+            <p class="item-comment" title="<%= share.comment_content %>"><%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>:<%= share.comment_content %></p>
         <% end %>
     </div>
 

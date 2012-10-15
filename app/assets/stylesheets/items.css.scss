@@ -17,8 +17,9 @@
 .browse_item {
     position: relative;
     width: 240px;
-    height: 375px;
+    height: 358px;
     padding: 0;
+    background-color: white;
 }
 
 .browse_item .title{
@@ -27,6 +28,14 @@
     max-height: 14px;
     overflow: hidden;
 }
+
+.browse_item .user_name{
+  margin: 0 5px 0 0;
+  display: inline-block;
+  text-decoration: none; 
+  font-weight: bold; 
+}
+
 .browse_item .user-comment{
     height: 100px;
     overflow: hidden;
@@ -48,7 +57,8 @@
 
 /*Tags Style*/
 .browse_item p.tags_list {
-  margin-bottom: 5px;
+  margin-bottom: 1px;
+  margin-top: 5px;
 }
 
 p.tags_list {
@@ -224,16 +234,25 @@ form.well.tag-form {
 .item_actions a.red {
   border: 0;
   border-left: 4px solid #f66;
+  > span {
+   
+  }
 }
 
 .item_actions a.yellow {
   border: 0;
   border-left: 4px solid #ff0;
+  > span {
+   
+  }
 }
 
 .item_actions a.blue {
   border: 0;
   border-left: 4px solid #65B8FD;
+  > span {
+   
+  }
 }
 
 .item-thumb {
@@ -243,6 +262,7 @@ form.well.tag-form {
 .item-thumb .avatar{
   position: absolute;
   top: 204px;
+  background-color: white;
 }
 
 .item-thumb .item-price{
@@ -251,16 +271,32 @@ form.well.tag-form {
   right: 0;
   height: 20px;
   line-height:20px;
-  background-color: #ccc;
+  background-color: #666;
   opacity: 0.8;
   filter: alpha(opacity=80);
+  color: white;
+  font-weight: bold;
+}
+
+.item-thumb .img_frame {
+  border-bottom: 1px solid #eee;
+  box-shadow: 1px 2px 5px #eee;
+  -moz-box-shadow: 1px 2px 5px #eee;
+  -webkit-box-shadow: 1px 2px 5px #eee;
+
 }
 
 .item-comment {
   margin: 0;
-  padding: 4px;
+  padding: 0 4px 4px 4px;
+  display: inline-block;
+  line-height: 20px;
 }
 
-.item-share-info li{
-  padding-right: 4px;
+.item-share-info {
+  font-weight: bold;
+  text-align: center;
+  > span{
+    padding-right: 12px;
+  }
 }
