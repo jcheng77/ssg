@@ -85,10 +85,10 @@ class UsersController < ApplicationController
   # GET /users/1/my_wishes
   def my_wishes
     @user = User.find(params[:id])
-    @wishes = @user.my_wishes params[:page]
+    @shares = @user.my_wishes params[:page]
 
     respond_to do |format|
-      format.html { render layout: 'application' } # my_wishes.html.erb
+      format.html { render action: :my_shares, layout: 'application' } # my_wishes.html.erb
       format.json { render json: @user }
     end
   end
@@ -96,10 +96,21 @@ class UsersController < ApplicationController
   # GET /users/1/my_bags
   def my_bags
     @user = User.find(params[:id])
-    @bags = @user.my_bags params[:page]
+    @shares = @user.my_bags params[:page]
 
     respond_to do |format|
-      format.html { render layout: 'application' } # my_bags.html.erb
+      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/1/cycle_shares
+  def cycle_shares
+    @user = User.find(params[:id])
+    @shares = @user.cycle_shares params[:page]
+
+    respond_to do |format|
+      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end
