@@ -1,17 +1,16 @@
 $(document).ready(function () {
-    var href = window.location.href;
-    // if (href.indexOf("my_shares") != -1 || href.indexOf("dashboard") != -1) {
-        $('.item_block .item_left, .browse_item').mouseover(
-            function () {
-                $(this).find('.item_actions').css('display', 'block');
-            }).mouseout(function () {
-                $(this).find('.item_actions').css('display', 'none');
-            });
-    // }
+    $('.items').on({
+        mouseover:function () {
+            $(this).find('.item_actions').css('display', 'block');
+        },
+        mouseout:function () {
+            $(this).find('.item_actions').css('display', 'none');
+        }
+    }, '.item_block .item_left, .browse_item');
 
-    $('.auto_expand').focus(function(){
-        var comment = $(this).attr('rows',2);
-        if(comment.parent().find('.auto_show').length == 0){
+    $('.auto_expand').focus(function () {
+        var comment = $(this).attr('rows', 2);
+        if (comment.parent().find('.auto_show').length == 0) {
             comment.after('<input type="submit" value="评论" name="commit" class="btn btn-primary auto_show">');
         }
     });

@@ -45,7 +45,7 @@
         <div class="tab-content">
             <div class="tab-pane fade in active" id="shares">
                 <div class="row" style="margin-left: 0px;">
-                    <ul class="thumbnails">
+                    <ul class="items thumbnails">
                         <% @user.recent_shares.each do |share| %>
                             <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share} %>
                         <% end %>
@@ -54,7 +54,7 @@
             </div>
             <div class="tab-pane fade in " id="wishes">
                 <div class="row" style="margin-left: 0px;">
-                    <ul class="thumbnails">
+                    <ul class="items thumbnails">
                         <% @user.recent_wishes.each do |wish| %>
                             <%= render :partial => "items/item", :object => wish.item, :locals => {:tags => wish.tags, :share => wish} %>
                         <% end %>
@@ -63,7 +63,7 @@
             </div>
             <div class="tab-pane fade in" id="bags">
                 <div class="row" style="margin-left: 0px;">
-                    <ul class="thumbnails">
+                    <ul class="items thumbnails">
                         <% @user.recent_bags.each do |bag| %>
                             <%= render :partial => "items/item", :object => bag.item, :locals => {:tags => bag.tags, :share => bag} %>
                         <% end %>

@@ -1,0 +1,12 @@
+<hr class="bs-docs-separator"/>
+<div class="pull-left tag-desc">热门标签:&#160;&#160;</div>
+<ul class="nav nav-pills tag-block category-tags" tags="<%= current_tags.join(" ") %>">
+    <% toptags.each do |t| %>
+        <!-- TODO: 若tag被选中，li的class设为active-->
+        <!-- TODO: 每次category有变化，该列表应相应变化-->
+        <li class="<%= current_tags.include?(t) ? "active" : "" %>">
+            <%= link_to t, "javascript: void(0);", :remote => true, :path => items_path, :categories => current_categories.join(" "), :tag => t  %>
+        </li>
+    <% end %>
+</ul>
+<hr class="bs-docs-separator"/>

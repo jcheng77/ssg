@@ -9,12 +9,15 @@ class ItemsController < ApplicationController
   before_filter :select_empty_layout, only: :share
 
   def index
-    categories = current_categories(params[:category_action], params[:category])
-    tags = current_tags(params[:tag_action], params[:tag])
-    @items = Item.in_categories_and_tags categories, tags, params[:page]
+    @current_categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
+    @hot_tags = Item.top_tags(@current_categories);
+    # tags = current_tags(params[:tag_action], params[:tag])
+    @current_tags = params[:tag].to_s.strip.split(" ")
+    @items = Item.in_categories_and_tags @current_categories, @current_tags, params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js # index.js.erb
       format.json { render json: @items }
     end
   end

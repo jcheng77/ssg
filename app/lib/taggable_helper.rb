@@ -40,16 +40,20 @@ module TaggableHelper
       tags_index_collection.master.find.to_a.map { |r| r["_id"] }
     end
 
-    def has_tags(tags)
+    def in_tags(tags)
       where(:tags_array.in => tags)
     end
 
     # retrieve the list of tags with weight(i.e. count), this is useful for
     # create tags index
-    def tags_with_weight(group = nil)
+    def tags_with_weight(group = [])
       hash = {}
       array = tags_index_collection.master.find.to_a
-      array.select! { |v| v["value"].key? group } unless group.blank?
+      array.select! do |v|
+        result = false
+        group.each { |g| result = true if v["value"].key?(g) }
+        result
+      end unless group.blank?
       array.each do |r|
         sum = r["value"].values.inject { |total, x| total + x }
         hash[r["_id"]] = sum
@@ -120,7 +124,7 @@ module TaggableHelper
       self.collection.master.map_reduce(map, reduce, :out => tags_index_collection_name)
     end
 
-    handle_asynchronously :save_tags_index! if defined?(Delayed)
+    # handle_asynchronously :save_tags_index! if defined?(Delayed)
   end
 
   module InstanceMethods
