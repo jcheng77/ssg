@@ -1,15 +1,13 @@
-var activeItems = function () {
-    $('.item_block .item_left, .browse_item').mouseover(
-        function () {
+$(document).ready(function () {
+    $('ul.items').on({
+        mouseover:function () {
             $(this).find('.item_actions').css('display', 'block');
-        }).mouseout(function () {
+        },
+        mouseout:function () {
             $(this).find('.item_actions').css('display', 'none');
         }
-    );
-}
+    }, '.item_block .item_left, .browse_item');
 
-$(document).ready(function () {
-    activeItems();
     $('.auto_expand').focus(function () {
         var comment = $(this).attr('rows', 2);
         if (comment.parent().find('.auto_show').length == 0) {

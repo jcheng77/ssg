@@ -28,11 +28,9 @@
                 });
             </script>
         <% end %>
-
         <div id="hot_tags" style="display: none;"></div>
-
-        <h4 id="notice"></h4>
-        <ul id="items" class="thumbnails"></ul>
+        <h4 id="notice" style="display: none; margin-top: 20px;"></h4>
+        <ul id="items" class="items thumbnails"></ul>
     </div>
 </div>
 <div id="progress_more" class="progress progress-info progress-striped active">
@@ -50,7 +48,7 @@
 
     var ItemController = {
         clearNotice:function () {
-            noticeBar.empty();
+            noticeBar.hide().empty();
         },
         clearItems:function () {
             itemPanel.empty();
@@ -58,7 +56,7 @@
         appendItem:function (html) {
             itemPanel.append(html).children("li:last").hide().fadeIn(2000);
         },
-        renderTags:function (html)  {
+        renderTags:function (html) {
             $(hotTagPanel).html(html);
         },
         changeCategory:function (category) {
@@ -72,7 +70,7 @@
         notFound:function () {
             this.clearItems();
             hotTagPanel.hide();
-            noticeBar.html("没有找到对应的宝贝。");
+            noticeBar.html("没有找到对应的宝贝。").show();
         },
         noMore:function () {
             moreBtn.addClass("finished");
@@ -114,18 +112,26 @@
         });
 
         var progressMore = $("#progress_more");
-        moreBtn.on("ajax:before",function () {
-            moreBtn.hide();
-            progressMore.show();
-        }).on("ajax:complete", function () {
+        moreBtn.on("ajax:before",
+                function () {
+                    moreBtn.hide();
+                    progressMore.show();
+                }
+        ).on("ajax:complete",
+                function () {
                     progressMore.hide();
-                });
+                }
+        );
 
         var progressLoad = $("#progress_load");
-        $(".category li a").on("ajax:before",function () {
-            progressLoad.show();
-        }).on("ajax:complete", function () {
+        $(".category li a").on("ajax:before",
+                function () {
+                    progressLoad.show();
+                }
+        ).on("ajax:complete",
+                function () {
                     progressLoad.hide();
-                });
+                }
+        );
     });
 </script>

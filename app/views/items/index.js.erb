@@ -7,7 +7,6 @@ ItemController.changeCategory("<%= @current_categories.join(" ") %>");
 <% @items.each do |i| %>
 ItemController.appendItem("<%= escape_javascript render(:partial => "item", :object => i, :locals => {:tags => i.tags, :share => i.root_share}) %>");
 <% end %>
-activeItems();
 ItemController.renderTags("<%= escape_javascript render(:partial => "toptags", :object => @hot_tags) %>");
 ItemController.clearNotice();
 <% end %>
