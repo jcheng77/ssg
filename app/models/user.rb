@@ -75,6 +75,16 @@ class User
     self.shares.recent_by_type(Share::TYPE_BAG).paginate(:page => page, :per_page => per_page)
   end
 
+  def cycle_shares(page, per_page = 8)
+    cycle_friends = []
+    self.followees_by_type(User.name).each do |f|
+      f.followees_by_type(User.name).each { |ff| cycle_friends << ff._id }
+    end
+    cycle_friends.uniq!
+    cycle_friends.delete self._id
+    Share.where(:user_id.in => cycle_friends).paginate(:page => page, :per_page => per_page)
+  end
+
   def recent_shares(limit = 8)
     self.shares.where(share_type: Share::TYPE_SHARE).desc(:created_at).limit(limit)
   end

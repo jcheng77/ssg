@@ -14,11 +14,23 @@
 <div class="row main myshares">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
-        <%= render :partial => "links"  %>
+        <%= render :partial => "links" %>
     </div>
     <div class="span8">
 
-        <div class="page-header"><h4>分享</h4></div>
+        <div class="page-header">
+            <h4>
+                <% if current_page?(:action => :my_shares) %>
+                    我的分享
+                <% elsif current_page?(:action => :my_wishes) %>
+                    我的愿望
+                <% elsif current_page?(:action => :my_bags) %>
+                    我的已购
+                <% elsif current_page?(:action => :cycle_shares) %>
+                    二级好友分享
+                <% end %>
+            </h4>
+        </div>
         <div class="row" style="margin-left: 0px;">
             <% @shares.each do |share| %>
                 <%= render :partial => "shares/share", :object => share %>
