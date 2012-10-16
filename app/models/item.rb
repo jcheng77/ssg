@@ -90,6 +90,7 @@ class Item
     subscribed_items.each do |item|
       begin
         collector = Collector.new(item.restore_item_url)
+        sleep 3
         next if collector.price.to_f == 0
         next unless new_price = collector.price.to_f
 
