@@ -75,6 +75,10 @@ class User
     self.shares.recent_by_type(Share::TYPE_BAG).paginate(:page => page, :per_page => per_page)
   end
 
+  def all_my_shares(page, per_page=8)
+    Share.where(:user_id => self._id).paginate(:page => page, :per_page => per_page)
+  end
+
   def cycle_shares(page, per_page = 8)
     cycle_friends = []
     self.followees_by_type(User.name).each do |f|
