@@ -1,7 +1,7 @@
 #require "mongo_session_store/mongoid"
 #ActionController::Base.session_store = :mongo_mapper_store
 #require "mongo_session_store/mongoid"
-Ssg::Application.config.session_store = :mongoid_store
+Ssg::Application.config.session_store :mongoid_store, :key => 'ssg_session' , :expire_after => 3.hours
 
 # Be sure to restart your server when you modify this file.
 
