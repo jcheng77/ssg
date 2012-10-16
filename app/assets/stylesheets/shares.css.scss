@@ -149,6 +149,7 @@ ul li .line2 img {
 
 /*images list end*/
 
+#overlay-detail-mock,
 #bookmarklet_container {
   width: 960px;
   margin: 0 auto;
@@ -163,4 +164,54 @@ ul li .line2 img {
 
 .clear {
   clear: both;
+}
+
+#overlay-detail form {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.share-detail {
+  .span3 {
+    margin: 0
+  }
+  .span6 {
+    width: 500px; margin-top: 20px;
+  }
+  .bookmarklet_container{
+    width: 800px;
+  }
+  .share-details-title {
+    height: 28px; 
+    line-height: 28px; 
+    padding: 2px 15px;
+    font-weight: bold;
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .share-details-price{
+    float: right;
+    height: 32px;
+    line-height: 32px;
+  }
+  .bookmarklet_container .images_picker {
+    background-color: #fff;
+    border: 1px solid #EEE;
+    box-shadow: 2px 2px 5px #E3E3E3;
+    margin: 5px 0 15px 20px;
+  }
+  .wisth_type_list{
+    display:none;
+    margin-top:15px;
+    margin-bottom: 15px;
+  }
+  .footer{
+    line-height:45px;
+    height:45px;
+    text-align:center;
+    background-color:#e3e3e3;
+    padding: 0 15px;
+  }
 }

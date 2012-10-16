@@ -1,8 +1,10 @@
-<%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form'}) do |f| %>
-    <div id="bookmarklet_container" style='width: 800px;' class="row">
-        <div style="background-color:#e3e3e3; height: 28px; line-height: 28px; padding: 2px 15px;"><%= item.title %></div>
-        <div class="span3" style="margin: 0">
-            <div class="images_picker" style="background-color: #fff">
+<%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form share-detail'}) do |f| %>
+    <div id="bookmarklet_container" class="row bookmarklet_container">
+        <div class="span3">
+            <div class="share-details-price"><%= number_to_currency(share.price, unit: '￥') %></div>
+            <div class="share-details-title" title="<%= item.title %>"><%= item.title %></div>
+
+            <div class="images_picker">
                 <div class="image_frame">
                     <img src="<%= imgs.first %>" alt=""/>
 
@@ -17,7 +19,7 @@
             </div>
         </div>
 
-        <div class="span6" style="width: 500px; margin-top: 20px;">
+        <div class="span6">
             <%= hidden_field_tag "share[source]", share.source %>
             <%= hidden_field_tag "item[image]", item.image %>
             <%= hidden_field_tag "item[purchase_url]", item.purchase_url %>
@@ -28,7 +30,7 @@
             <%= hidden_field_tag "share[price]", share.price %>
 
             <%= f.input :category, :label => '分类' do %>
-                <%= f.select :category, Hash[categories.map { |c| [c, c] }], include_blank: false %>
+                <%= f.select :category, Hash[categories.map { |c| [c, c] }] %>
             <% end -%>
             <%= f.input :rating_comp, :label => '推荐指数' do %>
                 <div id="rating_comp" stars="<%= share.product_rating %>" scoreName="share[product_rating]"></div>
@@ -43,14 +45,14 @@
                 </div>
             <% end -%>
             <%= f.input :comment, :label => '推荐评论' do %>
-                <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc' %>
+                <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc', include_blank: false %>
             <% end -%>
             <div class="controls">
 
                 <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;加入愿望&#160;&#160;&#160;&#160;
                 <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;加入已购
 
-                <div id='wisth_type_list' class="btn-group" data-toggle="buttons-checkbox" style='display:none;margin-top:15px'>
+                <div id='wisth_type_list' class="btn-group wisth_type_list" data-toggle="buttons-checkbox">
                     <button type="button" class="btn">生日礼物</button>
                     <button type="button" class="btn">情人节</button>
                     <button type="button" class="btn">光棍节</button>
@@ -60,14 +62,15 @@
             </div>
         </div>
     </div>
-    <div id="overlay-footer" style="line-height:45px;height:45px;text-align:center;background-color:#e3e3e3;padding: 0 15px">
-        <a style='float: left;'>点击试试菠萝蜜书签收集</a>
+
+    <div id="overlay-footer" class="footer">
+        <!--<a style='float: left;'>点击试试菠萝蜜书签收集</a>-->
 
         <div style='float: right;'>
             <input type="checkbox" name="add_to_bought"/>&#160;&#160;分享到微博&#160;&#160;&#160;&#160;
             <input type="checkbox" name="add_to_wish"/>&#160;&#160;订阅降价通知
         </div>
-        <%= f.submit '我要推荐', :class => 'btn btn-warning', :style => 'clean: both;' %>
+        <%= f.submit '我要推荐', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
     </div>
 <% end %>
 <script>
@@ -125,3 +128,4 @@
         });
     });
 </script>
+
