@@ -149,7 +149,7 @@ ul li .line2 img {
 
 /*images list end*/
 
-#overlay-detail-mock,
+#overlay-detail-mock .bookmarklet_container,
 #bookmarklet_container {
   width: 960px;
   margin: 0 auto;
@@ -166,10 +166,32 @@ ul li .line2 img {
   clear: both;
 }
 
-#overlay-detail form {
-  margin: 0 !important;
-  padding: 0 !important;
+#overlay-detail-mock {
+  position: relative;
+   .loading-mask{
+     top: 0;
+     position: absolute;
+     width: 800px;
+     height: 384px;
+     background-color: #eee;
+     opacity: 0.6;
+     filter: alpha(opacity=60);
+     font-weight: bold;
+     text-align: center;
+  }
+  .loading-mask > div {
+     margin-top: 120px;
+  }
+  .loading-mask img {
+     vertical-align: middle;
+  }
 }
+
+#overlay-detail-mock form,
+#overlay-detail form {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 
 .share-detail {
   .span3 {
@@ -197,7 +219,7 @@ ul li .line2 img {
     line-height: 32px;
   }
   .bookmarklet_container .images_picker {
-    background-color: #fff;
+    background-color: #fff !important;
     border: 1px solid #EEE;
     box-shadow: 2px 2px 5px #E3E3E3;
     margin: 5px 0 15px 20px;

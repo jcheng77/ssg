@@ -1,6 +1,11 @@
 <% unless @item.nil? %>
+$('#overlay-detail-mock').hide();
 $("#overlay-detail").html("<%= escape_javascript render(:partial => "items/form", :locals => {:item => @item, :share => @share, :imgs => @imgs}) %>");
+$('#overlay-detail').show();
+$('#url').attr("value", "");
 <% else %>
+$('#overlay-detail-mock').show();
 $("#overlay-detail").html("");
+$('.loading-mask').hide();
 alert("出错啦！");
 <% end %>

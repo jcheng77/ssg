@@ -65,79 +65,47 @@
             <% end %>
         </div>
         
-        <div id="overlay-detail">
-            <form  class="simple_form form-horizontal tag-form share-detail">
-        <div  id="overlay-detail-mock" class="bookmarklet_container row">
-        <div class="span3">
-            <div class="share-details-price"></div>
-            <div class="share-details-title"></div>
+        <div id="overlay-detail"></div>
 
-            <div class="images_picker" style='height:396px'></div>
-        </div>
+        <%= render :partial => "items/sharemock" %>
 
-        <div class="span6">
-            <div class="control-group string required">  
-                <label class="string required control-label" for="item_category"><abbr title="required">*</abbr> 分类</label>
-                <div class="controls">
-                    <select name="item[category]"><option value="数码">数码</option></select>
-                </div>
-            </div>            
-            <div class="control-group string optional">
-                <label class="string optional control-label" for="item_rating_comp">推荐指数</label>
-                <div class="controls">
-                    <div stars="" scorename="share[product_rating]" style="width: 100px; cursor: pointer; ">
-                        <img  src="/assets/smallStars/star-off.png" alt="1" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="2" title="" class="rating_comp">&nbsp;<img  src="/assets/smallStars/star-off.png" alt="3" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="4" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="5" title="" class="rating_comp">
-                    </div>
-                </div>
-            </div>                
-            <div class="control-group string optional">
-                <label class="string optional control-label" for="item_tags">标签</label>
-                <div class="controls">
-                    <ul class="tags">
-                        <li><input type="text" style="width: 30px;"></li>
-                    </ul>   
-                </div>
-            </div>
-            <div class="control-group string optional">
-                <label class="string optional control-label" for="item_comment">推荐评论</label>
-                <div class="controls">
-                    <textarea class="input-xlarge" include_blank="false" name="share[comment]" rows="5"></textarea>
-                </div>
-            </div> 
-            <div class="controls">
-                <input type="checkbox" name="add_to_wish" >&nbsp;&nbsp;加入愿望&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="checkbox" name="add_to_bought">&nbsp;&nbsp;加入已购
-            </div>
-        </div>
-</div>
-</form>
-        </div>
-        <!-- end of static part -->
     </div>
 
     <script>
         $(document).ready(function () {
             $("#share-btn").overlay({
                                         fixed : false,
-                                        mask: {
-                                                color: '#ebecff',
-                                                loadSpeed: 200,
-                                                opacity: 0.9
-                                               }
+                                        onBeforeLoad : function(){
+                                                $(document).mask({
+                                                    closeOnClick: false,
+                                                    color: "#ccc"
+                                                });
+                                            },
+                                        onClose : function() {
+                                                $.mask.close();
+                                                $('#url').attr("value", "");
+                                                $('#overlay-detail').hide();
+                                                $('#overlay-detail-mock').show();
+                                                $('.loading-mask').hide();
+                                            }
                                     });
-            $("#share-btn").overlay().close(function () {
-                // $('#share-panel').css('height', 'auto');
-                // $('#bookmarklet_container').show();
-                // $('#overlay-detail-mock').hide();
-            });
 
             // use UJS ajax call event: https://github.com/rails/jquery-ujs/wiki/ajax
             $('#collect_item_form').on('ajax:before',function () {
-                $('#bookmarklet_container').show();
-                // $('#overlay-detail').html("<p style='line-height: 50px; text-align: center; font-size: 16px; font-weight: bolder;'>正在分析...</p>");
+                var parseUrl = $('#url').attr("value");
+                if(!parseUrl || parseUrl.trim() == ""){
+                    return false;
+                }
+                
+                $('#overlay-detail').hide();
+                $('#overlay-detail-mock').show();
+                $('.loading-mask').show()
+                    .height($('form#share-form-mock').height())
+                    .width($('form#share-form-mock').width());
             }).on('ajax:error', function (xhr, status, error) {
                 // $("#overlay-detail").html("");
-                alert("出错啦！");
+                $('.loading-mask').hide();
+                alert("出错啦1！");
             });
         });
     </script>

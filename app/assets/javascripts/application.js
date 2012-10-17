@@ -9,6 +9,7 @@
 //= require jquery.easing.1.3
 //= require jquery.raty
 //= require jquery-tools/overlay/overlay
+//= require jquery-tools/toolbox/toolbox.expose
 //
 // Include all twitter's javascripts
 //= require bootstrap
