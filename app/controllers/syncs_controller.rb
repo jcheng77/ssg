@@ -64,14 +64,17 @@ class SyncsController < ApplicationController
       if account.nil?
 
         
-        access_token ||= ( session[:aaccess_token] || code.token )
-        token_secret ||=  session[:token_secret]
+        access_token ||= ( session[:access_token] || code.token )
+        token_secret ||=  ( session[:token_secret] || session[:refresh_token] )
         cur_user = User.create_user_account_with_weibo_hash(params[:type],userinfo,access_token, token_secret,friends_ids,friends_names)
 
         session[:current_user] = cur_user
         redirect_to :controller => "users", :action => "signup"
 
       else
+        access_token ||= ( session[:access_token] || code.token )
+        token_secret ||=  ( session[:token_secret] || session[:refresh_token] )
+        account.update_attributes({access_token: access_token, token_secret: token_secret,expires_at: session[:expires_at]  })
 
 
         session[:current_user_id] = account.user._id

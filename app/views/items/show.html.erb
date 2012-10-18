@@ -25,7 +25,7 @@
     <div class="span4">
       <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site,'.png'].join)%><%= @item.title %></div>
         <div class="thumbnail">
-            <%= link_to image_tag(@item.image, :width => '360'), @item.purchase_url, {:target => '_blank'} %>
+            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
 
             <div class="caption">
                 <ul class="nav nav-pills info" style="font-size: 16px;">
@@ -43,7 +43,7 @@
                     </span>
                 </span>
             <% end %>
-            <%= link_to image_tag(gotopic(@item.source_site)), @item.purchase_url, {:target => '_blank'} %>
+            <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
             <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
         </div>
 
