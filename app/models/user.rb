@@ -1,4 +1,7 @@
 # encoding: utf-8
+
+require 'set'
+
 class User
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
@@ -75,13 +78,15 @@ class User
   end
 
   def cycle_shares(page, per_page = 8)
-    cycle_friends = []
+    friends_id = Set[]
+    secondary_friends_id = Set[]
     self.followees_by_type(User.name).each do |f|
-      f.followees_by_type(User.name).each { |ff| cycle_friends << ff._id }
+      friends_id << f._id
+      f.followees_by_type(User.name).each { |ff| secondary_friends_id << ff._id }
     end
-    cycle_friends.uniq!
-    cycle_friends.delete self._id
-    Share.where(:user_id.in => cycle_friends).paginate(:page => page, :per_page => per_page)
+    secondary_friends_id.delete self._id
+    secondary_friends_id -= friends_id
+    Share.where(:user_id.in => secondary_friends_id.to_a).paginate(:page => page, :per_page => per_page)
   end
 
   def recent_shares(limit = 8)
