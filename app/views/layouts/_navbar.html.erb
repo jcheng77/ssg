@@ -65,31 +65,20 @@
                 <button class="btn btn-primary" id="parseUrl-btn" type="submit">下一步</button>
             <% end %>
         </div>
-        
-        <div id="overlay-detail"></div>
-
-        <%= render :partial => "items/sharemock" %>
-
+        <!-- following part is static hard code for demo, will be removed when ajaxcall is avaliable -->
+        <div id="overlay-detail" style="display: none;">
+            <!-- move to views/items/_form.html.erb -->
+        </div>
+        <!-- end of static part -->
     </div>
 
     <script>
         $(document).ready(function () {
-            $("#share-btn").overlay({
-                                        fixed : false,
-                                        onBeforeLoad : function(){
-                                                $(document).mask({
-                                                    closeOnClick: false,
-                                                    color: "#ccc"
-                                                });
-                                            },
-                                        onClose : function() {
-                                                $.mask.close();
-                                                $('#url').attr("value", "");
-                                                $('#overlay-detail').hide();
-                                                $('#overlay-detail-mock').show();
-                                                $('.loading-mask').hide();
-                                            }
-                                    });
+           // $("#share-btn").overlay({fixed:false});
+           // $("#share-btn").overlay().close(function () {
+           //     $('#share-panel').css('height', 'auto');
+           //     $('#overlay-detail').css('display', 'none');
+           // });
 
             // use UJS ajax call event: https://github.com/rails/jquery-ujs/wiki/ajax
             $('#collect_item_form').on('ajax:before',function () {
