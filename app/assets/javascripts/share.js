@@ -108,4 +108,45 @@ $(document).ready(function () {
     $("form ul.tags").bind("keypress", function (e) {
         if (e.keyCode == 13) return false;
     });
+
+
+    /**
+    * Function Series for item sharing
+    */
+    $("#share-btn").overlay(
+        {
+            fixed : false,
+            onBeforeLoad : function(){
+                $(document).mask({
+                    closeOnClick: false,
+                    color: "#ccc"
+                });
+            },
+            onClose : function() {
+                $.mask.close();
+                $('#url').attr("value", "");
+                $('#overlay-detail').hide();
+                $('#overlay-detail-mock').show();
+                $('.loading-mask').hide();
+            }
+        }
+    );
+
+    // use UJS ajax call event: https://github.com/rails/jquery-ujs/wiki/ajax
+    $('#collect_item_form').on('ajax:before',function () {
+        var parseUrl = $('#url').attr("value");
+        if(!parseUrl || parseUrl.trim() == ""){
+            return false;
+        }
+                    
+        $('#overlay-detail').hide();
+        $('#overlay-detail-mock').show();
+        $('.loading-mask').show()
+            .height($('form#share-form-mock').height())
+            .width($('form#share-form-mock').width());
+    }).on('ajax:error', function (xhr, status, error) {
+        $('.loading-mask').hide();
+        alert("出错啦！");
+    });
+
 });

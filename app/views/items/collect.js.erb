@@ -1,11 +1,80 @@
 <% unless @item.nil? %>
-$('#overlay-detail-mock').hide();
-$("#overlay-detail").html("<%= escape_javascript render(:partial => "items/form", :locals => {:item => @item, :share => @share, :imgs => @imgs}) %>");
-$('#overlay-detail').show();
-$('#url').attr("value", "");
+	$('#overlay-detail-mock').hide();
+	$("#overlay-detail").html("<%= escape_javascript render(:partial => "items/form", :locals => {:item => @item, :share => @share, :imgs => @imgs}) %>");
+	$('#overlay-detail').show();
+	$('#url').attr("value", "");
+
+
+	var GLOBAL_IMAGES_FROM_BOOKMARK = [];
+    var selImg, imgSrc;
+    var dimension = $('#bookmarklet_container .dimension')[0];
+    var imageFrame = $('#bookmarklet_container .image_frame img')[0];
+
+	<% @imgs.each do |img| %>
+ 	GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
+    <% end %>
+
+	var imgSrc = GLOBAL_IMAGES_FROM_BOOKMARK[0];
+	if(imgSrc){
+		dimension.innerHTML = imgSrc.substring(imgSrc.lastIndexOf('_') + 1, imgSrc.lastIndexOf('.'));
+	}
+
+	if ($('#rating_comp').length > 0) {
+        $('div#rating_comp').raty({
+            readOnly:false,
+            start:$('div#rating_comp').attr("stars"),
+            scoreName:$('div#rating_comp').attr("scoreName"),
+            path:'/assets/smallStars',
+            hintList:['', '', '', '', '']
+        });
+    }
+
+    $('.image_list li').click(function () {
+        if (selImg) {
+            selImg.removeClass('selected');
+        }
+        selImg = $(this);
+        selImg.addClass('selected');
+        imgSrc = selImg.find('img')[0].src;
+        imageFrame.src = imgSrc;
+        dimension.innerHTML = imgSrc.substring(imgSrc.lastIndexOf('_') + 1, imgSrc.lastIndexOf('.'));
+        $('#item_image').val(imgSrc);
+    });
+    
+    $('#submitShareBtn').click(function () {
+        if ($('#desc').val().length == 0) {
+        	$('#desc').focus();
+			$('#desc + .help-inline').show();
+
+        	return false;
+        }
+    });
+
+    $('#desc').blur(function(){
+    	if($('#desc').val().length > 0){
+    		$('#desc + .help-inline').hide();
+    	}
+    })
+
+    $('#add_to_wish').click(function () {
+        if (this.checked) {
+            $('#wisth_type_list').show();
+            $('#add_to_bought').attr('checked', false);
+        } else {
+            $('#wisth_type_list').hide();
+        }
+    });
+    
+    $('#add_to_bought').click(function () {
+        if (this.checked) {
+            $('#add_to_wish').attr('checked', false);
+            $('#wisth_type_list').hide();
+        }
+    });
+    
 <% else %>
-$('#overlay-detail-mock').show();
-$("#overlay-detail").html("");
-$('.loading-mask').hide();
-alert("出错啦！");
+	$('#overlay-detail-mock').show();
+	$("#overlay-detail").html("");
+	$('.loading-mask').hide();
+	alert("出错啦！");
 <% end %>

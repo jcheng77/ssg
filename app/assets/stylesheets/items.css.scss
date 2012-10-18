@@ -20,6 +20,8 @@
     height: 358px;
     padding: 0;
     background-color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .browse_item .title{

@@ -45,7 +45,8 @@
                 </div>
             <% end -%>
             <%= f.input :comment, :label => '推荐评论' do %>
-                <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc', include_blank: false %>
+                <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc', include_blank: true %>
+                <span class='help-inline' style='color: #3A87AD;display:none'>请输入推荐评论</span>
             <% end -%>
             <div class="controls">
 
@@ -70,62 +71,6 @@
             <input type="checkbox" name="add_to_bought"/>&#160;&#160;分享到微博&#160;&#160;&#160;&#160;
             <input type="checkbox" name="add_to_wish"/>&#160;&#160;订阅降价通知
         </div>
-        <%= f.submit '我要推荐', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
+        <%= f.submit '我要推荐', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
     </div>
 <% end %>
-<script>
-    var GLOBAL_IMAGES_FROM_BOOKMARK = [];
-    <% @imgs.each do |img| %>
-    GLOBAL_IMAGES_FROM_BOOKMARK.push('<%= img %>');
-    <% end %>
-
-    $(document).ready(function () {
-        var src = GLOBAL_IMAGES_FROM_BOOKMARK[0], selected,
-                dimension = $('#bookmarklet_container .dimension')[0],
-                imageFrame = $('#bookmarklet_container .image_frame img')[0];
-        dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
-        $('.image_list li').click(function () {
-            if (selected) {
-                selected.removeClass('selected');
-            }
-            selected = $(this);
-            selected.addClass('selected');
-            src = selected.find('img')[0].src;
-            imageFrame.src = src;
-            dimension.innerHTML = src.substring(src.lastIndexOf('_') + 1, src.lastIndexOf('.'));
-            $('#item_image').val(src);
-        });
-        $('#bookmarklet_container form').on('submit', function (event) {
-            if ($('#desc').val().length == 0) {
-                alert('请输入推荐评论');
-                return false;
-            }
-        });
-
-        if ($('#rating_comp').length > 0) {
-            $('div#rating_comp').raty({
-                readOnly:false,
-                start:$('div#rating_comp').attr("stars"),
-                scoreName:$('div#rating_comp').attr("scoreName"),
-                path:'/assets/smallStars',
-                hintList:['', '', '', '', '']
-            });
-        };
-
-        $('#add_to_wish').click(function () {
-            if (this.checked) {
-                $('#wisth_type_list').css('display', 'block');
-                $('#add_to_bought').attr('checked', false);
-            } else {
-                $('#wisth_type_list').css('display', 'none');
-            }
-        });
-        $('#add_to_bought').click(function () {
-            if (this.checked) {
-                $('#add_to_wish').attr('checked', false);
-                $('#wisth_type_list').css('display', 'none');
-            }
-        });
-    });
-</script>
-
