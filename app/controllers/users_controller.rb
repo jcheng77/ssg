@@ -115,6 +115,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def promote_shares
+    @user = User.find(params[:id])
+    @f_user = User.find_official_weibo_account
+    @shares = @f_user.all_my_shares params[:page]
+
+    respond_to do |format|
+      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+
   # GET /users/1
   # GET /users/1.json
   def select

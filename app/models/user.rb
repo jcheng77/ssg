@@ -1,10 +1,14 @@
 # encoding: utf-8
+
+require 'set'
+
 class User
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
   include Mongo::Voter
   include Mongo::Followable::Followed
   include Mongo::Followable::Follower
+  include WeiboHelper
 
   #devise :registerable, :database_authenticatable, :recoverable
 
@@ -74,14 +78,20 @@ class User
     self.shares.recent_by_type(Share::TYPE_BAG).paginate(:page => page, :per_page => per_page)
   end
 
+  def all_my_shares(page, per_page=8)
+    Share.where(:user_id => self._id).paginate(:page => page, :per_page => per_page)
+  end
+
   def cycle_shares(page, per_page = 8)
-    cycle_friends = []
+    friends_id = Set[]
+    secondary_friends_id = Set[]
     self.followees_by_type(User.name).each do |f|
-      f.followees_by_type(User.name).each { |ff| cycle_friends << ff._id }
+      friends_id << f._id
+      f.followees_by_type(User.name).each { |ff| secondary_friends_id << ff._id }
     end
-    cycle_friends.uniq!
-    cycle_friends.delete self._id
-    Share.where(:user_id.in => cycle_friends).paginate(:page => page, :per_page => per_page)
+    secondary_friends_id.delete self._id
+    secondary_friends_id -= friends_id
+    Share.where(:user_id.in => secondary_friends_id.to_a).paginate(:page => page, :per_page => per_page)
   end
 
   def recent_shares(limit = 8)
@@ -169,6 +179,11 @@ class User
     return target_user
   end
 
+  def self.find_official_weibo_account
+    #find_by_weibo_uid('2884474434')
+    find_by_weibo_uid('3023348901')
+  end
+
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
@@ -192,7 +207,7 @@ class User
   end
 
   def is_official_weibo_account?
-    self.accounts.sina.aid == '2884474434'
+    self.accounts.sina && self.accounts.sina.aid == '3023348901' 
   end
 
   def update_weibo_status(sns_type,client,text,pic)
@@ -204,12 +219,22 @@ class User
   end
   end
 
-  def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil, friends_names = nil)
+  def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil, friends_names = nil, expires_at = nil)
     aid = userinfo.delete("id")
     profile_url = userinfo.delete("profile_url")
     cur_user = User.new(userinfo)
-    cur_user.accounts.build( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids , :friends_names => friends_names)
+    cur_user.accounts.build( :type => type, :aid => aid, :nick_name => userinfo["name"] , :access_token => access_token, :token_secret => token_secret , :avatar => userinfo["profile_image_url"] , :profile_url => profile_url , :friends => friends_ids , :friends_names => friends_names, :expires_at => expires_at)
     return cur_user
+  end
+
+  def refresh_official_weibo_mention
+    if is_official_weibo_account?
+      wb = Weibo.new(self.accounts.first.type)
+      wb.init_client
+      wb.load_from_db(self.accounts.first.access_token, self.accounts.first.token_secret, self.accounts.first.expires_at)
+      @mentions = wb.fetch_latest_mentions
+      process_weibo_mentions(@mentions)
+    end
   end
 
 end
