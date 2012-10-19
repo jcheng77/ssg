@@ -30,7 +30,8 @@
             <%= hidden_field_tag "share[price]", share.price %>
 
             <%= f.input :category, :label => '分类' do %>
-                <%= f.select :category, Hash[categories.map { |c| [c, c] }] %>
+                <%= f.select :category, Hash[categories.map { |c| [c, c] }], prompt: '请选择' %>
+                <span class='help-inline' style='color: #3A87AD;display:none'>请选择分类</span>
             <% end -%>
             <%= f.input :rating_comp, :label => '推荐指数' do %>
                 <div id="rating_comp" stars="<%= share.product_rating %>" scoreName="share[product_rating]"></div>
@@ -53,12 +54,12 @@
                 <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;加入愿望&#160;&#160;&#160;&#160;
                 <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;加入已购
 
-                <div id='wisth_type_list' class="btn-group wisth_type_list"  data-toggle="buttons-radio">
-                    <button type="button" class="btn">生日礼物</button>
-                    <button type="button" class="btn">情人节</button>
-                    <button type="button" class="btn">光棍节</button>
-                    <button type="button" class="btn">结婚礼物</button>
-                    <button type="button" class="btn">想送就送</button>
+                <input type="hidden" id="wisth_type" name="wisth_type"/>
+
+                <div id='wisth_type_list' class="btn-group wisth_type_list" data-toggle="buttons-radio">
+                    <% Share::WISH_TAGS.each_with_index do |t, i| %>
+                        <button type="button" class="btn" value="<%= t %>"><%= t %></button>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -68,8 +69,13 @@
         <!--<a style='float: left;'>点击试试菠萝蜜书签收集</a>-->
 
         <div style='float: right;'>
-            <input type="checkbox" name="add_to_bought"/>&#160;&#160;分享到微博&#160;&#160;&#160;&#160;
-            <input type="checkbox" name="add_to_wish"/>&#160;&#160;订阅降价通知
+            <% unless current_user.accounts.sina.blank? %>
+                <input name="share_to[]" type="checkbox" value="sina">&#160;&#160;分享到新浪微博&#160;&#160;&#160;&#160;
+            <% end %>
+            <% unless current_user.accounts.qq.blank? %>
+                <input name="share_to[]" type="checkbox" value="qq">&#160;&#160;分享到腾讯微博&#160;&#160;&#160;&#160;
+            <% end %>
+            <input name="share[subscribed]" type="checkbox" value="1">&#160;&#160;订阅降价通知
         </div>
         <%= f.submit '我要推荐', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
     </div>

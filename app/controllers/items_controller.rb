@@ -184,16 +184,21 @@ class ItemsController < ApplicationController
       @share = Share.new(params[:share])
       @share.item_id = @item._id
       @share.user_id = user._id
-
-      params[:add_to] = Share::TYPE_SHARE if params[:add_to].blank?
-      @share.share_type = params[:add_to]
+      @share.share_type =
+          if params[:add_to_wish]
+            Share::TYPE_WISH
+          elsif params[:add_to_bought]
+            Share::TYPE_BAG
+          else
+            Share::TYPE_SHARE
+          end
 
       return false if !@share.save
 
       @share.create_comment_by_sharer(params[:share][:comment])
       @item.update_attribute(:root_share_id, @share._id)
-      @share.add_tag(params[:wish_tag]) if @share.share_type == Share::TYPE_WISH
-      @share.sync_to_weibo(params[:share_to],weibo_client)
+      @share.add_tag(params[:wisth_type]) if @share.share_type == Share::TYPE_WISH
+      @share.sync_to_weibo(params[:share_to], weibo_client)
 
       current_user.follow_my_own_share(@share)
       current_user.push_new_share_to_my_follower(@share)

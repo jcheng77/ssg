@@ -298,7 +298,7 @@
     });
 
     $(document).ready(function(){
-      $('form.tag-form').on('submit', function (event) {
+      $('body').on('submit', 'form.tag-form', function (event) {
         var val = $('[data-provide="tageditor"]').data('tageditor').getValue();
         $('#tags').val(val);
       });

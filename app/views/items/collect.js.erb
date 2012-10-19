@@ -4,6 +4,10 @@
 	$('#overlay-detail').show();
 	$('#url').attr("value", "");
 
+    $("#wisth_type_list button").click(function (){
+        $("#wisth_type").val($(this).val());
+    });
+    $("#wisth_type_list button:first").click();
 
 	var GLOBAL_IMAGES_FROM_BOOKMARK = [];
     var selImg, imgSrc;
@@ -42,10 +46,14 @@
     });
     
     $('#submitShareBtn').click(function () {
+        if ($('#item_category').find("option:selected").text() == '请选择') {
+            $('#item_category').focus();
+            $('#item_category + .help-inline').show();
+            return false;
+        };
         if ($('#desc').val().length == 0) {
         	$('#desc').focus();
 			$('#desc + .help-inline').show();
-
         	return false;
         }
     });
