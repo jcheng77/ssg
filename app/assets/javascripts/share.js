@@ -1,10 +1,12 @@
 $(document).ready(function () {
     $('.items').on({
         mouseover:function () {
-            $(this).find('.item_actions').css('display', 'block');
+            var horPos = $(this).width()/2 - $('.item_actions').width()/2;
+            $('.item_actions').css('left', horPos);
+            $(this).find('.item_actions').show();
         },
         mouseout:function () {
-            $(this).find('.item_actions').css('display', 'none');
+            $(this).find('.item_actions').hide();
         }
     }, '.item_block .item_left, .browse_item');
 

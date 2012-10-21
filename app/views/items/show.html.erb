@@ -21,21 +21,21 @@
     </script>
 <% end %>
 
-<div class="row">
+<div class="row showitem-page">
     <div class="span4">
+      
       <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site,'.png'].join)%><%= @item.title %></div>
-        <div class="thumbnail">
-            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
 
-            <div class="caption">
-                <ul class="nav nav-pills info" style="font-size: 16px;">
-                    <li><a href="#"><strong><%= @item.in_shares_num %></strong><span>推荐</span></a></li>
-                    <li><a href="#"><strong><%= @item.in_wishes_num %></strong><span>愿望</span></a></li>
-                    <li><a href="#"><strong><%= @item.in_bags_num %></strong><span>已购</span></a></li>
-                </ul>
+        <div class="thumbnail">
+            <div class="btn-group item_actions">
+                <a href="#" class="btn red">愿望 <span><%= @item.in_shares_num %></span></a>
+                <a href="#" class="btn yellow">推荐 <span><%= @item.in_shares_num %></span></a>
+                <a href="#" class="btn blue">已购 <span><%= @item.in_bags_num %></span></a>
             </div>
+
+            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
         </div>
-        <div class="page-header item-desc">
+        <div class="item-desc">
             <% unless @item.sub_shop_name.blank? %>
                 <span class='item-shop'>来自:&#160;
                     <span class="item-text" title="<%= @item.sub_shop_name %>">
@@ -43,17 +43,25 @@
                     </span>
                 </span>
             <% end %>
-            <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
-            <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
+            <span class='item-shopping'>
+                <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
+               
+                <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
+               
+            </span>
         </div>
 
-        <ul class="tag-block">
+        <ul class="nav nav-pills tag-block category-tags">
             <% @item.tags_each do |t| %>
-                <li>
-                    <button class="btn btn-info uppercase">#<%= t %></button>
+                <li class='active'>
+                    <a><%= t %></a>
                 </li>
             <% end %>
+            <li>
+                <input type="text" placeholder="添加标签...">
+            </li>
         </ul>
+        <!--
         <%= form_tag add_tag_item_path(@item), class: "well form-inline tag-form" do %>
             <input type="hidden" id="tags" name="tag">
 
@@ -66,9 +74,15 @@
             <%= submit_tag "添加标签", class: "add-tag btn btn-info" %>
             <div class="clear"></div>
         <% end %>
+        -->
     </div>
-    <div class="span8">
-        <div class="page-header" id="comments-header"><h4>大家的评论</h4></div>
+
+    <div class="span1" >
+        <div class="item-divider"></div>
+    </div>
+
+    <div class="span7">
+        <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
         <% @item.shares.all.desc(:created_at).each do |share| %>
             <% share.root_comments.each do |comment| %>
                 <%= render :partial => "comments/comment", :object => comment %>
@@ -80,7 +94,7 @@
             <%= f.hidden_field :user_id %>
             <%= f.hidden_field :commentable_id %>
             <%= f.hidden_field :commentable_type %>
-            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 760px;", placeholder: "我来说两句" %>
+            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
             <%= f.submit "我要推荐", class: "btn btn-primary" %>
         <% end %>
     </div>
