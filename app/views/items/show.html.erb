@@ -27,10 +27,20 @@
       <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site,'.png'].join)%><%= @item.title %></div>
 
         <div class="thumbnail">
-            <div class="btn-group item_actions">
+             <!--    
+             <div class="btn-group item_actions">
+   
                 <a href="#" class="btn red">愿望 <span><%= @item.in_shares_num %></span></a>
                 <a href="#" class="btn yellow">推荐 <span><%= @item.in_shares_num %></span></a>
                 <a href="#" class="btn blue">已购 <span><%= @item.in_bags_num %></span></a>
+                
+            </div>
+            -->
+
+            <div class="action-list" style="position:absolute;">
+                <a href="#" >愿望 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a href="#" >推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a href="#" >已购 <span><%= @item.in_bags_num %></span></a>
             </div>
 
             <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
@@ -77,11 +87,7 @@
         -->
     </div>
 
-    <div class="span1" >
-        <div class="item-divider"></div>
-    </div>
-
-    <div class="span7">
+    <div class="span6">
         <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
         <% @item.shares.all.desc(:created_at).each do |share| %>
             <% share.root_comments.each do |comment| %>
@@ -95,7 +101,11 @@
             <%= f.hidden_field :commentable_id %>
             <%= f.hidden_field :commentable_type %>
             <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
-            <%= f.submit "我要推荐", class: "btn btn-primary" %>
+            <div class='pull-right comment-btn'>
+                <input type='checkbox'>推荐给好友</input>
+                <input type='checkbox'>同步到微博</input>
+                <%= f.submit "我要推荐", class: "btn btn-primary" %>
+            </div>
         <% end %>
     </div>
 </div>
