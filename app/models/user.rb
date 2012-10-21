@@ -228,4 +228,10 @@ class User
     end
   end
 
+  def self.monitoring_official_weibo_mention
+    u = self.find_official_weibo_account
+    u.refresh_official_weibo_mention
+  end
+
+
 end
