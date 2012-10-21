@@ -22,7 +22,7 @@ module WeiboHelper
       mentions["statuses"].each do |status|
         share_hash = weibo_parser(status)
         put_share_in_queue(share_hash)
-        last_id = share_hash["weibo_status_id"] 
+        last_id = share_hash[:weibo_status_id] 
         if Status.exists?
           Status.update_all(last_since_id: last_id)
         else
@@ -31,47 +31,6 @@ module WeiboHelper
       end
     end
   end
-  #handle_asynchronously :process_weibo_mentions, :priority => 1 
-
-
-  def create_item_share_by_weibo
-    weibo_item = ShareQueue.asc(:weibo_status_id).first
-    if weibo_item
-      col = Collector.new(weibo_item.item_url)
-      item = Item.first(conditions: { _id: col.item_id })
-
-      if item.nil?
-        item = Item.create(
-          source_id: col.item_id,
-          title: col.title,
-          image: col.imgs.first,
-          purchase_url: col.purchase_url,
-          category: '数码'
-        )
-        account = nil
-        User.all.each do |user|
-          account = user.accounts.where(type: 'sina', aid: weibo_item.weibo_uid).first
-        end until account
-        if account
-          sharer = account.user
-          share = Share.new(
-            source: col.item_id,
-            price: col.price,
-            user_id: sharer._id,
-            item_id: item._id
-          )
-          share.save
-          share.create_comment_by_sharer(weibo_item.share_comment)
-          item.update_attribute(:root_share_id, share._id)
-          sharer.follow item
-          sharer.follow share.comment
-          sharer.followers_by_type(User.name).each { |user| user.follow @share }
-        end
-      end
-      weibo_item.destroy
-    end
-  end
-  handle_asynchronously :create_item_share_by_weibo, :priority => 95
 
 
   def weibo_parser(weibo_status)
@@ -85,20 +44,11 @@ module WeiboHelper
 
   def put_share_in_queue(hash)
     q = ShareQueue.create(hash)
-    Status.create(last_since_id: q.weibo_status_id) if q
-  end
-
-
-  def fetch_latest_mentions(client)
     if Status.exists?
-      client.statuses.mentions(:since_id => Status.all.last.last_since_id) 
+       Status.update_all(last_since_id: q.weibo_status_id) if q
     else
-      client.statuses.mentions
+       Status.create(last_since_id: q.weibo_status_id) if q
     end
   end
 
-
-  def send_weibo_notification(client, msg)
-    client.statuses.update(msg)
-  end
 end

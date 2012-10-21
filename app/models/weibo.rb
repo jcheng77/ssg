@@ -12,7 +12,6 @@ class Weibo
       @client = OauthChina::Qq.new
     when 'sina'
     sinaapp = load_sina_config
-    binding.pry
     @client = WeiboOAuth2::Client.new(sinaapp["key"], sinaapp["secret"])
     WeiboOAuth2::Config.redirect_uri = sinaapp["callback"]
     end
