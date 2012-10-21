@@ -112,6 +112,7 @@ class Item
         source_id: collector.item_id,
         title: collector.title,
         image: collector.imgs.first,
+        source_site: collector.site,
         purchase_url: collector.purchase_url,
         category: collector.category || '创意礼品'
     }

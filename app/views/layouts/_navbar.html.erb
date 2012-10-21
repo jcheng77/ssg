@@ -39,9 +39,8 @@
                             </ul>
                         </li>
                     </ul>
-                    <%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>
-                    <!--<<a id='share-btn' role="button" class="btn btn-warning pull-right" rel="#share-panel">我要分享</a>-->
- 
+                    <!--<%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>-->
+                    <a id='share-btn' role="button" class="btn btn-warning pull-right" rel="#share-panel">我要分享</a>
 
                 <% end %>
                 <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
@@ -61,7 +60,7 @@
     <div class="simple_overlay" id="share-panel">
         <div class="overlay-link">
             <%= form_tag collecter_path, :remote => true, :style => "margin: 0px;", :id => "collect_item_form" do %>
-                <%= text_field_tag :url, nil, :style => 'width: 600px', :class => 'input-medium search-query shareUrl', placeholder: "请输入需要分享的商品链接..." %>
+                <%= text_field_tag :url, nil, :style => 'width: 600px', :class => 'input-medium search-query shareUrl', placeholder: "请粘帖商品链接 (支持淘宝、京东、凡客、亚马逊、新蛋、当当、1号店、国美、苏宁、易讯)" %>
                 <button class="btn btn-primary" id="parseUrl-btn" type="submit">下一步</button>
             <% end %>
         </div>
