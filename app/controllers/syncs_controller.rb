@@ -79,7 +79,7 @@ class SyncsController < ApplicationController
 
         session[:current_user_id] = account.user._id
         account.update_attributes({friends: friends_ids, friends_names: friends_names})
-        redirect_to dashboard_user_path(current_user)
+        redirect_to promote_shares_user_path(current_user)
 
       end
 
