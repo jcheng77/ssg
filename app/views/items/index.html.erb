@@ -24,17 +24,16 @@
                 });
             </script>
         <% end %>
+        <div id="progress_load" class="progress-loading" style="display: block;">
+            <%= image_tag "loading.gif" %>
+        </div>
         <div id="hot_tags" style="display: none;"></div>
         <h4 id="notice" style="display: none; margin-top: 20px;"></h4>
         <ul id="items" class="items thumbnails"></ul>
     </div>
 </div>
-<div id="progress_more" class="progress progress-info progress-striped active">
-    <div class="bar" style="width: 100%;"></div>
-</div>
-
-<div id="progress_load" class="progress progress-info progress-striped active" style="  display: block; margin-top: 20px;">
-            <div class="bar" style="width: 100%;"></div>
+<div id="progress_more" class="progress-loading">
+    <%= image_tag "loading.gif" %>
 </div>
 <ul class="pager">
     <li><%= link_to "更多宝贝", "javascript: void(0);", :remote => true, :id => "more", :path => items_path, :cat => "", :page => 1, :style => "display: none;" %></li>
