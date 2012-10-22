@@ -72,10 +72,7 @@ class ItemsController < ApplicationController
   def add_tag
     @item = Item.find(params[:id])
     tag = params[:tag]
-
-    unless tag.blank?
-      @item.add_tag tag
-    end
+    @item.add_tag tag unless tag.blank?
 
     respond_to do |format|
       format.html { redirect_to @item }
