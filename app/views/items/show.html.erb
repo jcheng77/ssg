@@ -68,7 +68,7 @@
                 </li>
             <% end %>
             <li>
-                <%= form_tag add_tag_item_path(@item), class: "plain-tag-form" do %>
+                <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
                     <%= text_field_tag  :tag, "", :placeholder => "添加标签..." %>
                 <% end %>
             </li>
