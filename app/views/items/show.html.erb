@@ -23,11 +23,11 @@
 
 <div class="row showitem-page">
     <div class="span4">
-      
-      <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site,'.png'].join)%><%= @item.title %></div>
+
+        <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site, '.png'].join) %><%= @item.title %></div>
 
         <div class="thumbnail">
-             <!--    
+            <!--
              <div class="btn-group item_actions">
    
                 <a href="#" class="btn red">愿望 <span><%= @item.in_shares_num %></span></a>
@@ -38,12 +38,12 @@
             -->
 
             <div class="action-list" style="position:absolute;">
-                <a href="#" >愿望 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a href="#" >推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a href="#" >已购 <span><%= @item.in_bags_num %></span></a>
+                <a href="#">愿望 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a href="#">推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a href="#">已购 <span><%= @item.in_bags_num %></span></a>
             </div>
 
-            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
+            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
         </div>
         <div class="item-desc">
             <% unless @item.sub_shop_name.blank? %>
@@ -55,8 +55,8 @@
             <% end %>
             <span class='item-shopping'>
                 <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
-               
-                <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil: current_user.accounts.first.aid), {:target => '_blank'} %>
+
+                <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
                
             </span>
         </div>
@@ -68,7 +68,9 @@
                 </li>
             <% end %>
             <li>
-                <input type="text" placeholder="添加标签...">
+                <%= form_tag add_tag_item_path(@item), class: "plain-tag-form" do %>
+                    <%= text_field_tag  :tag, "", :placeholder => "添加标签..." %>
+                <% end %>
             </li>
         </ul>
         <!--
