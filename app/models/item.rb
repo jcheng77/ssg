@@ -5,6 +5,7 @@ class Item
   include Mongoid::Timestamps::Created
   include Mongo::Followable::Followed
   include TaggableHelper
+  include CommentableHelper
   include BookmarkletHelper
   include ItemHelper
 
@@ -23,6 +24,7 @@ class Item
   field :purchase_url, type: String
   field :root_share_id, type: BSON::ObjectId
 
+  acts_as_commentable(ROOT_TYPE_MULTIPLE)
   has_many :shares
 
   validates_presence_of :image, :purchase_url, :title, :category
