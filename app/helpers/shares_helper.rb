@@ -11,6 +11,6 @@ module SharesHelper
         html_class = "captionme"
         html_title = "已购"
     end
-    image_tag share.item.image, class: html_class, title: html_title
+    image_tag share.item.image, class: html_class, title: html_title, type: share.share_type
   end
 end

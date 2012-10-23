@@ -178,7 +178,7 @@ form.well.tag-form {
     color: #F14382;
     margin-right: 15px;
   }
-  span.item-price, a{
+  .item-shopping{
     float: right;
   }
 }
@@ -301,4 +301,8 @@ form.well.tag-form {
   > span{
     padding-right: 12px;
   }
+}
+
+.plain-tag-form {
+  margin: 0px;
 }

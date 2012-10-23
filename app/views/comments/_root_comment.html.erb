@@ -1,7 +1,7 @@
-<div class="thumbnail row comment-main" id="<%= "#{root_comment._id}-comment" %>">
+<div class="row comment-main" id="<%= "#{root_comment._id}-comment" %>">
     <%= image_tag small_avatar_url(root_comment.user.avatar), width: 50, class: "pull-left" %>
 
-    <div class="pull-right comment-info">
+    <div class="comment-info">
         <p>
             <%= link_to root_comment.user.nick_name, account_user_path(root_comment.user) %><span><%= root_comment.created_at.to_s :db %></span>
         </p>
