@@ -17,7 +17,7 @@
 .browse_item {
     position: relative;
     width: 240px;
-    height: 358px;
+    height: 340px;
     padding: 0;
     background-color: white;
     overflow: hidden;
@@ -34,8 +34,7 @@
 .browse_item .user_name{
   margin: 0 5px 0 0;
   display: inline-block;
-  text-decoration: none; 
-  font-weight: bold; 
+  text-decoration: none;
 }
 
 .browse_item .user-comment{
@@ -188,12 +187,15 @@ form.well.tag-form {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  background-color: #e3e3e3;
+  /*background-color: #e3e3e3;*/
+  background-color: #d4d4d4;
 }
 
 .cat-bar .category .checked {
   color: white;
-  background-color: #08c;
+  /*background-color: #08c;*/
+  /*background-color: #9be6f1;*/
+  background-color: #7bc9dd;
 }
 
 .cat-bar .category a:hover, .span12 .category a:hover {
@@ -203,7 +205,8 @@ form.well.tag-form {
 
 .cat-bar .category .checked:hover, .span12 .category a.checked:hover {
   color: white;
-  background-color: #08c;
+  /*background-color: #08c;*/
+  background-color: #7bc9dd;
 }
 
 .cat-bar .category::after {

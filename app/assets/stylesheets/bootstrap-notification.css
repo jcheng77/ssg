@@ -13,6 +13,7 @@ a.notification-badge:hover {
 
 ul.notification-cont {
     margin-bottom: 0;
+    list-style: none;
 }
 
 ul.notification-cont > li {

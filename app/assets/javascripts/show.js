@@ -6,6 +6,6 @@ $(document).ready(function () {
             $('.action-list').css('left', horPos);
         };
 
-    $('.showitem-page .thumbnail img').on({load: calcActionListPosFunc});
+    $('.showitem-page .thumbnail img').load(calcActionListPosFunc);
     $(window).resize(calcActionListPosFunc);
 });

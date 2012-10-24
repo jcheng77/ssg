@@ -362,3 +362,20 @@ body {
     color: white;
     background-color: #09f;
 }
+
+.navbar {
+    .navbar-inner {
+        background-color: #7bc9dd;
+        background-image: none;
+    }
+    .nav > li > a {
+        color: #fff;
+    }
+    .navbar-search .search-query {
+        color: #000;
+        background-color: #fff;
+        border: 0;
+    }
+}
+
+

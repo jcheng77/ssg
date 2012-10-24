@@ -6,15 +6,7 @@
             <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购 <span><%= item.in_bags_num %></span></a>
         </div>
 
-        <div class='item-thumb'>
-            <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
-            <% unless share.nil? %>
-                <a class="img_frame mini_picture avatar">
-                    <%= image_tag small_avatar_url(share.user.avatar) %>
-                </a>
-            <% end %>
-            <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>
-        </div> 
+        <%= render :partial => "items/itemthumb", :locals => {:share => share, :item => item}  %>
 
         <!--
         <h5 class='title item-share-info'>
