@@ -38,9 +38,9 @@
             -->
 
             <div class="action-list" style="position:absolute;">
-                <a href="#">愿望 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a href="#">推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a href="#">已购 <span><%= @item.in_bags_num %></span></a>
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>">愿望 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>">推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>">已购 <span><%= @item.in_bags_num %></span></a>
             </div>
 
             <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
@@ -69,7 +69,7 @@
             <% end %>
             <li>
                 <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
-                    <%= text_field_tag  :tag, "", :placeholder => "添加标签..." %>
+                    <%= text_field_tag :tag, "", :placeholder => "添加标签..." %>
                 <% end %>
             </li>
         </ul>
@@ -96,17 +96,19 @@
                 <%= render :partial => "comments/comment", :object => comment %>
             <% end %>
         <% end %>
-        <%= form_for @share.build_comment, url: recommend_item_path(@item), remote: true do |f| %>
-            <%= f.hidden_field :user_id %>
+        <% @item.root_comments.each do |comment| %>
+            <%= render :partial => "comments/comment", :object => comment %>
+        <% end %>
+        <%= form_for @item.comments.build, remote: true do |f| %>
             <%= f.hidden_field :_type %>
-            <%= f.hidden_field :user_id %>
+            <%= hidden_field_tag 'comment[user_id]', current_user._id %>
             <%= f.hidden_field :commentable_id %>
             <%= f.hidden_field :commentable_type %>
             <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
             <div class='pull-right comment-btn'>
-                <input type='checkbox'>推荐给好友</input>
+                <!--<input type='checkbox'>推荐给好友</input>-->
                 <input type='checkbox'>同步到微博</input>
-                <%= f.submit "我要推荐", class: "btn btn-primary" %>
+                <%= f.submit "我要评论", class: "btn btn-primary" %>
             </div>
         <% end %>
     </div>
@@ -121,3 +123,4 @@
         <% end %>
     </ul>
 </div>
+<%= render :partial => "shares/form", :locals => {:share => @item.root_share} %>
