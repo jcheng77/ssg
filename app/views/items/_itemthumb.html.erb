@@ -1,0 +1,9 @@
+<div class='item-thumb'>
+    <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
+    <% unless share.nil? %>
+      <a class="img_frame mini_picture avatar">
+        <%= image_tag small_avatar_url(share.user.avatar) %>
+      </a>
+    <% end %>
+    <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>
+</div> 
