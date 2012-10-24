@@ -94,6 +94,8 @@ module BookmarkletHelper
         @site = 'suning'
       when /51buy/
         @site = '51buy'
+      when /fengbuy/
+        @site = 'fengbuy'
       else
         @site ='others'
       end
@@ -128,7 +130,7 @@ module BookmarkletHelper
       when 'vancl', '51buy'
         pp = path.select { |p| p.slice(/\d+.html/) }
         @item_id = pp.first.slice(/\d+/)
-      when 'suning'
+      when 'suning', 'fengbuy'
         @item_id = (path.last.split('.').first if path.last.index('html') > 0)
       else
         @item_id = "invalid"
@@ -174,8 +176,19 @@ module BookmarkletHelper
         @purchase_url ||= taobao_url(item_id)
       when '360buy'
         collecter
+      when 'fengbuy'
+        doc = Nokogiri::HTML(open(@url))
+        doc.css('div.img_panel > img').each do |n|
+          @imgs << n['src']
+        end
+        doc.xpath('//head/title').each do |tt|
+          @title = tt.text
+        end
+        doc.css('strong.price_fix').each do |p|
+          @price = p.text.slice(/\d+/) if p.text
+        end
+        end
       end
-    end
 
     def get_trade_snapshot_item
       doc = open(@url).read
