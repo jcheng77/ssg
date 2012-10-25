@@ -18,7 +18,7 @@
 	position: relative;
 	text-align: center;
 	width: 96%;
-	.action-list {
+	.count-list {
 		font-size: 16px;
 		background-color: #ccc;
 		padding: 5px 20px;
@@ -48,16 +48,17 @@
 	}	
 }
 
-.showitem-page .tag-block{
+.showitem-page .tags_list{
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 	padding: 15px 0;
-	a {
-		cursor: pointer;
+	margin: 9px;
+	a.blingy {
+		margin: 5px 16px 0 0;
 	}
 	input {
-		height: 23px;
-		width: 80px;
+		height: 14px;
+		width: 68px;
 	}
 }
 
