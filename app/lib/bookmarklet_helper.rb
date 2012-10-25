@@ -153,6 +153,9 @@ module BookmarkletHelper
       case @site
       when 'amazon'
         res = Amazon::Ecs.item_lookup(@item_id, {:country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+        if res.has_error?
+        res = Amazon::Ecs.item_lookup(@item_id, {:country => 'us', :ResponseGroup => 'ItemAttributes,Images,Offers'})
+        end
         if !res.has_error?
           item = res.first_item
           @imgs << item.get_hash("LargeImage")["URL"]
