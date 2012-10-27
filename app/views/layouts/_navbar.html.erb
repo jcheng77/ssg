@@ -15,8 +15,8 @@
                           link_to "我的首页", dashboard_user_path(current_user)
                         end %></li>
                     <li>
-                        <%= link_to_if(current_user.nil?, "去逛逛") do
-                          link_to "去逛逛", items_path
+                        <%= link_to_if(current_user.nil?, "愿望城") do
+                          link_to "愿望城", items_path
                         end %></li>
                     <li>
                         <%= link_to_if(current_user.nil?, "我的圈子") do
@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                     <!--<%= link_to "我要分享", share_items_path, class: "btn btn-warning pull-right" %>-->
-                    <a id='share-btn' role="button" class="btn pull-right" rel="#share-panel">我要分享</a>
+                    <a id='share-btn' role="button" class="btn pull-right" rel="#share-panel">添加愿望</a>
 
                 <% end %>
                 <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
