@@ -50,6 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/search
+  def search
+    @users = User.search_by_nick_name params[:nick_name]
+
+    respond_to do |format|
+      format.html # search.html.erb
+      format.json { render json: @users }
+    end
+  end
+
   # GET /users/1/followees
   def followees
     @user = User.find(params[:id])
