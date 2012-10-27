@@ -8,7 +8,7 @@
             <li>已实现 <%= summary.shares.by_type(Share::TYPE_BAG).size %></li>
         </ul>
         <ul class="images-list">
-            <% if summary.recent_shares.count == 0 %>
+            <% if summary.shares.count == 0 %>
                 <p class="text-info">这位亲还没有任何愿望哦</p>
             <% else %>
                 <% summary.shares.desc(:created_at).limit(6).each do |share| %>

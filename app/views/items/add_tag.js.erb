@@ -1,11 +1,7 @@
-var panel = $("ul.category-tags");
+var panel = $("p.tags_list");
 $("#tag", panel).val("");
-$("li", panel).each(function () {
-    var el = $(this);
-    if (el.hasClass("active")) {
-        el.remove();
-    }
-});
+$("a.blingy").remove();
+
 <% @item.tags_each do |t| %>
-panel.prepend("<%= escape_javascript raw("<li class='active'><a>#{t}</a></li>") %>");
+panel.prepend('<%= escape_javascript raw("<a href=\"#\" class=\"blingy\">##{t}<span class=\"left\"></span><span class=\"right\"></span></a>") %>');
 <% end %>

@@ -30,17 +30,16 @@
             <!--
              <div class="btn-group item_actions">
    
-                <a href="#" class="btn red">愿望 <span><%= @item.in_wishes_num %></span></a>
+                <a href="#" class="btn red">新愿望 <span><%= @item.in_wishes_num %></span></a>
                 <a href="#" class="btn yellow">推荐 <span><%= @item.in_shares_num %></span></a>
-                <a href="#" class="btn blue">已购 <span><%= @item.in_bags_num %></span></a>
+                <a href="#" class="btn blue">已实现 <span><%= @item.in_bags_num %></span></a>
                 
             </div>
-            -->
-
-            <div class="action-list" style="position:absolute;">
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>">新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>">推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>">已实现 <span><%= @item.in_bags_num %></span></a>
+            
+            <div class="count-list" style="position:absolute;">
+                新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
+                推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                已实现 <span><%= @item.in_bags_num %></span></a>
             </div>
 
             <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
@@ -61,32 +60,18 @@
             </span>
         </div>
 
-        <ul class="nav nav-pills tag-block category-tags">
+        <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
+        <p class="tags_list">
             <% @item.tags_each do |t| %>
-                <li class='active'>
-                    <a><%= t %></a>
-                </li>
+                <a href="#" class="blingy">
+                    #<%= t %>
+                    <span class="left"></span>
+                    <span class="right"></span>
+                </a>
             <% end %>
-            <li>
-                <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
-                    <%= text_field_tag :tag, "", :placeholder => "添加标签..." %>
-                <% end %>
-            </li>
-        </ul>
-        <!--
-        <%= form_tag add_tag_item_path(@item), class: "well form-inline tag-form" do %>
-            <input type="hidden" id="tags" name="tag">
-
-            <div tabindex="0" class="tageditor" data-provide="tageditor" data-source='<%= Item.tags %>'>
-                <ul class="tags">
-                    <li><input type="text" style="width:30px;"/></li>
-                </ul>
-            </div>
-
-            <%= submit_tag "添加标签", class: "add-tag btn btn-info" %>
-            <div class="clear"></div>
+            <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
+        </p>
         <% end %>
-        -->
     </div>
 
     <div class="span6">
@@ -115,12 +100,15 @@
 </div>
 <div class="row" style="margin-top: 30px; margin-left: 0px;">
     <div class="page-header"><h4>你可能也会喜欢</h4></div>
-    <ul class="thumbnails">
+        <ul class="thumbnails">
         <% @item.with_any_same_tags.each do |item| %>
             <% unless @item == item %>
-                <%= render :partial => "items/item", :object => item, :locals => {:tags => item.tags, :share => item.root_share} %>
+                <li>
+                <%= render :partial => "items/itemthumb", :object => item, :locals => {:share => item.root_share, :item => item} %>
+                </li>
             <% end %>
         <% end %>
-    </ul>
+        </ul>
+    </div>
 </div>
 <%= render :partial => "shares/form", :locals => {:share => @item.root_share} %>
