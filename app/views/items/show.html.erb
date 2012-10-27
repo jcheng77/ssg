@@ -38,9 +38,9 @@
             -->
 
             <div class="action-list" style="position:absolute;">
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>">愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>">新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
                 <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>">推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>">已购 <span><%= @item.in_bags_num %></span></a>
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>">已实现 <span><%= @item.in_bags_num %></span></a>
             </div>
 
             <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>

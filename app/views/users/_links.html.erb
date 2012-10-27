@@ -3,9 +3,9 @@
         <%= link_to "热门推荐", promote_shares_user_path(@user ? @user : current_user) %>
     <% end %>
 <%= actived_li_if current_page?(:controller => 'users', :action => 'dashboard') do %>
-        <%= link_to "我的关注", dashboard_user_path(@user ? @user : current_user) %>
+        <%= link_to "好友的愿望", dashboard_user_path(@user ? @user : current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'cycle_shares') do %>
-        <%= link_to "二级好友分享", cycle_shares_user_path(@user ? @user : current_user) %>
+        <%= link_to "二级好友愿望", cycle_shares_user_path(@user ? @user : current_user) %>
     <% end %>
 </ul>

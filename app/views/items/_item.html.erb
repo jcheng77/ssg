@@ -1,9 +1,9 @@
 <li>
     <div class="thumbnail browse_item">
         <div class="btn-group item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">愿望 <span><%= item.in_wishes_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">新愿望 <span><%= item.in_wishes_num %></span></a>
             <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐 <span><%= item.in_shares_num %></span></a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购 <span><%= item.in_bags_num %></span></a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已实现 <span><%= item.in_bags_num %></span></a>
         </div>
 
         <%= render :partial => "items/itemthumb", :locals => {:share => share, :item => item}  %>

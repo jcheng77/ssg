@@ -6,9 +6,9 @@
         <% end %>
 
         <div class="item_actions">
-            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">想买</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">新愿望</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">推荐</a>
-            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已购</a>
+            <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已实现</a>
         </div>
     </div>
     <div class="item_right">
@@ -21,7 +21,7 @@
                 <%= link_to share.user.nick_name, account_user_path(share.user) %>
             </div>
 
-            <div class="user_comment"><%= comment_format share.comment_content %></div>
+            <div class="user_comment"><%= share.comment_content %></div>
         </div>
         <% if share.comment %>
             <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">

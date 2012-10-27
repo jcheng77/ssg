@@ -21,13 +21,13 @@
         <div class="page-header">
             <h4>
                 <% if current_page?(:action => :my_shares) %>
-                    我的分享
+                    我的推荐
                 <% elsif current_page?(:action => :my_wishes) %>
-                    我的愿望
+                    我的未实现愿望
                 <% elsif current_page?(:action => :my_bags) %>
-                    我的已购
+                    我的已实现愿望
                 <% elsif current_page?(:action => :cycle_shares) %>
-                    二级好友分享
+                    二级好友愿望 
                 <% end %>
             </h4>
         </div>
