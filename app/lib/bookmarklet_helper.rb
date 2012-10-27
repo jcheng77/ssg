@@ -295,17 +295,23 @@ module BookmarkletHelper
     def convert_url(url)
       case @site
       when '1shop'
-        [@url, 'tracker_u=107128006'].join('?')
+        generate_cps_link(nil,'tracker_u=107128006','?')
       when 'dangdang'
-        ['http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=', CGI.escape(@url)].join()
+        generate_cps_link('http://union.dangdang.com/transfer.php?from=P-310686&ad_type=10&sys_id=1&backurl=')
       when 'vancl'
         connector = (@url.index('?') > 0 ? '&' : '?')
-        [@url, 'source=boluome'].join(connector)
+        generate_cps_link(nil,'source=boluome',connector)
       when 'newegg'
-        [@url, 'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode'].join('&')
+        generate_cps_link(nil,'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode','&')
+      when 'coco8'
+        generate_cps_link('http://cps.coo8.com/cpstransfer.php?unid=j1306&urlto=',nil,nil)
       else
         @url
       end
+    end
+
+    def generate_cps_link( prefix = nil, suffix = nil, connector = nil)
+      [prefix, [prefix.nil? ? @url : CGI.escape(@url) , suffix ].join(connector)].join()
     end
 
   end
