@@ -44,6 +44,7 @@ Ssg::Application.routes.draw do
       get 'all_notifications'
       get 'refresh_mention'
       get 'send_weibo_notifications'
+      post 'search'
     end
   end
 

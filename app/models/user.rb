@@ -58,6 +58,10 @@ class User
     self.where(conditions).exists? ? self.where(conditions).first : nil
   end
 
+  def self.search_by_nick_name(key_word)
+    key_word.blank? ? [] : self.where(:nick_name => /.*(#{key_word}).*/)
+  end
+
   def has_shared?(type, item)
     self.shares.where(:share_type => type, :item_id => item._id).exists?
   end

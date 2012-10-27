@@ -66,7 +66,7 @@
                     <span class="right"></span>
                 </a>
             <% end %>
-            <%= text_field_tag :tag, "", :placeholder => "添加标签..." %>
+            <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
         </p>
         <% end %>
     </div>
