@@ -3,17 +3,20 @@
 
         <%= render :partial => "categories/category", :object => @current_categories %>
 
+        <div id="progress_load" class="progress-loading" style="display: block;">
+            <%= image_tag "loading.gif" %>
+        </div>
+        <div id="hot_tags" style="display: none;"></div>
         <% unless current_tags.blank? %>
-            <div class="page-header">
-                <h4>搜索标签</h4>
-                <ul class="tags">
-                    <% current_tags.each do |tag| %>
-                        <li class="tag" value="0">
-                            <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a>
-                        </li>
-                    <% end %>
-                </ul>
-            </div>
+            <div class="pull-left tag-desc">查看标签:&#160;&#160;</div>
+            <ul class="tags without-form">
+                <% current_tags.each do |tag| %>
+                    <li class="tag" value="0">
+                        <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a>
+                    </li>
+                <% end %>
+            </ul>
+            <hr class="bs-docs-separator"/>
             <script type="text/javascript">
                 $(document).ready(function () {
                     $(".tags .tag a").click(function () {
@@ -24,10 +27,6 @@
                 });
             </script>
         <% end %>
-        <div id="progress_load" class="progress-loading" style="display: block;">
-            <%= image_tag "loading.gif" %>
-        </div>
-        <div id="hot_tags" style="display: none;"></div>
         <h4 id="notice" style="display: none; margin-top: 20px;"></h4>
         <ul id="items" class="items thumbnails"></ul>
     </div>
