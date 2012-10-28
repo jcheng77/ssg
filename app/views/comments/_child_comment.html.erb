@@ -9,8 +9,6 @@
         <%= comment_format child_comment.content %>
         <ul class="the-icons">
             <%= link_to vote_comment_path(child_comment), remote: true do %>
-                <li><i class="icon-star"></i>
-                    <small id="<%= "#{child_comment._id}-vote-num" %>"><%= child_comment.votes_point %></small>
                 </li>
             <% end %>
         </ul>
