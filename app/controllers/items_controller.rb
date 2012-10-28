@@ -63,7 +63,7 @@ class ItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # collect.html.erb
+      format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
     end
   end
