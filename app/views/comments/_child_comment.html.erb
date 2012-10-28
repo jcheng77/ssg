@@ -1,9 +1,9 @@
 <div id="<%= "#{child_comment._id}-comment" %>" class="row comment-sub">
-    <%= image_tag small_avatar_url(child_comment.user.avatar), width: 50, class: "pull-left" %>
+    <%= image_tag small_avatar_url(child_comment.user.avatar), width: 50, class: "mini_picture pull-left" %>
 
     <div class="comment-info">
         <p>
-            <%= link_to child_comment.user.nick_name, account_user_path(child_comment.user) %><span><%= child_comment.created_at.to_s :db %></span>
+              <%= link_to child_comment.user.nick_name, account_user_path(child_comment.user) %><span><%= child_comment.created_at.to_s :db %></span>
         </p>
 
         <%= comment_format child_comment.content %>
