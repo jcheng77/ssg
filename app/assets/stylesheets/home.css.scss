@@ -1,11 +1,21 @@
 #tileIcons {
-  height: 400px;
+  text-align: center;
   img {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
   }
   .item {
-    float: left;
+    display: inline-block;
+    border: 1px solid #eee;
+    background-color: #fff;
+    height: 350px;
+    width: 270px;
+    padding: 8px;
+    margin: 8px;
+    box-shadow: 2px 2px 5px #E3E3E3;
+    .caption {
+      text-align: left;
+    }
   }
   .caption {
     max-width: 250px;
@@ -37,4 +47,9 @@
     background: url(/assets/qq.png) no-repeat 4px 3px,-webkit-gradient(linear,left bottom,left top,color-stop(0.38,#F0F0F0),color-stop(0.76,white));
     background: url(/assets/qq.png) no-repeat 4px  3px,-moz-linear-gradient(center bottom,rgba(240, 240, 240, 1),rgba(255, 255, 255, 1));
   }
+}
+
+.follow {
+  text-align: center;
+  margin-top: 15px;
 }
