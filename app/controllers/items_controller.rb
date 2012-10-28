@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
     current_tags(:set, tags)
 
     respond_to do |format|
-      format.html { render "index" } # index.html.erb
+      format.html # search.html.erb
       format.json { render json: @items }
     end
   end
