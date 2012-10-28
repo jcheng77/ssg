@@ -50,8 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    unless session[:current_user_id].nil? || current_user.nil?
+    unless (session[:current_user_id].nil? || current_user.nil?)
       @current_user
+    else
+      redirect_to root_url
     end
   end
 
