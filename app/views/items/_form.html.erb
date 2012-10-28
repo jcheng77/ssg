@@ -1,6 +1,6 @@
 <%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form share-detail'}) do |f| %>
     <div id="bookmarklet_container" class="row bookmarklet_container">
-        <div class="span3">
+        <div class="span5">
             <div class="share-details-price"><%= number_to_currency(share.price, unit: '￥') %></div>
             <div class="share-details-title" title="<%= item.title %>"><%= item.title %></div>
 
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="span6">
+        <div class="span5">
             <%= hidden_field_tag "share[source]", share.source %>
             <%= hidden_field_tag "item[image]", item.image %>
             <%= hidden_field_tag "item[purchase_url]", item.purchase_url %>
@@ -66,7 +66,7 @@
     </div>
 
     <div id="overlay-footer" class="footer">
-        <!--<a style='float: left;'>点击试试菠萝蜜书签收集</a>-->
+        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收集</a> 到浏览器收藏夹栏</div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>

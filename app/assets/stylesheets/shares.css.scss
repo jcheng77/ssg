@@ -151,7 +151,6 @@ ul li .line2 img {
 
 #overlay-detail-mock .bookmarklet_container,
 #bookmarklet_container {
-  width: 960px;
   margin: 0 auto;
   .share-to {
     float: left;
@@ -187,21 +186,14 @@ ul li .line2 img {
   }
 }
 
-#overlay-detail-mock form,
-#overlay-detail form {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-.share-detail {
+form.share-detail {
+  margin: 0;
+  padding: 0;
   .span3 {
     margin: 0
   }
-  .span6 {
-    width: 500px; margin-top: 20px;
-  }
-  .bookmarklet_container{
-    width: 800px;
+  .span5 {
+    width: 380px;
   }
   .share-details-title {
     height: 28px; 
@@ -236,8 +228,4 @@ ul li .line2 img {
     background-color:#e3e3e3;
     padding: 0 15px;
   }
-}
-
-.share-detail .control-group.error input, .control-group.error select, .control-group.error textarea  {
-  
 }
