@@ -46,7 +46,7 @@
                     content.push('<li>没有最新消息</li>');
                   }
                   content.push('<li class="divider"></li>')
-                  content.push('<li><a href="', $("#preference-panel li:eq(3)").href, '" class="notification-all">查看所有消息...</a></li>');
+                  content.push('<li><a href="/users/all_notifications" class="notification-all">查看所有消息...</a></li>');
                   $('#notification-panel').html(content.join(''));
                 },
                 error: function() {
