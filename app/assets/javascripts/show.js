@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(window).ready(function () {
     
     var calcActionListPosFunc = function(){
         var verPos = $('.thumbnail').height() - $('.count-list').height() - 12;
@@ -6,7 +6,7 @@ $(document).ready(function () {
         $('.count-list').css('top', verPos);
         $('.count-list').css('left', horPos);
     };
-
+    calcActionListPosFunc();
     $('.showitem-page .thumbnail img').load(calcActionListPosFunc);
     $(window).resize(calcActionListPosFunc);
 
