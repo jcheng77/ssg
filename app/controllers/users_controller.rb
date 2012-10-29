@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include WeiboHelper
 
   layout 'application'
-  skip_before_filter :authenticate, :only => [:signup]
+  skip_before_filter :authenticate, :only => [:signup,:create, :edit]
 
 
   # GET /users
