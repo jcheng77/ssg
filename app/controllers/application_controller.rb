@@ -18,16 +18,15 @@ class ApplicationController < ActionController::Base
 
   def current_tags(action = nil, tag = nil)
     @current_tags = session[:current_tags].to_a
-    unless tag.blank?
+    if action.to_s == 'set'
+      @current_tags = tag.to_a
+    elsif !tag.blank?
       case action.to_s
         when 'delete'
           @current_tags.delete tag
         when 'add'
           @current_tags << tag unless @current_tags.include? tag
-        when 'set'
-          @current_tags = tag.to_a
       end
-      session[:current_tags] = @current_tags
     end
     session[:current_tags] = @current_tags
     @current_tags.to_a

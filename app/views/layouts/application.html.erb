@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html xmlns:wb="http://open.weibo.com/wb" lang="zh">
 <head>
     <meta charset="utf-8">
     <title>菠萝蜜</title>
@@ -8,12 +8,15 @@
     <%= javascript_include_tag :application %>
     <%= yield :javascripts %>
     <script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey=12483819"></script>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
     <%= csrf_meta_tags %>
 </head>
 <body>
-<% unless need_empty_layout %>
+<% if need_empty_layout %>
+    <%= render 'layouts/empty_navbar' %>
+<% else %>
     <%= render 'layouts/navbar' %>
-<% end -%>
+<% end %>
 
 <div class="container">
     <%= yield %>

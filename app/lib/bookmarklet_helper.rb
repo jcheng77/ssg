@@ -98,6 +98,8 @@ module BookmarkletHelper
         @site = '51buy'
       when /fengbuy/
         @site = 'fengbuy'
+      when /coco8/
+        @site = 'coco8'
       else
         @site ='others'
       end
@@ -132,7 +134,7 @@ module BookmarkletHelper
       when 'vancl', '51buy'
         pp = path.select { |p| p.slice(/\d+.html/) }
         @item_id = pp.first.slice(/\d+/)
-      when 'suning', 'fengbuy'
+      when 'suning', 'fengbuy', 'coco8'
         @item_id = (path.last.split('.').first if path.last.index('html') > 0)
       else
         @item_id = "invalid"

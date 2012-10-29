@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="span12">
+        <% unless current_tags.blank? %>
+            <hr class="bs-docs-separator"/>
+            <div class="pull-left tag-desc">查看标签:&#160;&#160;</div>
+            <ul class="tags without-form">
+                <% current_tags.each do |tag| %>
+                    <li class="tag" value="0">
+                        <span class="uppercase">#<%= tag %></span><a title="<%= tag %>">&times;</a>
+                    </li>
+                <% end %>
+            </ul>
+            <hr class="bs-docs-separator"/>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".tags .tag a").click(function () {
+                        var url = "<%= items_path %>";
+                        var param = "?tag_action=delete&tag=" + encodeURIComponent($(this).attr("title"));
+                        $(location).attr("href", url + param);
+                    });
+                });
+            </script>
+        <% end %>
+        <% if @items.blank? %>
+            <h4 id="notice" style="margin-top: 20px;">没有找到对应的宝贝。</h4>
+        <% else %>
+            <ul id="items" class="items thumbnails">
+                <% @items.each do |i| %>
+                    <%= render(:partial => "items/item", :object => i, :locals => {:tags => i.tags, :share => i.root_share}) %>
+                <% end %>
+            </ul>
+            <%= bootstrap_will_paginate @items %>
+        <% end %>
+    </div>
+</div>

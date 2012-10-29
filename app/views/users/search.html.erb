@@ -8,10 +8,18 @@
             <%= render :partial => "search_bar" %>
         </div>
 
-        <div class="span" style="margin-left: 0px;">
-            <% @users.each do |user| %>
-                <%= render :partial => "summary", :object => user %>
-            <% end %>
+        <div class="span">
+            <div class="row" style="margin-left: 0px;">
+                <% unless @users.blank? %>
+                    <ul class="thumbnails">
+                        <% @users.each do |user| %>
+                            <%= render :partial => "summary", :object => user %>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    <h4 class="friend-msg">没有找到对应的用户。</h4>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

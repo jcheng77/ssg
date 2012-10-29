@@ -18,37 +18,46 @@
             <div class="tab-content">
                 <div class="tab-pane fade in" id="friends">
                     <div class="row" style="margin-left: 0px;">
-                        <ul class="thumbnails">
-                            <% @f_users.each do |user| %>
-                                <%= render :partial => "summary", :object => user %>
-                            <% end %>
-                        </ul>
-
-                        <%= bootstrap_will_paginate @f_users, :param_name => 'f_users_page' %>
+                        <% unless @f_users.blank? %>
+                            <ul class="thumbnails">
+                                <% @f_users.each do |user| %>
+                                    <%= render :partial => "summary", :object => user %>
+                                <% end %>
+                            </ul>
+                            <%= bootstrap_will_paginate @f_users, :param_name => 'f_users_page' %>
+                        <% else %>
+                            <h4 class="friend-msg">没有找到对应的用户。</h4>
+                        <% end %>
                     </div>
                 </div>
                 <div class="tab-pane fade in" id="suggest">
                     <div class="row" style="margin-left: 0px;">
-                        <ul class="thumbnails">
-                            <% @i_users.each do |user| %>
-                                <%= render :partial => "summary", :object => user %>
-                            <% end %>
-                        </ul>
-
-                        <%= bootstrap_will_paginate @i_users, :param_name => 'i_users_page' %>
+                        <% unless @i_users.blank? %>
+                            <ul class="thumbnails">
+                                <% @i_users.each do |user| %>
+                                    <%= render :partial => "summary", :object => user %>
+                                <% end %>
+                            </ul>
+                            <%= bootstrap_will_paginate @i_users, :param_name => 'i_users_page' %>
+                        <% else %>
+                            <h4 class="friend-msg">没有找到对应的用户。</h4>
+                        <% end %>
                     </div>
                 </div>
                 <div class="tab-pane fade in" id="all">
                     <div class="row" style="margin-left: 0px;">
-                        <ul class="thumbnails">
-                            <% @a_users.each do |user| %>
-                                <% if user.nick_name %>
-                                    <%= render :partial => "summary", :object => user %>
+                        <% unless @a_users.blank? %>
+                            <ul class="thumbnails">
+                                <% @a_users.each do |user| %>
+                                    <% if user.nick_name %>
+                                        <%= render :partial => "summary", :object => user %>
+                                    <% end %>
                                 <% end %>
-                            <% end %>
-                        </ul>
-
-                        <%= bootstrap_will_paginate @a_users, :param_name => 'a_users_page' %>
+                            </ul>
+                            <%= bootstrap_will_paginate @a_users, :param_name => 'a_users_page' %>
+                        <% else %>
+                            <h4 class="friend-msg">没有找到对应的用户。</h4>
+                        <% end %>
                     </div>
                 </div>
             </div>
