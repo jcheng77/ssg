@@ -1,8 +1,10 @@
 # encoding: utf-8
-include WeiboHelper
 class UsersController < ApplicationController
+  include WeiboHelper
+
   layout 'application'
-  #before_filter :authenticate_user!
+  skip_before_filter :authenticate, :only => [:signup,:create, :edit]
+
 
   # GET /users
   # GET /users.json
