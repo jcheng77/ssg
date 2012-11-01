@@ -1,4 +1,30 @@
 <div class="row main dashboard">
+    <div class="span12 row userinfo">
+        <div class="span2">
+            <%= render :partial => "avatar", :object => @user %>
+        </div>
+        <div class="span9">
+            <ul class='myActions nav nav-pills'>
+                <li><i class='icon-heart'></i>许个愿望</li>
+                <li><i class='icon-search'></i>查找好友</li>
+                <li><i class='icon-user'></i>邀请好友</li>
+            </ul>
+            <div class='myActions-panel' style='display:none'>
+                <%= render :partial => "users/myaction_wishlist" %>
+                <%= render :partial => "users/myaction_finduser" %>
+                <%= render :partial => "users/myaction_inviteuser" %>
+            </div>
+        </div>
+    </div>
+    <div class="span12 row">
+        <% @shares.each do |share| %>
+            <%= render :partial => "shares/share", :object => share %>
+        <% end %>
+        <%= bootstrap_will_paginate @shares %>
+    </div>
+</div>
+<!--
+<div class="row main dashboard">
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
         <%= render :partial => "links"  %>
@@ -14,3 +40,4 @@
         <%= bootstrap_will_paginate @shares %>
     </div>
 </div>
+-->

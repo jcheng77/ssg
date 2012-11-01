@@ -1,0 +1,47 @@
+.dashboard {
+	
+	.userinfo {
+		position: relative;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		.avatar {
+			margin-left: 0;
+		}
+		.span2 {
+			margin-left: 0;
+		}
+	}
+	ul.myActions {
+		margin-top: 40px;
+		margin-bottom: 0;
+		z-index: 101;
+		> li {
+			width: 120px;
+			height: 80px;
+			background-color: #fff;
+			margin-right: 8px;
+			line-height: 80px;
+			text-align: center;
+			border-bottom: 1px solid #ccc;
+			box-shadow: 2px 2px 5px #ccc;
+		}
+		>li:hover {
+			border-bottom: 0;
+			box-shadow: -2px -2px 5px #ccc;
+		}
+	}
+	div.myActions-panel {
+		position: absolute;
+		z-index:100;
+		> div {
+			width: 680px;
+			height: 450px;
+			background-color: #fff;
+			margin-right: 8px;
+			line-height: 300px;
+			text-align: center;
+			box-shadow: -2px 2px 5px #ccc;
+		}
+	}
+}

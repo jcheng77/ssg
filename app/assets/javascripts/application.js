@@ -10,6 +10,7 @@
 //= require jquery.raty
 //= require jquery-tools/overlay/overlay
 //= require jquery-tools/toolbox/toolbox.expose
+//= require jquery-tools/tabs/tabs
 //
 // Include all twitter's javascripts
 //= require bootstrap
