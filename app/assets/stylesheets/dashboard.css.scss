@@ -1,3 +1,29 @@
+.user_badge {
+	margin-left: 0;
+	margin-right: 20px;
+	.avatar_img {
+		width:80px;
+		height:80px;
+		background-color:#fff
+	}
+	.avatar_name {
+		line-height:80px;
+		padding-left:20px;
+		overflow: hidden;
+		width: 120px;
+	}
+	ul {
+		margin-bottom: 0;
+	}
+	.caption {
+		text-align: center;
+	}
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border-right: 1px solid #ddd !important;
+}
+
 .dashboard {
 	
 	.userinfo {
@@ -5,10 +31,7 @@
 		border-bottom: 1px solid #ccc;
 		padding-bottom: 20px;
 		margin-bottom: 20px;
-		.avatar {
-			margin-left: 0;
-		}
-		.span2 {
+		.span3, {
 			margin-left: 0;
 		}
 	}

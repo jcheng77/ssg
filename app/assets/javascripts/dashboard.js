@@ -1,9 +1,12 @@
 $(document).ready(function(){
     $("ul.myActions").tabs("div.myActions-panel > div", {event: 'mouseover'});
     var tabHandler = $("ul.myActions").data("tabs");
-    tabHandler.onBeforeClick(function(){
-        $('div.myActions-panel').show();
-    });
+    if(tabHandler){
+        tabHandler.onBeforeClick(function(){
+            $('div.myActions-panel').show();
+        });    
+    }
+    
     $("ul.myActions li").mouseover(function(){
         $('div.myActions-panel').show();
     });
