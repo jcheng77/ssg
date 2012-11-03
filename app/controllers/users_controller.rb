@@ -192,9 +192,51 @@ class UsersController < ApplicationController
     session[:current_categories] = preferences
 
     respond_to do |format|
-      format.html { redirect_to dashboard_user_path(@user) }
+      format.html { redirect_to :action => 'rec_friends' , :id => @user._id }
     end
   end
+  
+  # GET /users/1/rec_friends
+  def rec_friends
+    @user = User.find(params[:id])
+    @suggested_friends = @user.suggested_friends(session[:sns_type])
+
+    respond_to do |format|
+      format.html 
+    end
+  end
+
+  # GET /users/1/rec_friendship
+  def rec_friendship
+    binding.pry
+    @user = User.find(params[:id])
+    users = []
+    unless params[:to_follow].blank?
+      params[:to_follow].each do |uid|
+      @user.follow User.find(uid)
+      end
+    binding.pry
+    end
+    
+    respond_to do |format|
+      format.html 
+    end
+  end
+
+  # GET /users/1/launch
+  def launch
+    binding.pry
+    @user = User.find(params[:id])
+    if params[:sync_to_weibo] == 1
+      Rails.logger.info "hahah"
+    end
+
+    respond_to do |format|
+      format.html {redirect_to dashboard_user_path(@user)}
+      format.json 
+    end
+  end
+
 
   # GET /users/1/edit_account
   def edit_account

@@ -4,9 +4,6 @@ class Weibo
 
   def initialize(type)
     @type = type
-  end
-
-  def init_client
     case @type
     when 'qq'
       @client = OauthChina::Qq.new
@@ -15,8 +12,8 @@ class Weibo
     @client = WeiboOAuth2::Client.new(sinaapp["key"], sinaapp["secret"])
     WeiboOAuth2::Config.redirect_uri = sinaapp["callback"]
     end
- 
   end
+
 
   def client
     @client
