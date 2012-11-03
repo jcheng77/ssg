@@ -208,14 +208,12 @@ class UsersController < ApplicationController
 
   # GET /users/1/rec_friendship
   def rec_friendship
-    binding.pry
     @user = User.find(params[:id])
     users = []
     unless params[:to_follow].blank?
       params[:to_follow].each do |uid|
       @user.follow User.find(uid)
       end
-    binding.pry
     end
     
     respond_to do |format|
@@ -225,7 +223,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/launch
   def launch
-    binding.pry
     @user = User.find(params[:id])
     sns_type = session[:sns_type]
     if params[:sync_to_weibo] == 1
