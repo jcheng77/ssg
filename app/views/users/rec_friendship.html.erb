@@ -1,7 +1,8 @@
+<%= image_tag 'makeawish_launch.jpg'%>
 <p>
-start using our app
+<h2>收藏想买 分享愿望</h2>
 </p>
 <%= form_for @user, url: launch_user_path(@user), method: :put do |f| %>
-  sync_to_weibo <%= check_box_tag 'sync_to_weibo', 1  %>
-  <%= submit_tag 'submit' %>
+告诉好友这里有我的愿望清单  <%= check_box_tag 'sync_to_weibo', 1  %>
+  <%= submit_tag '开 始' %>
 <%end %>

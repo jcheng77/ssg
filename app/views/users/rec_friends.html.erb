@@ -1,13 +1,15 @@
 <div class="row">
-    <div class="span2">
+    <div class="span8">
       <%unless @suggested_friends.blank? %>
         <%= form_for @user, url: rec_friendship_user_path(@user), method: :put do |f| %>
+          <ul>
       <% @suggested_friends.each do |sf| %>
     <%= image_tag big_avatar_url(sf.avatar), :width => '50' %>
     <%= check_box_tag 'to_follow[]', sf._id%> 
     <%= sf.nick_name %>
-    <%= f.submit "follow"%>
       <%end%>
+      </ul>
+    <%= f.submit "follow"%>
       <%end%>
       <%end%>
 

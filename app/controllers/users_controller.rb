@@ -227,8 +227,10 @@ class UsersController < ApplicationController
   def launch
     binding.pry
     @user = User.find(params[:id])
+    sns_type = session[:sns_type]
     if params[:sync_to_weibo] == 1
-      Rails.logger.info "hahah"
+      client = weibo_client(sns_type)
+      #@user.update_weibo_status_only_text(sns_type,client,'想买的东西太多了 愿望清单太长了 好不容易找到了个愿望集散地 开始在这里扎窝晒愿望了 想送我礼物的速还来看看我的愿望清单吧 :-) ')
     end
 
     respond_to do |format|
