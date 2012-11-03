@@ -223,6 +223,18 @@ class User
   end
   end
 
+  def suggested_friends(sns_type)
+    suggested_friends = self.known_sns_friends(sns_type)
+    if suggested_friends.size < 9
+      suggested_friends << (User.all.limit(18- suggested_friends.size).to_a - suggested_friends - self.to_a)
+      suggested_friends.flatten!
+    else
+      suggested_friends.slice[0..8]
+    end
+    suggested_friends
+  end
+
+
   def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil, friends_names = nil, expires_at = nil)
     aid = userinfo.delete("id")
     profile_url = userinfo.delete("profile_url")

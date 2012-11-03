@@ -6,7 +6,6 @@ class SyncsController < ApplicationController
   def new
     if params[:type] == 'qq'
       wb = Weibo.new(params[:type])
-      wb.init_client
       wb.write_to_cache
       redirect_to wb.client.authorize_url
     else
