@@ -16,30 +16,23 @@
             </div>
         </div>
     </div>
+    <div class="span12 wishCountBar navbar">
+        <ul class="nav">
+            <li>热门愿望 8</li>
+            <li>我的新愿望 1</li>
+            <li>我实现的愿望 2</li>
+            <li>我的推荐 2</li>
+            <li>好友动态 13</li>
+            <li>二级好友动态 20</li>
+        </ul>
+    </div>
     <div class="span12 row">
         <% @shares.each do |share| %>
             <%= render :partial => "shares/share", :object => share %>
         <% end %>
+        
+    </div>
+    <div class="span12 ">
         <%= bootstrap_will_paginate @shares %>
     </div>
 </div>
-<!--
-<div class="row main dashboard">
-    <div class="span2">
-        <%= render :partial => "avatar", :object => @user %>
-        <%= render :partial => "links"  %>
-    </div>
-    <div class="span8">
-        <div class="page-header"><h4>愿望</h4></div>
-        <div class="row" style="margin-left: 0px;">
-            <% @shares.each do |share| %>
-        <% if share.visibility.blank? %>
-                <%= render :partial => "shares/share", :object => share %>
-        <% end %>
-            <% end %>
-        </div>
-
-        <%= bootstrap_will_paginate @shares %>
-    </div>
-</div>
--->
