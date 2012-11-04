@@ -56,6 +56,10 @@ class Item
     [search_tags, query.paginate(:page => page, :per_page => per_page)]
   end
 
+  def self.visibility_selection
+    {'所有人可见' => nil , '仅自己可见' => 'P'}
+  end
+
   def self.new_with_collector(collector)
     @item = Item.new({
                          source_id: collector.item_id,

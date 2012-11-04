@@ -190,9 +190,13 @@ class UsersController < ApplicationController
     preferences = params[:user].blank? ? [] : params[:user][:preferences]
     @user.update_attribute :preferences, preferences
     session[:current_categories] = preferences
+   if @user.active == 0
+    redirect_to :action => 'rec_friends' , :id => @user._id
+    return
+   end
 
     respond_to do |format|
-      format.html { redirect_to :action => 'rec_friends' , :id => @user._id }
+      format.html { redirect_to dashboard_user_path(@user) }
     end
   end
   
@@ -200,6 +204,7 @@ class UsersController < ApplicationController
   def rec_friends
     @user = User.find(params[:id])
     @suggested_friends = @user.suggested_friends(session[:sns_type])
+    @user.update_attribute :active, 1
 
     respond_to do |format|
       format.html 

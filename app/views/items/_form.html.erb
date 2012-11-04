@@ -33,9 +33,6 @@
                 <%= f.select :category, Hash[categories.map { |c| [c, c] }], prompt: '请选择' %>
                 <span class='help-inline' style='color: #3A87AD;display:none'>请选择分类</span>
             <% end -%>
-            <%= f.input :rating_comp, :label => '愿望指数' do %>
-                <div id="rating_comp" stars="<%= share.product_rating %>" scoreName="share[product_rating]"></div>
-            <% end -%>
             <%= f.input :tags, :label => '标签' do %>
                 <input type="hidden" id="tags" name="item[tags]">
 
@@ -54,6 +51,10 @@
                 <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;新愿望&#160;&#160;&#160;&#160;
                 <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;已实现的愿望
 
+              <%= f.input :visibility , :label => '公开' do %>
+                <%= select_tag "share[visibility]", options_for_select(Item.visibility_selection) %>
+              <% end %>
+
                 <input type="hidden" id="wisth_type" name="wisth_type"/>
 
                 <div id='wisth_type_list' class="btn-group wisth_type_list" data-toggle="buttons-radio">
@@ -66,7 +67,7 @@
     </div>
 
     <div id="overlay-footer" class="footer">
-        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收集</a> 到浏览器收藏夹栏</div>
+        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>
@@ -77,7 +78,7 @@
             <% end %>
             <input name="share[subscribed]" type="checkbox" value="1">&#160;&#160;订阅降价通知
         </div>
-        <%= f.submit '推荐愿望', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
+        <%= f.submit '收藏愿望', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
     </div>
 
     <script type="text/javascript">

@@ -19,7 +19,7 @@ class Share
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
   field :images, type: Array # string[], url of images
-  field :visible_to, type: Array # when it's private, visibleTo=VISIBLE_TO_SELF; when no limit, visibleTo=nil
+  field :visiblilty, type: Array # when it's private, visibility=PRIVATE; when it's a public collection, visibility=nil; it also can be a group name that user set up
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
@@ -98,5 +98,9 @@ class Share
 
   def update_item_rating
     item.delay.update_rating
+  end
+
+  def dummy_comment
+    '某个蜜友私藏了这个愿望'
   end
 end

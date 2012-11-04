@@ -33,7 +33,9 @@
         <div class="page-header"><h4>愿望</h4></div>
         <div class="row" style="margin-left: 0px;">
             <% @shares.each do |share| %>
+        <% if share.visibility.blank? %>
                 <%= render :partial => "shares/share", :object => share %>
+        <% end %>
             <% end %>
         </div>
 
