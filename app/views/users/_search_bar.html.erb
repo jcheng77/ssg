@@ -1,4 +1,4 @@
-<%= form_tag search_users_path, class: "form-search" do %>
+<%= form_tag search_users_path, remote: remote, class: "form-search" do %>
     <%= text_field_tag :nick_name, params[:nick_name], :placeholder => "搜索用户", :class => "input-medium search-query" %>
     <button type="submit" class="btn">搜索</button>
 <% end %>

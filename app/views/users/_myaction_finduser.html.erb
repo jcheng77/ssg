@@ -1,1 +1,5 @@
-<div>查找好友</div>
+<div style="padding: 20px 10px;">
+    <%= render :partial => "search_bar", :locals => {:remote => true} %>
+    <div style="overflow: scroll; height: 400px;" id="search_users">
+    </div>
+</div>

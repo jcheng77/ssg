@@ -38,6 +38,7 @@ Ssg::Application.routes.draw do
       get 'rec_friends'
       put 'rec_friendship'
       put 'launch'
+      post 'invite'
       # resources :categories
       resources :notifications, :only => [:index, :show]
     end

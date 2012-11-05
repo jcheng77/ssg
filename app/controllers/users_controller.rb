@@ -52,12 +52,28 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/1/invite
+  def invite
+    @user = User.find(params[:id])
+    @message = params[:message]
+    params[:users].to_a.each { |user| @message = "#{@message} @#{user}" }
+    @user.update_weibo_status_only_text('sina', weibo_client, @message) if @user.accounts.sina
+    @user.update_weibo_status_only_text('qq', weibo_client, @message) if @user.accounts.qq
+
+    respond_to do |format|
+      format.html { render :text => @message}
+      format.js # invite.js.erb
+      format.json { render json: @message }
+    end
+  end
+
   # POST /users/search
   def search
     @users = User.search_by_nick_name params[:nick_name]
 
     respond_to do |format|
       format.html # search.html.erb
+      format.js # search.js.erb
       format.json { render json: @users }
     end
   end

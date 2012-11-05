@@ -1,0 +1,11 @@
+var resultDiv = $("#search_users");
+resultDiv.empty();
+<% if @users.blank? %>
+resultDiv.append('<h4 class="friend-msg">没有找到对应的用户。</h4>');
+<% else %>
+resultDiv.append('<ul class="thumbnails">');
+<% User.all.each do |user| %>
+resultDiv.append("<%= escape_javascript render(:partial => "summary", :object => user) %>");
+<% end %>
+resultDiv.append('</ul>');
+<% end %>

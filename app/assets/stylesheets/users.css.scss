@@ -90,7 +90,6 @@ ul.category:after{
         font-size: 20px;
     }
     .form-actions {
-        background-color: white;
     }
 }
 
@@ -135,4 +134,29 @@ ul.images-list {
       height: 100px;
     }
   }
+}
+
+.rec-friends {
+    .rec-list {
+        li {
+            width: 120px;
+            padding-right:10px;
+            input {
+                float:left;
+                margin-right: 5px;
+            }
+            .rec-info {
+                float: left;
+                .rec-img {
+                    background-color:white;
+                    height:50px;
+                    width:50px;
+                }
+                .rec-name {
+                    overflow: hidden;
+                    width: 95px;
+                }
+            }
+        }
+    }
 }
