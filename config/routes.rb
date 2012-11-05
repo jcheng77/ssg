@@ -21,6 +21,7 @@ Ssg::Application.routes.draw do
       get 'my_shares'
       get 'my_wishes'
       get 'my_bags'
+      get 'my_all_shares'
       get 'cycle_shares'
       get 'promote_shares'
       get 'friends'
