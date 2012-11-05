@@ -18,12 +18,26 @@
     </div>
     <div class="span12 wishCountBar navbar">
         <ul class="nav">
-            <li>热门愿望 8</li>
-            <li>我的新愿望 1</li>
-            <li>我实现的愿望 2</li>
-            <li>我的推荐 2</li>
-            <li>好友动态 13</li>
-            <li>二级好友动态 20</li>
+         <li>
+          <%=  link_to my_shares_user_path(@user) do %>
+          我的收藏 <%= @user.shares.by_type(Share::TYPE_SHARE).count %>
+              <% end %>
+         </li>
+           <li> <%=  link_to my_wishes_user_path(@user) do %>
+          我的新愿望 <%= @user.shares.by_type(Share::TYPE_WISH).count %>
+          <% end %>
+            </li>
+         <li>
+          <%=  link_to my_bags_user_path(@user) do %>
+            我实现的愿望 <%= @user.shares.by_type(Share::TYPE_BAG).count %>
+          <% end %>
+         </li>
+
+        </ul>
+        <ul class="nav">
+            <li>热门愿望 </li>
+            <li>好友动态 </li>
+            <li>二级好友动态 </li>
         </ul>
     </div>
     <div class="span12 row">

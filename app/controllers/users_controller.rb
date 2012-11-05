@@ -89,7 +89,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @shares = @user.my_shares params[:page]
     respond_to do |format|
-      format.html { render layout: 'application' } # my_shares.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
     end
   end
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
     @shares = @user.my_wishes params[:page]
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_wishes.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_wishes.html.erb
       format.json { render json: @user }
     end
   end
@@ -111,7 +111,19 @@ class UsersController < ApplicationController
     @shares = @user.my_bags params[:page]
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+
+   # GET /users/1/my_all_share
+  def my_all_shares
+    @user = User.find(params[:id])
+    @shares = @user.all_my_shares params[:page]
+
+    respond_to do |format|
+      format.html { render action: :dashboard, layout: 'application' } # my_all_share.html.erb
       format.json { render json: @user }
     end
   end
