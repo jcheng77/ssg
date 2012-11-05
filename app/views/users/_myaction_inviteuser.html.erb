@@ -1,1 +1,14 @@
-<div>邀请好友</div>
+<div style="padding: 20px 10px;">
+    <%= form_for(@user, :url => invite_user_path(@user), :method => :post, :remote => true) do |f| %>
+        <%= text_area_tag :message, "快来加入@菠萝蜜 吧~~", :class => "input-xlarge", :cols => "40", :rows => "4", :style => "width: 98%;" %>
+        <%= f.submit "邀请好友", :class => "btn btn-primary" %>
+        <hr class="bs-docs-separator">
+        <% @user.accounts.to_a.each do |a| %>
+            <% a.friends_name.to_a.each do |f| %>
+                <label class="checkbox">
+                    <%= check_box_tag "users[]", "#{f}" %> f
+                </label>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>

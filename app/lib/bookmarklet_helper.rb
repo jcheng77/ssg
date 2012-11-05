@@ -159,7 +159,7 @@ module BookmarkletHelper
         is_amazon_us = 0
         res = Amazon::Ecs.item_lookup(@item_id, {:country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers'})
         if res.has_error?
-        binding.pry
+        #binding.pry
         AmazonEcs::Associates.use_us_track_id
         res = Amazon::Ecs.item_lookup(@item_id, {:country => 'us', :ResponseGroup => 'ItemAttributes,Images,Offers'})
         is_amazon_us = 1

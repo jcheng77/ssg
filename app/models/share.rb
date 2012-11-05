@@ -19,7 +19,7 @@ class Share
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
   field :images, type: Array # string[], url of images
-  field :visiblilty, type: Array # when it's private, visibility=PRIVATE; when it's a public collection, visibility=nil; it also can be a group name that user set up
+  field :visibility, type: Array # when it's private, visibility=PRIVATE; when it's a public collection, visibility=nil; it also can be a group name that user set up
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
