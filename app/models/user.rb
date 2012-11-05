@@ -234,15 +234,11 @@ class User
 
   def suggested_friends(sns_type)
     suggested_friends = self.known_sns_friends(sns_type)
-    #binding.pry
     if suggested_friends.size < 9
       suggested_friends << (User.all.limit(18- suggested_friends.size).to_a - suggested_friends - self.to_a)
       suggested_friends.flatten!
-      suggested_friends.slice!(0,9)
-    else
-      suggested_friends.slice!(0,9)
     end
-    suggested_friends
+    suggested_friends[0..9]
   end
 
 
