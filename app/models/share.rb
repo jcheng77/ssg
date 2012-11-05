@@ -12,6 +12,8 @@ class Share
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
 
+  VISIBLE_TO_SELF = 'P'
+
   WISH_TAGS = ["生日礼物", "情人节", "光棍节", "圣诞礼物", "新年礼物","婚礼礼品", "节日礼品", "想送就送"]
 
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
@@ -19,7 +21,7 @@ class Share
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
   field :images, type: Array # string[], url of images
-  field :visible_to, type: Array # when it's private, visibleTo=VISIBLE_TO_SELF; when no limit, visibleTo=nil
+  field :visibility, type: Array # when it's private, visibility=PRIVATE; when it's a public collection, visibility=nil; it also can be a group name that user set up
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
@@ -38,6 +40,8 @@ class Share
 
   scope :by_type, lambda { |type| where(share_type: type) }
   scope :recent_by_type, lambda { |type| by_type(type).desc(:created_at) }
+  scope :only_public, (where(visibility: nil))
+  scope :show_private, (where(visibility: VISIBLE_TO_SELF))
 
   def self.init_params(user, item, collector)
     {
@@ -98,5 +102,9 @@ class Share
 
   def update_item_rating
     item.delay.update_rating
+  end
+
+  def dummy_comment
+    '某个蜜友私藏了这个愿望'
   end
 end

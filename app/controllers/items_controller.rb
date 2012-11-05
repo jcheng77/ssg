@@ -199,7 +199,9 @@ class ItemsController < ApplicationController
       @share.sync_to_weibo(params[:share_to], weibo_client)
 
       current_user.follow_my_own_share(@share)
+      if @share.visibility.blank?
       current_user.push_new_share_to_my_follower(@share)
+      end
     end
 
     return true

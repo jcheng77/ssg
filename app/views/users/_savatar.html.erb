@@ -1,0 +1,9 @@
+<div class="avatar">
+    <%= image_tag big_avatar_url(savatar.avatar), :width => '50' %>
+      <%= savatar.nick_name %>
+        <div class="user-block-link <%= "#{savatar._id}-follow" %>">
+          <%= link_to_unless current_user.follower_of?(savatar), '关注', follow_user_path(savatar), remote: true, class: "btn btn-small btn-success"%>
+        </div>
+
+</div>
+

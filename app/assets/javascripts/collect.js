@@ -6,7 +6,7 @@ $(document).ready(function () {
       return false;
     };
     if ($('#desc').val().length == 0) {
-      alert('请输入推荐评论');
+      alert('请输入收藏评论');
       return false;
     }
   });

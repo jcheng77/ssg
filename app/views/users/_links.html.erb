@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked sidebars" style="margin-top: 15px;">
     <%= actived_li_if current_page?(:controller => 'users', :action => 'promote_shares') do %>
-        <%= link_to "热门推荐", promote_shares_user_path(@user ? @user : current_user) %>
+        <%= link_to "热门收藏", promote_shares_user_path(@user ? @user : current_user) %>
     <% end %>
 <%= actived_li_if current_page?(:controller => 'users', :action => 'dashboard') do %>
         <%= link_to "好友的愿望", dashboard_user_path(@user ? @user : current_user) %>

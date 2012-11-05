@@ -16,13 +16,7 @@
                     </div>
                 </div>            
                 <div class="control-group string optional">
-                    <label class="string optional control-label" for="item_rating_comp">愿望指数</label>
-                    <div class="controls">
-                        <div style="width: 100px; cursor: pointer; ">
-                            <img  src="/assets/smallStars/star-off.png" alt="1" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="2" title="" class="rating_comp">&nbsp;<img  src="/assets/smallStars/star-off.png" alt="3" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="4" title="" class="rating_comp">&nbsp;<img src="/assets/smallStars/star-off.png" alt="5" title="" class="rating_comp">
-                        </div>
-                    </div>
-                </div>                
+                </div>
                 <div class="control-group string optional">
                     <label class="string optional control-label" for="item_tags">标签</label>
                     <div class="controls">
@@ -44,7 +38,7 @@
             </div>
         </div>
         <div id="overlay-footer" class="footer">
-        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收集</a> 到浏览器收藏夹栏</div>
+        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>
@@ -55,7 +49,7 @@
             <% end %>
             <input name="share[subscribed]" type="checkbox" disabled="true" value="1">&#160;&#160;订阅降价通知
         </div>
-         <input type="button" class='btn btn-warning' style='clean:both;margin-left:100px' disabled="true" value='推荐愿望'>
+         <input type="button" class='btn btn-warning' style='clean:both;margin-left:100px' disabled="true" value='收藏愿望'>
         </div>
     </form>
     <div class="loading-mask" style="display:none">

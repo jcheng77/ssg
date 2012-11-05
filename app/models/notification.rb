@@ -73,7 +73,7 @@ class Notification
       when TYPE_ACTIVATE then
         return "#{sender.nick_name} is activated"
       when TYPE_SHARE then
-        return "<em>#{sender.nick_name}</em> 有了新的推荐"
+        return "<em>#{sender.nick_name}</em> 有了新的收藏"
       when TYPE_BAG then
         return "<em>#{sender.nick_name}</em> 添加了新的实现过的愿望"
       when TYPE_WISH then

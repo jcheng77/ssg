@@ -30,14 +30,14 @@
              <div class="btn-group item_actions">
    
                 <a href="#" class="btn red">新愿望 </a>
-                <a href="#" class="btn yellow">推荐 </a>
+                <a href="#" class="btn yellow">收藏 </a>
                 <a href="#" class="btn blue">已实现 </a>
                 
             </div>
             
             <div class="count-list" style="position:absolute;">
                 新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
-                推荐 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                收藏 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
                 已实现 <span><%= @item.in_bags_num %></span></a>
             </div>
 
@@ -76,9 +76,11 @@
     <div class="span6">
         <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
         <% @item.shares.all.desc(:created_at).each do |share| %>
+          <% if share.visibility.blank? %>
             <% share.root_comments.each do |comment| %>
                 <%= render :partial => "comments/comment", :object => comment %>
             <% end %>
+              <% end %>
         <% end %>
         <% @item.root_comments.each do |comment| %>
             <%= render :partial => "comments/comment", :object => comment %>

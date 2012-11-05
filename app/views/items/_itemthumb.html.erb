@@ -2,7 +2,11 @@
     <%= link_to image_tag(item.image, :class => 'img_frame medium_picture'), item %>
     <% unless share.nil? %>
       <a class="img_frame mini_picture avatar">
+        <% if share.visibility.blank?  %>
         <%= image_tag small_avatar_url(share.user.avatar) %>
+            <% else %>
+            <%= image_tag small_avatar_url('default_avatar.jpg') %>
+           <% end %>
       </a>
     <% end %>
     <div class='item-price'><%= number_to_currency(item.latest_price, unit: '￥') %></div>

@@ -39,7 +39,7 @@
     <div class="span12">
         <ul id="myTab" class="nav nav-tabs">
             <li class=""><a href="#wishes" data-toggle="tab">我的未实现愿望</a></li>
-            <li class="active"><a href="#shares" data-toggle="tab">我的推荐</a></li>
+            <li class="active"><a href="#shares" data-toggle="tab">我的收藏</a></li>
             <li class=""><a href="#bags" data-toggle="tab">我的已实现愿望</a></li>
         </ul>
         <div class="tab-content">
@@ -47,7 +47,9 @@
                 <div class="row" style="margin-left: 0px;">
                     <ul class="items thumbnails">
                         <% @user.recent_shares.each do |share| %>
+                          <% if share.visibility.blank? %>
                             <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share} %>
+                             <% end %>
                         <% end %>
                     </ul>
                 </div>
