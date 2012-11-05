@@ -116,6 +116,18 @@ class UsersController < ApplicationController
     end
   end
 
+
+   # GET /users/1/my_all_share
+  def my_all_shares
+    @user = User.find(params[:id])
+    @shares = @user.all_my_shares params[:page]
+
+    respond_to do |format|
+      format.html { render action: :my_shares, layout: 'application' } # my_all_share.html.erb
+      format.json { render json: @user }
+    end
+  end
+
   # GET /users/1/cycle_shares
   def cycle_shares
     @user = User.find(params[:id])
