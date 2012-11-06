@@ -76,7 +76,7 @@
 			padding: 20px 10px;
 			width: 520px;
 		}
-		div.inviteuser, div.wishlist{
+		div.inviteuser, div.wishlist, div.finduser{
 			h4 {
 				padding-bottom: 10px;
 			}
@@ -91,6 +91,15 @@
 				text-align: center;
 				font-size: 18px;
 				padding-bottom: 10px;
+			}
+		}
+		div.finduser {
+			.friend-block {
+				width: 480px;
+				margin: 0 0 10px 0;
+			}
+			.friend-info {
+				width: 420px;
 			}
 		}
 	}
