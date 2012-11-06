@@ -1,1 +1,10 @@
-<div>许个愿望</div>
+<div class='wishlist'>
+	<div class='copy-wishlist'>
+		<h4>复制并粘帖新愿望链接:</h4>
+		<div><input type='text' id='url-dash' class='input-medium search-query shareUrl' style='width:480px' placeholder='支持淘宝、京东、凡客、亚马逊、新蛋、当当、1号店、国美、苏宁、易讯' %></div>
+		<div><button class="btn btn-primary" id="parseUrl-btn-dash">下一步</button></div>
+	</div>
+	<div class='orcls'>-- 或者 --</div>
+	<div>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
+</div>
+
