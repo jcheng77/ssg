@@ -22,7 +22,7 @@
             </p>
         <% end %>
         <% unless share.nil? %>
-          <% if share.visibility.blank? %>
+          <% if share.is_public? %>
             <p class="item-comment" title="<%= share.comment_content %>"><%= link_to share.user.nick_name, account_user_path(share.user), :class => "user_name" %>:<%= share.comment_content %></p>
               <%else %>
               <p class="item-comment" title="<%= share.dummy_comment %>"><%= share.dummy_comment %></p>

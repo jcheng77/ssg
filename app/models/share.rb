@@ -107,4 +107,8 @@ class Share
   def dummy_comment
     '某个蜜友私藏了这个愿望'
   end
+
+  def is_public?
+    visibility.nil? || !(visibility.first == VISIBLE_TO_SELF)
+  end
 end

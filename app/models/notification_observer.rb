@@ -12,7 +12,7 @@ class NotificationObserver < Mongoid::Observer
       sender_id = object.following_id
       notify_objects << User.find(object.f_id)
     elsif object.is_a?(Share)
-      if object.visibility.blank?
+      if object.is_public?
       notify_objects = object.user.followers_by_type(User.name)
       type = case object.share_type
                when Share::TYPE_SHARE then

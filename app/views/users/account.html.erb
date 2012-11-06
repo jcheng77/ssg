@@ -47,7 +47,7 @@
                 <div class="row" style="margin-left: 0px;">
                     <ul class="items thumbnails">
                         <% @user.recent_shares.each do |share| %>
-                          <% if share.visibility.blank? %>
+                          <% if share.is_public? %>
                             <%= render :partial => "items/item", :object => share.item, :locals => {:tags => share.item.tags, :share => share} %>
                              <% end %>
                         <% end %>

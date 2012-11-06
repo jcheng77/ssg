@@ -121,11 +121,12 @@ class User
     users = User.all
     users.each do |user|
       account = user.accounts.first
-      if account && sns_account && account.friends.to_a.include?(sns_account.aid.to_i)
+      if account && sns_account && sns_account.friends.to_a.include?(account.aid.to_s)
         friend_users << user
       end
     end
-    return friend_users
+    following = followees_by_type(User.name)
+    return friend_users - following
   end
 
   # my firends shared with me
