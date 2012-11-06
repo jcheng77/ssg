@@ -6,6 +6,6 @@
         <%= link_to "好友的愿望", dashboard_user_path(@user ? @user : current_user) %>
     <% end %>
     <%= actived_li_if current_page?(:controller => 'users', :action => 'cycle_shares') do %>
-        <%= link_to "二级好友愿望", cycle_shares_user_path(@user ? @user : current_user) %>
+        <%= link_to "间接好友愿望", cycle_shares_user_path(@user ? @user : current_user) %>
     <% end %>
 </ul>

@@ -83,7 +83,7 @@ class User
   end
 
   def all_my_shares(page, per_page=8)
-    Share.where(:user_id => self._id).paginate(:page => page, :per_page => per_page)
+    Share.where(:user_id => self._id).reverse.paginate(:page => page, :per_page => per_page)
   end
 
   def cycle_shares(page, per_page = 8)
@@ -95,7 +95,7 @@ class User
     end
     secondary_friends_id.delete self._id
     secondary_friends_id -= friends_id
-    Share.where(:user_id.in => secondary_friends_id.to_a).paginate(:page => page, :per_page => per_page)
+    Share.where(:user_id.in => secondary_friends_id.to_a).reverse.paginate(:page => page, :per_page => per_page)
   end
 
   def recent_shares(limit = 8)
