@@ -59,7 +59,9 @@ class WeiboQueue
      msg_end = ' #菠萝蜜降价通知#'
       msgs << [msg_head,msg_body.flatten,msg_end].join()
     end
+    sleep(60)
     wb.add_status(msgs)
+    WeiboQueue.delete_all
   end
 
 end
