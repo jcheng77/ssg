@@ -12,6 +12,8 @@ class Share
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
 
+  VISIBLE_TO_SELF = 'P'
+
   WISH_TAGS = ["生日礼物", "情人节", "光棍节", "圣诞礼物", "新年礼物","婚礼礼品", "节日礼品", "想送就送"]
 
   field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
@@ -38,6 +40,8 @@ class Share
 
   scope :by_type, lambda { |type| where(share_type: type) }
   scope :recent_by_type, lambda { |type| by_type(type).desc(:created_at) }
+  scope :only_public, (where(visibility: nil))
+  scope :show_private, (where(visibility: VISIBLE_TO_SELF))
 
   def self.init_params(user, item, collector)
     {
@@ -102,5 +106,9 @@ class Share
 
   def dummy_comment
     '某个蜜友私藏了这个愿望'
+  end
+
+  def is_public?
+    visibility.nil? || !(visibility.first == VISIBLE_TO_SELF)
   end
 end

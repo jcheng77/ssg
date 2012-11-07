@@ -12,6 +12,7 @@ class NotificationObserver < Mongoid::Observer
       sender_id = object.following_id
       notify_objects << User.find(object.f_id)
     elsif object.is_a?(Share)
+      if object.is_public?
       notify_objects = object.user.followers_by_type(User.name)
       type = case object.share_type
                when Share::TYPE_SHARE then
@@ -22,6 +23,7 @@ class NotificationObserver < Mongoid::Observer
                  Notification::TYPE_BAG
              end
       sender_id = object.user_id
+      end
     elsif object.is_a? Comment
       unless object.is_root_comment?
         target_object = object.root

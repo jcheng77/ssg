@@ -47,14 +47,8 @@
                 <span class='help-inline' style='color: #3A87AD;display:none'>请输入心语心愿</span>
             <% end -%>
             <div class="controls">
-
                 <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;新愿望&#160;&#160;&#160;&#160;
                 <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;已实现的愿望
-
-              <%= f.input :visibility , :label => '公开' do %>
-                <%= select_tag "share[visibility]", options_for_select(Item.visibility_selection) %>
-              <% end %>
-
                 <input type="hidden" id="wisth_type" name="wisth_type"/>
 
                 <div id='wisth_type_list' class="btn-group wisth_type_list" data-toggle="buttons-radio">
@@ -62,8 +56,16 @@
                         <button type="button" class="btn" value="<%= t %>"><%= t %></button>
                     <% end %>
                 </div>
+
+
             </div>
+          <p>
+            <%= f.input :visibility , :label => '公开' do %>
+                <%= select_tag "share[visibility][]", options_for_select(Item.visibility_selection) %>
+<% end -%>
+         </p>
         </div>
+
     </div>
 
     <div id="overlay-footer" class="footer">
