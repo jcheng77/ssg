@@ -29,9 +29,7 @@
 	
 	.userinfo {
 		position: relative;
-		border-bottom: 1px solid #ccc;
 		padding-bottom: 20px;
-		margin-bottom: 20px;
 		.span3 {
 			margin-left: 0;
 		}
@@ -67,48 +65,13 @@
 			box-shadow: -2px -2px 5px #ccc;
 		}
 	}
-	div.myActions-panel {
-		position: absolute;
-		z-index:100;
-		> div {
-			background-color: #fff;
-			box-shadow: -2px 2px 5px #ccc;
-			padding: 20px 10px;
-			width: 520px;
-		}
-		div.inviteuser, div.wishlist, div.finduser{
-			h4 {
-				padding-bottom: 10px;
-			}
-		}
-		div.wishlist {
-			div.copy-wishlist > div {
-				padding-bottom: 10px;
-			}
-			div.orcls {
-				color: gray;
-				width: 520px;
-				text-align: center;
-				font-size: 18px;
-				padding-bottom: 10px;
-			}
-		}
-		div.finduser {
-			.friend-block {
-				width: 480px;
-				margin: 0 0 10px 0;
-			}
-			.friend-info {
-				width: 420px;
-			}
-		}
-	}
+
 	.navbar .nav > li > a {
 		margin: 0;
 		line-height: 45px;
 		height: 45px;
 		padding: 0;
-		color: black;
+		color: #303030;
 		text-shadow: 0 0 0;
 	}
 	.item_block {
@@ -129,5 +92,44 @@
 	}
 	.pagination {
 		text-align: center;
+	}
+}
+
+div.inviteuser, div.finduser{
+	display:none;
+	z-index:10000;
+ 	background-color:#fff;
+ 	border:1px solid #e3e3e3;
+ 	width: 520px;
+ 	padding: 20px 10px;
+
+    box-shadow: 0 0 10px #eee;
+    -moz-box-shadow:0 0 10px 5px #eee;
+    -webkit-box-shadow: 0 0 10px #eee;
+
+	.close {
+		background-image: url("close.png");
+		position: absolute;
+		right: -15px;
+		top: -15px;
+		cursor: pointer;
+		height: 35px;
+		width: 35px;
+		opacity: 1;
+		filter: alpha(opacity=100);
+	}
+
+	h4 {
+		padding-bottom: 10px;
+	}
+}
+
+div.finduser {
+	.friend-block {
+		width: 480px;
+		margin: 0 0 10px 0;
+	}
+	.friend-info {
+		width: 420px;
 	}
 }
