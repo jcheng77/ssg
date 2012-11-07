@@ -1,5 +1,6 @@
-<div style="padding: 20px 10px;">
-    <%= render :partial => "search_bar", :locals => {:remote => true} %>
-    <div style="overflow: scroll; height: 400px;" id="search_users">
+<div class='finduser'>
+    <h4>搜索晒愿望的好友</h4>
+    <%= render :partial => "search_bar_for_dash", :locals => {:remote => true} %>
+    <div style="overflow-y: scroll; overflow-x: hidden; height: 400px;" id="search_users">
     </div>
 </div>

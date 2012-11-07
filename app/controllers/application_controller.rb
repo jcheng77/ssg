@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
         #127.0.0.1 test app key
         #@client ||= WeiboOAuth2::Client.new( '1408937818','613b940d9fe14180aa01ce294e1ddf8a')
         #WeiboOAuth2::Config.redirect_uri = 'http://127.0.0.1:3000/syncs/sina/callback/'
-
+        
         if !@client.authorized? && !session[:access_token].nil?
           @client.get_token_from_hash(:access_token => session[:access_token], :refresh_token => session[:refresh_token], :expires_at => session[:expires_at])
         end

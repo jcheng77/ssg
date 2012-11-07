@@ -71,12 +71,45 @@
 		position: absolute;
 		z-index:100;
 		> div {
-			width: 680px;
-			height: 450px;
 			background-color: #fff;
-			margin-right: 8px;
 			box-shadow: -2px 2px 5px #ccc;
+			padding: 20px 10px;
+			width: 520px;
 		}
+		div.inviteuser, div.wishlist, div.finduser{
+			h4 {
+				padding-bottom: 10px;
+			}
+		}
+		div.wishlist {
+			div.copy-wishlist > div {
+				padding-bottom: 10px;
+			}
+			div.orcls {
+				color: gray;
+				width: 520px;
+				text-align: center;
+				font-size: 18px;
+				padding-bottom: 10px;
+			}
+		}
+		div.finduser {
+			.friend-block {
+				width: 480px;
+				margin: 0 0 10px 0;
+			}
+			.friend-info {
+				width: 420px;
+			}
+		}
+	}
+	.navbar .nav > li > a {
+		margin: 0;
+		line-height: 45px;
+		height: 45px;
+		padding: 0;
+		color: black;
+		text-shadow: 0 0 0;
 	}
 	.item_block {
 		margin-right: 30px;
@@ -86,7 +119,7 @@
 			padding-top: 10px;
 		}
 		.user_comment {
-			height: 140px;
+			height: 135px;
 			overflow: hidden;
 		}
 		.the-icons {
