@@ -1,4 +1,5 @@
-<div class='inviteuser'>
+<div class='inviteuser' id='invite-panel'>
+    <a class='close'></a>
     <h4>发送微博@你的好友一起来晒愿望</h4>
     <%= form_for(@user, :url => invite_user_path(@user), :method => :post, :remote => true) do |f| %>
         <%= text_area_tag :message, "快来加入@菠萝蜜 吧~~", :class => "input-xlarge", :cols => "40", :rows => "4", :style => "width: 98%;" %>

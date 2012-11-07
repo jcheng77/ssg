@@ -5,15 +5,10 @@
         </div>
         <div class="span7">
             <ul class='myActions nav nav-pills'>
-                <li><i class='icon-heart'></i>许个愿望</li>
-                <li><i class='icon-search'></i>查找好友</li>
-                <li><i class='icon-user'></i>邀请好友</li>
+                <li id='share-link' role="button" rel="#share-panel"><i class='icon-heart'></i>许个愿望</li>
+                <li id='finduser-link' role="button" rel="#finduser-panel"><i class='icon-search'></i>查找好友</li>
+                <li id='invite-link' role="button" rel="#invite-panel"><i class='icon-user'></i>邀请好友</li>
             </ul>
-            <div class='myActions-panel' style='display:none'>
-                <%= render :partial => "users/myaction_wishlist" %>
-                <%= render :partial => "users/myaction_finduser" %>
-                <%= render :partial => "users/myaction_inviteuser" %>
-            </div>
         </div>
     </div>
     <div class="span12 wishCountBar navbar">
@@ -35,12 +30,9 @@
 
         </ul>
         <ul class="nav">
-            <li>
-              <%=  link_to '热门愿望', promote_shares_user_path(@user) %>
-                  </li>
-            <li>
-              <%= link_to '好友动态', dashboard_user_path(@user) %> </li>
-            <li><%= link_to '二级好友动态', cycle_shares_user_path(@user)  %></li>
+            <li>热门愿望 </li>
+            <li>好友动态 </li>
+            <li>二级好友动态 </li>
         </ul>
     </div>
     <div class="span12 row">
@@ -53,3 +45,6 @@
         <%= bootstrap_will_paginate @shares %>
     </div>
 </div>
+
+<%= render :partial => "users/myaction_finduser" %>
+<%= render :partial => "users/myaction_inviteuser" %>
