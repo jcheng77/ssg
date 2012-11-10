@@ -190,6 +190,7 @@ class ItemsController < ApplicationController
           else
             Share::TYPE_SHARE
           end
+      @share.item.auto_tag
 
       return false if !@share.save
 
@@ -202,6 +203,7 @@ class ItemsController < ApplicationController
       if @share.is_public?
       current_user.push_new_share_to_my_follower(@share)
       end
+
     end
 
     return true

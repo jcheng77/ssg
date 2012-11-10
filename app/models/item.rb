@@ -181,6 +181,14 @@ class Item
     tags.first(num).map { |t| t[0] }
   end
 
+  def auto_tag
+    Item.tags.each do |t|
+     if title.match(t)
+      add_tag t
+      end
+    end
+  end
+
 
   def restore_item_url
     restore_url(self.source_site, self.shares.first.source)
