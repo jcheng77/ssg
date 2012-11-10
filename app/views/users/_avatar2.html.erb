@@ -1,19 +1,24 @@
-<div class="thumbnail avatar user_badge">
-    <ul class="nav nav-pills">
-        <li>
-            <div class='avatar_img'>
-                <%= image_tag big_avatar_url(avatar2.avatar), :width => '80' %>
-            </div>
-        </li>
-        <li><div class='avatar_name'><%= @user.name %></div></li>
-    </ul>
-    
+<div class="thumbnail avatar">
+    <%= image_tag big_avatar_url(avatar2.avatar), :width => '160' %>
+
     <div class="caption">
-        <%= link_to followees_user_path(avatar2) do %>
-            <span>关注</span><strong><%= avatar2.followees_count_by_type(User.name) %></strong>
-        <% end %>&#160;&#160;|&#160;&#160;
-        <%= link_to followers_user_path(avatar2) do %>
-            <span>粉丝</span><strong><%= avatar2.followers_count_by_type(User.name) %></strong>
-        <% end %>
+        <ul class="nav nav-pills info" style="font-size: 12px;">
+            <li>
+                <%= link_to followees_user_path(avatar2) do %>
+                    <strong><%= avatar2.followees_count_by_type(User.name) %></strong><span>关注</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to followers_user_path(avatar2) do %>
+                    <strong><%= avatar2.followers_count_by_type(User.name) %></strong><span>粉丝</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to my_all_shares_user_path(avatar2) do %>
+                    <strong><%= avatar2.shares.size %></strong><span>愿望</span>
+                <% end %>
+            </li>
+        </ul>
     </div>
 </div>
+

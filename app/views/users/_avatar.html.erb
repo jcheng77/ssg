@@ -1,13 +1,12 @@
 <div class="thumbnail avatar user_badge">
-    <ul class="nav nav-pills">
-        <li>
-            <div class='avatar_img'>
-                <%= image_tag big_avatar_url(avatar.avatar), :width => '80' %>
-            </div>
-        </li>
-        <li><div class='avatar_name'><%= @user.name %></div></li>
-    </ul>
-    
+  <ul class="nav nav-pills">
+    <li>
+      <div class='avatar_img'>
+        <%= image_tag big_avatar_url(avatar.avatar), :width => '80' %>
+      </div>
+    </li>
+    <li><div class='avatar_name'><%= @user.name %></div></li>
+  </ul>
 
     <div class="caption">
         <ul class="nav nav-pills info" style="font-size: 12px;">

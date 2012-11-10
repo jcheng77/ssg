@@ -1,7 +1,19 @@
 <div class="row main preferences">
+ <% if @user.active == 1 %>
     <div class="span2">
         <%= render :partial => "avatar", :object => @user %>
     </div>
+      <%  else %>
+  <div class="span12" style="margin-left: auto; margin-right: auto; margin-bottom: 25px;">
+    <ul class="breadcrumb">
+      <li><a href="#">第1步：使用微博帐号注册</a></li>
+      <li><a href="#">第2步：设置帐号信息</a></li>
+      <li><a class="active" href="#">第3步：设置感兴趣的分类</a></li>
+      <li><a href="#">第4步：关注感兴趣的人</a></li>
+      <li><a href="#">第5步：收藏想买、分享愿望</a></li>
+    </ul>
+  </div>
+  <% end %>
     <div class="span10">
         <div class="page-header"><h4>我的偏好</h4></div>
         <div class="page-header">

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   # GET /users/1/dashboard
   def dashboard
     @user = User.find(params[:id])
-    @shares = @user.followed_all params[:page]
+    @shares = @user.followed_all params[:page] , 16
 
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
   # GET /users/1/my_shares
   def my_shares
     @user = User.find(params[:id])
-    @shares = @user.my_shares params[:page]
+    @shares = @user.my_shares params[:page], 16
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
   # GET /users/1/my_wishes
   def my_wishes
     @user = User.find(params[:id])
-    @shares = @user.my_wishes params[:page]
+    @shares = @user.my_wishes params[:page], 16
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_wishes.html.erb
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   # GET /users/1/my_bags
   def my_bags
     @user = User.find(params[:id])
-    @shares = @user.my_bags params[:page]
+    @shares = @user.my_bags params[:page] , 16
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
@@ -136,7 +136,7 @@ class UsersController < ApplicationController
    # GET /users/1/my_all_share
   def my_all_shares
     @user = User.find(params[:id])
-    @shares = @user.all_my_shares params[:page]
+    @shares = @user.all_my_shares params[:page] , 16
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_all_share.html.erb
@@ -147,10 +147,10 @@ class UsersController < ApplicationController
   # GET /users/1/cycle_shares
   def cycle_shares
     @user = User.find(params[:id])
-    @shares = @user.cycle_shares params[:page]
+    @shares = @user.cycle_shares params[:page], 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end
@@ -158,10 +158,10 @@ class UsersController < ApplicationController
   def promote_shares
     @user = User.find(params[:id])
     @f_user = User.find_official_weibo_account
-    @shares = @f_user.all_my_shares params[:page]
+    @shares = @f_user.all_my_shares params[:page], 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end

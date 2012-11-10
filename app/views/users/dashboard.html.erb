@@ -1,7 +1,7 @@
 <div class="row main dashboard">
     <div class="span12 row userinfo">
         <div class="span3">
-            <%= render :partial => "avatar2", :object => @user %>
+            <%= render :partial => "avatar", :object => @user %>
         </div>
         <div class="span7">
             <ul class='myActions nav nav-pills'>
@@ -30,9 +30,9 @@
 
         </ul>
         <ul class="nav">
-            <li>热门愿望 </li>
-            <li>好友动态 </li>
-            <li>二级好友动态 </li>
+            <li> <%= link_to '热门愿望', promote_shares_user_path(@user) %></li>
+            <li><%= link_to '好友动态', dashboard_user_path(@user)  %> </li>
+            <li><%= link_to '二级好友动态', cycle_shares_user_path(@user) %></li>
         </ul>
     </div>
     <div class="span12 row">
