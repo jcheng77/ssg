@@ -6,7 +6,7 @@
         <%= f.submit "发送", :class => "btn btn-primary" %>
         <hr class="bs-docs-separator">
         <% @user.accounts.to_a.each do |a| %>
-            <% a.friends_name.to_a.each do |f| %>
+            <% a.friends_names.to_a.each do |f| %>
                 <label class="checkbox">
                     <%= check_box_tag "users[]", "#{f}" %> f
                 </label>
