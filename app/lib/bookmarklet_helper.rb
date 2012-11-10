@@ -35,8 +35,7 @@ module BookmarkletHelper
       begin
         domain_checker
         get_item_id
-        retrieve_product_info if correct?
-        search_item_on_etao unless succeed?
+        retrieve_product_info
       rescue => ex
         Rails.logger.error ex
       end
@@ -49,7 +48,7 @@ module BookmarkletHelper
       begin
         @imgs = get_jd_imgs(html)
         @price = (get_jd_price_by_staic_tag(html) || get_jd_price_by_pic(html))
-        @title = get_jd_title(html)
+        @title = get_title(html)
       rescue
         Rails.logger.info 'encoding error...will retry with etao query at the end of this process'
       end
@@ -137,8 +136,12 @@ module BookmarkletHelper
       when 'suning', 'fengbuy', 'coco8'
         @item_id = (path.last.split('.').first if path.last.index('html') > 0)
       else
-        @item_id = "invalid"
+        @item_id = @url
       end
+    end
+
+    def known_sites?
+      @site != 'others'
     end
 
     def correct?
@@ -146,7 +149,7 @@ module BookmarkletHelper
     end
 
     def succeed?
-      !(@imgs.blank? || @price.nil? || @title.nil?)
+      !(@imgs.blank? || @title.nil?)
     end
 
     def item_id
@@ -198,8 +201,18 @@ module BookmarkletHelper
         doc.css('strong.price_fix').each do |p|
           @price = p.text.slice(/\d+/) if p.text
         end
+        when 'others'
+          search_item_on_etao unless succeed?
+          process_unknown_sites unless succeed?
         end
-      end
+    end
+
+    def process_unknown_sites
+        res = Faraday.get @url
+        html = res.body.ensure_encoding('UTF-8' , :invalid_characters => :drop)
+        @imgs = get_all_imgs(html)
+        @title = get_title(html)
+    end
 
     def get_trade_snapshot_item
       doc = open(@url).read
@@ -280,22 +293,32 @@ module BookmarkletHelper
       imgs[1..3]
     end
 
+   def get_all_imgs(item_page_source)
+      imgs = item_page_source.scan(/src\S+http:\/\/\S+jpg"/).map { |img| img.slice(/http.*jpg/) }
+      imgs.uniq!
+      imgs[0..7]
+    end
+
     def get_jd_price_by_staic_tag(item_page_source)
       price_tag = item_page_source.scan(/price:.\d*.\d*/)
       price_tag.first.slice(/\d*\.\d*/) unless price_tag.blank?
     end
 
-    def get_jd_title(item_page_source)
-      title = item_page_source.slice(/<title>.*>/)
+    def get_title(item_page_source)
+      title = item_page_source.slice(/<title>.*>/).force_encoding('UTF-8')
       title.slice(/>.*</).slice(1..-2)
     end
 
     def search_item_on_etao
+      begin
       e = Etao.new(@url)
       etao_result = e.get_item_info
       @price = etao_result[:price]
       @title = etao_result[:title]
       @imgs = [etao_result[:image]]
+      rescue Exception => ex
+       Rails.logger.info ex
+      end
     end
 
     def convert_url(url)
