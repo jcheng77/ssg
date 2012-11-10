@@ -131,4 +131,16 @@ div.finduser {
 	.friend-info {
 		width: 420px;
 	}
+	.thumbnail {
+		border: 0;
+		box-shadow: 0 0 0;
+		border-radius: 0;
+		border-bottom: 1px dotted #ccc
+	}
+	ul.images-list {
+		display: none;
+	}
+	ul {
+		border: 0
+	}
 }
