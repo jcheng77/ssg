@@ -185,7 +185,6 @@ class Item
     Item.tags.each do |t|
      if title.match(t)
       add_tag t
-      binding.pry
       end
     end
   end
