@@ -11,6 +11,7 @@ class Account
   field :friends, type:Array
   field :fname, as: :friends_names, type:Array
   field :profile_url, type: String
+  field :fimgs, as: :friends_profile_urls, type:Array
 
   embedded_in :user
 
