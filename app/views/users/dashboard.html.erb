@@ -14,28 +14,28 @@
     <div class="span12 wishCountBar navbar">
       <ul class="nav">
         <li>
-          <%=  link_to my_shares_user_path(@user), :class => 'active' do %>
+          <%=  link_to my_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_shares') ? 'active' : '' do %>
           我的收藏 <%= @user.shares.by_type(Share::TYPE_SHARE).count %>
           <% end %>
         </li>
         <li> 
-          <%=  link_to my_wishes_user_path(@user) do %>
+          <%=  link_to my_wishes_user_path(@user) , :class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : '' do %>
           我的新愿望 <%= @user.shares.by_type(Share::TYPE_WISH).count %>
           <% end %>
         </li>
         <li>
-          <%=  link_to my_bags_user_path(@user) do %>
+          <%=  link_to my_bags_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : ''  do %>
             我实现的愿望 <%= @user.shares.by_type(Share::TYPE_BAG).count %>
           <% end %>
         </li>
         <li>
-          <%= link_to '热门愿望', promote_shares_user_path(@user) %>
+          <%= link_to '热门愿望', promote_shares_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'promote_shares') ? 'active' : ''  %>
         </li>
         <li>
-          <%= link_to '好友动态', dashboard_user_path(@user)  %> 
+          <%= link_to '好友动态', dashboard_user_path(@user) , :class => current_page?(:controller => 'users', :action => 'dashboard') ? 'active' : ''   %>
         </li>
         <li>
-          <%= link_to '二级好友动态', cycle_shares_user_path(@user) %>
+          <%= link_to '间接好友动态', cycle_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'cycle_shares') ? 'active' : ''  %>
         </li>
       </ul>
     </div>
