@@ -62,6 +62,10 @@ class User
     key_word.blank? ? [] : self.where(:nick_name => /.*(#{key_word}).*/)
   end
 
+  def self.nick_names
+    self.only(:nick_name).all.to_a.map { |u| u.nick_name }
+  end
+
   def has_shared?(type, item)
     self.shares.where(:share_type => type, :item_id => item._id).exists?
   end
