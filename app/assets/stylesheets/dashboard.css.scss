@@ -35,14 +35,35 @@
 	}
 	.wishCountBar{
 		background-color: #eee;
-		line-height: 45px;
+		line-height: 35px;
 		margin-bottom: 20px;
 		border: 0;
-		border-left: 4px solid #65B8FD;
 		ul.nav > li{
-			padding: 0 10px;
-			line-height: 45px;
-			height: 45px;
+			padding: 0;
+			line-height: 35px;
+			height: 35px;
+			> a {
+				margin: 0;
+				line-height: 35px;
+				height: 35px;
+				padding: 0 25px 0 10px;
+				color: #373142;
+				text-shadow: 0 0 0;
+				border-left: 4px solid #eee;
+				border-right: 1px solid #eee;
+			}
+
+			> a.active, > a.active:hover {
+				border-left: 4px solid #65B8FD;
+				border-right: 1px solid #fff;
+				color: #373142;
+			}
+
+			> a:hover {
+				border-left: solid 4px #D4D4D4;
+				border-right: solid 1px #E0E0E0;
+				color: #267FD9;
+			}
 		}
 	}
 	ul.myActions {
@@ -65,14 +86,6 @@
 		}
 	}
 
-	.navbar .nav > li > a {
-		margin: 0;
-		line-height: 45px;
-		height: 45px;
-		padding: 0;
-		color: #303030;
-		text-shadow: 0 0 0;
-	}
 	.item_block {
 		margin-right: 30px;
 		width: 472px;
