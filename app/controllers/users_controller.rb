@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def invite
     @user = User.find(params[:id])
     @message = params[:message]
-    params[:users].to_a.each { |user| @message = "#{@message} @#{user}" }
+    params[:users].to_a.each { |user| @message = "@#{user}  #{@message}" }
     @user.update_weibo_status_only_text('sina', weibo_client, @message) if @user.accounts.sina
     @user.update_weibo_status_only_text('qq', weibo_client, @message) if @user.accounts.qq
 

@@ -5,9 +5,9 @@
         </div>
         <div class="span7">
             <ul class='myActions nav nav-pills'>
-                <li id='share-link' role="button" rel="#share-panel"><i class='icon-heart'></i>许个愿望</li>
-                <li id='finduser-link' role="button" rel="#finduser-panel"><i class='icon-search'></i>查找好友</li>
-                <li id='invite-link' role="button" rel="#invite-panel"><i class='icon-user'></i>邀请好友</li>
+                <li id='share-link' role="button" rel="#share-panel"><i class='icon-heart'></i> 添加愿望</li>
+                <li id='finduser-link' role="button" rel="#finduser-panel"><i class='icon-search'></i> 查找好友</li>
+                <li id='invite-link' role="button" rel="#invite-panel"><i class='icon-user'></i> 邀请好友</li>
             </ul>
         </div>
     </div>
@@ -24,7 +24,7 @@
           <% end %>
         </li>
         <li>
-          <%=  link_to my_bags_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : ''  do %>
+          <%=  link_to my_bags_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'my_bags') ? 'active' : ''  do %>
             我实现的愿望 <%= @user.shares.by_type(Share::TYPE_BAG).count %>
           <% end %>
         </li>
