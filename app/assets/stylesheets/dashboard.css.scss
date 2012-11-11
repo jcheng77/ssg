@@ -124,6 +124,10 @@ div.inviteuser, div.finduser{
 }
 
 div.finduser {
+	#search_users{
+		overflow-x: hidden;
+		max-height: 430px;
+	}
 	.friend-block {
 		width: 480px;
 		margin: 0 0 10px 0;

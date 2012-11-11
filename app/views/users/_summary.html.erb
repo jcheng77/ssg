@@ -1,8 +1,17 @@
 <div class="thumbnail row friend-block">
     <%= image_tag small_avatar_url(summary.avatar), :width => '50', class: "pull-left" %>
     <div class="pull-right friend-info">
-        <h5><%= link_to summary.nick_name, account_user_path(summary) %></h5>
-        <ul>
+        <div>
+            <h5 style='float:left'><%= link_to summary.nick_name, account_user_path(summary) %></h5>
+            <div style='float:left' class="user-block-link <%= "#{summary._id}-follow" %>">
+              <%=
+                link_to_unless current_user.follower_of?(summary), '关注', follow_user_path(summary), remote: true, class: "btn btn-small btn-success" do
+                  link_to '取消关注', unfollow_user_path(summary), remote: true, class: "btn btn-small btn-success"
+                end
+              %>
+            </div>
+        </div>
+        <ul style='clear:both'>
             <li>未实现 <%= summary.shares.by_type(Share::TYPE_WISH).size %></li>
             <li>收藏 <%= summary.shares.by_type(Share::TYPE_SHARE).size %></li>
             <li>已实现 <%= summary.shares.by_type(Share::TYPE_BAG).size %></li>
