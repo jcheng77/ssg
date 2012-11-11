@@ -387,3 +387,9 @@ body {
 .dropdown-menu {
     z-index: 10001;
 }
+
+.friends {
+    > .span3 {
+        width: 200px;
+    }
+}
