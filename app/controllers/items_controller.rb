@@ -7,9 +7,14 @@ class ItemsController < ApplicationController
   include ImageHelper
 
   before_filter :select_empty_layout, only: :share
+  skip_before_filter :authenticate, :only => [:index,:show]
 
   def index
-    @current_categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
+    if current_user.nil?
+      @current_categories = categories
+    else
+      @current_categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
+    end
     @hot_tags = Item.top_tags(@current_categories);
     find_tags = current_tags(params[:tag_action], params[:tag])
     @current_tags = params[:tag].to_s.strip.split(" ") | find_tags
