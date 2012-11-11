@@ -46,6 +46,7 @@ class SyncsController < ApplicationController
         bi_friends["users"].each do |u|
         friends_ids << u["idstr"].to_s
         friends_names << u["screen_name"]
+        friends_profile_urls << u["profile_image_url"]
       end
     end
     end

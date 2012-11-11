@@ -152,6 +152,8 @@ class Item
     s.present? ? s.last.price : '暂无价格'
   end
 
+
+
   def root_share
     self.root_share_id.nil? ? nil : Share.find(self.root_share_id)
   end

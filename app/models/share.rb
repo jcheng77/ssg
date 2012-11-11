@@ -36,7 +36,6 @@ class Share
   belongs_to :user, index: true
   belongs_to :seller, index: true
 
-  validates_presence_of :price
 
   scope :by_type, lambda { |type| where(share_type: type) }
   scope :recent_by_type, lambda { |type| by_type(type).desc(:created_at) }
