@@ -8,7 +8,7 @@
         <% @user.accounts.to_a.each do |a| %>
             <% a.friends_names.to_a.each do |f| %>
                 <label class="checkbox">
-                    <%= check_box_tag "users[]", "#{f}" %> f
+                    <%= check_box_tag "users[]", "#{f}" %> <%= f %>
                 </label>
             <% end %>
         <% end %>
