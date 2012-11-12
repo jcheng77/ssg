@@ -218,6 +218,8 @@ class UsersController < ApplicationController
     preferences = params[:user].blank? ? [] : params[:user][:preferences]
     @user.update_attribute :preferences, preferences
     session[:current_categories] = preferences
+    @user.update_attribute :active, 1
+
 
 
 
@@ -225,7 +227,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.shares.size == 0
-        format.html { redirect_to dashboard_user_path(@user) }
+        format.html { redirect_to promote_shares_user_path(@user) }
       else
         format.html { redirect_to my_shares_user_path(@user) }
       end
