@@ -1,23 +1,11 @@
-<div class="thumbnail avatar">
+<div class="thumbnail">
     <%= image_tag big_avatar_url(avatar.avatar), :width => '160' %>
 
     <div class="caption">
         <ul class="nav nav-pills info" style="font-size: 12px;">
-            <li>
-                <%= link_to followees_user_path(avatar) do %>
-                    <strong><%= avatar.followees_count_by_type(User.name) %></strong><span>关注</span>
-                <% end %>
-            </li>
-            <li>
-                <%= link_to followers_user_path(avatar) do %>
-                    <strong><%= avatar.followers_count_by_type(User.name) %></strong><span>粉丝</span>
-                <% end %>
-            </li>
-            <li>
-                <%= link_to my_all_shares_user_path(avatar) do %>
-                    <strong><%= avatar.shares.size %></strong><span>愿望</span>
-                <% end %>
-            </li>
+            <li><a href="#"><strong>210</strong><span>关注</span></a></li>
+            <li><a href="#"><strong>100</strong><span>粉丝</span></a></li>
+            <li><a href="#"><strong><%= avatar.shares.size %></strong><span>分享</span></a></li>
         </ul>
     </div>
 </div>

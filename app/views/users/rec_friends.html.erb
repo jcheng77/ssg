@@ -1,0 +1,38 @@
+<div class="row rec-friends">
+  <div class="span12" style="margin-left: auto; margin-right: auto; margin-bottom: 25px;">
+    <ul class="breadcrumb">
+      <li><a href="#">第1步：使用微博帐号注册</a></li>
+      <li><a href="#">第2步：设置帐号信息</a></li>
+      <li><a href="#">第3步：设置感兴趣的分类</a></li>
+      <li><a class="active" href="#">第4步：关注感兴趣的人</a></li>
+      <li><a href="#">第5步：收藏想买、分享愿望</a></li>
+    </ul>
+  </div>
+  <div class="span2">
+    <%= render :partial => "avatar", :object => @user %>
+  </div>
+  <div class="span10">
+    <div class="page-header"><h4>选择您可能感兴趣的人</h4></div>
+    <div class="page-header">
+      <%unless @suggested_friends.blank? %>
+        <%= form_for @user, url: rec_friendship_user_path(@user), method: :put do |f| %>
+          <ul class="nav nav-pills rec-list">
+            <% @suggested_friends.each do |sf| %>
+            <li>
+              <%= check_box_tag 'to_follow[]', sf._id%>
+              <div class='rec-info'>
+                <div class='rec-img'>
+                  <%= image_tag big_avatar_url(sf.avatar), :width => '50' %>
+                </div>
+                <div class='rec-name'><%= sf.nick_name %></div>
+              </div>
+            </li>
+            <%end%>
+          </ul>
+          <button type="submit" id="submit" class="btn btn-info">下一步</button>
+        <%end%>
+      <%end%>
+    </div>        
+  </div>
+</div>
+

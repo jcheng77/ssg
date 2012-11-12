@@ -6,7 +6,6 @@ class SyncsController < ApplicationController
   def new
     if params[:type] == 'qq'
       wb = Weibo.new(params[:type])
-      wb.init_client
       wb.write_to_cache
       redirect_to wb.client.authorize_url
     else
@@ -20,6 +19,7 @@ class SyncsController < ApplicationController
     bi_friends = []
     friends_ids =  []
     friends_names = []
+    friends_profile_urls = []
 
     if params[:type] == 'qq'
       wb = Weibo.new(params[:type])
@@ -30,7 +30,7 @@ class SyncsController < ApplicationController
       access_token = session[:access_token] = results[:access_token]
       token_secret = session[:token_secret] = results[:access_token_secret]
       userinfo = wb.get_user_info_hash
-      
+
       friends_ids , friends_names = wb.get_friends_list userinfo["id"]
     else
 
@@ -47,6 +47,7 @@ class SyncsController < ApplicationController
         bi_friends["users"].each do |u|
         friends_ids << u["idstr"].to_s
         friends_names << u["screen_name"]
+        friends_profile_urls << u["profile_image_url"]
       end
     end
     end
@@ -78,7 +79,7 @@ class SyncsController < ApplicationController
 
 
         session[:current_user_id] = account.user._id
-        account.update_attributes({friends: friends_ids, friends_names: friends_names})
+        account.update_attributes({friends: friends_ids, friends_names: friends_names , friends_profile_urls: friends_profile_urls})
         redirect_to promote_shares_user_path(current_user)
 
       end

@@ -35,6 +35,10 @@ Ssg::Application.routes.draw do
       put 'update_account'
       get 'edit_preferences'
       put 'update_preferences'
+      get 'rec_friends'
+      put 'rec_friendship'
+      put 'launch'
+      post 'invite'
       # resources :categories
       resources :notifications, :only => [:index, :show]
     end

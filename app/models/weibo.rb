@@ -4,9 +4,6 @@ class Weibo
 
   def initialize(type)
     @type = type
-  end
-
-  def init_client
     case @type
     when 'qq'
       @client = OauthChina::Qq.new
@@ -15,20 +12,22 @@ class Weibo
     @client = WeiboOAuth2::Client.new(sinaapp["key"], sinaapp["secret"])
     WeiboOAuth2::Config.redirect_uri = sinaapp["callback"]
     end
- 
   end
+
 
   def client
     @client
   end
 
   def write_to_cache
+    #binding.pry
     Rails.cache.write(build_oauth_token_key(@client.name,@client.oauth_token), @client.dump)
   end
 
   def load_client(oauth_token)
     case @type
     when 'qq'
+      #binding.pry
       @client = OauthChina::Qq.load(Rails.cache.read(build_oauth_token_key(@type,oauth_token)))
     when 'sina'
       @client.get_token_from_hash(:access_token => oauth_token[:access_token], :refresh_token => oauth_token[:refresh_token], :expires_at => oauth_token[:expires_at])

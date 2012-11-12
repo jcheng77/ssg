@@ -1,0 +1,23 @@
+<div class='inviteuser' id='invite-panel'>
+    <a class='close'></a>
+    <h4>发送微博@你的好友一起来晒愿望</h4>
+    <%= form_for(@user, :url => invite_user_path(@user), :method => :post, :remote => true) do |f| %>
+        <%= text_area_tag :message, "快来加入@菠萝蜜 吧~~", :class => "input-xlarge", :cols => "40", :rows => "4", :style => "width: 98%;" %>
+        
+        <h5>选择要@的好友</h5>
+        <div class='candi-list'>
+            <% @user.accounts.to_a.each do |a| %>
+                <% a.friends_names.to_a.each_with_index do |f,i| %>
+                    <ul class='nav nav-pills'>
+                        <li><%= check_box_tag "users[]", "#{f}" %></li>
+                        <li><div><%= image_tag a.friends_profile_urls[i] unless a.friends_profile_urls.nil? %></div></li>
+                        <li class='name'><%= f %></li>
+                    </ul>
+                 <% end %>
+            <% end %>
+        </div>
+        <div style='clear:both'>
+            <%= f.submit "发送", :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+</div>

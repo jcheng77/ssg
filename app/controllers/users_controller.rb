@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   # GET /users/1/dashboard
   def dashboard
     @user = User.find(params[:id])
-    @shares = @user.followed_all params[:page]
+    @shares = @user.followed_all params[:page] , 16
 
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
@@ -52,12 +52,28 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/1/invite
+  def invite
+    @user = User.find(params[:id])
+    @message = params[:message]
+    params[:users].to_a.each { |user| @message = "@#{user}  #{@message}" }
+    @user.update_weibo_status_only_text('sina', weibo_client, @message) if @user.accounts.sina
+    @user.update_weibo_status_only_text('qq', weibo_client, @message) if @user.accounts.qq
+
+    respond_to do |format|
+      format.html { render :text => @message}
+      format.js # invite.js.erb
+      format.json { render json: @message }
+    end
+  end
+
   # POST /users/search
   def search
     @users = User.search_by_nick_name params[:nick_name]
 
     respond_to do |format|
       format.html # search.html.erb
+      format.js # search.js.erb
       format.json { render json: @users }
     end
   end
@@ -87,9 +103,9 @@ class UsersController < ApplicationController
   # GET /users/1/my_shares
   def my_shares
     @user = User.find(params[:id])
-    @shares = @user.my_shares params[:page]
+    @shares = @user.my_shares params[:page], 16
     respond_to do |format|
-      format.html { render layout: 'application' } # my_shares.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_shares.html.erb
       format.json { render json: @user }
     end
   end
@@ -97,10 +113,10 @@ class UsersController < ApplicationController
   # GET /users/1/my_wishes
   def my_wishes
     @user = User.find(params[:id])
-    @shares = @user.my_wishes params[:page]
+    @shares = @user.my_wishes params[:page], 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_wishes.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_wishes.html.erb
       format.json { render json: @user }
     end
   end
@@ -108,10 +124,10 @@ class UsersController < ApplicationController
   # GET /users/1/my_bags
   def my_bags
     @user = User.find(params[:id])
-    @shares = @user.my_bags params[:page]
+    @shares = @user.my_bags params[:page] , 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end
@@ -120,10 +136,10 @@ class UsersController < ApplicationController
    # GET /users/1/my_all_share
   def my_all_shares
     @user = User.find(params[:id])
-    @shares = @user.all_my_shares params[:page]
+    @shares = @user.all_my_shares params[:page] , 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_all_share.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_all_share.html.erb
       format.json { render json: @user }
     end
   end
@@ -131,10 +147,10 @@ class UsersController < ApplicationController
   # GET /users/1/cycle_shares
   def cycle_shares
     @user = User.find(params[:id])
-    @shares = @user.cycle_shares params[:page]
+    @shares = @user.cycle_shares params[:page], 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end
@@ -142,10 +158,10 @@ class UsersController < ApplicationController
   def promote_shares
     @user = User.find(params[:id])
     @f_user = User.find_official_weibo_account
-    @shares = @f_user.all_my_shares params[:page]
+    @shares = @f_user.all_my_shares params[:page], 16
 
     respond_to do |format|
-      format.html { render action: :my_shares, layout: 'application' } # my_bags.html.erb
+      format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
       format.json { render json: @user }
     end
   end
@@ -202,11 +218,63 @@ class UsersController < ApplicationController
     preferences = params[:user].blank? ? [] : params[:user][:preferences]
     @user.update_attribute :preferences, preferences
     session[:current_categories] = preferences
+    @user.update_attribute :active, 1
+
+
+
+
+
 
     respond_to do |format|
-      format.html { redirect_to dashboard_user_path(@user) }
+      if @user.shares.size == 0
+        format.html { redirect_to promote_shares_user_path(@user) }
+      else
+        format.html { redirect_to my_shares_user_path(@user) }
+      end
+      end
+  end
+  
+  # GET /users/1/rec_friends
+  def rec_friends
+    @user = User.find(params[:id])
+    @suggested_friends = @user.suggested_friends(session[:sns_type])
+    @user.update_attribute :active, 1
+
+    respond_to do |format|
+      format.html 
     end
   end
+
+  # GET /users/1/rec_friendship
+  def rec_friendship
+    @user = User.find(params[:id])
+    users = []
+    unless params[:to_follow].blank?
+      params[:to_follow].each do |uid|
+      @user.follow User.find(uid)
+      end
+    end
+    
+    respond_to do |format|
+      format.html 
+    end
+  end
+
+  # GET /users/1/launch
+  def launch
+    @user = User.find(params[:id])
+    sns_type = session[:sns_type]
+    if params[:sync_to_weibo] == 1
+      client = weibo_client(sns_type)
+      #@user.update_weibo_status_only_text(sns_type,client,'想买的东西太多了 愿望清单太长了 好不容易找到了个愿望集散地 开始在这里扎窝晒愿望了 想送我礼物的速还来看看我的愿望清单吧 :-) ')
+    end
+
+    respond_to do |format|
+      format.html {redirect_to dashboard_user_path(@user)}
+      format.json 
+    end
+  end
+
 
   # GET /users/1/edit_account
   def edit_account

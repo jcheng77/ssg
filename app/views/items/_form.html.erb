@@ -1,7 +1,7 @@
 <%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form share-detail'}) do |f| %>
     <div id="bookmarklet_container" class="row bookmarklet_container">
-        <div class="span5">
-            <div class="share-details-price"><%= number_to_currency(share.price, unit: '￥') %></div>
+        <div class="span3">
+            <div class="share-details-price"><%= price_tag(share.price) %></div>
             <div class="share-details-title" title="<%= item.title %>"><%= item.title %></div>
 
             <div class="images_picker">
@@ -80,7 +80,7 @@
             <% end %>
             <input name="share[subscribed]" type="checkbox" value="1">&#160;&#160;订阅降价通知
         </div>
-        <%= f.submit '收藏愿望', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;margin-left:100px' %>
+        <%= f.submit '收藏愿望', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;' %>
     </div>
 
     <script type="text/javascript">

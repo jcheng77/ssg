@@ -235,7 +235,9 @@ body {
 
     h5 {
         font-size: 14px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        line-height:30px;
     }
 
     ul {
@@ -304,7 +306,6 @@ body {
     /* styling */
     background-color:#fff;
  
-    width:960px;
     border:1px solid #e3e3e3;
  
     /* CSS3 styling for latest browsers */
@@ -380,5 +381,15 @@ body {
         color: #000;
         background-color: #fff;
         border: 0;
+    }
+}
+
+.dropdown-menu {
+    z-index: 10001;
+}
+
+.friends {
+    > .span3 {
+        width: 200px;
     }
 }

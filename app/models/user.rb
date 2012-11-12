@@ -62,6 +62,10 @@ class User
     key_word.blank? ? [] : self.where(:nick_name => /.*(#{key_word}).*/)
   end
 
+  def self.nick_names
+    self.only(:nick_name).all.to_a.map { |u| u.nick_name }
+  end
+
   def has_shared?(type, item)
     self.shares.where(:share_type => type, :item_id => item._id).exists?
   end
@@ -212,10 +216,19 @@ class User
   end
 
   def is_official_weibo_account?
-    self.accounts.sina && self.accounts.sina.aid == '3023348901' 
+    self.accounts.sina && self.accounts.sina.aid == '3023348901'
   end
 
-  def update_weibo_status(sns_type,client,text,pic)
+  def update_weibo_status_only_text(sns_type,client,text)
+    case sns_type
+    when 'sina'
+    client.statuses.update(text)
+    when 'qq'
+    client.add_status(text) 
+    end
+  end
+
+  def update_weibo_status_with_pic(sns_type,client,text,pic)
     case sns_type
     when 'sina'
     client.statuses.upload_url_text({:status => text,:url => pic} )
@@ -223,6 +236,16 @@ class User
    client.upload_image_url(text,pic) 
   end
   end
+
+  def suggested_friends(sns_type)
+    suggested_friends = self.known_sns_friends(sns_type)
+    if suggested_friends.size < 9
+      suggested_friends << (User.all.limit(18- suggested_friends.size).to_a - suggested_friends - self.to_a)
+      suggested_friends.flatten!
+    end
+    suggested_friends[0..9]
+  end
+
 
   def self.create_user_account_with_weibo_hash(type,userinfo,access_token,token_secret,friends_ids = nil, friends_names = nil, expires_at = nil)
     aid = userinfo.delete("id")

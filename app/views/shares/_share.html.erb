@@ -1,11 +1,10 @@
-<div class="row item_block items">
-    <div class="title"><%= share.item.title %></div>
+<div class="row item_block items span5">
     <div class="pull-left item_left">
         <%= link_to share, :class => "img_frame large_picture" do %>
             <%= share_image_tag share %>
         <% end %>
 
-        <div class="item_actions">
+        <div class="btn-group item_actions">
             <a data-toggle="modal" href="#<%= "#{share._id}-wish-btn" %>" class="btn red">新愿望</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-recommend-btn" %>" class="btn yellow">收藏</a>
             <a data-toggle="modal" href="#<%= "#{share._id}-bag-btn" %>" class="btn blue">已实现</a>
@@ -22,23 +21,16 @@
             </div>
 
             <div class="user_comment"><%= share.comment_content %></div>
-        </div>
-        <% if share.comment %>
-            <div class="child-comments" id="<%= "#{share.comment._id}-child-comments" %>">
-                <% share.comment.child_comments.each do |child_comment| %>
-                    <%= render :partial => "comments/child_comment", :object => child_comment %>
-                <% end %>
 
-                <%= form_for(share.comment.comments.new(:user_id => current_user._id), remote: true) do |f| %>
-                    <%= f.hidden_field :user_id %>
-                    <%= f.hidden_field :_type %>
-                    <%= f.hidden_field :user_id %>
-                    <%= f.hidden_field :commentable_id %>
-                    <%= f.hidden_field :commentable_type %>
-                    <%= f.text_area :content, rows: 1, class: "auto_expand input-xlarge", placeholder: "我来评两句" %>
-                <% end %>
-            </div>
-        <% end %>
+            <ul class="the-icons">
+                <li><%= image_tag 'comment.png' , :size => '22x22' %>  </i> <small id="<%= "#{share._id}-child-num" %>"><%= share.comment.child_comments.size %></small></li>
+                
+                <li><%= image_tag 'thumbup.png' , :size => '22x22' %><small id="<%= "#{share._id}-vote-num" %>"><%= share.comment.votes_point %></small></li>
+                
+            </ul>
+
+        </div>
+        
     </div>
 </div>
 
