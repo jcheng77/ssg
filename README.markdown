@@ -8,17 +8,10 @@
 1. [Functionalites] (https://github.com/jcheng77/ssg/wiki/User-Story-&-Functionality)
 2. [Tech stuff ] (https://github.com/jcheng77/ssg/wiki/Technology)
 
-##Heroku production deployment
-http://ssgcloud.herokuapp.com/  (it's working!!!)
-
-##Beta release schedule:
-1. 9月: 内测上线 让朋友试用 可以让朋友分享一些自己在淘宝曾买过的东西
-2. 10月: 完成淘宝支付和支持亚马逊商品分享和礼品卡发放 加大推广力度 开展一些推广活动 包含网络营销和病毒视频
-6. 11.11 首次交易高峰
 
 ##Task/Issue tracking page:
 1. https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
 
 ##Weekly status update / Meeting minutes
-1. 每周四
+1. 每周三
 1. 每周日
