@@ -135,6 +135,24 @@ div.inviteuser, div.finduser{
 	h4 {
 		padding-bottom: 10px;
 	}
+
+	.candi-list {
+		max-height: 200px;
+		overflow-x: auto;
+		> ul {
+			float:left;
+			width: 250px;
+			li {
+				line-height:50px;
+				padding: 0 5px;
+				height: 50px;
+			}
+			li.name {
+				overflow: hidden;
+				width: 140px;
+			}
+		}
+	}
 }
 
 div.finduser {
