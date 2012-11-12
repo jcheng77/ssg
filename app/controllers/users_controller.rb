@@ -218,14 +218,18 @@ class UsersController < ApplicationController
     preferences = params[:user].blank? ? [] : params[:user][:preferences]
     @user.update_attribute :preferences, preferences
     session[:current_categories] = preferences
-   if @user.active == 0
-    redirect_to :action => 'rec_friends' , :id => @user._id
-    return
-   end
+
+
+
+
 
     respond_to do |format|
-      format.html { redirect_to dashboard_user_path(@user) }
-    end
+      if @user.shares.size == 0
+        format.html { redirect_to dashboard_user_path(@user) }
+      else
+        format.html { redirect_to my_shares_user_path(@user) }
+      end
+      end
   end
   
   # GET /users/1/rec_friends
