@@ -178,7 +178,10 @@ module BookmarkletHelper
         taobaoke_item = convert_items_taobaoke(@item_id)
         shop = get_shop_info product['nick']
         @shop_name = shop['title']
-        @shop_url = taobaoke_item["shop_click_url"] unless taobaoke_item.nil?
+        unless taobaoke_item.nil?
+        @shop_url = taobaoke_item["shop_click_url"]
+        @purchase_url = taobaoke_item["click_url"]
+        end
         @imgs = product["item_imgs"]["item_img"].collect { |img| img["url"] }
         @price = product['price']
         @title = product['title']
@@ -286,9 +289,21 @@ module BookmarkletHelper
     end
 
    def get_all_imgs(item_page_source)
+      get_possible_taobao_link(item_page_source)
       imgs = item_page_source.scan(/src\S+http:\/\/\S+jpg"/).map { |img| img.slice(/http.*jpg/) }
       imgs.uniq!
       imgs[0..7]
+
+   end
+
+    def get_possible_taobao_link(item_page_source)
+      taobao_item_url = item_page_source.scan(/http:\/\/item.taobao.com\/\S+id=\d+/).first
+      tmall_item_url = item_page_source.scan(/http:\/\/\S+\.tmall.com\/\S+id=\d+/).first
+      if taobao_item_url
+        item = convert_items_taobaoke(taobao_item_url)
+        @purchase_url = item["click_url"] if item
+      end
+
     end
 
     def get_jd_price_by_staic_tag(item_page_source)
