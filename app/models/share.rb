@@ -108,4 +108,8 @@ class Share
   def is_public?
     visibility.nil? || !(visibility.first == VISIBLE_TO_SELF)
   end
+
+  def no_price?
+    price == 0 || price.nil?
+  end
 end

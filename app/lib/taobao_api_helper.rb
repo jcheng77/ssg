@@ -94,6 +94,7 @@ module TaobaoApiHelper
 
   # get taobaoke link
   def convert_items_taobaoke(item_id)
+    item_id = item_id.slice(/\d+/)
     params = {
       "num_iids"=> item_id,
       'nick' => 'jackie_f_cheng',

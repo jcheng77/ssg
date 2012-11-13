@@ -1,7 +1,14 @@
 <%= simple_form_for(item, :html => {:class => 'simple_form form-horizontal tag-form share-detail'}) do |f| %>
     <div id="bookmarklet_container" class="row bookmarklet_container">
         <div class="span3">
+          <% unless share.no_price? %>
             <div class="share-details-price"><%= price_tag(share.price) %></div>
+            <%= hidden_field_tag "share[price]", share.price %>
+              <% else %>
+              <%= f.input :price, :label => '价格' do %>
+                  <%= text_field_tag 'share[price]', share.price %>
+                  <% end %>
+              <% end %>
             <div class="share-details-title" title="<%= item.title %>"><%= item.title %></div>
 
             <div class="images_picker">
@@ -27,7 +34,6 @@
             <%= hidden_field_tag "item[sub_shop_url]", item.sub_shop_url %>
             <%= hidden_field_tag "item[source_site]", item.source_site %>
             <%= hidden_field_tag "item[title]", item.title %>
-            <%= hidden_field_tag "share[price]", share.price %>
 
             <%= f.input :category, :label => '分类' do %>
                 <%= f.select :category, Hash[categories.map { |c| [c, c] }], prompt: '请选择' %>
