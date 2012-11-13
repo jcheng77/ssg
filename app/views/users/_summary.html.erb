@@ -12,9 +12,9 @@
             </div>
         </div>
         <ul style='clear:both'>
-            <li>未实现 <%= summary.shares.by_type(Share::TYPE_WISH).size %></li>
-            <li>收藏 <%= summary.shares.by_type(Share::TYPE_SHARE).size %></li>
-            <li>已实现 <%= summary.shares.by_type(Share::TYPE_BAG).size %></li>
+            <li><span>关注  </span><%= link_to summary.followees_count_by_type(User.name), followees_user_path(summary) %> </li>
+            <li><span>粉丝  </span><%= link_to summary.followers_count_by_type(User.name), followers_user_path(summary) %></li>
+            <li><span>分享  </span><%= link_to summary.shares.size, my_all_shares_user_path(summary)%></li>
         </ul>
         <ul class="images-list">
             <% if summary.shares.count == 0 %>
