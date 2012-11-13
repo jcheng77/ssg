@@ -36,6 +36,8 @@ module BookmarkletHelper
         domain_checker
         get_item_id
         retrieve_product_info
+        search_item_on_etao unless succeed?
+        process_unknown_sites unless succeed?
       rescue => ex
         Rails.logger.error ex
       end
@@ -100,7 +102,7 @@ module BookmarkletHelper
       when /coco8/
         @site = 'coco8'
       else
-        @site ='others'
+        @site = host
       end
     end
 
@@ -140,13 +142,6 @@ module BookmarkletHelper
       end
     end
 
-    def known_sites?
-      @site != 'others'
-    end
-
-    def correct?
-      @item_id && @item_id != "invalid"
-    end
 
     def succeed?
       !(@imgs.blank? || @title.nil?)
@@ -201,11 +196,8 @@ module BookmarkletHelper
         doc.css('strong.price_fix').each do |p|
           @price = p.text.slice(/\d+/) if p.text
         end
-        when 'others'
-          search_item_on_etao unless succeed?
-          process_unknown_sites unless succeed?
-        end
-    end
+      end
+      end
 
     def process_unknown_sites
         res = Faraday.get @url
