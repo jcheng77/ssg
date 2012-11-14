@@ -45,9 +45,7 @@
                     <% if @user.avatar.nil? %>
                         <%= hidden_field_tag "user[avatar]", @user.accounts.last.avatar %>
                     <% end %>
-                    <div class="form-actions">
-                        <%= f.submit "完成", :class => "btn btn-primary" %>
-                    </div>
+                    <%= f.submit "完成", :class => "btn btn-primary", :style => "margin-left:80px;"%>
                 </fieldset>
             <% end %>
         </div>
