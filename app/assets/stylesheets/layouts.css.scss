@@ -74,11 +74,12 @@ body {
     margin-bottom: 20px;
     line-height: 15px;
     border: 1px solid #DDD;
-    padding-bottom: 2px;
+    background-color: white;
 }
 
 .item_left {
     position: relative;
+    box-shadow: 2px 0px 5px #CCC;
 }
 
 .item_right {
