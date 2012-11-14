@@ -137,6 +137,22 @@ ul.images-list {
 }
 
 .rec-friends {
+    padding: 25px;
+    > div {
+        background-color:white; 
+        box-shadow: 2px 2px 10px #ccc;
+    }
+    .breadcrumb {
+        li.active a {
+            color: #333;
+            font-weight: bold;
+        }
+        a, a:hover {
+            cursor: default;
+            text-decoration: none;
+            color: #08C;
+        }
+    }
     .rec-list {
         li {
             width: 120px;
