@@ -18,9 +18,9 @@
         <%unless @suggested_friends.blank? %>
           <%= form_for @user, url: rec_friendship_user_path(@user), method: :put do |f| %>
             <ul class="nav nav-pills rec-list">
-              <% @suggested_friends.each do |sf| %>
+              <% @suggested_friends.each_with_index do |sf,i| %>
               <li>
-                <%= check_box_tag 'to_follow[]', sf._id%>
+                <%= check_box_tag 'to_follow[]', sf._id, i < @known_friends_count ? true : false %>
                 <div class='rec-info'>
                   <div class='rec-img'>
                     <%= image_tag big_avatar_url(sf.avatar), :width => '50' %>
