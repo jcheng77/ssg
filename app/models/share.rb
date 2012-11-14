@@ -91,8 +91,11 @@ class Share
 
   def sync_to_weibo(sns_type_arr,client)
     if sns_type_arr.is_a?(Array)
-      sns_type_arr.each do |sns| 
-        self.user.update_weibo_status(sns,client,['我在菠萝蜜添加了一个心愿: ', self.comment.content, self.item.purchase_url, '(分享自@菠萝点蜜 boluo.me)'].join('  ') ,self.item.image)
+      sns_type_arr.each do |sns|
+        if sns == 'sina'
+          short_urls = client.short_url.shorten self.item.purchase_url
+        end
+        self.user.update_weibo_status(sns,client,['我在菠萝蜜添加了一个心愿: ', self.comment.content, short_urls["urls"].first["result"] ? short_urls["urls"].first["url_short"] : self.item.purchase_url , '(分享自 boluo.me)'].join('  ') ,self.item.image)
       end
     end
   end
