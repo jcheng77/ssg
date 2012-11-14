@@ -22,7 +22,7 @@
 <% end %>
 
 <div class="row showitem-page">
-    <div class="span4">
+    <div class="span3 offset1">
 
         <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site, '.png'].join) %><%= @item.title %></div>
 
@@ -98,18 +98,19 @@
             </div>
         <% end %>
     </div>
-</div>
-<div class="row" style="margin-top: 30px; margin-left: 0px;">
-    <div class="page-header"><h4>你可能也会喜欢</h4></div>
-        <ul class="thumbnails">
-        <% @item.with_any_same_tags.each do |item| %>
-            <% unless @item == item %>
-                <li>
-                <%= render :partial => "items/itemthumb", :object => item, :locals => {:share => item.root_share, :item => item} %>
-                </li>
+
+    <div class="row span9 offset1" style="margin-top: 30px; ">
+        <div class="page-header"><h4>你可能也会喜欢</h4></div>
+            <ul class="thumbnails">
+            <% @item.with_any_same_tags.each do |item| %>
+                <% unless @item == item %>
+                    <li>
+                    <%= render :partial => "items/itemthumb", :object => item, :locals => {:share => item.root_share, :item => item} %>
+                    </li>
+                <% end %>
             <% end %>
-        <% end %>
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>
 <%= render :partial => "shares/form", :locals => {:share => @item.root_share} %>

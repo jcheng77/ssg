@@ -1,40 +1,72 @@
-<div class="row main preferences">
- <% if @user.active == 1 %>
-    <div class="span2">
-        <%= render :partial => "avatar", :object => @user %>
-    </div>
-      <%  else %>
-  <div class="span12" style="margin-left: auto; margin-right: auto; margin-bottom: 25px;">
-    <ul class="breadcrumb">
-      <li><a href="#">第1步：使用微博帐号注册</a></li>
-      <li><a href="#">第2步：设置帐号信息</a></li>
-      <li><a class="active" href="#">第3步：设置感兴趣的分类</a></li>
-    </ul>
-  </div>
-  <% end %>
-    <div class="span10">
-        <div class="page-header"><h4>我的偏好</h4></div>
-        <div class="page-header">
-            <h4>
-                <span style="margin-right: 20px;">已经选择了<span id="preference_num"><%= @user.preferences.size %></span>个</span>
-                <button type="submit" id="submit" class="btn btn-primary">完成</button>
-            </h4>
+<% if @user.active == 1 %>
+    <div class="row main preferences">
+        <div class="span2">
+            <%= render :partial => "avatar", :object => @user %>
         </div>
-        <ul class="thumbnails">
-            <% categories.each_with_index do |c, i| %>
-                <li class="span3">
-                    <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
-                      <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
-                        <span class="selected_pref"></span>
-                        <div class="caption">
-                            <h5 style="text-align: center;"><%= c %></h5>
-                        </div>
-                    </a>
-                </li>
-            <% end %>
-        </ul>
+        <div class="span10">
+            <div class="page-header"><h4>我的偏好</h4></div>
+            <div class="page-header">
+                <h4>
+                    <span style="margin-right: 20px;">已经选择了<span id="preference_num"><%= @user.preferences.size %></span>个</span>
+                    <button type="submit" id="submit" class="btn btn-primary">完成</button>
+                </h4>
+            </div>
+            <ul class="thumbnails">
+                <% categories.each_with_index do |c, i| %>
+                    <li class="span3">
+                        <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
+                          <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
+                            <span class="selected_pref"></span>
+                            <div class="caption">
+                                <h5 style="text-align: center;"><%= c %></h5>
+                            </div>
+                        </a>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>        
+<%  else %>
+    <div class="row reg_preferences">
+        <div class="row span10 offset1">
+            <div class="span10" style='margin-left:0'>
+                <ul class="breadcrumb">
+                    <li><a href="#" click='javascript:void(0)'>第1步：使用微博帐号注册</a><span class="divider">&gt;</span></li>
+                    <li><a href="#" click='javascript:void(0)'>第2步：设置帐号信息</a><span class="divider">&gt;</span></li>
+                    <li class="active"><a href="#" click='javascript:void(0)'>第3步：设置感兴趣的分类</a><span class="divider">&gt;</span></li>
+                    <li><a href="#" click='javascript:void(0)'>第4步：关注感兴趣的人</a><span class="divider">&gt;</span></li>
+                    <li><a href="#" click='javascript:void(0)'>第5步：收藏想买、分享愿望</a></li>
+                </ul>
+            </div>
+            <div class="span2">
+                <%= render :partial => "avatar", :object => @user %>
+            </div>
+            <div class="span7">
+              <div class="page-header"><h4>我的偏好</h4></div>
+                <div class="page-header">
+                    <h4>
+                        <span style="margin-right: 20px;">已经选择了<span id="preference_num"><%= @user.preferences.size %></span>个</span>
+                        <button type="submit" id="submit" class="btn btn-primary">完成</button>
+                    </h4>
+                </div>
+                <ul class="thumbnails">
+                    <% categories.each_with_index do |c, i| %>
+                        <li style='height:190px;'>
+                            <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
+                              <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
+                                <span class="selected_pref"></span>
+                                <div class="caption" style='display:block'>
+                                    <h5 style="text-align: center;"><%= c %></h5>
+                                </div>
+                            </a>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>        
+        </div>
     </div>
-</div>
+<% end %>
+
 <%= form_for @user, url: update_preferences_user_path(@user), method: :put, :html => {:style => "display: none;"} do |f| %>
     <% categories.each_with_index do |c, i| %>
         <%= check_box_tag 'user[preferences][]', c, @user.preferences.include?(c), :id => "preference_#{i}_checkbox" %><%= c %>
