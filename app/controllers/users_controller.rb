@@ -237,7 +237,7 @@ class UsersController < ApplicationController
   # GET /users/1/rec_friends
   def rec_friends
     @user = User.find(params[:id])
-    @suggested_friends = @user.suggested_friends(session[:sns_type])
+    @suggested_friends , @known_friends_count = @user.suggested_friends(session[:sns_type])
     @user.update_attribute :active, 1
 
     respond_to do |format|
