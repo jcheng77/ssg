@@ -1,49 +1,53 @@
-  <div class="span12" style="margin-left: auto; margin-right: auto; margin-bottom: 25px;">
-    <ul class="breadcrumb">
-      <li><a href="#">第1步：使用微博帐号注册</a></li>
-      <li><a class="active" href="#">第2步：设置帐号信息</a></li>
-      <li><a href="#">第3步：设置感兴趣的分类</a></li>
-    </ul>
-  </div>
 <div class="row signup">
-    <%= form_for @user, :html => {:class => "form-horizontal"} do |f| %>
-        <fieldset>
-            <div class="control-group">
-                <%= f.label :nick_name, '昵称', :class => "control-label" %>
+    <div class="row span10 offset1">
+        <div class="span10" style='margin-left:0'>
+          <ul class="breadcrumb">
+            <li><a href="#" click='javascript:void(0)'>第1步：使用微博帐号注册</a><span class="divider">&gt;</span></li>
+            <li class="active"><a href="#" click='javascript:void(0)'>第2步：设置帐号信息</a><span class="divider">&gt;</span></li>
+            <li><a href="#" click='javascript:void(0)'>第3步：设置感兴趣的分类</a><span class="divider">&gt;</span></li>
+            <li><a href="#" click='javascript:void(0)'>第4步：关注感兴趣的人</a><span class="divider">&gt;</span></li>
+            <li><a href="#" click='javascript:void(0)'>第5步：收藏想买、分享愿望</a></li>
+          </ul>
+        </div>
+        <div class='span10'>
+            <%= form_for @user, :html => {:class => "form-horizontal"} do |f| %>
+                <fieldset>
+                    <div class="control-group">
+                        <%= f.label :nick_name, '昵称', :class => "control-label" %>
 
-                <div class="controls">
-                    <%= f.text_field :nick_name, :value => @user.accounts.last.nick_name, :class => "input-medium focused" %>
-                    <% if (!flash[:error].nil? && !flash[:error][:nick_name].blank?) %>
-                        <%= flash[:error][:nick_name].first %>
-                    <% end %>
-                </div>
-            </div>
-            <div class="control-group">
-                <%= f.label :email, '邮箱', :class => "control-label" %>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-envelope"></i></span><%= f.text_field :email, :class => "input-large" %>
+                        <div class="controls">
+                            <%= f.text_field :nick_name, :value => @user.accounts.last.nick_name, :class => "input-medium focused" %>
+                            <% if (!flash[:error].nil? && !flash[:error][:nick_name].blank?) %>
+                                <%= flash[:error][:nick_name].first %>
+                            <% end %>
+                        </div>
                     </div>
-              <% if (!flash[:error].nil? && !flash[:error][:email].blank?) %>
-                        <%= flash[:error][:email].first%>
+                    <div class="control-group">
+                        <%= f.label :email, '邮箱', :class => "control-label" %>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on"><i class="icon-envelope"></i></span><%= f.text_field :email, :class => "input-large" %>
+                            </div>
+                      <% if (!flash[:error].nil? && !flash[:error][:email].blank?) %>
+                                <%= flash[:error][:email].first%>
+                            <% end %>
+
+                        </div>
+                            
+                    </div>
+                    <div class="control-group">
+                        <%= f.label :password, '密码', :class => "control-label" %>
+
+                        <div class="controls">
+                            <%= f.password_field :password, :class => "input-medium focused" %>
+                        </div>
+                    </div>
+                    <% if @user.avatar.nil? %>
+                        <%= hidden_field_tag "user[avatar]", @user.accounts.last.avatar %>
                     <% end %>
-
-                </div>
-                    
-            </div>
-            <div class="control-group">
-                <%= f.label :password, '密码', :class => "control-label" %>
-
-                <div class="controls">
-                    <%= f.password_field :password, :class => "input-medium focused" %>
-                </div>
-            </div>
-            <% if @user.avatar.nil? %>
-                <%= hidden_field_tag "user[avatar]", @user.accounts.last.avatar %>
+                    <%= f.submit "完成", :class => "btn btn-primary", :style => "margin-left:80px;"%>
+                </fieldset>
             <% end %>
-            <div class="form-actions">
-                <%= f.submit "完成", :class => "btn btn-primary" %>
-            </div>
-        </fieldset>
-    <% end %>
+        </div>
+    </div>
 </div>
