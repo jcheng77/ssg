@@ -79,6 +79,10 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'sass-rails' , '3.1.4'
 gem 'uglifier', '>= 1.0.3'
 
+group :production do
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
+end
+
 #gem "twitter-bootstrap-rails", "~> 2.0.1.0"
 
 #group :assets do
