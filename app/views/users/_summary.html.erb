@@ -14,7 +14,7 @@
         <ul style='clear:both'>
             <li><span>关注  </span><%= link_to summary.followees_count_by_type(User.name), followees_user_path(summary) %> </li>
             <li><span>粉丝  </span><%= link_to summary.followers_count_by_type(User.name), followers_user_path(summary) %></li>
-            <li><span>分享  </span><%= link_to summary.shares.size, my_all_shares_user_path(summary)%></li>
+            <li><span>愿望  </span><%= link_to summary.shares.size, my_all_shares_user_path(summary)%></li>
         </ul>
         <ul class="images-list">
             <% if summary.shares.count == 0 %>

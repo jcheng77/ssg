@@ -3,9 +3,21 @@
 
     <div class="caption">
         <ul class="nav nav-pills info" style="font-size: 12px;">
-            <li><a href="#"><strong><%= avatar.followees_count_by_type(User.name) %> </strong><span>关注</span></a></li>
-            <li><a href="#"><strong><%=  avatar.followers_count_by_type(User.name) %></strong><span>粉丝</span></a></li>
-            <li><a href="#"><strong><%= avatar.shares.size %></strong><span>愿望</span></a></li>
+           <li>
+                <%= link_to followees_user_path(avatar) do %>
+                    <strong><%= avatar.followees_count_by_type(User.name) %></strong><span>关注</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to followers_user_path(avatar) do %>
+                    <strong><%= avatar.followers_count_by_type(User.name) %></strong><span>粉丝</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to my_all_shares_user_path(avatar) do %>
+                    <strong><%= avatar.shares.size %></strong><span>愿望</span>
+                <% end %>
+            </li>
         </ul>
     </div>
 </div>
