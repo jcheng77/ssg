@@ -231,9 +231,9 @@ class User
   def update_weibo_status_with_pic(sns_type,client,text,pic)
     case sns_type
     when 'sina'
-    client.statuses.upload_url_text({:status => text,:url => pic} )
+    client.statuses.upload_url_text({:status => text.force_encoding('UTF-8'),:url => pic} )
   when 'qq'
-   client.upload_image_url(text,pic) 
+   client.upload_image_url(text.force_encoding('UTF-8'),pic)
   end
   end
 
