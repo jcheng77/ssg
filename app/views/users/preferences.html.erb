@@ -51,14 +51,10 @@
                 </div>
                 <ul class="thumbnails">
                     <% categories.each_with_index do |c, i| %>
-                        <li style='height:190px;'>
-                            <a id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
-                              <%= image_tag  "category#{i+1}.jpg" , :width => '160', :height => '280' %>
-                                <span class="selected_pref"></span>
-                                <div class="caption" style='display:block'>
-                                    <h5 style="text-align: center;"><%= c %></h5>
-                                </div>
-                            </a>
+                        <li class="preference" id="<%= "preference_#{i}" %>" class="thumbnail preference <%= @user.preferences.include?(c) ? "checked" : "" %>">
+                          <p class="caption"><%= c %></p>
+                          <span class="selected_pref"></span>
+                          <%= image_tag  "category#{i+1}.jpg" , :width => '160' %>
                         </li>
                     <% end %>
                 </ul>
@@ -78,6 +74,7 @@
     var num_object = $("#preference_num");
     var num = parseInt(num_object.html());
     $(".preference").click(function () {
+        console.log(111);
         $("#" + $(this).attr("id") + "_checkbox").click();
         if ($(this).hasClass("checked")) {
             $(this).removeClass("checked");
