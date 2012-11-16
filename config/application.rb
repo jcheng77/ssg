@@ -69,9 +69,5 @@ module Ssg
     #added for heroku deployment. suggested https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
     config.assets.initialize_on_precompile = false
 
-    if Rails.env == "production"
-      config.middleware.use("Rack::GoogleAnalytics", :web_property_id => "UA-36350663-1")
-    end
-
   end
 end
