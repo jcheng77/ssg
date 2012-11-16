@@ -79,6 +79,9 @@ gem 'coffee-rails', '~> 3.1.1'
 gem 'sass-rails' , '3.1.4'
 gem 'uglifier', '>= 1.0.3'
 
+gem 'activemerchant'
+gem 'activemerchant_patch_for_china'
+
 #gem "twitter-bootstrap-rails", "~> 2.0.1.0"
 
 #group :assets do
