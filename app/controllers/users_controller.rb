@@ -264,7 +264,7 @@ class UsersController < ApplicationController
     sns_type = session[:sns_type]
     if params[:sync_to_weibo] == "1"
       client = weibo_client(sns_type)
-      @user.update_weibo_status_with_pic(sns_type,client,'我在菠萝蜜分享了我的愿望清单,你也来一起来许愿吧. 小声地说,想送我礼物的速前来看看我的愿望清单吧 逐个认领吧 :-) (来自@菠萝点蜜 boluo.me)','http://boluo.me/assets/makeawish_launch.jpg')
+      @user.update_weibo_status_with_pic(sns_type,client,'我在菠萝蜜分享了我的愿望清单,你也来一起来许愿吧. 小声地说,想送我礼物的速前来看看我的愿望清单吧 逐个认领吧 :-) (来自@菠萝点蜜 http://boluo.me)','http://boluo.me/assets/makeawish_launch.jpg')
     end
 
     respond_to do |format|
