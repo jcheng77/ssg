@@ -163,15 +163,9 @@ module BookmarkletHelper
         end
         if !res.has_error?
           item = res.first_item
-          @imgs << item.get_hash("LargeImage")["URL"]
-          node = item/'Price/Amount'
-          @price = node.children.first.text.to_i/100.to_f if node
-          @title = item.get_element('ItemAttributes').get('Title')
-          @category = item.get_element('ItemAttributes').get('ProductGroup')
-          determine_category
-          node2 = item/'DetailPageURL'
-          @purchase_url = node2.first.text if node
+          @title,@imgs,@purchase_url,@category,@price = AmazonEcs::Associates.process_amazon_item(item)
           @shop_name = '亚马逊美国' if is_amazon_us == 1
+          determine_category
         end
       when 'taobao','tmall'
         product = get_item @item_id
@@ -371,6 +365,18 @@ class Associates
       options[:AWS_access_key_id] = 'AKIAIZPTA7Y3DFTVKL2Q'
       options[:AWS_secret_key] = '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'
    end 
+  end
+
+  def self.process_amazon_item(item)
+      imgs = []
+      imgs << item.get_hash("LargeImage")["URL"]
+      node = item/'Price/Amount'
+      price = node.children.first.text.to_i/100.to_f if node
+      title = item.get_element('ItemAttributes').get('Title')
+      category = item.get_element('ItemAttributes').get('ProductGroup')
+      node2 = item/'DetailPageURL'
+      purchase_url = node2.first.text if node
+      [title,imgs,purchase_url,category,price]
   end
 
 end

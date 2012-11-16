@@ -56,6 +56,7 @@ class ItemsController < ApplicationController
   end
 
   def collect
+    if is_url?(params[:url])
     collector = BookmarkletHelper::Collector.new(params[:url])
     @imgs = collector.imgs
 
@@ -65,6 +66,9 @@ class ItemsController < ApplicationController
     else
       @item = nil
       @share = nil
+    end
+    else
+      @amazon_items = Item.search_on_amazon(params[:url])
     end
 
     respond_to do |format|
