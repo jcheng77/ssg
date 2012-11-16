@@ -53,7 +53,7 @@
                 <span class='help-inline' style='color: #3A87AD;display:none'>请输入心语心愿</span>
             <% end -%>
             <div class="controls">
-                <input type="checkbox" name="add_to_wish" id="add_to_wish"/>&#160;&#160;新愿望&#160;&#160;&#160;&#160;
+                <input type="checkbox" name="add_to_wish" id="add_to_wish" checked />&#160;&#160;新愿望&#160;&#160;&#160;&#160;
                 <input type="checkbox" name="add_to_bought" id="add_to_bought"/>&#160;&#160;已实现的愿望
                 <input type="hidden" id="wisth_type" name="wisth_type"/>
 
@@ -79,12 +79,12 @@
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>
-                <input name="share_to[]" type="checkbox" value="sina">&#160;&#160;分享愿望到新浪微博&#160;&#160;&#160;&#160;
+                <input name="share_to[]" type="checkbox" value="sina" checked>&#160;&#160;分享愿望到新浪微博&#160;&#160;&#160;&#160;
             <% end %>
             <% unless current_user.accounts.qq.blank? %>
-                <input name="share_to[]" type="checkbox" value="qq">&#160;&#160;分享愿望到腾讯微博&#160;&#160;&#160;&#160;
+                <input name="share_to[]" type="checkbox" value="qq" checked>&#160;&#160;分享愿望到腾讯微博&#160;&#160;&#160;&#160;
             <% end %>
-            <input name="share[subscribed]" type="checkbox" value="1">&#160;&#160;订阅降价通知
+            <input name="share[subscribed]" type="checkbox" value="1" checked>&#160;&#160;订阅降价通知
         </div>
         <%= f.submit '收藏愿望', :id => 'submitShareBtn', :class => 'btn btn-warning', :style => 'clean: both;' %>
     </div>

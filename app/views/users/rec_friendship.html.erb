@@ -16,7 +16,7 @@
       <div class="page-header"><h4>收藏想买 分享愿望</h4></div>
       <%= image_tag 'makeawish_launch.jpg' %>
         <div class="page-header"><%= form_for @user, url: launch_user_path(@user), method: :put do |f| %>
-		      <div><%= check_box_tag 'sync_to_weibo', 1  %>&#160;&#160;发送微博告诉好友这里有我的愿望清单  </div>
+		      <div><%= check_box_tag 'sync_to_weibo', 1  , true %>&#160;&#160;发送微博告诉好友这里有我的愿望清单  </div>
   		  <br/>
   		  <button type="submit" id="submit" class="btn btn-info">开始</button>
         </div>
