@@ -57,23 +57,25 @@ class ItemsController < ApplicationController
 
   def collect
     if is_url?(params[:url])
-    collector = BookmarkletHelper::Collector.new(params[:url])
-    @imgs = collector.imgs
+      collector = BookmarkletHelper::Collector.new(params[:url])
+      @imgs = collector.imgs
 
-    if collector.succeed?
-      @item = Item.new_with_collector(collector)
-      @share = @item.shares.last
+      if collector.succeed?
+        @item = Item.new_with_collector(collector)
+        @share = @item.shares.last
+      else
+        @item = nil
+        @share = nil
+      end
     else
-      @item = nil
-      @share = nil
-    end
-    else
-      @amazon_items = Item.search_on_amazon(params[:url])
+      # Search items from Amazon China
+      @items = Item.search_on_amazon(params[:url])
     end
 
     respond_to do |format|
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
+      format.json { render json: @items }
     end
   end
 
