@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
+      format.js # dashboard.js.erb
       format.json { render json: @user }
     end
   end
