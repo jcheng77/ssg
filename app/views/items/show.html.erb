@@ -29,10 +29,10 @@
         <div class="thumbnail">
              <div class="btn-group item_actions">
    
-                <a href="#" class="btn red">新愿望 </a>
-                <a href="#" class="btn yellow">收藏 </a>
-                <a href="#" class="btn blue">已实现 </a>
-                
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>" class="btn red">新愿望 </a>
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>" class="btn yellow">收藏 </a>
+                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>" class="btn blue">已实现 </a>
+
             </div>
             
             <div class="count-list" style="position:absolute;">
@@ -112,5 +112,5 @@
             </ul>
         </div>
     </div>
+    <%= render :partial => "shares/form", :locals => {:share => @item.root_share} %>
 </div>
-<%= render :partial => "shares/form", :locals => {:share => @item.root_share} %>
