@@ -150,9 +150,11 @@
 
         shouldDropDownHide = false;
 
+        // Enter
         if(evt.which === 13){
-          // Enter
-          collect(content);
+          if(isUrl(content)){
+            collect(content);
+          }
         }else{
           if(isUrl(content)){
             showEnterIcon();
