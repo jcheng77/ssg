@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: 'application' } # dashboard.html.erb
+      format.js # dashboard.js.erb
       format.json { render json: @user }
     end
   end
@@ -463,6 +464,16 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to items_path }
     end
+  end
+
+
+  def instruction
+
+   respond_to do |format|
+      format.html
+      format.js
+    end
+
   end
 
 end
