@@ -31,4 +31,8 @@ module ItemHelper
     url.match(/s.click.taobao/)
   end
 
+  def is_url?(url)
+    url =~ /http:/
+  end
+
 end
