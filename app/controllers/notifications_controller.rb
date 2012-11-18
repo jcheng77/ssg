@@ -9,6 +9,7 @@ class NotificationsController < ApplicationController
     @c_notifs = Notification.recent_of_user(@user, [Notification::TYPE_COMMENT], params[:c_notifs_page])
     @f_notifs = Notification.recent_of_user(@user, [Notification::TYPE_FOLLOW], params[:f_notifs_page])
     @a_notifs = Notification.recent_of_user(@user, [Notification::TYPE_AT_COMMENT], params[:a_notifs_page])
+    @d_notifs = Notification.recent_of_user(@user, [Notification::TYPE_MARKDOWN], params[:d_notifs_page])
 
     respond_to do |format|
       format.html # index.html.erb
