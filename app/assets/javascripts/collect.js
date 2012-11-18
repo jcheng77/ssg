@@ -4,6 +4,7 @@
   var $collectInputIcon;
   var $collectDropDown;
   var $collectDropDownTrigger;
+  var $collectLoading;
   var securityToken; // String
   var utf8; //String
   var collectUrl = '/collect';
@@ -21,6 +22,16 @@
       '</a>',
     '</li>'
   ].join('');
+
+  var itemLoadingTpl = [
+    '<li>',
+      '<div class="search-loading">',
+        '<img class="loading-icon" src="/assets/loading.gif" />',
+        '<span class="loading-text">正在搜索...</span>',
+      '</div>',
+    '</li>'
+  ].join('');
+
   var shouldDropDownHide = true;
 
   var mockData;
@@ -51,6 +62,20 @@
       !$parent.hasClass('open') && $parent.addClass('open');
     }
   };
+
+  function showCollectLoading(){
+    $collectLoading.show();
+  };
+
+  function hideCollectLoading(){
+    $collectLoading.hide();
+  };
+
+  function showSearchLoading(){
+    $collectDropDown.html(itemLoadingTpl);
+    showCollectDropDown();
+  };
+
 
   function showSearchResult(items){
     var itemsArr = [];
@@ -130,6 +155,7 @@
     $collectInputIcon = $('#collect-input-icon');
     $collectDropDown = $('#collect-search-result');
     $collectDropDownTrigger = $('#dropDownTrigger');
+    $collectLoading = $('.loading-mask');
     securityToken = $('#collect_item_form input[name=authenticity_token]').val();
     utf8 = $('#collect_item_form input[name=utf8]').val();
   }
@@ -154,6 +180,7 @@
         if(evt.which === 13){
           if(isUrl(content)){
             collect(content);
+            showCollectLoading();
           }
         }else{
           if(isUrl(content)){
@@ -161,6 +188,7 @@
           }else if(content !== contentCache && !shouldDropDownHide){
             showSearchIcon();
             search(content);
+            showSearchLoading();
           }
         }
 
