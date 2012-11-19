@@ -1,11 +1,11 @@
-<div class="row main">
-    <div class="span2">
-        <%= render :partial => "avatar", :object => @user %>
+<div class="row main friends">
+    <div class="span3">
+        <%= render :partial => "avatar2", :object => current_user %>
         <%= render :partial => "links" %>
     </div>
     <div class="span8">
         <div class="span">
-            <%= render :partial => "search_bar", :locals => {:remote => false} %>
+            <%= render :partial => "search_bar_for_dash", :locals => {:remote => false} %>
         </div>
 
         <div class="span">
