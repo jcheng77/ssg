@@ -68,38 +68,26 @@ class Notification
     end
   end
 
-  def related_item
-    case self.type
-      when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_MARKDOWN
-        self.target_object
-      when TYPE_COMMENT, TYPE_AT_COMMENT then
-        root = target_object.root
-        root.is_a?(Item) ? root : root.item
-      else
-        nil
-    end
-  end
-
   def to_s
     case self.type
       when TYPE_FOLLOW then
-        return "#{sender.nick_name} 关注了你"
+        return "<em>#{sender.nick_name}</em> 关注了你"
       when TYPE_ACTIVATE then
         return "#{sender.nick_name} is activated"
       when TYPE_SHARE then
-        return "#{sender.nick_name} 有了新的收藏"
+        return "<em>#{sender.nick_name}</em> 有了新的收藏"
       when TYPE_BAG then
-        return "#{sender.nick_name} 添加了新的实现过的愿望"
+        return "<em>#{sender.nick_name}</em> 添加了新的实现过的愿望"
       when TYPE_WISH then
-        return "#{sender.nick_name} 许了新的宝贝到愿望清单"
+        return "<em>#{sender.nick_name}</em> 许了新的宝贝到愿望清单"
       when TYPE_COMMENT then
         if self.target_object.root.user._id == self.receiver_id
-          return "#{sender.nick_name} 评论了你的愿望"
+          return "<em>#{sender.nick_name}</em> 评论了你的愿望"
         else
-          return "#{sender.nick_name} 回复了你的评论"
+          return "<em>#{sender.nick_name}</em> 回复了你的评论"
         end
       when TYPE_AT_COMMENT then
-        return "#{sender.nick_name} 在评论中@了你"
+        return "<em>#{sender.nick_name}</em> 在评论中@了你"
       when TYPE_MARKDOWN then
         return "你有新的降价通知(恭喜你离愿望又近了一步): 价格从#{self.target_object.price}降到了#{self.target_object.last_inform_price}"
       else

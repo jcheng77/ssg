@@ -10,11 +10,17 @@
             <div class="tab-pane fade in" id="wishes">
                 <div class="row" style="margin-left: 0px;">
                     <% unless @w_notifs.blank? %>
-                        <ul class="thumbnails">
-                            <% @w_notifs.each do |n| %>
-                                <%= render :partial => "notification", :object => n %>
-                            <% end %>
-                        </ul>
+                        <% @w_notifs.each do |n| %>
+                            <div class="single_notification">
+                                <%= image_tag small_avatar_url(n.sender.avatar), width: 35, class: "pull-left" %>
+
+                                <div class="pull-left notification_block">
+                                    <%= link_to raw(n), n, :style => n.checked ? "" : "font-weight: bold;" %>
+                                    <h6><%= n.created_at.to_s :db %></h6>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        <% end %>
                         <%= bootstrap_will_paginate @w_notifs, :param_name => 'w_notifs_page' %>
                     <% else %>
                         <h4 class="friend-msg">没有新的愿望。</h4>
@@ -24,11 +30,17 @@
             <div class="tab-pane fade in" id="comments">
                 <div class="row" style="margin-left: 0px;">
                     <% unless @c_notifs.blank? %>
-                        <ul class="thumbnails">
-                            <% @c_notifs.each do |n| %>
-                                <%= render :partial => "notification", :object => n %>
-                            <% end %>
-                        </ul>
+                        <% @c_notifs.each do |n| %>
+                            <div class="single_notification">
+                                <%= image_tag small_avatar_url(n.sender.avatar), width: 35, class: "pull-left" %>
+
+                                <div class="pull-left notification_block">
+                                    <%= link_to raw(n), n, :style => n.checked ? "" : "font-weight: bold;" %>
+                                    <h6><%= n.created_at.to_s :db %></h6>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        <% end %>
                         <%= bootstrap_will_paginate @c_notifs, :param_name => 'c_notifs_page' %>
                     <% else %>
                         <h4 class="friend-msg">没有新的关注。</h4>
@@ -38,11 +50,17 @@
             <div class="tab-pane fade in" id="follows">
                 <div class="row" style="margin-left: 0px;">
                     <% unless @f_notifs.blank? %>
-                        <ul class="thumbnails">
-                            <% @f_notifs.each do |n| %>
-                                <%= render :partial => "notification", :object => n %>
-                            <% end %>
-                        </ul>
+                        <% @f_notifs.each do |n| %>
+                            <div class="single_notification">
+                                <%= image_tag small_avatar_url(n.sender.avatar), width: 35, class: "pull-left" %>
+
+                                <div class="pull-left notification_block">
+                                    <%= link_to raw(n), n, :style => n.checked ? "" : "font-weight: bold;" %>
+                                    <h6><%= n.created_at.to_s :db %></h6>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        <% end %>
                         <%= bootstrap_will_paginate @f_notifs, :param_name => 'f_notifs_page' %>
                     <% else %>
                         <h4 class="friend-msg">没有找到对应的用户。</h4>
@@ -52,11 +70,17 @@
             <div class="tab-pane fade in" id="ats">
                 <div class="row" style="margin-left: 0px;">
                     <% unless @a_notifs.blank? %>
-                        <ul class="thumbnails">
-                            <% @a_notifs.each do |n| %>
-                                <%= render :partial => "notification", :object => n %>
-                            <% end %>
-                        </ul>
+                        <% @a_notifs.each do |n| %>
+                            <div class="single_notification">
+                                <%= image_tag small_avatar_url(n.sender.avatar), width: 35, class: "pull-left" %>
+
+                                <div class="pull-left notification_block">
+                                    <%= link_to raw(n), n, :style => n.checked ? "" : "font-weight: bold;" %>
+                                    <h6><%= n.created_at.to_s :db %></h6>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        <% end %>
                         <%= bootstrap_will_paginate @a_notifs, :param_name => 'a_notifs_page' %>
                     <% else %>
                         <h4 class="friend-msg">没有新@我的。</h4>
