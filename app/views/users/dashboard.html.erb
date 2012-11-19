@@ -12,43 +12,113 @@
         </div>
     </div>
     <div class="span11 offset1 wishCountBar navbar">
-      <ul class="nav">
-        <li>
-          <%=  link_to my_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_shares') ? 'active' : '' do %>
-          我的收藏 <%= @user.shares.by_type(Share::TYPE_SHARE).count %>
-          <% end %>
-        </li>
-        <li> 
-          <%=  link_to my_wishes_user_path(@user) , :class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : '' do %>
-          我的新愿望 <%= @user.shares.by_type(Share::TYPE_WISH).count %>
-          <% end %>
-        </li>
-        <li>
-          <%=  link_to my_bags_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'my_bags') ? 'active' : ''  do %>
-            我实现的愿望 <%= @user.shares.by_type(Share::TYPE_BAG).count %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to '热门愿望', promote_shares_user_path(@user) ,:class => current_page?(:controller => 'users', :action => 'promote_shares') ? 'active' : ''  %>
-        </li>
-        <li>
-          <%= link_to '好友动态', dashboard_user_path(@user) , :class => current_page?(:controller => 'users', :action => 'dashboard') ? 'active' : ''   %>
-        </li>
-        <li>
-          <%= link_to '间接好友动态', cycle_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'cycle_shares') ? 'active' : ''  %>
-        </li>
-      </ul>
+        <ul class="nav">
+            <li>
+                <%= link_to my_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_shares') ? 'active' : '' do %>
+                    我的收藏 <%= @user.shares.by_type(Share::TYPE_SHARE).count %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to my_wishes_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : '' do %>
+                    我的新愿望 <%= @user.shares.by_type(Share::TYPE_WISH).count %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to my_bags_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_bags') ? 'active' : '' do %>
+                    我实现的愿望 <%= @user.shares.by_type(Share::TYPE_BAG).count %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to '热门愿望', promote_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'promote_shares') ? 'active' : '' %>
+            </li>
+            <li>
+                <%= link_to '好友动态', dashboard_user_path(@user), :class => current_page?(:controller => 'users', :action => 'dashboard') ? 'active' : '' %>
+            </li>
+            <li>
+                <%= link_to '间接好友动态', cycle_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'cycle_shares') ? 'active' : '' %>
+            </li>
+        </ul>
     </div>
     <div class="span11 offset1 row">
-        <% @shares.each do |share| %>
-            <%= render :partial => "shares/share", :object => share %>
-        <% end %>
-        
-    </div>
-    <div class="span11 offset1 ">
-        <%= bootstrap_will_paginate @shares %>
+        <h4 id="notice" style="display: none; margin-top: 20px;"></h4>
+        <ul id="shares" style="margin-left: 0px;">
+        </ul>
     </div>
 </div>
+<div id="progress_more" class="progress-loading" style="display: block;">
+    <%= image_tag "loading.gif" %>
+</div>
+<ul class="pager">
+    <li><%= link_to "更多动态", "javascript: void(0);", :remote => true, :id => "more", :path => dashboard_user_path(@user), :page => 0, :style => "display: none;" %></li>
+</ul>
+<script type="text/javascript">
+    var moreBtn = $("#more");
+    var noticeBar = $("#notice");
+    var progressBar = $("#progress_more");
+    var sharePanel = $("#shares");
 
+    var ShareController = {
+        clearNotice:function () {
+            noticeBar.hide().empty();
+        },
+        appendShare:function (html) {
+            sharePanel.append(html).children("li:last").hide().fadeIn(2000);
+        },
+        notFound:function () {
+            noticeBar.html("没有新的愿望动态。").show();
+        },
+        noMore:function () {
+            moreBtn.addClass("finished");
+            moreBtn.hide();
+        },
+        hasMore:function () {
+            if (!this.autoLoad()) {
+                moreBtn.show();
+            }
+        },
+        autoLoad:function () {
+            var page = parseInt(moreBtn.attr("page"));
+            return page < 5 ? true : false
+        }
+    };
+
+    $(function () {
+        var arrivedAtBottom = function () {
+            return $(document).scrollTop() + $(window).height() == $(document).height();
+        }
+
+        $(window).scroll(function () {
+            if (arrivedAtBottom()) {
+                if (!moreBtn.hasClass("finished")) {
+                    if (ShareController.autoLoad()) {
+                        moreBtn.click();
+                    } else {
+                        moreBtn.show();
+                    }
+                }
+            }
+        });
+
+        moreBtn.click(function () {
+            var page = parseInt(moreBtn.attr("page")) + 1;
+            moreBtn.attr("page", page);
+            var href = moreBtn.attr("path") + "?page=" + page;
+            moreBtn.attr("href", href);
+        });
+
+        moreBtn.on("ajax:before",
+                function () {
+                    moreBtn.hide();
+                    progressBar.show();
+                }
+        ).on("ajax:complete",
+                function () {
+                    progressBar.hide();
+                }
+        );
+
+        moreBtn.click();
+    });
+</script>
 <%= render :partial => "users/myaction_finduser" %>
 <%= render :partial => "users/myaction_inviteuser" %>
