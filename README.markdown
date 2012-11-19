@@ -1,3 +1,7 @@
+# Make a difference by doing something different and thinking different
+
+
+
 ## What problem we strive to solve?
 1. Do you want to get **recommendation** from the people who you trust? The people here on our website is your friends or your friend's friend or someone who has the same taste with you?
 2. Do you want to share your **wishlist** so that people know what to buy when the day of your birthday or anniversary comes?
