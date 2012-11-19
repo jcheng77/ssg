@@ -2,7 +2,6 @@
     <div class="span8 offset2">
         <ul id="notifications_tab" class="nav nav-tabs">
             <li class=""><a href="#wishes" data-toggle="tab">新的愿望</a></li>
-            <li class=""><a href="#downs" data-toggle="tab">新的降价</a></li>
             <li class=""><a href="#comments" data-toggle="tab">新的评论</a></li>
             <li class=""><a href="#follows" data-toggle="tab">新的关注</a></li>
             <li class=""><a href="#ats" data-toggle="tab">新@我的</a></li>
@@ -19,20 +18,6 @@
                         <%= bootstrap_will_paginate @w_notifs, :param_name => 'w_notifs_page' %>
                     <% else %>
                         <h4 class="friend-msg">没有新的愿望。</h4>
-                    <% end %>
-                </div>
-            </div>
-            <div class="tab-pane fade in" id="downs">
-                <div class="row" style="margin-left: 0px;">
-                    <% unless @d_notifs.blank? %>
-                        <ul class="thumbnails">
-                            <% @d_notifs.each do |n| %>
-                                <%= render :partial => "notification", :object => n %>
-                            <% end %>
-                        </ul>
-                        <%= bootstrap_will_paginate @d_notifs, :param_name => 'd_notifs_page' %>
-                    <% else %>
-                        <h4 class="friend-msg">没有新的降价通知。</h4>
                     <% end %>
                 </div>
             </div>
