@@ -101,7 +101,7 @@ class Notification
       when TYPE_AT_COMMENT then
         return "#{sender.nick_name} 在评论中@了你"
       when TYPE_MARKDOWN then
-        return "你有新的降价通知(恭喜你离愿望又近了一步): 价格从#{self.target_object.price}降到了#{self.target_object.last_inform_price}"
+        return "你有新的降价通知: 价格从#{self.target_object.price}降到了#{self.target_object.last_inform_price}"
       else
         "Invalid Notification Type#{type}"
     end
