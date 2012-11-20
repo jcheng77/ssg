@@ -188,6 +188,13 @@ class User
     return target_user
   end
 
+  def self.update_user_weibo(uid,sns_type,message,pic = nil)
+    user = User.find(uid)
+    wb = Weibo.new(sns_type)
+    wb.load_from_db(user.accounts.first.access_token,user.accounts.first.token_secret,user.accounts.first.expires_at)
+    wb.add_status(message,pic)
+  end
+
   def self.find_official_weibo_account
     #find_by_weibo_uid('2884474434')
     find_by_weibo_uid('3023348901')

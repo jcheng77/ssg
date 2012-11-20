@@ -89,14 +89,17 @@ class Share
     WeiboQueue.create(share_id: _id)
   end
 
-  def sync_to_weibo(sns_type_arr,client)
+  def sync_to_weibo(sns_type_arr)
+    wb = Weibo.new('sina')
+    wb.load_from_db(self.user.accounts.first.access_token,self.user.accounts.first.token_secret,self.user.accounts.first.expires_at)
+    short_urls = wb.client.short_url.shorten self.item.purchase_url
+    shorten_url = short_urls["urls"].first["result"] ? short_urls["urls"].first["url_short"] : self.item.purchase_url
+    message = ['我在菠萝蜜添加了一个心愿:', [self.comment.content,shorten_url].join(' ') , '(来自@菠萝点蜜 http://boluo.me )'].join(' ')
+    user_id = self.user._id
     if sns_type_arr.is_a?(Array)
-      sns_type_arr.each do |sns|
-        if sns == 'sina'
-          short_urls = client.short_url.shorten self.item.purchase_url
+        sns_type_arr.each do |sns|
+        User.update_user_weibo(user_id,sns,message,self.item.image)
         end
-        self.user.update_weibo_status(sns,client,['我在菠萝蜜添加了一个心愿: ', self.comment.content, short_urls["urls"].first["result"] ? short_urls["urls"].first["url_short"] : self.item.purchase_url , '(分享自 boluo.me)'].join('  ') ,self.item.image)
-      end
     end
   end
 
