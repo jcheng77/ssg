@@ -25,8 +25,6 @@ class Notification
   field :type, type: String # e.g. share with me/comment to my share or comment/at/followed me/recommended to me
   field :checked, type: Boolean, default: false # if this notification has been checked
 
-  scope :all_of_user, lambda { |user_id| where(:receiver_id => user_id) }
-
   def target_object
     case self.type
       when TYPE_FOLLOW
@@ -123,12 +121,8 @@ class Notification
     Notification.where(:checked => false, :receiver_id => user_id).desc(:created_at).limit(num)
   end
 
-  def self.recent_of_user(user, types, page, per_page = 10)
-    self.all_of_user(user._id).where(:type.in => types).desc(:created_at).paginate(:page => page, :per_page => per_page)
-  end
-
-  def self.set_all_checked_of_user(user)
-    self.all_of_user(user._id).where(:checked => false).update_all(checked: true)
+  def self.all_of_user(user_id, page, per_page = 10)
+    Notification.where(:receiver_id => user_id).desc(:created_at).paginate(:page => page, :per_page => per_page)
   end
 
   def self.receiver_unchecked(user_id)
