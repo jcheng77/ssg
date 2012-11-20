@@ -71,7 +71,7 @@ class Notification
   def related_item
     case self.type
       when TYPE_SHARE, TYPE_BAG, TYPE_WISH, TYPE_MARKDOWN
-        self.target_object
+        self.target_object.item
       when TYPE_COMMENT, TYPE_AT_COMMENT then
         root = target_object.root
         root.is_a?(Item) ? root : root.item
