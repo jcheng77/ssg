@@ -1,0 +1,29 @@
+ .collect_help {
+ 	h2, h4 {
+ 		color: dimGray;
+ 	}
+ 	.collect_btn {
+ 		height: 45px;
+ 		line-height: 45px;
+ 		width: 140px;
+ 		display: inline-block;
+ 		text-align: center;
+ 		color: #fff;
+ 		text-decoration: none;
+ 		box-shadow: 2px 2px 10px #ccc;
+ 		background-color: #7bc9dd;
+ 	}
+ 	.help_container {
+ 		text-align: center;
+ 		.help_content {
+			padding-top: 60px;
+			> div {
+ 				padding: 10px;
+ 			}
+ 			.help_detail a {
+ 				cursor: pointer;
+ 			}
+
+ 		}
+ 	}
+ }
