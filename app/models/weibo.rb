@@ -21,7 +21,12 @@ class Weibo
 
   def write_to_cache
     #binding.pry
-    Rails.cache.write(build_oauth_token_key(@client.name,@client.oauth_token), @client.dump)
+    case @type
+      when 'qq'
+        Rails.cache.write(build_oauth_token_key(@client.name,@client.oauth_token), @client.dump)
+      when 'sina'
+        Rails.cache.write(build_oauth_token_key('sina',oauth_))
+    end
   end
 
   def load_client(oauth_token)
@@ -109,7 +114,8 @@ class Weibo
     [friends_ids, friends_names]
   end
 
-  def add_status(message)
+  def add_status(message,pic=nil)
+    if pic.nil?
     case @type
     when 'qq'
     message.force_encoding('utf-8')
@@ -117,6 +123,9 @@ class Weibo
     when 'sina'
     message.force_encoding('utf-8')
     @client.statuses.update(message)
+    end
+    else
+     add_status_with_pic(message,pic)
     end
   end
 
@@ -128,6 +137,15 @@ class Weibo
 
   def upload_image_url(message,image_path)
     @client.upload_image_url(message.force_encoding('utf-8'),image_path)
+  end
+
+  def add_status_with_pic(message, pic)
+    case @type
+      when 'qq'
+       @client.upload_image_url(message.force_encoding('utf-8'),image_path)
+      when 'sina'
+       @client.statuses.upload_url_text({:status => message.force_encoding('UTF-8'),:url => pic} )
+    end
   end
 
   def fetch_latest_mentions
