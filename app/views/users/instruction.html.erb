@@ -1,6 +1,27 @@
+<div class='row collect_help'>
+	<div class="span10 offset1 help_container">
+		<h2>菠萝蜜愿望收藏工具</h2>
+		<br/>
+		<h4>安装便捷&nbsp;/&nbsp;支持多种浏览器&nbsp;/&nbsp;轻松收藏愿望</h4>
+		<hr/>
+		
+		<div class="span4">
+			<%= image_tag 'collect_help.png', :style => "border:1px solid" %>
+		</div>
+
+		<div class="span4 help_content">
+			<div><h4>只需简单一步 - 拖拽此按钮至书签栏</h4></div>
+			<a class="collect_btn" href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">愿望收藏</a>
+			<div class="help_detail"><a>遇到问题？</a><a>如何使用？</a></div>
+		</div>
+	</div>
+</div>
+
+
+<!--
 安装书签工具到浏览器收集愿望更方便
 
-<div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
+<div style='float: left;'>拖拽  到浏览器收藏夹栏</div>
 
 <h2 class="title ">谷歌浏览器</h2>
 问: 我找不到书签栏, 怎么办?
@@ -32,6 +53,6 @@
 <%= image_tag 'wishwords.png' %>
 
 
-
+-->
 
 
