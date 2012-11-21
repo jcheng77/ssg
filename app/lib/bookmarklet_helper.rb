@@ -331,8 +331,9 @@ module BookmarkletHelper
       when 'vancl'
         connector = (@url.index('?') > 0 ? '&' : '?')
         generate_cps_link(nil,'source=boluome',connector)
-      when 'newegg'
-        generate_cps_link(nil,'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode','&')
+        when 'newegg'
+        connector = (@url.index('?') > 0 ? '&' : '?')
+        generate_cps_link(nil,'cm_mmc=CPS-_-boluome-_-boluome-_-eventcode',connector)
       when 'coco8'
         generate_cps_link('http://cps.coo8.com/cpstransfer.php?unid=j1306&urlto=',nil,nil)
       else
