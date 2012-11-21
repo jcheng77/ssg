@@ -1,0 +1,75 @@
+.collect_help h2, 
+.collect_help h4 {
+ 	color: dimGray;
+}
+
+.collect_help .collect_btn {
+ 	height: 45px;
+ 	line-height: 45px;
+ 	width: 140px;
+ 	display: inline-block;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+ 	box-shadow: 2px 2px 10px #ccc;
+ 	background-color: #7bc9dd;
+}
+
+.collect_help .help_container {
+ 	text-align: center;
+ 	background-color: #fff;
+ 	padding: 30px 10px;
+ 	box-shadow: 2px 2px 10px #ccc;
+}
+
+.collect_help .help_content {
+	padding-top: 60px;
+}
+
+.collect_help .help_content > div {
+ 	padding: 10px;
+}
+ 
+.collect_help .help_detail a {
+ 	cursor: pointer;
+}
+
+.collect_help .common_overlay {
+ 
+    display:none;
+    z-index:10000;
+    background-color:#fff;
+    border:1px solid #e3e3e3;
+    box-shadow: 0 0 10px #eee;
+    -moz-box-shadow:0 0 10px 5px #eee;
+    -webkit-box-shadow: 0 0 10px #eee;
+}
+ 
+.collect_help .common_overlay .close{
+	background-image:url('/assets/close.png');
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.collect_help .overlay_content {
+	padding: 40px;
+}
+
+.collect_help .howtouse img{
+	width:480px;
+	height:335px;
+}
+
+.collect_help .howtouse > * {
+	padding: 5px 0 25px 0;
+}
+
+.collect_help .tab-pane h4 {
+	padding-bottom : 20px;
+}
