@@ -6,6 +6,11 @@
 	margin: 40px;
 }
 
+.showitem-page .page-header,
+.showitem-page .thumbnails {
+	padding: 10px;
+}
+
 .showitem-page .thumbnail {
 	padding: 0;
 	border: 0;
@@ -72,4 +77,8 @@
 
 .showitem-page input[type="submit"].btn {
 	margin: 0 15px 10px 10px;
+}
+
+.showitem-page > .span11 {
+	background-color: #fff;
 }
