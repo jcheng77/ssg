@@ -22,84 +22,85 @@
 <% end %>
 
 <div class="row showitem-page">
-    <div class="span3 offset1">
+    <div class="span11 row"> 
+        <div class="span6">
 
-        <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site, '.png'].join) %><%= @item.title %></div>
+            <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site, '.png'].join) %><%= @item.title %></div>
 
-        <div class="thumbnail">
-             <div class="btn-group item_actions">
-   
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>" class="btn red">新愿望 </a>
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>" class="btn yellow">收藏 </a>
-                <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>" class="btn blue">已实现 </a>
+            <div class="thumbnail">
+                 <div class="btn-group item_actions">
+       
+                    <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-wish-btn" %>" class="btn red">新愿望 </a>
+                    <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-recommend-btn" %>" class="btn yellow">收藏 </a>
+                    <a data-toggle="modal" href="#<%= "#{@item.root_share._id}-bag-btn" %>" class="btn blue">已实现 </a>
 
+                </div>
+                
+                <div class="count-list" style="position:absolute;">
+                    新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
+                    收藏 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
+                    已实现 <span><%= @item.in_bags_num %></span></a>
+                </div>
+
+                <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
             </div>
-            
-            <div class="count-list" style="position:absolute;">
-                新愿望 <span><%= @item.in_wishes_num %></span></a>&#160;&#160;|&#160;&#160;
-                收藏 <span><%= @item.in_shares_num %></span></a>&#160;&#160;|&#160;&#160;
-                已实现 <span><%= @item.in_bags_num %></span></a>
-            </div>
-
-            <%= link_to image_tag(@item.image, :width => '360'), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
-        </div>
-        <div class="item-desc">
-            <% unless @item.sub_shop_name.blank? %>
-                <span class='item-shop'>来自:&#160;
-                    <span class="item-text" title="<%= @item.sub_shop_name %>">
-                        <%= link_to @item.sub_shop_name, @item.sub_shop_url, {:target => '_blank'} %>
+            <div class="item-desc">
+                <% unless @item.sub_shop_name.blank? %>
+                    <span class='item-shop'>来自:&#160;
+                        <span class="item-text" title="<%= @item.sub_shop_name %>">
+                            <%= link_to @item.sub_shop_name, @item.sub_shop_url, {:target => '_blank'} %>
+                        </span>
                     </span>
-                </span>
-            <% end %>
-            <span class='item-shopping'>
-                <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
+                <% end %>
+                <span class='item-shopping'>
+                    <span class="item-price item-text"><%= number_to_currency(@item.latest_price, unit: '￥') %></span>
 
-                <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
-               
-            </span>
+                    <%= link_to image_tag(gotopic(@item.source_site)), @item.trackable_purchase_url(current_user.nil? ? nil : current_user.accounts.first.aid), {:target => '_blank'} %>
+                   
+                </span>
+            </div>
+
+            <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
+            <p class="tags_list">
+                <% @item.tags_each do |t| %>
+                    <a href="#" class="blingy">
+                        #<%= t %>
+                        <span class="left"></span>
+                        <span class="right"></span>
+                    </a>
+                <% end %>
+                <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
+            </p>
+            <% end %>
         </div>
 
-        <%= form_tag add_tag_item_path(@item), remote: true, class: "plain-tag-form" do %>
-        <p class="tags_list">
-            <% @item.tags_each do |t| %>
-                <a href="#" class="blingy">
-                    #<%= t %>
-                    <span class="left"></span>
-                    <span class="right"></span>
-                </a>
+        <div class="span4">
+            <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
+            <% @item.shares.all.desc(:created_at).each do |share| %>
+              <% if share.is_public? %>
+                <% share.root_comments.each do |comment| %>
+                    <%= render :partial => "comments/comment", :object => comment %>
+                <% end %>
+                  <% end %>
             <% end %>
-            <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
-        </p>
-        <% end %>
-    </div>
-
-    <div class="span6">
-        <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
-        <% @item.shares.all.desc(:created_at).each do |share| %>
-          <% if share.is_public? %>
-            <% share.root_comments.each do |comment| %>
+            <% @item.root_comments.each do |comment| %>
                 <%= render :partial => "comments/comment", :object => comment %>
             <% end %>
-              <% end %>
-        <% end %>
-        <% @item.root_comments.each do |comment| %>
-            <%= render :partial => "comments/comment", :object => comment %>
-        <% end %>
-        <%= form_for @item.comments.build, remote: true do |f| %>
-            <%= f.hidden_field :_type %>
-            <%= hidden_field_tag 'comment[user_id]', current_user._id %>
-            <%= f.hidden_field :commentable_id %>
-            <%= f.hidden_field :commentable_type %>
-            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
-            <div class='pull-right comment-btn'>
-                <!--<input type='checkbox'>推荐给好友</input>-->
-                <input type='checkbox'>同步到微博</input>
-                <%= f.submit "我要评论", class: "btn btn-primary" %>
-            </div>
-        <% end %>
+            <%= form_for @item.comments.build, remote: true do |f| %>
+                <%= f.hidden_field :_type %>
+                <%= hidden_field_tag 'comment[user_id]', current_user._id %>
+                <%= f.hidden_field :commentable_id %>
+                <%= f.hidden_field :commentable_type %>
+                <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
+                <div class='pull-right comment-btn'>
+                    <!--<input type='checkbox'>推荐给好友</input>-->
+                    <input type='checkbox'>同步到微博</input>
+                    <%= f.submit "我要评论", class: "btn btn-primary" %>
+                </div>
+            <% end %>
+        </div>
     </div>
-
-    <div class="row span9 offset1" style="margin-top: 30px; ">
+    <div class="span11" style="margin-top: 30px; ">
         <div class="page-header"><h4>你可能也会喜欢</h4></div>
             <ul class="thumbnails">
             <% @item.with_any_same_tags.each do |item| %>
