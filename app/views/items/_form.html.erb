@@ -75,7 +75,7 @@
     </div>
 
     <div id="overlay-footer" class="footer">
-        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
+        <div style='float: left;'> <%=  link_to '我是高级用户 使用书签工具更快速收藏我的愿望', instruction_users_path %> </div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>
