@@ -13,7 +13,7 @@ class Comment
 
   voteable self, :up => 1, :down => -1
 
-  validates_presence_of :user_id, :content, :allow_nil => false
+  validates_presence_of :user_id, :allow_nil => false
   before_create :reset_commentable_id
 
   AT_USER_SYMBOL = '@'
