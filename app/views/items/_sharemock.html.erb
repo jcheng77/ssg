@@ -35,7 +35,7 @@
             </div>
         </div>
         <div id="overlay-footer" class="footer">
-        <div style='float: left;'>拖拽 <a href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
+        <div style='float: left;'>拖拽 <a href="javascript:(function(win){var doc=win.document;var bookmarkletScriptUrl='http://127.0.0.1:3000/js/bookmarklet.js?t='+new Date().getTime();var newScript=document.createElement('script');newScript.type='text/javascript';newScript.src=bookmarkletScriptUrl+'?t='+new Date().getTime();doc.head.appendChild(newScript)})(window);void(0)">新菠萝蜜愿望收藏</a> 到浏览器收藏夹栏</div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>

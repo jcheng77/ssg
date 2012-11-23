@@ -69,13 +69,25 @@ class ItemsController < ApplicationController
       end
     else
       # Search items from Amazon China
-      @items = Item.search_on_amazon(params[:url])
+      @item = Item.search_on_amazon(params[:url])
+    end
+
+    # Here I just wanna add another request type - jsonp
+    # Since I am not so familiar with Rails
+    # So, I just make it work
+    # @Jacky and @Gary, could you please make it more elegant?
+    #
+    # -- Goddy
+    
+    if(params[:callback]) then
+      render :json => @item, :callback => params[:callback]
+      return
     end
 
     respond_to do |format|
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
-      format.json { render json: @items }
+      format.json { render json: @item }
     end
   end
 
