@@ -7,7 +7,8 @@ class ItemsController < ApplicationController
   include ImageHelper
 
   before_filter :select_empty_layout, only: :share
-  skip_before_filter :authenticate, :only => [:index,:show]
+  skip_before_filter :authenticate, :only => [:index, :show, :collect]
+  before_filter :authenticate_without_json, :only => [:collect]
 
   def index
     if current_user.nil?
@@ -56,38 +57,34 @@ class ItemsController < ApplicationController
   end
 
   def collect
-    if is_url?(params[:url])
-      collector = BookmarkletHelper::Collector.new(params[:url])
-      @imgs = collector.imgs
+    @result =
+        if is_url?(params[:url])
+          collector = BookmarkletHelper::Collector.new(params[:url])
+          @imgs = collector.imgs
 
-      if collector.succeed?
-        @item = Item.new_with_collector(collector)
-        @share = @item.shares.last
-      else
-        @item = nil
-        @share = nil
-      end
-    else
-      # Search items from Amazon China
-      @item = Item.search_on_amazon(params[:url])
-    end
-
-    # Here I just wanna add another request type - jsonp
-    # Since I am not so familiar with Rails
-    # So, I just make it work
-    # @Jacky and @Gary, could you please make it more elegant?
-    #
-    # -- Goddy
-    
-    if(params[:callback]) then
-      render :json => @item, :callback => params[:callback]
-      return
-    end
+          if collector.succeed?
+            @item = Item.new_with_collector(collector)
+            @share = @item.shares.last
+            {isSuccess: true, itemId: @item._id}
+          else
+            {isSuccess: false, errorMsg: "分析链接商品出错啦！"}
+          end
+        else
+          # Search items from Amazon China
+          @items = Item.search_on_amazon(params[:url])
+          {isSuccess: false, errorMsg: "不是一个合法的商品链接！"}
+        end
 
     respond_to do |format|
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
-      format.json { render json: @item }
+      format.json do
+        if current_user
+          render json: @result
+        else
+          render json: {isSuccess: false, isLogin: false}
+        end
+      end
     end
   end
 
@@ -224,7 +221,7 @@ class ItemsController < ApplicationController
 
       current_user.follow_my_own_share(@share)
       if @share.is_public?
-      current_user.push_new_share_to_my_follower(@share)
+        current_user.push_new_share_to_my_follower(@share)
       end
 
     end

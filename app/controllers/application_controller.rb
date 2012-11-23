@@ -56,6 +56,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_without_json
+    unless request.format.json?
+      authenticate
+    end
+  end
+
   def select_empty_layout
     select_layout('empty')
   end
