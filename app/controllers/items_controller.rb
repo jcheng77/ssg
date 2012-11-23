@@ -72,6 +72,7 @@ class ItemsController < ApplicationController
     else
       # Search items from Amazon China
       @items = Item.search_on_amazon(params[:url])
+      @items = search_item_with_ruyi_api(params[:url]) if @items.blank?
     end
 
     respond_to do |format|

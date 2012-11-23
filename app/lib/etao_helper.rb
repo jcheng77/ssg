@@ -8,6 +8,32 @@ include ItemHelper
 module EtaoHelper
   ETAO_QUERY_PREFIX = '/item.htm?tb_lm_id=t_fangshan_wuzhao&url='
 
+  def search_item_with_ruyi_api(keyword)
+    res = Faraday.get URI.encode(ruyi_search_string(keyword))
+    j = JSON(res.body)
+    items = []
+    result = j["Items"]
+    unless result.nil?
+    result[0..20].each do |t|
+      if is_known_site?(t["DetailPageURL"])
+      items << [ t["Title"], t["LargeImageUrl"],t["DetailPageURL"],nil,t["Price"] ]
+      end
+    end
+    end
+    items
+  end
+
+
+  def is_known_site?(url)
+    !!( (url.match('taobao')) || (url.match('360buy')) || (url.match('yihaodian')) || (url.match('dangdang')) || (url.match('suning') ) || (url.match('51buy')) || (url.match('newegg')))
+  end
+
+  def ruyi_search_string(keyword)
+    ['http://ruyi.etao.com/ext/etaoSearch?q=',keyword,'&application=ruyijs&page=1'].join()
+  end
+
+
+
   class Etao
 
     def initialize(url)
@@ -24,12 +50,6 @@ module EtaoHelper
     img = html.scan(/img src=.*.jpg/).first.slice(/http.*/)
     price = html.scan(/J_price.*\d+.\d+/).first.slice(/\d+.\d+/)
     title = html.slice(/title.*</).slice(/>.*</).slice(1..-2)
-    html.scan(/other-sellers-name.*/).each do |s|
-      shops << s.slice(/>.*</).slice(1..-2)
-    end
-    html.scan(/price.*span.*\d<\/strong>/).each do |p|
-    prices <<  p.slice(/\d+.\d+/)
-    end
     { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices }
     end
 
@@ -39,7 +59,7 @@ module EtaoHelper
             c.use Faraday::Response::RaiseError       # raise exceptions on 40x, 50x responses
             c.use Faraday::Adapter::NetHttp
     end
-    end
+  end
 
   def get_etao_shop_address
     @conn = Faraday.new 'http://shop.etao.com/' do |c|
@@ -60,3 +80,4 @@ module EtaoHelper
   end
 
 end
+
