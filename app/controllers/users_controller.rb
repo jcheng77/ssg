@@ -107,6 +107,7 @@ class UsersController < ApplicationController
     @shares = @user.my_shares params[:page], 16
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_shares.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
@@ -118,6 +119,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_wishes.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
@@ -129,6 +131,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
@@ -141,6 +144,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_all_share.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
@@ -152,6 +156,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end
@@ -163,6 +168,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_bags.html.erb
+      format.js { render "dashboard" } # dashboard.html.erb
       format.json { render json: @user }
     end
   end

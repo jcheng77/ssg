@@ -21,11 +21,21 @@ module ImageHelper
     end
   end
 
+  def avatar_image_tag(avatar_url, size = "50x50")
+    url =
+        if avatar_url.blank?
+          "default_avatar.jpg"
+        else
+          avatar_url
+        end
+    image_tag url, :size => size
+  end
+
   def conv_pic_to_310(picurl)
-    picurl.gsub(/\d\dx\d\d/,'310x310')
+    picurl.gsub(/\d\dx\d\d/, '310x310')
   end
 
   def conv_pic_310_to_40(picurl)
-    picurl.gsub('310x310','40x40')
+    picurl.gsub('310x310', '40x40')
   end
 end
