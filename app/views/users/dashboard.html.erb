@@ -49,7 +49,7 @@
     <%= image_tag "loading.gif" %>
 </div>
 <ul class="pager">
-    <li><%= link_to "更多动态", "javascript: void(0);", :remote => true, :id => "more", :path => dashboard_user_path(@user), :page => 0, :style => "display: none;" %></li>
+    <li><%= link_to "更多动态", "javascript: void(0);", :remote => true, :id => "more", :page => 0, :style => "display: none;" %></li>
 </ul>
 <script type="text/javascript">
     var moreBtn = $("#more");
@@ -102,7 +102,7 @@
         moreBtn.click(function () {
             var page = parseInt(moreBtn.attr("page")) + 1;
             moreBtn.attr("page", page);
-            var href = moreBtn.attr("path") + "?page=" + page;
+            var href = window.location.href + "?page=" + page;
             moreBtn.attr("href", href);
         });
 
