@@ -159,7 +159,7 @@ class Item
   end
 
   def with_any_same_tags
-    self.class.tagged_with_any(self.tags_array)
+    self.class.tagged_with_any(self.tags_array).limit(9)
   end
 
   def has_shared_by_user?(user)
