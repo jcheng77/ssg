@@ -108,7 +108,8 @@ class Share
     '某个蜜友私藏了这个愿望'
   end
 
-  def default_collect_comment
+  # DO NOT change the method name. see: Comment#content
+  def default_root_comment_content
     '分享自@菠萝点蜜 boluo.me'
   end
 
