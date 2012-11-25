@@ -20,11 +20,16 @@
             <% if summary.shares.count == 0 %>
                 <p class="text-info">这位亲还没有任何愿望哦</p>
             <% else %>
-                <% summary.shares.desc(:created_at).only_public.limit(6).each do |share| %>
+              <% i = 0 %>
+                <% summary.shares.desc(:created_at).each do |share| %>
                     <li>
+                      <% break if i > 5 %>
+                      <% if share.is_public? %>
                         <%= link_to share do %>
                             <%= image_tag share.item.image %>
                         <% end %>
+                          <% i += 1 %>
+                          <% end %>
                     </li>
                 <% end %>
             <% end -%>
