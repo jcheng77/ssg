@@ -151,6 +151,8 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if save_item
+        @other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
+
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
@@ -224,7 +226,6 @@ class ItemsController < ApplicationController
       if @share.is_public?
       current_user.push_new_share_to_my_follower(@share)
       end
-
     end
 
     return true

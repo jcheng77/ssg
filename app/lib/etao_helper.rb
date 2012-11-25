@@ -8,15 +8,28 @@ include ItemHelper
 module EtaoHelper
   ETAO_QUERY_PREFIX = '/item.htm?tb_lm_id=t_fangshan_wuzhao&url='
 
-  def search_item_with_ruyi_api(keyword)
+ def get_title(item_page_source)
+      title = item_page_source.slice(/<title>.*>/).force_encoding('UTF-8')
+      title.slice(/>.*</).slice(1..-2)
+ end
+
+ def search_item_with_ruyi_api(keyword)
     res = Faraday.get URI.encode(ruyi_search_string(keyword))
-    j = JSON(res.body)
+    return process_etao_json_result(JSON(res.body))
+ end
+
+ def get_different_price(url,title)
+    res = Faraday.get URI.encode(ruyi_url_lookup(url,title))
+    return process_etao_json_result(JSON(res.body))
+ end
+
+  def process_etao_json_result(json)
     items = []
-    result = j["Items"]
+    result = json["Items"]
     unless result.nil?
     result[0..20].each do |t|
       if is_known_site?(t["DetailPageURL"])
-      items << [ t["Title"], t["LargeImageUrl"],t["DetailPageURL"],nil,t["Price"] ]
+      items << [ t["Title"], t["LargeImageUrl"],t["DetailPageURL"],nil,t["Price"] ,t["ShopName"]]
       end
     end
     end
@@ -30,6 +43,10 @@ module EtaoHelper
 
   def ruyi_search_string(keyword)
     ['http://ruyi.etao.com/ext/etaoSearch?q=',keyword,'&application=ruyijs&page=1'].join()
+  end
+
+  def ruyi_url_lookup(url,title)
+    ["http://ruyi.etao.com/ext/productSearch?q=", { :url => url , :title => title}.to_json ,'&pid=rb001'].join()
   end
 
 
