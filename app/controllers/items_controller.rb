@@ -122,6 +122,13 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @share = @item.shares.new
+    @s_users = @item.shared_by_users
+    @s_users.compact!
+    @other_items_from_users = []
+    @s_users.each do |su|
+      @other_items_from_users << su.shares.desc(:created_at).limit(6)
+    end
+    @other_items_from_users = @other_items_from_users.flatten![0..5]
 
     respond_to do |format|
       format.html # show.html.erb

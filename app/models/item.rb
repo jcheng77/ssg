@@ -200,6 +200,10 @@ class Item
     a_items
   end
 
+  def shared_by_users
+    self.shares.map {|s| s.user if (s.user && s.is_public?) }[0..6]
+  end
+
 
   def restore_item_url
     restore_url(self.source_site, self.shares.first.source)
