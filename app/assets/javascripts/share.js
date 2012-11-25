@@ -119,6 +119,7 @@ $(document).ready(function () {
                 $('#overlay-detail').hide();
                 $('#overlay-detail-mock').show();
                 $('.loading-mask').hide();
+                $('#collectInput').attr("value", "");
             }
         }
     );

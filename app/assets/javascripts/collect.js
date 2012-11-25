@@ -1,6 +1,7 @@
 ;(function($){
 
   var $collectInput;
+  var $collectInputBtn
   var $collectInputIcon;
   var $collectDropDown;
   var $collectDropDownTrigger;
@@ -152,6 +153,7 @@
 
   function init(){
     $collectInput = $('#collectInput');
+    $collectInputBtn = $('#collectInputBtn');
     $collectInputIcon = $('#collect-input-icon');
     $collectDropDown = $('#collect-search-result');
     $collectDropDownTrigger = $('#dropDownTrigger');
@@ -194,6 +196,15 @@
 
         contentCache = content;
       },400);
+    });
+
+    $collectInputBtn.click(function(evt){
+      var content = $collectInput.val();
+      
+      if(isUrl(content)){
+        collect(content);
+        showCollectLoading();
+      }
     });
 
     $collectDropDownTrigger.dropdown();
