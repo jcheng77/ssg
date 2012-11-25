@@ -11,9 +11,8 @@
                     <div class="controls">
                         <select disabled="true" style="background-color: #fff"></select>
                     </div>
-                </div>            
-                <div class="control-group string optional">
                 </div>
+                <!--
                 <div class="control-group string optional">
                     <label class="string optional control-label" for="item_tags">标签</label>
                     <div class="controls">
@@ -22,6 +21,7 @@
                         </ul>   
                     </div>
                 </div>
+                -->
                 <div class="control-group string optional">
                     <label class="string optional control-label" for="item_comment">心语心愿</label>
                     <div class="controls">
@@ -29,9 +29,22 @@
                     </div>
                 </div> 
                 <div class="controls">
-                    <input type="checkbox" disabled="true" checked="">&nbsp;&nbsp;新愿望&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" disabled="true" checked>&nbsp;&nbsp;新愿望&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="checkbox" disabled="true">&nbsp;&nbsp;已实现的愿望
+
+                    <div id='wisth_type_list' class="btn-group wisth_type_list" data-toggle="buttons-radio">
+                        <% Share::WISH_TAGS.each_with_index do |t, i| %>
+                            <button type="button" class="btn disabled"><%= t %></button>
+                        <% end %>
+                    </div>
                 </div>
+                <div class="control-group string optional">
+                    <label class="string optional control-label" for="item_visibility">公开</label><div class="controls">
+                    <select disabled>
+                        <option value="">所有人可见</option>
+                    </select>
+                </div></div>
+                
             </div>
         </div>
         <div id="overlay-footer" class="footer">

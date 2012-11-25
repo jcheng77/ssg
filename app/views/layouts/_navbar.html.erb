@@ -61,8 +61,10 @@
             <div class="collect-panel">
                 <%= form_tag collecter_path, :remote => true, :style => "margin: 0px;", :class => 'hide', :id => "collect_item_form" do %>
                 <% end %>
-                <%= text_field_tag :collectInput, nil, :autocomplete => 'off', :class => 'input-large search-query shareUrl collect-input', placeholder: "请粘帖商品链接(支持所有电商) 或者 输入关键词搜索商品" %>
+                <h4>请粘帖商品链接 (支持所有电商) 或 输入商品关键词:</h4>
+                <%= text_field_tag :collectInput, nil, :autocomplete => 'off', :class => 'input-large search-query shareUrl collect-input', placeholder: "粘帖商品链接并按回车 或 输入关键词直接搜索" %>
                 <i id="collect-input-icon" class="icon-arrow-right collect-input-icon"></i>
+                &#160;&#160;<button class="btn btn-primary" id="collectInputBtn" >下一步</button>
                 <div class="dropdown search-result">
                     <a class="dropdown-toggle hide" data-toggle="dropdown" id="dropDownTrigger"></a>
                     <ul id="collect-search-result" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">

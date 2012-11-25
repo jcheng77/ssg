@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   include WeiboHelper
 
   layout 'application'
+  before_filter :select_empty_layout, :only => [:signup]
   skip_before_filter :authenticate, :only => [:signup,:create, :edit]
 
 
@@ -212,6 +213,10 @@ class UsersController < ApplicationController
   def edit_preferences
     @user = User.find(params[:id])
     @user.update_attribute(:preferences, @user.preferences & categories)
+    
+    unless @user.active == 1
+      select_empty_layout
+    end
 
     respond_to do |format|
       format.html { render "preferences", layout: 'application' }
@@ -241,6 +246,8 @@ class UsersController < ApplicationController
   
   # GET /users/1/rec_friends
   def rec_friends
+    select_empty_layout
+
     @user = User.find(params[:id])
     @suggested_friends , @known_friends_count = @user.suggested_friends(session[:sns_type])
     @user.update_attribute :active, 1
@@ -252,6 +259,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/rec_friendship
   def rec_friendship
+    select_empty_layout
+    
     @user = User.find(params[:id])
     users = []
     unless params[:to_follow].blank?
