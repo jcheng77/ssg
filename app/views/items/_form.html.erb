@@ -39,6 +39,7 @@
                 <%= f.select :category, Hash[categories.map { |c| [c, c] }], prompt: '请选择' %>
                 <span class='help-inline' style='color: #3A87AD;display:none'>请选择分类</span>
             <% end -%>
+            <!--
             <%= f.input :tags, :label => '标签' do %>
                 <input type="hidden" id="tags" name="item[tags]">
 
@@ -48,6 +49,7 @@
                     </ul>
                 </div>
             <% end -%>
+            -->
             <%= f.input :comment, :label => '心语心愿' do %>
                 <%= text_area_tag "share[comment]", share.comment_content, rows: "5", class: 'input-xlarge', id: 'desc', include_blank: true %>
                 <span class='help-inline' style='color: #3A87AD;display:none'>请输入心语心愿</span>
