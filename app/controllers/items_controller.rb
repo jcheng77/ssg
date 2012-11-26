@@ -150,7 +150,6 @@ class ItemsController < ApplicationController
     if !@share
       s = Share.first(conditions: {item_id: @item._id})
       @share = Share.new
-      @share.source = s.source
     end
   end
 
@@ -209,7 +208,7 @@ class ItemsController < ApplicationController
           type
         end
 
-    @item = Item.first(conditions: {source_id: new_share.source})
+    @item = Item.first(conditions: {source_id: new_item.source_id})
     if @item
       is_item_new = false
     else
@@ -219,7 +218,7 @@ class ItemsController < ApplicationController
     end
     return false unless @item.persisted?
 
-    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id, share_type: share_type})
+    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
     if @share
       return false
     else

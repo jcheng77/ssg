@@ -72,7 +72,6 @@ class Item
                          category: collector.category
                      })
     @item.shares << Share.new({
-                                  source: collector.item_id,
                                   price: collector.price
                               })
 
