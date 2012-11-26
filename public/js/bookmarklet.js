@@ -4,17 +4,34 @@ var BM;
 BLM = typeof BLM === 'undefined' ? {} : BLM;
 BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
+BM.otherData = {};
+
+BM.init = function(){
+  BM.otherData = {
+    isShare: true
+  };
+}
+
 BM.createPopup = function(){
   var popup = document.getElementById('blm-bm-popup');
   var popupStyle;
   var styleText;
   var rootUrl = 'http://127.0.0.1:3000';
+
+  var blmPrivate;
+  var blmShare;
+  var blmSubmit;
+  var blmComment;
+
   if(popup){ return };
 
   styleText = [
     'body{',
       'margin: 0;',
       'padding: 0;',
+    '}',
+    '.blm-bm-popup .hide{',
+      'display: none;',
     '}',
     '.blm-bm-popup{',
       '-webkit-transition: all 1s;',
@@ -64,7 +81,7 @@ BM.createPopup = function(){
     '}',
     '.blm-bm-popup .blm-bm-body-left{',
       'float: left;',
-      'margin-left: 15%;',
+      'margin-left: 5%;',
     '}',
     '.blm-bm-popup .blm-logo .blm-logo-img{',
       'width: 45px;',
@@ -78,18 +95,63 @@ BM.createPopup = function(){
       'font-weight: bold;',
     '}',
     '.blm-bm-popup .blm-bm-body-middle{',
-      'width: 50%;',
+      'width: 35%;',
       'margin: 0 auto;',
       'line-height: 45px;',
       'font-size: 20px;',
-      'text-align: center;',
       'zoom: 1;',
       '*margin-left: 5px;',
+      '*text-align: center;',
     '}',
     '.blm-bm-popup .blm-bm-body-right{',
       'float: right;',
       'margin-top: -43px;',
-      'margin-right: 15%;',
+      'margin-right: 5%;',
+      'width: 300px',
+    '}',
+    '.blm-bm-popup .blm-bm-action-other label{',
+      'font-size: 16px;',
+    '}',
+    '.blm-bm-popup .blm-bm-action-other span{',
+      'float: left;',
+      'margin-top: 5px;',
+    '}',
+    '.blm-bm-popup .blm-bm-comment{',
+      'position: relative;',
+    '}',
+    '.blm-bm-popup .blm-bm-comment label{',
+      'position: absolute;',
+      'left: -320px;',
+      'width: 70px;',
+      'line-height: 33px',
+    '}',
+    '.blm-bm-popup .blm-bm-comment img{',
+      'height: 33px;',
+      'position: absolute;',
+      'top: 0px;',
+      'left: -250px;',
+    '}',
+    '.blm-bm-popup .blm-bm-comment input{',
+      'position: absolute;',
+      'width: 213px;',
+      'left: -243px;',
+      'top: 6px;',
+      'font-size: 11px',
+    '}',
+    '.blm-bm-popup .blm-bm-social label{',
+      'margin-left: 4px;',
+    '}',
+    '.blm-bm-popup .blm-bm-social img{',
+      'width: 18px;',
+      'vertical-align: middle;',
+      'margin-left: 8px;',
+    '}',
+    '.blm-bm-popup .blm-bm-submit-wrapper img{',
+      'height: 30px;',
+      'float: right;',
+      'margin-top: 5px;',
+      'margin-bottom: 10px;',
+      'cursor: pointer;',
     '}'
   ].join('');
 
@@ -122,15 +184,74 @@ BM.createPopup = function(){
         '<div id="bm-popup-msg">Collecting</div>',
       '</div>',
       '<div class="blm-bm-body-right">',
-        '<a href="#" class="login">',
-          '<img src="' + rootUrl + '/img/bm_login_btn.png" />',
-        '</a>',
+        '<div id="blm-bm-action-login" class="hide">',
+          '<a href="' + rootUrl + '" class="login" target="_blank">',
+            '<img src="' + rootUrl + '/img/bm_login_btn.png" />',
+          '</a>',
+        '</div>',
+        '<div id="blm-bm-action-other" class="blm-bm-action-other hide">',
+          '<span class="blm-bm-comment">',
+            '<label>\u8bf4\u4e24\u53e5\uff1a</label>',
+            '<img src="' + rootUrl + '/img/input_bg.png" />',
+            '<input type="text" id="blm-bm-comment" />',
+          '</span>',
+          '<span class="blm-bm-social">',
+            '<img id="blm-bm-private" src="' + rootUrl + '/img/checkbox.jpg" />',
+            '<label>\u79c1\u85cf</label>',
+            '<img id="blm-bm-share" src="' + rootUrl + '/img/checkbox_checked.png" />',
+            '<label>\u5206\u4eab\u5230\u5fae\u535a</label>',
+          '</span>',
+          '<div class="blm-bm-submit-wrapper">',
+            '<img id="blm-bm-submit" src="' + rootUrl + '/img/done.png" />',
+          '</div>',
+        '</div>',
       '</div>',
     '</div>'
   ].join('');
 
   document.body.insertBefore(popup, document.body.firstChild);
   document.body.insertBefore(popupStyle, document.body.firstChild);
+
+  //bind events
+  blmPrivate = document.getElementById('blm-bm-private');
+  blmShare = document.getElementById('blm-bm-share');
+  blmSubmit = document.getElementById('blm-bm-submit');
+  blmComment = document.getElementById('blm-bm-comment');
+
+  blmPrivate.onclick = function(){
+    BM.clear();
+    if(!BM.otherData.isPublic){
+      blmPrivate.src = rootUrl + '/img/checkbox.jpg';
+    }else{
+      blmPrivate.src = rootUrl + '/img/checkbox_checked.png';
+    }
+
+    BM.otherData.isPublic = !BM.otherData.isPublic;
+  }
+
+  blmShare.onclick = function(){
+    BM.clear();
+    if(BM.otherData.isShare){
+      blmShare.src = rootUrl + '/img/checkbox.jpg';
+    }else{
+      blmShare.src = rootUrl + '/img/checkbox_checked.png';
+    }
+
+    BM.otherData.isShare = !BM.otherData.isShare; 
+  };
+
+  blmSubmit.onclick = function(){
+    BM.clear();
+    if(BM.isSendingOtherData){
+      return;
+    }
+
+    BM.otherData.comment = blmComment.value;
+
+    console.log(BM.otherData);
+
+    //TODO: send request to server side
+  }
 };
 
 BM.showPopup = function(msg){
@@ -160,32 +281,48 @@ BM.showPopup = function(msg){
   }, 100);
 };
 
-BM.showPopupResult = function(status){
+BM.showPopupResult = function(status, data){
   var popupMsg = document.getElementById('bm-popup-msg');
+  var other = document.getElementById('blm-bm-action-other');
+  var login = document.getElementById('blm-bm-action-login');
+  var TIMEOUT = 3000;
 
   switch(status){
     case 1: // Success
+      popupMsg.innerHTML = '\u6536\u85cf\u6210\u529f';
+      other.className = 'blm-bm-action-other';
+      login.className = 'hide';
+      TIMEOUT = 8000;
       break;
 
     case 2: // Fail Error
+      popupMsg.innerHTML = '\u6536\u85cf\u5546\u54c1\u51fa\u9519\u4e86\uff01';
+      other.className = 'blm-bm-action-other hide';
+      login.className = 'hide';
       break;
 
     case 3: // Fail and Need Login
-      popupMsg.innerHTML = 'Need Login';
+      popupMsg.innerHTML = '\u60a8\u8fd8\u672a\u767b\u5f55';
+      other.className = 'blm-bm-action-other hide';
+      login.className = '';
+      // close the popup in the next 5 minutes
+      BM.clear();
+      BM.autoHideTimer = setTimeout(function(){
+        BM.hidePopup();
+      }, 3000);
       break;
-
   }
 
-  // close the popup in the next 5 minutes
   BM.clear();
   BM.autoHideTimer = setTimeout(function(){
     BM.hidePopup();
-  }, 3000);
+  }, TIMEOUT);
+
 };
 
 BM.clear = function(){
   if(BM.autoHideTimer){
-    clearTimeout(BM.timer);
+    clearTimeout(BM.autoHideTimer);
   }
 }
 
@@ -215,6 +352,8 @@ BM.hidePopup = function(){
     bmPopup.style.top = (bmTop - 20) + 'px';
 
   }, 100);
+
+  BM.isProcessing = false;
 }
 
 BM.collect = function(result){
@@ -222,14 +361,14 @@ BM.collect = function(result){
   var BM = BLM.BM;
 
   if(result.isSuccess){
-    
+    BM.showPopupResult(1, {shareId: result.shareId});
   }else{
     if(result.isLogin ===  false){
       BM.showPopupResult(3);
+    }else{
+      BM.showPopupResult(2);
     }
   }
-
-  BM.isProcessing = false;
 };
 
 
@@ -252,6 +391,7 @@ BM.collect = function(result){
     doc.head.appendChild(newScript);
   };
 
+  BM.init();
   BM.createPopup();
   BM.showPopup();
 
