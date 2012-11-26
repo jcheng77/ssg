@@ -74,6 +74,10 @@ class Share
     self.create_comment(user_id: self.user_id, content: content)
   end
 
+  def update_comment(content)
+    self.comment.update_attributes(content: content)
+  end
+
   def items_with_any_same_tags
     Item.tagged_with_any(self.item.tags_array)
   end
@@ -113,6 +117,14 @@ class Share
 
   def is_public?
     visibility.nil? || !(visibility.first == VISIBLE_TO_SELF)
+  end
+
+  def set_public!
+    self.update_attributes(visibility: nil)
+  end
+
+  def set_private!
+    self.update_attributes(visibility: [VISIBLE_TO_SELF])
   end
 
   def no_price?
