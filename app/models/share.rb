@@ -16,7 +16,6 @@ class Share
 
   WISH_TAGS = ["生日礼物", "情人节", "光棍节", "圣诞礼物", "新年礼物","婚礼礼品", "节日礼品", "想送就送"]
 
-  field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
@@ -44,7 +43,6 @@ class Share
 
   def self.init_params(user, item, collector)
     {
-      source: collector.item_id,
       price: collector.price,
       user_id: user._id,
       item_id: item._id
@@ -52,7 +50,7 @@ class Share
   end
 
   def copy_attributes(attributes = {})
-    {:source => self.source,
+    {
       :price => self.price,
       :parent_share_id => self._id,
       :item_id => self.item.id
