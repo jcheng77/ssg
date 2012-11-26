@@ -129,6 +129,7 @@ class ItemsController < ApplicationController
       @other_items_from_users << su.shares.desc(:created_at).limit(6)
     end
     @other_items_from_users = @other_items_from_users.flatten![0..5]
+    @other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -151,7 +152,6 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if save_item
-        @other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
 
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
