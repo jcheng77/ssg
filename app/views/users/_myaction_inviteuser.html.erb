@@ -30,7 +30,7 @@
                     <ul class='nav nav-pills'value="<%= f %>">
                         <li><%= check_box_tag "users[]", "#{f}" %></li>
                         <li>
-                            <div><%= image_tag a.friends_profile_urls[i] unless a.friends_profile_urls.nil? %></div>
+                            <div><%= avatar_image_tag a.friends_profile_urls[i] unless a.friends_profile_urls.nil? %></div>
                         </li>
                         <li class='name'><%= f %></li>
                     </ul>
