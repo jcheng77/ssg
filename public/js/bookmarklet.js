@@ -7,9 +7,18 @@ BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 BM.otherData = {};
 
 BM.init = function(){
+  var other = document.getElementById('blm-bm-action-other');
+  var login = document.getElementById('blm-bm-action-login');
+  var msg = document.getElementById('bm-popup-msg');
+
+  other.className = 'blm-bm-action-other hide';
+  login.className = 'hide';
+  msg.innerHTML = '\u6b63\u5728\u6536\u85cf\u2026\u2026';
+
   BM.otherData = {
     isShare: true
   };
+  
 }
 
 BM.createPopup = function(){
@@ -181,7 +190,7 @@ BM.createPopup = function(){
         '</div>',
       '</div>',
       '<div class="blm-bm-body-middle">',
-        '<div id="bm-popup-msg">Collecting</div>',
+        '<div id="bm-popup-msg">\u6b63\u5728\u6536\u85cf\u2026\u2026</div>',
       '</div>',
       '<div class="blm-bm-body-right">',
         '<div id="blm-bm-action-login" class="hide">',
@@ -335,6 +344,7 @@ BM.hidePopup = function(){
     setTimeout(function(){
       bmPopup.className = 'blm-bm-popup blm-bm-popup-hide';
     }, 100);
+    BM.isProcessing = false;
     return;
   }
 
@@ -379,9 +389,11 @@ BM.collect = function(result){
       encodeURIComponent(url);
   var BM = BLM.BM;
 
+
   if(BM.isProcessing){
     return;
   }
+
 
   function loadScript(scriptUrl){
     var newScript = doc.createElement('script');
