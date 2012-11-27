@@ -57,6 +57,7 @@ Ssg::Application.routes.draw do
   resources :shares do
     member do
       get 'choose'
+      get 'update_attr'
       post 'add_to_wish'
       post 'add_to_bag'
     end
