@@ -229,6 +229,16 @@ BM.createPopup = function(){
   blmSubmit = document.getElementById('blm-bm-submit');
   blmComment = document.getElementById('blm-bm-comment');
 
+  blmComment.onfocus = function(){
+    BM.clear();
+  };
+
+  blmComment.onblur = function(){
+    BM.autoHideTimer = setTimeout(function(){
+      BM.hidePopup();
+    }, 5000);
+  };
+
   blmPrivate.onclick = function(){
     BM.clear();
     if(!BM.otherData.isPublic){
@@ -405,7 +415,6 @@ BM.hidePopup = function(){
 }
 
 BM.collect = function(result){
-  console.log(result);
   var BM = BLM.BM;
 
   if(result.isSuccess){
