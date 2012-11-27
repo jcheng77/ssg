@@ -13,7 +13,7 @@ class Comment
 
   voteable self, :up => 1, :down => -1
 
-  validates_presence_of :user_id, :content, :allow_nil => false
+  validates_presence_of :user_id, :allow_nil => false
   before_create :reset_commentable_id
 
   AT_USER_SYMBOL = '@'
@@ -30,6 +30,17 @@ class Comment
   # Get uer object.
   def user
     User.find(self.user_id)
+  end
+
+  alias_method :original_content, :content
+  def content
+    comment_content = self.original_content
+    if comment_content.blank? && self.is_root_comment?
+      root = self.root
+      root.respond_to?(:default_root_comment_content) ? root.default_root_comment_content : ""
+    else
+      comment_content
+    end
   end
 
   # Get the root object of the comment.

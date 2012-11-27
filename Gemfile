@@ -69,6 +69,7 @@ gem 'rails-dev-tweaks', '~> 0.6.1'
 gem 'voteable_mongo'
 #gem 'mongoid_taggable'
 gem 'mongo_followable', '~> 0.3.2'
+gem 'rack-jsonp-middleware'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'

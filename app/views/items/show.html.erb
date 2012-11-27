@@ -116,6 +116,33 @@
                 </div>
             <% end %>
         </div>
+            <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
+        </p>
+        <% end %>
+    </div>
+
+    <div class="span6">
+        <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
+        <% @item.shares.all.desc(:created_at).each do |share| %>
+          <% if share.is_public? %>
+            <%= render :partial => "comments/comment", :object => share.root_comment %>
+          <% end %>
+        <% end %>
+        <% @item.root_comments.each do |comment| %>
+            <%= render :partial => "comments/comment", :object => comment %>
+        <% end %>
+        <%= form_for @item.comments.build, remote: true do |f| %>
+            <%= f.hidden_field :_type %>
+            <%= hidden_field_tag 'comment[user_id]', current_user._id %>
+            <%= f.hidden_field :commentable_id %>
+            <%= f.hidden_field :commentable_type %>
+            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
+            <div class='pull-right comment-btn'>
+                <!--<input type='checkbox'>推荐给好友</input>-->
+                <input type='checkbox'>同步到微博</input>
+                <%= f.submit "我要评论", class: "btn btn-primary" %>
+            </div>
+        <% end %>
     </div>
     <div class="span11" style="margin-top: 30px; ">
         <div class="page-header"><h4>你可能也会喜欢</h4></div>
