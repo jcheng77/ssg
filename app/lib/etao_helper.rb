@@ -67,7 +67,8 @@ module EtaoHelper
     img = html.scan(/img src=.*.jpg/).first.slice(/http.*/)
     price = html.scan(/J_price.*\d+.\d+/).first.slice(/\d+.\d+/)
     title = html.slice(/title.*</).slice(/>.*</).slice(1..-2)
-    { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices }
+    category = html.scan(/etao.etao_yhxq.mbx[^<]*/).first.split('>').last
+    { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices , :category => category}
     end
 
   def init_etao_conn
