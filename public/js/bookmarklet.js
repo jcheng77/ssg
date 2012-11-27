@@ -11,14 +11,13 @@ BM.init = function(){
   var login = document.getElementById('blm-bm-action-login');
   var msg = document.getElementById('bm-popup-msg');
 
-  other.className = 'blm-bm-action-other hide';
-  login.className = 'hide';
-  msg.innerHTML = '\u6b63\u5728\u6536\u85cf\u2026\u2026';
-
   BM.otherData = {
     isShare: true
   };
-  
+
+  other && (other.className = 'blm-bm-action-other hide');
+  login && (login.className = 'hide');
+  msg && (msg.innerHTML = '\u6b63\u5728\u6536\u85cf\u2026\u2026');
 }
 
 BM.createPopup = function(){
