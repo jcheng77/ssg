@@ -7,8 +7,7 @@ class ItemsController < ApplicationController
   include ImageHelper
 
   before_filter :select_empty_layout, only: :share
-  skip_before_filter :authenticate, :only => [:index, :show, :collect]
-  before_filter :authenticate_without_json, :only => [:collect]
+  skip_before_filter :authenticate, :only => [:index, :show]
 
   def index
     if current_user.nil?
@@ -79,18 +78,14 @@ class ItemsController < ApplicationController
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
       format.json do
-        if current_user
-          if @result[:isSuccess]
-            if save_item(@item, @share, Share::TYPE_SHARE)
-              render json: @result
-            else
-              render json: {isSuccess: false, errorMsg: "收藏商品出错啦！"}
-            end
-          else
+        if @result[:isSuccess]
+          if save_item(@item, @share, Share::TYPE_SHARE)
             render json: @result
+          else
+            render json: {isSuccess: false, errorMsg: "收藏商品出错啦！"}
           end
         else
-          render json: {isSuccess: false, isLogin: false}
+          render json: @result
         end
       end
     end

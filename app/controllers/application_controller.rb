@@ -52,13 +52,10 @@ class ApplicationController < ActionController::Base
     unless (session[:current_user_id].nil? || current_user.nil?)
       @current_user
     else
-      redirect_to root_url
-    end
-  end
-
-  def authenticate_without_json
-    unless request.format.json?
-      authenticate
+      respond_to do |format|
+        format.html { redirect_to root_url }
+        format.json { render json: {isSuccess: false, isLogin: false} }
+      end
     end
   end
 
