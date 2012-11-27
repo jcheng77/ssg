@@ -5,6 +5,7 @@ BLM = typeof BLM === 'undefined' ? {} : BLM;
 BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
 BM.otherData = {};
+BM.rootUrl = 'http://127.0.0.1:3000';
 
 BM.init = function(){
   var other = document.getElementById('blm-bm-action-other');
@@ -14,6 +15,7 @@ BM.init = function(){
   BM.otherData = {
     isShare: true
   };
+  BM.shareId = null;
 
   other && (other.className = 'blm-bm-action-other hide');
   login && (login.className = 'hide');
@@ -24,7 +26,7 @@ BM.createPopup = function(){
   var popup = document.getElementById('blm-bm-popup');
   var popupStyle;
   var styleText;
-  var rootUrl = 'http://127.0.0.1:3000';
+  var rootUrl = BM.rootUrl;
 
   var blmPrivate;
   var blmShare;
@@ -35,8 +37,9 @@ BM.createPopup = function(){
 
   styleText = [
     'body{',
-      'margin: 0;',
-      'padding: 0;',
+      'margin: 0 !important;',
+      'padding: 0 !important;',
+      'width: 100% !important;',
     '}',
     '.blm-bm-popup .hide{',
       'display: none;',
@@ -141,7 +144,7 @@ BM.createPopup = function(){
     '}',
     '.blm-bm-popup .blm-bm-comment input{',
       'position: absolute;',
-      'width: 213px;',
+      'width: 218px;',
       'left: -243px;',
       'top: 6px;',
       'font-size: 11px',
@@ -226,6 +229,16 @@ BM.createPopup = function(){
   blmSubmit = document.getElementById('blm-bm-submit');
   blmComment = document.getElementById('blm-bm-comment');
 
+  blmComment.onfocus = function(){
+    BM.clear();
+  };
+
+  blmComment.onblur = function(){
+    BM.autoHideTimer = setTimeout(function(){
+      BM.hidePopup();
+    }, 5000);
+  };
+
   blmPrivate.onclick = function(){
     BM.clear();
     if(!BM.otherData.isPublic){
@@ -250,16 +263,51 @@ BM.createPopup = function(){
 
   blmSubmit.onclick = function(){
     BM.clear();
-    if(BM.isSendingOtherData){
-      return;
-    }
 
     BM.otherData.comment = blmComment.value;
-
-    console.log(BM.otherData);
-
-    //TODO: send request to server side
+    BM.submitComment();
   }
+};
+
+BM.submitComment = function(){
+  var commitUrl = BM.rootUrl;
+  var blmComment = document.getElementById('blm-bm-comment');
+  var blmMsg = document.getElementById('bm-popup-msg');
+
+  if(BM.isSendingOtherData){
+    return;
+  }
+
+  if(!BM.shareId){
+    return;
+  }
+
+  commitUrl = commitUrl + '/shares/' + BM.shareId + '/update_attr.jsonp?' + 
+    'callback=BLM.BM.handleCommentResult&comment=' + 
+    encodeURIComponent(blmComment.value) + '&is_public=' + BM.otherData.isPublic +
+    '&to_weibo=' + BM.otherData.isShare;
+
+  BM.loadScript(commitUrl);
+  BM.isSendingOtherData = true;
+  blmMsg.innerHTML = '\u6b63\u5728\u63d0\u4ea4\u2026\u2026';
+
+}
+
+BM.handleCommentResult = function(data){
+  var blmMsg = document.getElementById('bm-popup-msg');
+
+  BM.isSendingOtherData = false;
+
+  if(data.isSuccess){
+    blmMsg.innerHTML = '\u63d0\u4ea4\u6210\u529f';
+  }else{
+    blmMsg.innerHTML = '\u63d0\u4ea4\u5931\u8d25';
+  }
+
+  BM.clear();
+  BM.autoHideTimer = setTimeout(function(){
+    BM.hidePopup();
+  }, 3000);
 };
 
 BM.showPopup = function(msg){
@@ -301,6 +349,7 @@ BM.showPopupResult = function(status, data){
       other.className = 'blm-bm-action-other';
       login.className = 'hide';
       TIMEOUT = 8000;
+      BM.shareId = data.shareId;
       break;
 
     case 2: // Fail Error
@@ -366,7 +415,6 @@ BM.hidePopup = function(){
 }
 
 BM.collect = function(result){
-  console.log(result);
   var BM = BLM.BM;
 
   if(result.isSuccess){
@@ -380,13 +428,21 @@ BM.collect = function(result){
   }
 };
 
+BM.loadScript = function(scriptUrl){
+  var doc = document;
+  var newScript = doc.createElement('script');
+  newScript.src = scriptUrl;
+  newScript.type = 'text/javascript';
+
+  doc.head.appendChild(newScript);
+}
 
 ;(function(win){
   var doc = win.document;
   var url = win.location.href;
-  var collectUrl = 'http://127.0.0.1:3000/collect.jsonp?callback=BLM.BM.collect&url=' +
-      encodeURIComponent(url);
   var BM = BLM.BM;
+  var collectUrl = BM.rootUrl + '/collect.jsonp?callback=BLM.BM.collect&url=' +
+      encodeURIComponent(url);
 
 
   if(BM.isProcessing){
@@ -394,19 +450,11 @@ BM.collect = function(result){
   }
 
 
-  function loadScript(scriptUrl){
-    var newScript = doc.createElement('script');
-    newScript.src = scriptUrl;
-    newScript.type = 'text/javascript';
-
-    doc.head.appendChild(newScript);
-  };
-
   BM.init();
   BM.createPopup();
   BM.showPopup();
 
-  loadScript(collectUrl);
+  BM.loadScript(collectUrl);
 
   BM.isProcessing = true;
 
