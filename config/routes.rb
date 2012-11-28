@@ -11,6 +11,7 @@ Ssg::Application.routes.draw do
       get 'share'
       get 'tagged'
       get 'search'
+      get 'search_amazon'
       post 'collect'
     end
   end

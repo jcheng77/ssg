@@ -71,11 +71,7 @@ class ItemsController < ApplicationController
             {isSuccess: false, errorMsg: "分析收藏链接出错啦！"}
           end
         else
-          # Search items from Amazon China
-          @items = Item.search_on_amazon(params[:url])
-          @items = search_item_with_ruyi_api(params[:url]) if @items.blank?
-
-          {isSuccess: false, errorMsg: "不是一个合法的收藏链接！"}
+           {isSuccess: false, errorMsg: "不是合法的收藏链接!"}
         end
 
 
@@ -93,6 +89,15 @@ class ItemsController < ApplicationController
           render json: @result
         end
       end
+    end
+  end
+
+  def search_amazon
+   @items = Item.search_on_amazon(params[:url])
+   @items = search_item_with_ruyi_api(params[:url]) if @items.blank?
+
+    respond_to do |format|
+      format.json {render json: @items}
     end
   end
 
