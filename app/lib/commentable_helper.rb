@@ -41,9 +41,10 @@ module CommentableHelper
   end
 
   module SingleLocalInstanceMethods
-    # Display only the root comment, no children/replies.
-    def root_comment
-      self.comment
+    # Display only root comments, no children/replies.
+    def root_comments
+      comment = self.comment
+      comment.nil? ? [] : [comment]
     end
 
     # Display all comments.

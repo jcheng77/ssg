@@ -126,8 +126,10 @@
         <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
         <% @item.shares.all.desc(:created_at).each do |share| %>
           <% if share.is_public? %>
-            <%= render :partial => "comments/comment", :object => share.root_comment %>
-          <% end %>
+            <% share.root_comments.each do |comment| %>
+                <%= render :partial => "comments/comment", :object => comment %>
+            <% end %>
+              <% end %>
         <% end %>
         <% @item.root_comments.each do |comment| %>
             <%= render :partial => "comments/comment", :object => comment %>
