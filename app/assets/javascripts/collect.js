@@ -87,11 +87,11 @@
     for(var i = 0, l = items.length, item; i < l; i++){
       item = items[i];
       data = [
-        'title=' + item[0],
-        'img=' + item[1],
-        'url=' + item[2],
-        'cat=' + item[3],
-        'price=' + item[4]
+        'title===' + item[0],
+        'img===' + item[1],
+        'url===' + item[2],
+        'cat===' + item[3],
+        'price===' + item[4]
       ].join(';');
 
       itemStr = itemTpl.replace('{{img}}', item[1])
@@ -145,7 +145,7 @@
     var itemObj = {};
 
     $.each(data.split(';'), function(i, d){
-      var pair = d.split('=');
+      var pair = d.split('===');
       itemObj[pair[0]] = pair[1];
     });
     
