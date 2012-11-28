@@ -78,6 +78,7 @@ class ItemsController < ApplicationController
           {isSuccess: false, errorMsg: "不是一个合法的收藏链接！"}
         end
 
+
     respond_to do |format|
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
@@ -141,7 +142,7 @@ class ItemsController < ApplicationController
     @s_users.each do |su|
       @other_items_from_users << su.shares.desc(:created_at).limit(6)
     end
-    @other_items_from_users = @other_items_from_users.flatten![0..5]
+    @other_items_from_users = @other_items_from_users.flatten![0..4]
     @other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
 
     respond_to do |format|

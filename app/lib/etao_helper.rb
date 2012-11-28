@@ -28,9 +28,9 @@ module EtaoHelper
     result = json["Items"]
     unless result.nil?
     result[0..20].each do |t|
-      if is_known_site?(t["DetailPageURL"])
+    if is_known_site?(t["DetailPageURL"])
       items << [ t["Title"], t["LargeImageUrl"],t["DetailPageURL"],nil,t["Price"] ,t["ShopName"]]
-      end
+    end
     end
     end
     items
@@ -50,7 +50,6 @@ module EtaoHelper
   end
 
 
-
   class Etao
 
     def initialize(url)
@@ -60,6 +59,7 @@ module EtaoHelper
 
 
   def get_item_info
+   begin
     shops  = []
     prices = []
     res = @conn.get etao_query_url
@@ -69,6 +69,9 @@ module EtaoHelper
     title = html.slice(/title.*</).slice(/>.*</).slice(1..-2)
     category = html.scan(/etao.etao_yhxq.mbx[^<]*/).first.split('>').last
     { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices , :category => category}
+   rescue Exception => ex
+     Rails.logger.info ex
+    end
     end
 
   def init_etao_conn
@@ -97,5 +100,5 @@ module EtaoHelper
 
   end
 
-end
+    end
 

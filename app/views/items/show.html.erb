@@ -72,7 +72,6 @@
                 <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
             </p>
             <% end %>
-<<<<<<< HEAD
           <% unless @other_prices.nil? %>
           <% @other_prices.each do |o| %>
           <%= o[4] %>: <%= o[5] %>
@@ -81,67 +80,26 @@
         </div>
 
         <div class="span4">
-          <div class="page-header" id="comments-header"><h4>收藏了这个愿望的人还有</h4></div>
+          <div class="page-header"><h4>收藏了这个愿望的人还有</h4></div>
           <div class="row">
             <% @s_users.each do |u| %>
           <%= image_tag small_avatar_url(u.avatar), width: 50, class: "pull-left" %>
               <% end %>
           </div>
-          <div class="page-header" id="comments-header"><h4>他们还收藏了</h4></div>
-          <div class="row"
+          <div class="page-header"><h4>他们还收藏了</h4></div>
+          <div class="row">
           <% @other_items_from_users.each do |o| %>
               <%= image_tag o.item.image , size: '80x80' , class:"pull-left" %>
               <% end %>
           </div>
         </div>
 
-        <div class="span4">
-            <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
-            <% @item.shares.all.desc(:created_at).each do |share| %>
-              <% if share.is_public? %>
-                <% share.root_comments.each do |comment| %>
-                    <%= render :partial => "comments/comment", :object => comment %>
-                <% end %>
-                  <% end %>
-            <% end %>
-            <%= form_for @item.comments.build, remote: true do |f| %>
-                <%= f.hidden_field :_type %>
-                <%= hidden_field_tag 'comment[user_id]', current_user._id %>
-                <%= f.hidden_field :commentable_id %>
-                <%= f.hidden_field :commentable_type %>
-                <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
-                <div class='pull-right comment-btn'>
-                    <!--<input type='checkbox'>推荐给好友</input>-->
-                    <input type='checkbox'>同步到微博</input>
-                    <%= f.submit "我要评论", class: "btn btn-primary" %>
-                </div>
-            <% end %>
-        </div>
-            <%= text_field_tag :tag, "", :placeholder => "添加标签...", "data-provide" => "typeahead", "data-source" => "#{Item.tags}" %>
-        </p>
-    </div>
-
-    <div class="span6">
+    <div class="span4">
         <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
         <% @item.shares.all.desc(:created_at).each do |share| %>
           <% if share.is_public? %>
             <%= render :partial => "comments/comment", :object => share.root_comment %>
           <% end %>
-        <% end %>
-        <% @item.root_comments.each do |comment| %>
-            <%= render :partial => "comments/comment", :object => comment %>
-        <% end %>
-        <%= form_for @item.comments.build, remote: true do |f| %>
-            <%= f.hidden_field :_type %>
-            <%= hidden_field_tag 'comment[user_id]', current_user._id %>
-            <%= f.hidden_field :commentable_id %>
-            <%= f.hidden_field :commentable_type %>
-            <%= f.text_area :content, rows: 4, class: "input-xlarge", style: "width: 96%;", placeholder: "我来说两句" %>
-            <div class='pull-right comment-btn'>
-                <!--<input type='checkbox'>推荐给好友</input>-->
-                <input type='checkbox'>同步到微博</input>
-                <%= f.submit "我要评论", class: "btn btn-primary" %>
-            </div>
         <% end %>
             <% @item.root_comments.each do |comment| %>
                 <%= render :partial => "comments/comment", :object => comment %>
