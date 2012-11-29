@@ -12,15 +12,19 @@ include ItemHelper
 include EtaoHelper
 
 module BookmarkletHelper
-    SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ] 
+    SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ,"电脑","硬件"]
     QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
     JJ = [ "Home", "Home Improvement" ,"厨具" ]
     HW = ["运动"]
     NZ = ["服饰"] 
     SP = ["首饰"]
+    HZP = ["Beauty"]
+    QC =  []
+    TSYX = ["Book"]
+    CYLP =[]
   
-   SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP ]
-   CAT_MAP = { SM => "数码", QT => "其他" , JJ => "家居" , HW => "户外" , NZ => "女装" , SP =>"饰品"}
+   SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP , HZP, QC , TSYX , CYLP ]
+   CAT_MAP = { CYLP => "创意礼品" , SM => "数码", JJ => "居家" , HW => "户外" , NZ => "女装" , SP =>"饰品", HZP => "化妆品"}
 
 
 
@@ -38,6 +42,8 @@ module BookmarkletHelper
         retrieve_product_info
         search_item_on_etao unless succeed?
         process_unknown_sites unless succeed?
+        #get_category_from_etao_for_non_amazon_item
+        determine_category
       rescue => ex
         Rails.logger.error ex
       end
@@ -165,7 +171,6 @@ module BookmarkletHelper
           item = res.first_item
           @title,@imgs,@purchase_url,@category,@price = AmazonEcs::Associates.process_amazon_item(item)
           @shop_name = '亚马逊美国' if is_amazon_us == 1
-          determine_category
         end
       when 'taobao','tmall'
         product = get_item @item_id
@@ -225,7 +230,7 @@ module BookmarkletHelper
     end
 
     def category
-      @category
+      @category ||= '创意礼品'
     end
 
     def site
@@ -241,12 +246,13 @@ module BookmarkletHelper
     end
 
     def determine_category
-      case @site
-      when 'taobao'
-      when '360buy'
-      when 'amazon'
-         cat = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category) }.first
-         @category = ( CAT_MAP.select { |k,v| cat == k }.values.first || @category )
+         cate = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category.strip) || arr.join.match(@category.strip) }.first
+         @category = ( CAT_MAP.select { |k,v| cate == k }.values.first || @category )
+    end
+
+    def get_category_from_etao_for_non_amazon_item
+      if @site != 'amazon'
+        search_item_on_etao("price","category")
       end
     end
 
@@ -310,13 +316,14 @@ module BookmarkletHelper
       title.slice(/>.*</).slice(1..-2)
     end
 
-    def search_item_on_etao
+    def search_item_on_etao(*args)
       begin
       e = Etao.new(@url)
       etao_result = e.get_item_info
-      @price = etao_result[:price]
-      @title = etao_result[:title]
-      @imgs = [etao_result[:image]]
+      @price = etao_result[:price] if args.include?("price") || args.blank?
+      @title = etao_result[:title] if args.include?("title") || args.blank?
+      @imgs = [etao_result[:image]] if args.include?("image") || args.blank?
+      @category = etao_result[:category].split('/').first if args.include?("category") || args.blank?
       rescue Exception => ex
        Rails.logger.info ex
       end

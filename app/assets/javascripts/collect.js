@@ -9,6 +9,7 @@
   var securityToken; // String
   var utf8; //String
   var collectUrl = '/collect';
+  var searchUrl = '/items/search_amazon';
   var itemTpl = [
     '<li class="item" data-data="{{data}}">',
       '<a>',
@@ -129,7 +130,7 @@
       format: 'json'
     };
 
-    $.post(collectUrl, data, function(data){
+    $.get(searchUrl , data, function(data){
       showSearchResult(data);
     });
   };
@@ -144,7 +145,7 @@
     var itemObj = {};
 
     $.each(data.split(';'), function(i, d){
-      var pair = d.split('=');
+      var pair = d.split(/=(.+)/);
       itemObj[pair[0]] = pair[1];
     });
     

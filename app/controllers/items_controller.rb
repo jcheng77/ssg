@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   include ImageHelper
 
   before_filter :select_empty_layout, only: :share
-  skip_before_filter :authenticate, :only => [:index,:show]
+  skip_before_filter :authenticate, :only => [:index, :show]
 
   def index
     if current_user.nil?
@@ -56,28 +56,48 @@ class ItemsController < ApplicationController
   end
 
   def collect
-    @user = current_user
+   @user = current_user
 
-    if is_url?(params[:url])
-      collector = BookmarkletHelper::Collector.new(params[:url])
-      @imgs = collector.imgs
+    @result =
+        if is_url?(params[:url])
+          collector = BookmarkletHelper::Collector.new(params[:url])
+          @imgs = collector.imgs
 
-      if collector.succeed?
-        @item = Item.new_with_collector(collector)
-        @share = @item.shares.last
-      else
-        @item = nil
-        @share = nil
-      end
-    else
-      # Search items from Amazon China
-      @items = Item.search_on_amazon(params[:url])
-    end
+          if collector.succeed?
+            @item = Item.new_with_collector(collector)
+            @share = @item.shares.last
+            {isSuccess: true, shareId: @share._id}
+          else
+            {isSuccess: false, errorMsg: "分析收藏链接出错啦！"}
+          end
+        else
+           {isSuccess: false, errorMsg: "不是合法的收藏链接!"}
+        end
+
 
     respond_to do |format|
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
-      format.json { render json: @items }
+      format.json do
+        if @result[:isSuccess]
+          if save_item(@item, @share, Share::TYPE_SHARE)
+            render json: @result
+          else
+            render json: {isSuccess: false, errorMsg: "收藏商品出错啦！"}
+          end
+        else
+          render json: @result
+        end
+      end
+    end
+  end
+
+  def search_amazon
+   @items = Item.search_on_amazon(params[:url])
+   @items += search_item_with_ruyi_api(params[:url]) if @items.size < 7
+
+    respond_to do |format|
+      format.json {render json: @items}
     end
   end
 
@@ -121,6 +141,14 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @share = @item.shares.new
+    #@s_users = @item.shared_by_users
+    #@s_users.compact!
+    #@other_items_from_users = []
+    #@s_users.each do |su|
+    #  @other_items_from_users << su.shares.desc(:created_at).limit(6)
+    #end
+    #@other_items_from_users = @other_items_from_users.flatten![0..4]
+    #@other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -135,7 +163,6 @@ class ItemsController < ApplicationController
     if !@share
       s = Share.first(conditions: {item_id: @item._id})
       @share = Share.new
-      @share.source = s.source
     end
   end
 
@@ -143,10 +170,11 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if save_item
+
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
-        format.html { render action: "collect" }
+        format.html { redirect_to @item }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -176,26 +204,13 @@ class ItemsController < ApplicationController
 
   protected
 
-  def save_item
-    # TODO: To be refactor
+  def save_item(item = nil, share = nil, type = nil)
     user = current_user
-    @share = Share.first(conditions: {source: params[:share][:source]})
-    if @share
-      @item = Item.first(conditions: {_id: @share.item_id})
-      return false unless @item.update_attributes(params[:item])
-    else
-      @item = Item.new(params[:item])
-      return false unless @item.save
-    end
-
-    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
-    if @share
-      return false if !@share.update_attributes(params[:share]) || params[:share][:comment].blank?
-    else
-      @share = Share.new(params[:share])
-      @share.item_id = @item._id
-      @share.user_id = user._id
-      @share.share_type =
+    new_item = item.nil? ? Item.new(params[:item]) : item
+    new_share = share.nil? ? Share.new(params[:share]) : share
+    share_comment = share.nil? ? params[:share][:comment].to_s : ""
+    share_type =
+        if type.nil?
           if params[:add_to_wish]
             Share::TYPE_WISH
           elsif params[:add_to_bought]
@@ -203,20 +218,42 @@ class ItemsController < ApplicationController
           else
             Share::TYPE_SHARE
           end
-      @share.item.auto_tag
+        else
+          type
+        end
 
+    @item = Item.first(conditions: {source_id: new_item.source_id})
+    if @item
+      is_item_new = false
+    else
+      is_item_new = true
+      @item = new_item
+      @item.save
+    end
+    return false unless @item.persisted?
+
+    @share = Share.first(conditions: {item_id: @item._id, user_id: user._id})
+    if @share
+      return false
+    else
+      @share = new_share
+      @share.item_id = @item._id
+      @share.user_id = user._id
+      @share.share_type = share_type
+      @share.item.auto_tag
       return false if !@share.save
 
-      @share.create_comment_by_sharer(params[:share][:comment])
-      @item.update_attribute(:root_share_id, @share._id)
-      @share.delay.add_tag(params[:wisth_type]) if @share.share_type == Share::TYPE_WISH
+      @share.create_comment_by_sharer(share_comment)
+      @item.update_attribute(:root_share_id, @share._id) if is_item_new
+      unless share.nil?
+        @share.delay.add_tag(params[:wisth_type]) if @share.share_type == Share::TYPE_WISH
       @share.delay.sync_to_weibo(params[:share_to])
+      end
 
       current_user.follow_my_own_share(@share)
       if @share.is_public?
-      current_user.push_new_share_to_my_follower(@share)
+        current_user.push_new_share_to_my_follower(@share)
       end
-
     end
 
     return true

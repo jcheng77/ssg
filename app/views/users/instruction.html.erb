@@ -16,7 +16,7 @@
 
 		<div class="span4 help_content">
 			<div><h4>只需简单一步 - 拖拽此按钮至书签栏</h4></div>
-			<a class="collect_btn" href="javascript:(function(){window.open('<%= url_for(:controller => 'collect', :only_path => false) %>?url='+encodeURIComponent(window.location.href),'boluome_bookmarklet','top=100,left=100,width=960,height=625,location=yes,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no')})()">菠萝蜜愿望收藏</a>
+      			<a class="collect_btn" href="javascript:(function(win){var doc=win.document;var bookmarkletScriptUrl='<%= root_url %>js/bookmarklet.js?t='+new Date().getTime();var newScript=document.createElement('script');newScript.type='text/javascript';newScript.src=bookmarkletScriptUrl+'?t='+new Date().getTime();doc.head.appendChild(newScript)})(window);void(0)">菠萝蜜愿望收藏</a>
 			<div class="help_detail"><a id='help_howtoinst-btn' role="button" rel="#help_howtoinst">找不到书签栏？</a><a id='help_howtouse-btn' role="button" rel="#help_howtouse">如何使用？</a></div>
 		</div>
 	</div>

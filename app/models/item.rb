@@ -72,7 +72,6 @@ class Item
                          category: collector.category
                      })
     @item.shares << Share.new({
-                                  source: collector.item_id,
                                   price: collector.price
                               })
 
@@ -193,11 +192,19 @@ class Item
 
   def self.search_on_amazon(keyword, limit = 4)
     a_items = []
+    begin
     res = Amazon::Ecs.item_search(keyword, :search_index => 'All', :country => 'cn', :ResponseGroup => 'ItemAttributes,Images,Offers' )
     res.items.each do |item|
         a_items << AmazonEcs::Associates.process_amazon_item(item)
     end
+    rescue Exception => ex
+       Rails.logger.info ex
+    end
     a_items
+  end
+
+  def shared_by_users
+    self.shares.map {|s| s.user if (s.user && s.is_public?) }[0..6]
   end
 
 

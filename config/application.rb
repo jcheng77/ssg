@@ -1,4 +1,5 @@
 require 'uri'
+require 'rack/jsonp'
 
 #if ENV["MONGOHQ_URL"] 
 #  mongo_uri = URI.parse(ENV["MONGOHQ_URL"]) 
@@ -58,6 +59,9 @@ module Ssg
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Use rack-jsonp-middleware to process JSONP requests.
+    config.middleware.use Rack::JSONP
 
     # Enable the asset pipeline
     config.assets.enabled = true

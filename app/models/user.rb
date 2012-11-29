@@ -20,7 +20,7 @@ class User
 
   field :gender, type: Integer # 0 female/1 male/gay/lesbian/bisexual etc.
 
-  field :preferences, type: Array, default: []
+  field :preferences, type: Array, default: ["数码","创意礼品"]
   field :point, type: Integer, default: 0
   field :active, type: Integer, default: 0
 

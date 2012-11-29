@@ -1,6 +1,9 @@
 $(document).ready(function(){
+    var $shareLink = $('#share-link');
+    var $findUserLink = $('#finduser-link');
+    var $inviteLink = $('#invite-link');
 
-    $("#share-link").overlay(
+    $shareLink.overlay(
         {
             fixed : false,
             onBeforeLoad : function(){
@@ -19,7 +22,7 @@ $(document).ready(function(){
         }
     );
 
-    $("#finduser-link").overlay(
+    $findUserLink.overlay(
         {
             fixed : false,
             onBeforeLoad : function(){
@@ -34,7 +37,7 @@ $(document).ready(function(){
         }
     );
 
-    $("#invite-link").overlay(
+    $inviteLink.overlay(
         {
             fixed : false,
             onBeforeLoad : function(){
@@ -48,6 +51,20 @@ $(document).ready(function(){
             }
         }
     );
+
+    // Tracking events
+    $shareLink.click(function(){
+      _gaq.push(['_trackEvent', 'User', 'Share wish', 'click the share link in dashboard']);
+    });
+
+    $findUserLink.click(function(){
+      _gaq.push(['_trackEvent', 'User', 'Find friends', 'click the find link in dashboard']);
+    });
+
+    $inviteLink.click(function(){
+      _gaq.push(['_trackEvent', 'User', 'Invite friends', 'click the invite link in dashboard']);
+    });
+
     // $("ul.myActions").tabs("div.myActions-panel > div");
     // var tabHandler = $("ul.myActions").data("tabs");
     // if(tabHandler){

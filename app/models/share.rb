@@ -16,7 +16,6 @@ class Share
 
   WISH_TAGS = ["生日礼物", "情人节", "光棍节", "圣诞礼物", "新年礼物","婚礼礼品", "节日礼品", "想送就送"]
 
-  field :source, type: String # source id of the item, e.g. tb:13123, jd:131, vancl:323
   field :price, type: Float # price when user purchase the item
   field :product_rating, type: Integer # 1-5
   field :service_rating, type: Integer # 1-5
@@ -44,7 +43,6 @@ class Share
 
   def self.init_params(user, item, collector)
     {
-      source: collector.item_id,
       price: collector.price,
       user_id: user._id,
       item_id: item._id
@@ -52,7 +50,7 @@ class Share
   end
 
   def copy_attributes(attributes = {})
-    {:source => self.source,
+    {
       :price => self.price,
       :parent_share_id => self._id,
       :item_id => self.item.id
@@ -74,6 +72,10 @@ class Share
 
   def create_comment_by_sharer(content)
     self.create_comment(user_id: self.user_id, content: content)
+  end
+
+  def update_comment(content)
+    self.comment.update_attributes(content: content)
   end
 
   def items_with_any_same_tags
@@ -111,8 +113,21 @@ class Share
     '某个蜜友私藏了这个愿望'
   end
 
+  # DO NOT change the method name. see: Comment#content
+  def default_root_comment_content
+    '分享自@菠萝点蜜 boluo.me'
+  end
+
   def is_public?
     visibility.nil? || !(visibility.first == VISIBLE_TO_SELF)
+  end
+
+  def set_public!
+    self.update_attributes(visibility: nil)
+  end
+
+  def set_private!
+    self.update_attributes(visibility: [VISIBLE_TO_SELF])
   end
 
   def no_price?

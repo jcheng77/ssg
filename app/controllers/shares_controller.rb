@@ -90,9 +90,21 @@ class SharesController < ApplicationController
   def create
   end
 
-  # PUT /shares/1
-  # PUT /shares/1.json
-  def update
+  # GET /shares/1/update_attr
+  # GET /shares/1.json/update_attr
+  def update_attr
+    @share = Share.find(params[:id])
+    @user = current_user
+    is_sucess = true
+    is_sucess &= @share.update_comment(params[:comment])
+    is_sucess &= params[:is_public] == "true" ? @share.set_public! : @share.set_private!
+    if params[:to_weibo] == "true"
+      @share.delay.sync_to_weibo('sina', weibo_client) if @user.accounts.sina
+      @share.delay.sync_to_weibo('qq', weibo_client) if @user.accounts.qq
+    end
+    respond_to do |format|
+      format.json { render json: {isSuccess: is_sucess} }
+    end
   end
 
   # DELETE /shares/1
