@@ -115,7 +115,7 @@ class Share
 
   # DO NOT change the method name. see: Comment#content
   def default_root_comment_content
-    '分享自@菠萝点蜜 boluo.me'
+    '收藏了这个愿望'
   end
 
   def is_public?
