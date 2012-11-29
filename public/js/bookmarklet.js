@@ -5,7 +5,7 @@ BLM = typeof BLM === 'undefined' ? {} : BLM;
 BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
 BM.otherData = {};
-BM.rootUrl = 'http://127.0.0.1:3000'
+BM.rootUrl = 'http://boluo.me'
 
 BM.init = function(){
   var other = document.getElementById('blm-bm-action-other');
