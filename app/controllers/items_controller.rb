@@ -94,7 +94,7 @@ class ItemsController < ApplicationController
 
   def search_amazon
    @items = Item.search_on_amazon(params[:url])
-   @items = search_item_with_ruyi_api(params[:url]) if @items.blank?
+   @items += search_item_with_ruyi_api(params[:url]) if @items.size < 7
 
     respond_to do |format|
       format.json {render json: @items}

@@ -42,7 +42,7 @@ module BookmarkletHelper
         retrieve_product_info
         search_item_on_etao unless succeed?
         process_unknown_sites unless succeed?
-        get_category_from_etao_for_non_amazon_item
+        #get_category_from_etao_for_non_amazon_item
         determine_category
       rescue => ex
         Rails.logger.error ex
@@ -230,7 +230,7 @@ module BookmarkletHelper
     end
 
     def category
-      @category
+      @category ||= '创意礼品'
     end
 
     def site
