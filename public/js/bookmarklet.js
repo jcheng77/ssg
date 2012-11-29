@@ -5,7 +5,7 @@ BLM = typeof BLM === 'undefined' ? {} : BLM;
 BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
 BM.otherData = {};
-BM.rootUrl = 'http://127.0.0.1:3000';
+BM.rootUrl = 'http://127.0.0.1:3000'
 
 BM.init = function(){
   var other = document.getElementById('blm-bm-action-other');
@@ -51,10 +51,7 @@ BM.createPopup = function(){
       'position: fixed;',
       'width: 100%;',
       'top: 0;',
-      'background: transparent url(' + rootUrl + '/img/bm_bg.png) repeat scroll 0 0;',
-      '-webkit-box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.75);',
-      'box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.75);',
-      'filter: progid:DXImageTransform.Microsoft.Shadow(color="#969696", Direction=180, Strength=3);',
+      'background: #FFFFFF;',
       'zoom: 1;',
       'color: #000;',
       'z-index: 999999',
@@ -75,7 +72,7 @@ BM.createPopup = function(){
       'float: left;',
     '}',
     '.blm-bm-popup .blm-bm-head .first{',
-      'background-color: #7BCADD;',
+      'background-color: #F2F2F2;',
     '}',
     '.blm-bm-popup .blm-bm-head .second{',
       'background-color: #FFDC8B;',
@@ -203,7 +200,6 @@ BM.createPopup = function(){
         '<div id="blm-bm-action-other" class="blm-bm-action-other hide">',
           '<span class="blm-bm-comment">',
             '<label>\u8bf4\u4e24\u53e5\uff1a</label>',
-            '<img src="' + rootUrl + '/img/input_bg.png" />',
             '<input type="text" id="blm-bm-comment" />',
           '</span>',
           '<span class="blm-bm-social">',
