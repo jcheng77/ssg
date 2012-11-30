@@ -18,4 +18,13 @@ module ItemsHelper
       't_gobuy.png'
     end
   end
+
+  def shop_pic_prefix(site)
+    if is_known_site?(site)
+      site
+      else
+      'default_shop'
+    end
+  end
+
 end
