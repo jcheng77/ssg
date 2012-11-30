@@ -38,6 +38,7 @@ module BookmarkletHelper
 
       begin
         domain_checker
+        return if @site == 'unknown'
         get_item_id
         retrieve_product_info
         search_item_on_etao unless succeed?
@@ -108,7 +109,7 @@ module BookmarkletHelper
       when /coco8/
         @site = 'coco8'
       else
-        @site = host
+        @site = 'unknown'
       end
     end
 
