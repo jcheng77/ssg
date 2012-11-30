@@ -96,7 +96,7 @@ class Share
     wb.load_from_db(self.user.accounts.first.access_token,self.user.accounts.first.token_secret,self.user.accounts.first.expires_at)
     short_urls = wb.client.short_url.shorten self.item.purchase_url
     shorten_url = short_urls["urls"].first["result"] ? short_urls["urls"].first["url_short"] : self.item.purchase_url
-    message = ['我在菠萝蜜添加了一个心愿:', [self.comment.content,shorten_url].join(' ') , '(来自@菠萝点蜜 http://boluo.me )'].join(' ')
+    message = ['我在菠萝蜜添加了一个愿望:', [self.comment.content,shorten_url].join(' ') , '(来自@菠萝点蜜 http://boluo.me )'].join(' ')
     user_id = self.user._id
     if sns_type_arr.is_a?(Array)
         sns_type_arr.each do |sns|

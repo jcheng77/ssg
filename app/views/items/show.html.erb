@@ -25,7 +25,7 @@
     <div class="span11 row"> 
         <div class="span6">
 
-            <div class="item-title" title="<%= @item.title %>"><%= image_tag([@item.source_site, '.png'].join) %><%= @item.title %></div>
+            <div class="item-title" title="<%= @item.title %>"> <%= image_tag([shop_pic_prefix(@item.source_site), '.png'].join) %><%= @item.title %></div>
 
             <div class="thumbnail">
                  <div class="btn-group item_actions">
