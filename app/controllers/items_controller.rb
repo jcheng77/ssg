@@ -241,6 +241,7 @@ class ItemsController < ApplicationController
       @share.user_id = user._id
       @share.share_type = share_type
       @share.item.auto_tag
+      @share.item.delay.redetect_category
       return false if !@share.save
 
       @share.create_comment_by_sharer(share_comment)
