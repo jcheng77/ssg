@@ -99,8 +99,8 @@ class SharesController < ApplicationController
     is_sucess &= @share.update_comment(params[:comment])
     is_sucess &= (params[:is_public] == "true" || params[:is_public]  == "undefined") ? @share.set_public! : @share.set_private!
     if params[:to_weibo] == "true"
-      @share.delay.sync_to_weibo('sina', weibo_client) if @user.accounts.sina
-      @share.delay.sync_to_weibo('qq', weibo_client) if @user.accounts.qq
+      @share.delay.sync_to_weibo('sina') if @user.accounts.sina
+      @share.delay.sync_to_weibo('qq') if @user.accounts.qq
     end
     respond_to do |format|
       format.json { render json: {isSuccess: is_sucess} }
