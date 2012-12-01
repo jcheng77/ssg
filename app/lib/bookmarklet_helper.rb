@@ -15,16 +15,18 @@ module BookmarkletHelper
     SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ,"电脑","硬件"]
     QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
     JJ = [ "Home", "Home Improvement" ,"厨具" ]
-    HW = ["运动"]
+    HW = ["运动","户外"]
     NZ = ["服饰"] 
     SP = ["首饰"]
     HZP = ["Beauty"]
-    QC =  []
+    QC =  ["汽车"]
     TSYX = ["Book"]
-    CYLP =[]
-  
-   SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP , HZP, QC , TSYX , CYLP ]
-   CAT_MAP = { CYLP => "创意礼品" , SM => "数码", JJ => "居家" , HW => "户外" , NZ => "女装" , SP =>"饰品", HZP => "化妆品"}
+    CYLP =["其他"]
+    SP2 = ["食品","零食"]
+    XB = ["箱子","包包"]
+
+   SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP , HZP, QC , TSYX , CYLP , XB, SP2 ]
+   CAT_MAP = { CYLP => "创意礼品" , SM => "数码", JJ => "家居" , HW => "户外运动" , NZ => "女装" , SP =>"饰品", HZP => "化妆品",TSYX => "图书影像", SP2 => "食品", XB => "箱包", QC => "汽车"  }
 
 
 
