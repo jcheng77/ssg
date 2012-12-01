@@ -102,6 +102,8 @@ class Share
         sns_type_arr.each do |sns|
         User.update_user_weibo(user_id,sns,message,self.item.image)
         end
+    else
+        User.update_user_weibo(user_id,sns_type_arr,message,self.item.image)
     end
   end
 
