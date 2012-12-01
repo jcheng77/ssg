@@ -74,21 +74,18 @@
             <% end %>
           <% unless @other_prices.nil? %>
           <% @other_prices.each do |o| %>
-          <%= link_to o[5], o[2] ,{:target => '_blank'}%>:<span class="item-price item-text" style="color:#F14382"><%= o[4] %>   </span>
+          <%= o[4] %>: <%= o[5] %>
           <% end %>
           <% end %>
         </div>
 
         <div class="span4">
-          <% unless @s_users.nil? %>
           <div class="page-header"><h4>收藏了这个愿望的人还有</h4></div>
           <div class="row">
             <% @s_users.each do |u| %>
           <%= image_tag small_avatar_url(u.avatar), width: 50, class: "pull-left" %>
               <% end %>
           </div>
-          <% end %>
-          <% unless @other_items_from_users.blank? %>
           <div class="page-header"><h4>他们还收藏了</h4></div>
           <div class="row">
           <% @other_items_from_users.each do |o| %>
@@ -96,7 +93,6 @@
               <% end %>
           </div>
         </div>
-          <% end %>
 
     <div class="span4">
         <div class="page-header" id="comments-header"><h4>他们的评论</h4></div>
