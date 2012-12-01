@@ -203,6 +203,10 @@ class Item
     a_items
   end
 
+  def redetect_category
+    self.category = Item.tags_weighted_category(self.tags)
+  end
+
   def shared_by_users
     self.shares.map {|s| s.user if (s.user && s.is_public?) }[0..6]
   end
