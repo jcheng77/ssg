@@ -12,24 +12,23 @@ include ItemHelper
 include EtaoHelper
 
 module BookmarkletHelper
-    SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ,"电脑","硬件"]
-    QT = [ "办公用品","Pet Products", "Wine", "玩具", "Automotive Parts and Accessories"]
+    SM = [ "Wireless","Photography" , "Car Audio or Theater" ,"CE" , "Major Appliances", "Personal Computer" ,"Video Games","软件" ,"电脑","硬件","电脑笔记本"]
+    CYLP = [ "办公用品","Pet Products", "Wine", "玩具" , "创意", "礼品"]
     JJ = [ "Home", "Home Improvement" ,"厨具" ]
     HW = ["运动","户外"]
     NZ = ["服饰","服饰配件"]
     NZ2 = ["男装"]
     SP = ["首饰"]
     HZP = ["Beauty"]
-    QC =  ["汽车"]
+    QC =  ["汽车","Automotive Parts and Accessories" ]
     TSYX = ["Book"]
-    CYLP =["其他"]
-    SP2 = ["食品","零食"]
+    SP2 = ["食品","零食","茶叶"]
     XB = ["箱子","包包"]
 
-   SOURCE_CATEGORY_ARRAY = [ SM, QT, JJ, HW, NZ, SP , HZP, QC , TSYX , CYLP , XB, SP2 ]
+   SOURCE_CATEGORY_ARRAY = [ SM, JJ, HW, NZ, SP , HZP, QC , TSYX , CYLP , XB, SP2 ]
    CAT_MAP = { CYLP => "创意礼品" , SM => "数码", JJ => "家居" , HW => "户外运动" , NZ => "女装" , SP =>"饰品", HZP => "化妆品",TSYX => "图书影像", SP2 => "食品", XB => "箱包", QC => "汽车"  }
 
-
+   CATEGORIES = ['数码', '户外运动', '男装', '女装', '箱包', '饰品', '化妆品', '居家', '食品', '汽车', '图书影像', '创意礼品']
 
 
   class Collector
@@ -250,8 +249,9 @@ module BookmarkletHelper
     end
 
     def determine_category
-         cate = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category.strip) || arr.join.match(@category.strip) }.first
+         cate = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category.strip) || arr.join.match(@category.strip) || partial_match_predefined_category_dictionary(arr,@category) }.first
          @category = ( CAT_MAP.select { |k,v| cate == k }.values.first || @category )
+         CATEGORIES.include?(@category) ? @category : '创意礼品'
     end
 
     def get_category_from_etao_for_non_amazon_item
@@ -354,6 +354,13 @@ module BookmarkletHelper
 
     def generate_cps_link( prefix = nil, suffix = nil, connector = nil)
       [prefix, [prefix.nil? ? @url : CGI.escape(@url) , suffix ].join(connector)].join()
+    end
+
+    protected 
+
+    def partial_match_predefined_category_dictionary(category_array,potential_category)
+      c = array.select { |w| potential_category =~ w }
+      c.blank? ? false : true
     end
 
   end

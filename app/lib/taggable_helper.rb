@@ -61,6 +61,16 @@ module TaggableHelper
       hash
     end
 
+    def tags_weighted_category(*tags)
+      hash = Hash.new(0)
+      arr = tags_index_collection.master.find.to_a.select {|t| tags.flatten.include?(t["_id"]) }
+      categories = arr.map {|a| a["value"].first.first }
+      categories.each do |c|
+        hash[c] += 1
+      end
+      hash.sort_by {|k,v| 0-v }.first.first
+    end
+
     def disable_tags_index!
       @do_tags_index = false
     end
