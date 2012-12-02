@@ -205,6 +205,7 @@ class Item
 
   def redetect_category
     self.category = Item.tags_weighted_category(self.tags)
+    self.category ||= '创意礼品'
   end
 
   def shared_by_users
