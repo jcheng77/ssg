@@ -67,11 +67,12 @@ module EtaoHelper
     img = html.scan(/img src=.*.jpg/).first.slice(/http.*/)
     price = html.scan(/J_price.*\d+.\d+/).first.slice(/\d+.\d+/)
     title = html.slice(/title.*</).slice(/>.*</).slice(1..-2)
-    category = html.scan(/etao.etao_yhxq.mbx[^<]*/).first.split('>').last
-    { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices , :category => category}
+    category_tag = html.scan(/etao.etao_yhxq.mbx[^<]*/)
+    category = category_tag.first.split('>').last unless category_tag
    rescue Exception => ex
      Rails.logger.info ex
     end
+    { :title => title, :image => img, :price => price ,:shops => shops, :prices => prices , :category => category}
     end
 
   def init_etao_conn

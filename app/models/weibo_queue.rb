@@ -41,7 +41,7 @@ class WeiboQueue
   end
 
   def price_difference
-    [share.title , share.price, share.last_inform_price]
+    [share.item.title.slice(0,24) , share.price, share.last_inform_price]
   end
 
   def self.notify_weibo_user
@@ -54,14 +54,15 @@ class WeiboQueue
      msg_head = ['@',user,'  亲 你收藏的',prices.size,'个愿望宝贝'].join()
      msg_body = []
      prices.each do |p|
-       msg_body << [' [', p[0][0..15] ,'价格从', p[1],'降到了',p[2],'] '].join()
+       msg_body << [' [', p[0] ,'价格从', p[1],'降到了',p[2],'] '].join()
      end
      msg_end = '登录菠萝蜜查看 http://boluo.me/syncs/sina/new '
       msgs << [msg_head,msg_body.flatten,msg_end].join()
     end
-    sleep(120)
-    #wb.add_status(msgs)
-    #WeiboQueue.delete_all
+	msgs.each do |m|
+    	wb.add_status(m)
+    	sleep(180)
+	end
   end
 
 end
