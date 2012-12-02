@@ -51,17 +51,17 @@ class WeiboQueue
     wb.load_from_db(u.accounts.first.access_token, u.accounts.first.token_secret, u.accounts.first.expires_at)
     weibo_hash = target_hash
     weibo_hash.each do |user,prices|
-     msg_head = ['@',user,'  亲 你收藏的',prices.size,'个愿望宝贝'].join()
+     msg_head = [' ', '@',user, '你',prices.size,'个愿望'].join()
      msg_body = []
      prices.each do |p|
-       msg_body << [' [', p[0] ,'价格从', p[1],'降到了',p[2],'] '].join()
+       msg_body << [' [', p[0] ,'原为', p[1],'现在是',p[2],'] '].join()
      end
-     msg_end = '登录菠萝蜜查看 http://boluo.me/syncs/sina/new '
+     msg_end = '去菠萝蜜查看 http://boluo.me/syncs/sina/new '
       msgs << [msg_head,msg_body.flatten,msg_end].join()
     end
 	msgs.each do |m|
     	wb.add_status(m)
-    	sleep(180)
+    	sleep(380)
 	end
   end
 
