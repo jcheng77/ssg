@@ -6,8 +6,8 @@
     display: block;
 }
 .medium_picture{
-    width: 240px;
-    height: 230px;
+    width: 260px;
+    height: 260px;
 }
 .mini_picture{
     width: 26px;
@@ -16,13 +16,14 @@
 
 .browse_item {
     position: relative;
-    width: 240px;
+    width: 260px;
     height: 340px;
     padding: 0;
     background-color: white;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 
 .browse_item .title{
     color: #32A0EB;
@@ -266,18 +267,18 @@ form.well.tag-form {
 
 .item-thumb .avatar{
   position: absolute;
-  top: 204px;
+  top: 234px;
   background-color: white;
 }
 
 .item-thumb .item-price{
   position: absolute;
-  top: 210px;
+  top: 240px;
   right: 0;
   height: 20px;
   line-height:20px;
   background-color: #666;
-  opacity: 0.8;
+  opacity: 0.7;
   filter: alpha(opacity=80);
   color: white;
   font-weight: bold;
