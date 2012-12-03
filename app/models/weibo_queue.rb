@@ -51,7 +51,7 @@ class WeiboQueue
     wb.load_from_db(u.accounts.first.access_token, u.accounts.first.token_secret, u.accounts.first.expires_at)
     weibo_hash = target_hash
     weibo_hash.each do |user,prices|
-     msg_head = [' ', '@',user, '你',prices.size,'个愿望'].join()
+     msg_head = [' ', '@',user, ' 你',prices.size,'个愿望'].join()
      msg_body = []
      prices.each do |p|
        msg_body << [' [', p[0] ,'原为', p[1],'现在是',p[2],'] '].join()
