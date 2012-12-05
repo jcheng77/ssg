@@ -241,7 +241,6 @@ class ItemsController < ApplicationController
       @share.user_id = user._id
       @share.share_type = share_type
       @share.item.auto_tag
-      @share.item.delay.redetect_category
       return false if !@share.save
 
       @share.create_comment_by_sharer(share_comment)
@@ -250,6 +249,8 @@ class ItemsController < ApplicationController
         @share.delay.add_tag(params[:wisth_type]) if @share.share_type == Share::TYPE_WISH
       @share.delay.sync_to_weibo(params[:share_to])
       end
+
+      @share.item.delay.redetect_category
 
       current_user.follow_my_own_share(@share)
       if @share.is_public?
