@@ -41,11 +41,10 @@ module BookmarkletHelper
 
       begin
         domain_checker
-        return if @site == 'unknown'
         get_item_id
         retrieve_product_info
         search_item_on_etao unless succeed?
-        process_unknown_sites unless succeed?
+        #process_unknown_sites unless succeed?
         #get_category_from_etao_for_non_amazon_item
         determine_category
       rescue => ex
@@ -112,7 +111,7 @@ module BookmarkletHelper
       when /coco8/
         @site = 'coco8'
       else
-        @site = 'unknown'
+        @site = host.split('.').delete_if { |h| h.match(/www/) || h.match(/com/) } 
       end
     end
 
@@ -131,12 +130,12 @@ module BookmarkletHelper
       when 'amazon'
         preindex = path.index("product") || path.index("dp")
         @item_id = path[preindex + 1] if preindex
-      when '360buy'
+      when '360buy','360top'
         @item_id = path.last.split('.').first
       when 'newegg', 'gome'
         preindex = path.index("Product") || path.index("product") || path.index("dp")
         @item_id = path[preindex + 1].split('.htm').first if preindex
-      when '1shop'
+      when '1shop', '1mall'
         @item_id = path.last
       when 'dangdang'
         query = query.split('=')
@@ -189,7 +188,7 @@ module BookmarkletHelper
         @price = product['price']
         @title = product['title']
         @purchase_url ||= taobao_url(item_id)
-      when '360buy'
+      when '360buy', '360top'
         collecter
       when 'fengbuy'
         doc = Nokogiri::HTML(open(@url))
