@@ -18,12 +18,15 @@
     <%= render 'layouts/navbar' %>
 <% end %>
 
-<div class="container">
-    <%= yield %>
-    <footer class="footer">
-        <p>&copy; 2012 boluo.me. All rights reserved.</p>
-    </footer>
-</div><script type="text/javascript">
+<div id="wrap">
+  <div id="main" class="container">
+      <%= yield %>
+  </div>
+</div>
+<footer class="footer">
+  <p>&copy; 2012 boluo.me. All rights reserved.</p>
+</footer>
+<script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36350663-1']);
   _gaq.push(['_trackPageview']);
