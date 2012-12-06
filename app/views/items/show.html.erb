@@ -81,21 +81,25 @@
 
         <div class="span4">
             <% unless @s_users.blank? %>
-          <div class="page-header"><h4>收藏了这个愿望的人还有</h4></div>
-          <div class="row">
-            <% @s_users.each do |u| %>
-          <%= image_tag small_avatar_url(u.avatar), width: 50, class: "pull-left" %>
-              <% end %>
-          </div>
+            <div class="page-header"><h4>收藏了这个愿望的人还有</h4></div>
+            <div class="small-avatar-list">
+                <% @s_users.each do |u| %>
+                <div class="pull-left">
+                    <%= image_tag small_avatar_url(u.avatar), width: 50 %>
+                </div>
+                <% end %>
+            </div>
             <%end%>
             <% unless @other_items_from_users.blank? %>
-          <div class="page-header"><h4>他们还收藏了</h4></div>
-          <div class="row">
-          <% @other_items_from_users.each do |o| %>
-              <%= image_tag o.item.image , size: '80x80' , class:"pull-left" %>
-              <% end %>
-          </div>
-        <% end %>
+            <div class="page-header"><h4>他们还收藏了</h4></div>
+            <div class="small-avatar-list">
+                <% @other_items_from_users.each do |o| %>
+                <div class="pull-left">
+                    <%= image_tag o.item.image %>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
         </div>
 
     <div class="span4">
