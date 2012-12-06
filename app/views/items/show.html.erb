@@ -73,7 +73,7 @@
             </p>
             <% end %>
           <% unless @other_prices.nil? %>
-          <% @other_prices.each do |o| %>
+          <% @other_prices[0..4].each do |o| %>
           <%= o[4] %>: <%= o[5] %>
           <% end %>
           <% end %>
