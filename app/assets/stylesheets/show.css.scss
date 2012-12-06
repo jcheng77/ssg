@@ -6,7 +6,22 @@
 	margin: 40px;
 }
 
-.showitem-page .page-header,
+.showitem-page .page-header {
+	padding-bottom: 5px;
+}
+
+.showitem-page .small-avatar-list {
+	height:50px;
+	> div {
+		height: 50px;
+		margin-right:20px;
+		img {
+			height: 50px;
+			width: 50px;
+		}
+	}
+}
+
 .showitem-page .thumbnails {
 	padding: 10px;
 }
