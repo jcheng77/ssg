@@ -310,3 +310,40 @@ form.well.tag-form {
 .plain-tag-form {
   margin: 0px;
 }
+
+.itemcity .thumbnails,
+.showitem-page .thumbnails{
+  margin-left: -18px;
+  > li {
+    margin-left: 18px;
+  }
+}
+
+.itemcity .item-comment,
+.showitem-page .item-comment {
+  height: 40px;
+  overflow: hidden;
+}
+
+.showitem-page {
+  .page-header-ext {
+    padding-bottom: 5px;
+    margin: 30px 18px 0;
+    border-bottom: 1px solid #EEE;
+  }
+  .thumbnails {
+    margin-left: 5px;
+  }
+  .item-thumb {
+    .avatar {
+      top: 134px;
+    }
+    .item-price {
+      top: 140px;
+    }
+    .medium_picture {
+      height: 160px;
+      width: 160px;
+    }
+  }
+}
