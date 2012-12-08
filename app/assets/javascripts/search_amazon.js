@@ -1,6 +1,6 @@
 ;(function($){
 
-  var $collectInput;
+  var $searchInput;
   var $collectInputBtn
   var $collectInputIcon;
   var $collectDropDown;
@@ -9,6 +9,7 @@
   var securityToken; // String
   var utf8; //String
   var collectUrl = '/collect';
+  var searchUrl = '/items/search_amazon';
   var itemTpl = [
     '<li class="item" data-data="{{data}}">',
       '<a>',
@@ -119,7 +120,7 @@
     };
 
     $.post(collectUrl, data);
-  };  
+  };
 
   function search(keyword){
     var data = {
@@ -147,12 +148,12 @@
       var pair = d.split(/=(.+)/);
       itemObj[pair[0]] = pair[1];
     });
-    
+
     showItem(itemObj);
   }
 
   function init(){
-    $collectInput = $('#collectInput');
+    $searchInput = $('#searchInput');
     $collectInputBtn = $('#collectInputBtn');
     $collectInputIcon = $('#collect-input-icon');
     $collectDropDown = $('#collect-search-result');
@@ -165,9 +166,9 @@
   function bindEvents(){
     var contentCache = '';
 
-    $collectInput.keyup(function(evt){
+    $searchInput.keyup(function(evt){
       setTimeout(function(){
-        var content = $collectInput.val();
+        var content = $searchInput.val();
 
         if(content.length === 0){
           showEnterIcon();
@@ -184,6 +185,14 @@
             collect(content);
             showCollectLoading();
           }
+        }else{
+          if(isUrl(content)){
+            showEnterIcon();
+          }else if(content !== contentCache && !shouldDropDownHide){
+            showSearchIcon();
+            search(content);
+            showSearchLoading();
+          }
         }
 
         contentCache = content;
@@ -191,8 +200,8 @@
     });
 
     $collectInputBtn.click(function(evt){
-      var content = $collectInput.val();
-      
+      var content = $searchInput.val();
+
       if(isUrl(content)){
         collect(content);
         showCollectLoading();

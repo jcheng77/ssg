@@ -98,6 +98,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.json {render json: @items}
+      format.js #search_amazon.js
     end
   end
 
