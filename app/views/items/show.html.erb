@@ -85,7 +85,7 @@
             <div class="small-avatar-list">
                 <% @s_users.each do |u| %>
                 <div class="pull-left">
-                    <%= image_tag small_avatar_url(u.avatar), width: 50 %>
+                    <%= link_to image_tag(small_avatar_url(u.avatar), width: 50), account_user_path(u) %>
                 </div>
                 <% end %>
             </div>
@@ -95,7 +95,7 @@
             <div class="small-avatar-list">
                 <% @other_items_from_users.each do |o| %>
                 <div class="pull-left">
-                    <%= image_tag o.item.image %>
+                    <%= link_to image_tag(o.item.image) , item_path(o.item) %>
                 </div>
                 <% end %>
             </div>
