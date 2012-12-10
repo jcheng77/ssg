@@ -107,6 +107,16 @@ class SharesController < ApplicationController
     end
   end
 
+  def shared_by_me
+    @share = Share.find(params[:id])
+    @user = @share.user
+
+    respond_to do |format|
+      format.html {redirect_to my_all_shares_user_path(@user)}
+    end
+
+  end
+
   # DELETE /shares/1
   # DELETE /shares/1.json
   def destroy

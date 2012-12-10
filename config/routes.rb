@@ -61,6 +61,7 @@ Ssg::Application.routes.draw do
       get 'update_attr'
       post 'add_to_wish'
       post 'add_to_bag'
+      get 'shared_by_me'
     end
   end
 
