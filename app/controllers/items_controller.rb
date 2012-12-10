@@ -148,8 +148,8 @@ class ItemsController < ApplicationController
     @s_users.each do |su|
       @other_items_from_users << su.shares.desc(:created_at).limit(6)
     end
-    @other_items_from_users = @other_items_from_users.flatten![0..4]
     @other_prices = EtaoHelper::get_different_price(@item.purchase_url,@item.title)
+    @other_items_from_users = @other_items_from_users.flatten![0..4] unless @other_items_from_users.blank?
 
     respond_to do |format|
       format.html # show.html.erb
