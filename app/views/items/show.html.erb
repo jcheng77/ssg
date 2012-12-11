@@ -74,7 +74,7 @@
             <% end %>
           <% unless @other_prices.nil? %>
           <% @other_prices[0..4].each do |o| %>
-          <%= o[4] %>: <%= o[5] %>
+            <%= link_to o[5] + o[4] , o[2] , { :target => '_blank'}%>
           <% end %>
           <% end %>
         </div>
