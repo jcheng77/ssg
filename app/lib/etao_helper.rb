@@ -38,7 +38,7 @@ module EtaoHelper
 
 
   def is_known_site?(url)
-    !!( (url.match('taobao')) || (url.match('360buy')) || (url.match('yihaodian')) || (url.match('dangdang')) || (url.match('suning') ) || (url.match('51buy')) || (url.match('newegg')))
+    !!( (url.match('taobao')) || (url.match('360buy')) || (url.match('yihaodian')) || (url.match('dangdang')) || (url.match('suning') ) || (url.match('51buy')) || (url.match('newegg')) || (url.match('tmall')) || (url.match('coco8')))
   end
 
   def ruyi_search_string(keyword)
