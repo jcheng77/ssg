@@ -36,7 +36,7 @@
 		}
 	}
 	.wishCountBar{
-		background-color: #eee;
+		background-color: #fff;
 		line-height: 32px;
 		margin-bottom: 20px;
 		border: 0;
@@ -51,14 +51,12 @@
 				height: 32px;
 				padding: 0 25px 0 10px;
 				color: #373142;
-				text-shadow: 0 0 0;
-				border-left: 4px solid #eee;
+				border-left: 4px solid #fff;
 				border-right: 1px solid #eee;
 			}
 
 			> a.active, > a.active:hover {
 				border-left: 4px solid #65B8FD;
-				border-right: 4px solid #fff;
 				color: #373142;
 			}
 
