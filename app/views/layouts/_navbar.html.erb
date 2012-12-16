@@ -29,7 +29,7 @@
                 <% if current_user %>
                     <ul class="nav pull-right">
                         <li class="dropdown" id="menu">
-                            <a class="dropdown-toggle" id='preference-button' data-toggle="dropdown" href="#"><%= current_user.nick_name %> </a>
+                            <a class="dropdown-toggle" id='preference-button' data-toggle="dropdown" href="#"><%= current_user.nick_name %><span class="caret"></span></a>
                             <ul id='preference-panel' class="dropdown-menu" aria-labelledby="preference-button">
                                 <li><%= empty_link_if(current_user.nil?, "偏好设置") { edit_preferences_user_path(current_user) } %></li>
                                 <li><%= empty_link_if(current_user.nil?, "帐号信息") { account_user_path(current_user) } %></li>
