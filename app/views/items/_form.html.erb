@@ -77,7 +77,10 @@
     </div>
 
     <div id="overlay-footer" class="share-footer">
-        <div style='float: left;'> <%=  link_to '我是高级用户 使用书签工具更快速收藏我的愿望', instruction_users_path %> </div>
+        <div style='float: left;'> <%=  link_to instruction_users_path do %> 
+            <span class="label">点击试用史上最方便的<strong class="label label-info">一键收藏工具</strong></span>
+       <%end%>
+          </div>
 
         <div style='float: right;'>
             <% unless current_user.accounts.sina.blank? %>
