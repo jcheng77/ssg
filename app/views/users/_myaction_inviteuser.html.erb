@@ -1,8 +1,8 @@
 <div class='inviteuser' id='invite-panel'>
     <a class='close'></a>
-    <h4>发送微博@你的好友一起来晒愿望</h4>
+    <h4>想知道好友的愿望就邀请她加入吧</h4>
     <%= form_for(@user, :url => invite_user_path(@user), :method => :post, :remote => true) do |f| %>
-        <%= text_area_tag :message, "我在菠萝蜜分享了我的愿望清单 你也来一起来许愿吧 我们一起实现愿望~~ 想送我礼物的亲 速速前来围观吧 逐个认领哈 我就真的不点名了 :-) (来自@菠萝点蜜 boluo.me)", :class => "input-xlarge", :cols => "40", :rows => "4", :style => "width: 98%;" %>
+        <%= text_area_tag :message, "亲　真的很想知道你的愿望清单 因为送你什么礼物这个问题已经困扰了很多年了 :-) 和我一起在菠萝蜜来收藏想买　分享愿望吧 (来自@菠萝点蜜 boluo.me)", :class => "input-xlarge", :cols => "40", :rows => "4", :style => "width: 98%;" %>
 
         <div class='info'>
             <h5>选择要@的好友</h5>
