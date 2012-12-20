@@ -3,54 +3,54 @@ $(document).ready(function(){
     var $findUserLink = $('#finduser-link');
     var $inviteLink = $('#invite-link');
 
-    $shareLink.overlay(
-        {
-            fixed : false,
-            onBeforeLoad : function(){
-                $(document).mask({
-                    closeOnClick: false,
-                    color: "#ccc"
-                });
-            },
-            onClose : function() {
-                $.mask.close();
-                $('#url').attr("value", "");
-                $('#overlay-detail').hide();
-                $('#overlay-detail-mock').show();
-                $('.loading-mask').hide();
-            }
-        }
-    );
+    // $shareLink.overlay(
+    //     {
+    //         fixed : false,
+    //         onBeforeLoad : function(){
+    //             $(document).mask({
+    //                 closeOnClick: false,
+    //                 color: "#ccc"
+    //             });
+    //         },
+    //         onClose : function() {
+    //             $.mask.close();
+    //             $('#url').attr("value", "");
+    //             $('#overlay-detail').hide();
+    //             $('#overlay-detail-mock').show();
+    //             $('.loading-mask').hide();
+    //         }
+    //     }
+    // );
 
-    $findUserLink.overlay(
-        {
-            fixed : false,
-            onBeforeLoad : function(){
-                $(document).mask({
-                    closeOnClick: false,
-                    color: "#ccc"
-                });
-            },
-            onClose : function() {
-                $.mask.close();
-            }
-        }
-    );
+    // $findUserLink.overlay(
+    //     {
+    //         fixed : false,
+    //         onBeforeLoad : function(){
+    //             $(document).mask({
+    //                 closeOnClick: false,
+    //                 color: "#ccc"
+    //             });
+    //         },
+    //         onClose : function() {
+    //             $.mask.close();
+    //         }
+    //     }
+    // );
 
-    $inviteLink.overlay(
-        {
-            fixed : false,
-            onBeforeLoad : function(){
-                $(document).mask({
-                    closeOnClick: false,
-                    color: "#ccc"
-                });
-            },
-            onClose : function() {
-                $.mask.close();
-            }
-        }
-    );
+    // $inviteLink.overlay(
+    //     {
+    //         fixed : false,
+    //         onBeforeLoad : function(){
+    //             $(document).mask({
+    //                 closeOnClick: false,
+    //                 color: "#ccc"
+    //             });
+    //         },
+    //         onClose : function() {
+    //             $.mask.close();
+    //         }
+    //     }
+    // );
 
     // Tracking events
     $shareLink.click(function(){
@@ -65,31 +65,71 @@ $(document).ready(function(){
       _gaq.push(['_trackEvent', 'User', 'Invite friends', 'click the invite link in dashboard']);
     });
 
-    // $("ul.myActions").tabs("div.myActions-panel > div");
-    // var tabHandler = $("ul.myActions").data("tabs");
-    // if(tabHandler){
-    //     tabHandler.onBeforeClick(function(){
-    //         $('div.myActions-panel').show();
-    //     });    
-    // }
-    
-    // $("ul.myActions li").click(function(){
-    //     $('div.myActions-panel').show();
-    // });
-    // var toggleActionPanel = function(event){
-    //     if(!$.contains($('div.myActions-panel').get(0), event.toElement?event.toElement:event.target)
-    //         && !$.contains($('ul.myActions').get(0), event.toElement?event.toElement:event.target)) {
-    //         $('div.myActions-panel').hide();    
-    //     }
-    // };
-    // $(document).click(toggleActionPanel);
-    // //$("ul.myActions li").mouseout(toggleActionPanel);
-    // //$("div.myActions-panel").mouseout(toggleActionPanel);
+    var moreBtn = $("#more");
+    var noticeBar = $("#notice");
+    var progressBar = $("#progress_more");
+    var sharePanel = $("#shares");
 
-    // $("#parseUrl-btn-dash").click(function(){
-    //     $("#share-btn").click();
-    //     $("input.#url").val($("input.#url-dash").val());
-    //     $("input.#url-dash").val("");
-    //     $("#collect_item_form").submit();
-    // });
+    var ShareController = {
+        clearNotice:function () {
+            noticeBar.hide().empty();
+        },
+        appendShare:function (html) {
+            sharePanel.append(html).children("li:last").hide().fadeIn(2000);
+        },
+        notFound:function () {
+            noticeBar.html("没有新的愿望动态。").show();
+        },
+        noMore:function () {
+            moreBtn.addClass("finished");
+            moreBtn.hide();
+        },
+        hasMore:function () {
+            if (!this.autoLoad()) {
+                moreBtn.show();
+            }
+        },
+        autoLoad:function () {
+            var page = parseInt(moreBtn.attr("page"));
+            return page < 5 ? true : false
+        }
+    };
+
+    $(function () {
+        var arrivedAtBottom = function () {
+            return $(document).scrollTop() + $(window).height() == $(document).height();
+        }
+
+        $(window).scroll(function () {
+            if (arrivedAtBottom()) {
+                if (!moreBtn.hasClass("finished")) {
+                    if (ShareController.autoLoad()) {
+                        moreBtn.click();
+                    } else {
+                        moreBtn.show();
+                    }
+                }
+            }
+        });
+
+        moreBtn.click(function () {
+            var page = parseInt(moreBtn.attr("page")) + 1;
+            moreBtn.attr("page", page);
+            var href = window.location.href + "?page=" + page;
+            moreBtn.attr("href", href);
+        });
+
+        moreBtn.on("ajax:before",
+                function () {
+                    moreBtn.hide();
+                    progressBar.show();
+                }
+        ).on("ajax:complete",
+                function () {
+                    progressBar.hide();
+                }
+        );
+
+        moreBtn.click();
+    });
 });

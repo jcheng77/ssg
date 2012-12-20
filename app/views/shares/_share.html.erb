@@ -23,9 +23,9 @@
             <div class="user_comment"><%= share.comment_content %></div>
 
             <ul class="the-icons">
-                <li><%= image_tag 'comment.png' , :size => '22x22' %>  </i> <small id="<%= "#{share._id}-child-num" %>"><%= share.comment.child_comments.size %></small></li>
+                <li><%= image_tag 'comment.png' , :size => '22x22' %>  </i> <small id="<%= "#{share._id}-child-num" %>">0</small></li>
                 
-                <li><%= image_tag 'thumbup.png' , :size => '22x22' %><small id="<%= "#{share._id}-vote-num" %>"><%= share.comment.votes_point %></small></li>
+                <li><%= image_tag 'thumbup.png' , :size => '22x22' %><small id="<%= "#{share._id}-vote-num" %>">0</small></li>
                 
             </ul>
 

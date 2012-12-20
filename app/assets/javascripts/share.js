@@ -101,28 +101,28 @@ $(document).ready(function () {
     });
 
 
-    /**
-    * Function Series for item sharing
-    */
-    $("#share-btn").overlay(
-        {
-            fixed : false,
-            onBeforeLoad : function(){
-                $(document).mask({
-                    closeOnClick: false,
-                    color: "#ccc"
-                });
-            },
-            onClose : function() {
-                $.mask.close();
-                $('#url').attr("value", "");
-                $('#overlay-detail').hide();
-                $('#overlay-detail-mock').show();
-                $('.loading-mask').hide();
-                $('#collectInput').attr("value", "");
-            }
-        }
-    );
+    // /**
+    // * Function Series for item sharing
+    // */
+    // $("#share-btn").overlay(
+    //     {
+    //         fixed : false,
+    //         onBeforeLoad : function(){
+    //             $(document).mask({
+    //                 closeOnClick: false,
+    //                 color: "#ccc"
+    //             });
+    //         },
+    //         onClose : function() {
+    //             $.mask.close();
+    //             $('#url').attr("value", "");
+    //             $('#overlay-detail').hide();
+    //             $('#overlay-detail-mock').show();
+    //             $('.loading-mask').hide();
+    //             $('#collectInput').attr("value", "");
+    //         }
+    //     }
+    // );
 
     // use UJS ajax call event: https://github.com/rails/jquery-ujs/wiki/ajax
     $('#collect_item_form').on('ajax:before',function () {

@@ -26,21 +26,37 @@
 }
 
 .dashboard {
-	
-	.userinfo {
+	.dash-basic-info {
 		position: relative;
 		padding-bottom: 20px;
-		.span3 {
-			margin-left: 0;
-			width: 190px;
+		> div, > ul {
+			display: inline-block;
+		}
+		> ul {
+			margin-bottom: 0;
+			z-index: 101;
+			> li {
+				width: 120px;
+				height: 80px;
+				background-color: #fff;
+				margin-right: 8px;
+				line-height: 80px;
+				text-align: center;
+				border-bottom: 1px solid #ccc;
+				box-shadow: 2px 2px 5px #ccc;
+			}
+			>li:hover {
+				border-bottom: 0;
+				box-shadow: -2px -2px 5px #ccc;
+			}
 		}
 	}
-	.wishCountBar{
+	.wishesReviewBar {
 		background-color: #fff;
 		line-height: 32px;
+		height: 32px;
 		margin-bottom: 20px;
 		border: 0;
-		width: 82%;
 		ul.nav > li{
 			padding: 0;
 			line-height: 32px;
@@ -53,6 +69,7 @@
 				color: #373142;
 				border-left: 4px solid #fff;
 				border-right: 1px solid #eee;
+				text-shadow: 0 0 0;
 			}
 
 			> a.active, > a.active:hover {
@@ -67,25 +84,7 @@
 			}
 		}
 	}
-	ul.myActions {
-		margin-top: 40px;
-		margin-bottom: 0;
-		z-index: 101;
-		> li {
-			width: 120px;
-			height: 80px;
-			background-color: #fff;
-			margin-right: 8px;
-			line-height: 80px;
-			text-align: center;
-			border-bottom: 1px solid #ccc;
-			box-shadow: 2px 2px 5px #ccc;
-		}
-		>li:hover {
-			border-bottom: 0;
-			box-shadow: -2px -2px 5px #ccc;
-		}
-	}
+	
 
 	.item_block {
 		margin-right: 30px;

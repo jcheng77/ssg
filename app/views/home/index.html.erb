@@ -1,10 +1,10 @@
 <head>
   <meta property="wb:webmaster" content="d8c0ee16f0cc4d98" />
 </head>
-<div id="register_main">
+<div>
   <div id="loginBar">
-    <%= link_to "用新浪微博帐号登录", sync_new_path(type: 'sina'), :class => 'sina-connect' %>
-    <%= link_to "用腾讯微博创建登录", sync_new_path(type: 'qq'), :class => 'qq-connect' %>
+    <a class="btn" href="<%= sync_new_path(type: 'sina')%>"><img src="/assets/sina.png"/>&#160;用新浪微博帐号登录</a>&#160;&#160;&#160;&#160;&#160;&#160;
+    <a class="btn" href="<%= sync_new_path(type: 'qq')%>"><img src="/assets/qq.png"/>&#160;用腾讯微博帐号登录</a>
   </div>
   <div id="tileIcons">
     <div class="item">
@@ -23,7 +23,7 @@
         <p>菠萝蜜支持所有电商的价格关注 降价通知还可以微博提醒哦! </p>
      </div>
     </div>
-    <div class="item">
+    <div class="item item-last">
       <%= image_tag "gift.jpg" %>
       <div class="caption">
         <p><strong>礼品不断</strong></p>

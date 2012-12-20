@@ -1,17 +1,13 @@
-<div class="row main dashboard">
-    <div class="span11 offset1 row userinfo">
-        <div class="span3">
-            <%= render :partial => "avatar2", :object => @user %>
-        </div>
-        <div class="span7">
-            <ul class='myActions nav nav-pills'>
-                <li id='share-link' role="button" rel="#share-panel" data-toggle="modal"><i class='icon-heart'></i> 添加愿望</li>
-                <li id='finduser-link' role="button" rel="#finduser-panel"><i class='icon-search'></i> 查找好友</li>
-                <li id='invite-link' role="button" rel="#invite-panel"><i class='icon-user'></i> 邀请好友</li>
-            </ul>
-        </div>
+<div class="dashboard">
+    <div class="dash-basic-info">
+        <%= render :partial => "avatar2", :object => @user %>
+        <ul class='nav nav-pills'>
+            <li id='share-link' role="button" rel="#share-panel" data-toggle="modal"><i class='icon-heart'></i> 添加愿望</li>
+            <li id='finduser-link' role="button" rel="#finduser-panel"><i class='icon-search'></i> 查找好友</li>
+            <li id='invite-link' role="button" rel="#invite-panel"><i class='icon-user'></i> 邀请好友</li>
+        </ul>
     </div>
-    <div class="span11 offset1 wishCountBar navbar">
+    <div class="wishesReviewBar navbar">
         <ul class="nav">
             <li>
                 <%= link_to my_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_shares') ? 'active' : '' do %>
@@ -39,7 +35,7 @@
             </li>
         </ul>
     </div>
-    <div class="span11 offset1 row">
+    <div>
         <h4 id="notice" style="display: none; margin-top: 20px;"></h4>
         <ul id="shares" style="margin-left: 0px;">
         </ul>
@@ -51,74 +47,5 @@
 <ul class="pager">
     <li><%= link_to "更多动态", "javascript: void(0);", :remote => true, :id => "more", :page => 0, :style => "display: none;" %></li>
 </ul>
-<script type="text/javascript">
-    var moreBtn = $("#more");
-    var noticeBar = $("#notice");
-    var progressBar = $("#progress_more");
-    var sharePanel = $("#shares");
-
-    var ShareController = {
-        clearNotice:function () {
-            noticeBar.hide().empty();
-        },
-        appendShare:function (html) {
-            sharePanel.append(html).children("li:last").hide().fadeIn(2000);
-        },
-        notFound:function () {
-            noticeBar.html("没有新的愿望动态。").show();
-        },
-        noMore:function () {
-            moreBtn.addClass("finished");
-            moreBtn.hide();
-        },
-        hasMore:function () {
-            if (!this.autoLoad()) {
-                moreBtn.show();
-            }
-        },
-        autoLoad:function () {
-            var page = parseInt(moreBtn.attr("page"));
-            return page < 5 ? true : false
-        }
-    };
-
-    $(function () {
-        var arrivedAtBottom = function () {
-            return $(document).scrollTop() + $(window).height() == $(document).height();
-        }
-
-        $(window).scroll(function () {
-            if (arrivedAtBottom()) {
-                if (!moreBtn.hasClass("finished")) {
-                    if (ShareController.autoLoad()) {
-                        moreBtn.click();
-                    } else {
-                        moreBtn.show();
-                    }
-                }
-            }
-        });
-
-        moreBtn.click(function () {
-            var page = parseInt(moreBtn.attr("page")) + 1;
-            moreBtn.attr("page", page);
-            var href = window.location.href + "?page=" + page;
-            moreBtn.attr("href", href);
-        });
-
-        moreBtn.on("ajax:before",
-                function () {
-                    moreBtn.hide();
-                    progressBar.show();
-                }
-        ).on("ajax:complete",
-                function () {
-                    progressBar.hide();
-                }
-        );
-
-        moreBtn.click();
-    });
-</script>
 <%= render :partial => "users/myaction_finduser" %>
 <%= render :partial => "users/myaction_inviteuser" %>
