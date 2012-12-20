@@ -1,31 +1,31 @@
 $(document).ready(function () {
-	$("#help_howtouse-btn").overlay({ 
-			fixed : false,
-	        onBeforeLoad : function(){
-	            $(document).mask({
-	                closeOnClick: false,
-	                color: "#ccc"
-	            });
-	        },
-	        onClose : function() {
-                $.mask.close();
-            }
-	    });
+	// $("#help_howtouse-btn").overlay({ 
+	// 		fixed : false,
+	//         onBeforeLoad : function(){
+	//             $(document).mask({
+	//                 closeOnClick: false,
+	//                 color: "#ccc"
+	//             });
+	//         },
+	//         onClose : function() {
+ //                $.mask.close();
+ //            }
+	//     });
 
-	$("#help_howtoinst-btn").overlay({ 
-			fixed : false,
-	        onBeforeLoad : function(){
-	            $(document).mask({
-	                closeOnClick: false,
-	                color: "#ccc"
-	            });
-	            var activeInd = getBrowserHelpIndex();
-	            $('#helpTab a:eq(' + activeInd + ')').tab('show');
-	        },
-	        onClose : function() {
-                $.mask.close();
-            }
-	    });
+	// $("#help_howtoinst-btn").overlay({ 
+	// 		fixed : false,
+	//         onBeforeLoad : function(){
+	//             $(document).mask({
+	//                 closeOnClick: false,
+	//                 color: "#ccc"
+	//             });
+	//             var activeInd = getBrowserHelpIndex();
+	//             $('#helpTab a:eq(' + activeInd + ')').tab('show');
+	//         },
+	//         onClose : function() {
+ //                $.mask.close();
+ //            }
+	//     });
 
 	$('#helpTab a').click(function (e) {
 		e.preventDefault();
