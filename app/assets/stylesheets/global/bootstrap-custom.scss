@@ -1,0 +1,32 @@
+.navbar .brand {
+	font-size: 24px;
+}
+
+.navbar .nav > li > a {
+	font-size: 12px;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+}
+
+.modal#share-panel {
+	width: 650px;
+	margin-left: -325px;
+	.modal-header h4 {
+		margin: 0;
+		width: 220px;
+	}
+	.dl-horizontal {
+		margin: 0;
+		dt {
+			width: 70px;
+			text-align: left;
+			line-height: 30px;
+		}
+		dd {
+			margin-left: 60px;
+		}
+	}
+}

@@ -1,11 +1,6 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
             <a class="brand" href="/">菠萝蜜</a>
 
             <div class="nav-collapse">
@@ -39,7 +34,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <a id='share-btn' role="button" class="btn pull-right" rel="#share-panel">添加愿望</a>
+                    <a href="#share-panel" role="button" class="btn pull-right" id='share-btn' data-toggle="modal">添加愿望</a>
 
                 <% end %>
                 <!--<a href="#" class="pull-right notification-badge" style="display:none" id="notification-badge">0</a>-->
@@ -56,37 +51,36 @@
 
 <% if current_user %>
 
-    <div class="simple_overlay" id="share-panel">
-        <div class="overlay-link">
-                      <div class="collect-panel">
-           <h4>方法一: 使用史上最方便快捷的一键收藏工具 </h4>
-                        <%= link_to "去试用愿望收藏工具" , instruction_users_path %>
-          </div>
-          <div class="collect-panel">
-                <%= form_tag collecter_path, :remote => true, :style => "margin: 0px;", :class => 'hide', :id => "collect_item_form" do %>
-                <% end %>
-                <h4 class="pull-lift"> 1.粘帖商品链接 <span style="color: #F74C87">(支持所有电商)</span> 或者 2.输入商品关键词 <span style="color: #F74C87">  (例如: 李开复 冰淇淋 咖啡机) </span></h4>
-                <%= text_field_tag :collectInput, nil, :autocomplete => 'off', :class => 'input-large search-query shareUrl collect-input', placeholder: "商品链接 或 关键词" %>
-                <i id="collect-input-icon" class="icon-arrow-right collect-input-icon"></i>
-                &#160;&#160;<button class="btn btn-primary" id="collectInputBtn" >下一步</button>
-            </div>
-   <div class="collect-panel">
-                <%= form_tag search_amazon_items_path, :remote => true, :style => "margin: 0px;", :class => 'hide', :id => "collect_item_form" do %>
-                <% end %>
-                <h4>请粘帖商品链接 (支持所有电商) 或 输入商品关键词:</h4>
-                <%= text_field_tag :searchInput, nil, :autocomplete => 'off', :class => 'input-large search-query shareUrl collect-input', placeholder: "商品链接 或 关键词" %>
-                <div class="dropdown search-result">
-                    <a class="dropdown-toggle hide" data-toggle="dropdown" id="dropDownTrigger"></a>
-                    <ul id="collect-search-result" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                    </ul>
-                </div>
-            </div>
-
-
+    <div id="share-panel" class="modal hide fade in" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">x</button>
+            <h4>简单三两步，轻松晒愿望</h4>
         </div>
-        
-        <div id="overlay-detail" style="display:none;"></div>
-
-
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>方法一：</dt>
+                <dd><span class='lead'>使用浏览器一键收藏工具，边看边收方便快捷</span></dd>
+                <dt class='dt-empty'>&#160;</dt>
+                <dd><div class='dd-content'><%= link_to "去添加菠萝蜜收藏工具", instruction_users_path, :class => "btn btn-info", :target => "_blank" %></div></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>方法二：</dt>
+                <dd><span class='lead'>粘帖商品链接，或直接输入商品关键词，立刻收藏</span></dd>
+                <dt class='dt-empty'>&#160;</dt>
+                <dd>
+                    <div class='dd-content'>
+                        <%= form_tag collecter_path, :remote => true, :style => "margin: 0px;", :class => 'hide', :id => "collect_item_form" do %>
+                        <% end %>
+                        <%= text_field_tag :searchInput, nil, :autocomplete => 'on', :class => 'search-query span4', placeholder: "商品链接 或 关键词" %>&#160;
+                        <button class="btn btn-info" id="collectInputBtn">收藏</button>&#160;(<a>如何使用?</a>)
+                        <div class="dropdown search-result">
+                            <a class="dropdown-toggle hide" data-toggle="dropdown" id="dropDownTrigger"></a>
+                            <ul id="collect-search-result" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"></ul>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            <div id="overlay-detail" style="display:none;"></div>
+        </div>
     </div>
 <% end %>

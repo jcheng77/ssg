@@ -1,0 +1,39 @@
+/* responsive overrides */
+/* Large desktop */
+@media (min-width: 1200px) { 
+	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+		width: 940px;
+	}
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	.container {
+		width: 940px;
+	}
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+		width: auto;
+	}
+	.modal#share-panel {
+		width: auto;
+		margin-left: 0px;
+	}
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+		width: auto;
+	}
+	.modal#share-panel {
+		width: auto;
+		margin-left: 0px;
+		.modal-body {
+			max-height: 500px;
+		}
+	}
+}
