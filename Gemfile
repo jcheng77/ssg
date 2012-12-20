@@ -64,7 +64,7 @@ gem 'jquery-rails'
 gem 'jquery-tools' 
 gem 'chosen-rails'
 
-gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
+gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
 gem 'rails-dev-tweaks', '~> 0.6.1'
 gem 'voteable_mongo'
 #gem 'mongoid_taggable'

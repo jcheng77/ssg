@@ -11,12 +11,18 @@
 	.container {
 		width: 940px;
 	}
+	.nav-collapse {
+		height: auto;
+	}
 }
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
 	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
 		width: auto;
+	}
+	.nav-collapse {
+		height: auto;
 	}
 	.modal#share-panel {
 		width: auto;
@@ -28,6 +34,9 @@
 @media (max-width: 480px) {
 	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
 		width: auto;
+	}
+	.nav-collapse {
+		height: auto;
 	}
 	.modal#share-panel {
 		width: auto;
