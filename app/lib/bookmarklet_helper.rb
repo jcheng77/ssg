@@ -34,7 +34,7 @@ module BookmarkletHelper
 
   class Collector
 
-    def initialize(url)
+    def initialize(url, pic = nil)
       Rails.logger.info "processing " + url
       @url = url
       @imgs = []
@@ -42,14 +42,25 @@ module BookmarkletHelper
       begin
         domain_checker
         get_item_id
+        if pic.nil?
         retrieve_product_info
         search_item_on_etao unless succeed?
         #process_unknown_sites unless succeed?
         #get_category_from_etao_for_non_amazon_item
+        else 
+          process_unknown_sites
+        end
         determine_category
       rescue => ex
         Rails.logger.error ex
       end
+    end
+
+    def process_unkown_sites(pic)
+        res = Faraday.get @url
+        html = res.body.ensure_encoding('UTF-8', :external_encoding => 'GB2312', :invalid_characters => :drop)
+        @imgs << pic
+        @title = get_title(html)
     end
 
     def collecter

@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
 
     @result =
         if is_url?(params[:url])
-          collector = BookmarkletHelper::Collector.new(params[:url])
+          collector = BookmarkletHelper::Collector.new(params[:url], params[:pic])
           @imgs = collector.imgs
 
           if collector.succeed?
@@ -91,6 +91,8 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  
 
   def search_amazon
    @items = Item.search_on_amazon(params[:url])
