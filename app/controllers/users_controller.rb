@@ -215,6 +215,7 @@ class UsersController < ApplicationController
     @user.update_attribute(:preferences, @user.preferences & categories)
     
     unless @user.active == 1
+      @user.update_attribute(:preferences, [] )
       select_empty_layout
     end
 
