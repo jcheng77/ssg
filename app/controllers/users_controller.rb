@@ -288,7 +288,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {redirect_to dashboard_user_path(@user)}
+      format.html {redirect_to promote_shares_user_path(@user)}
       format.json 
     end
   end
