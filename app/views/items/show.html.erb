@@ -112,6 +112,7 @@
             <% @item.root_comments.each do |comment| %>
                 <%= render :partial => "comments/comment", :object => comment %>
             <% end %>
+            <% unless current_user.nil? %>
             <%= form_for @item.comments.build, remote: true do |f| %>
                 <%= f.hidden_field :_type %>
                 <%= hidden_field_tag 'comment[user_id]', current_user._id %>
@@ -124,6 +125,7 @@
                     <%= f.submit "我要评论", class: "btn btn-primary" %>
                 </div>
             <% end %>
+          <%end%>
         </div>
     </div>
     <div class="span11" style="margin-top: 30px; ">
