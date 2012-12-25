@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
 
   def index
     if current_user.nil?
-      @current_categories = categories
+      @current_categories = params[:category].blank? ? categories : params[:category].strip.split(" ")
     else
       @current_categories = params[:category].blank? ? current_user.preferences : params[:category].strip.split(" ")
     end
