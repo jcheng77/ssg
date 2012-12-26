@@ -66,7 +66,11 @@ class ItemsController < ApplicationController
           if collector.succeed?
             @item = Item.new_with_collector(collector)
             @share = @item.shares.last
+            if params[:pic].nil?
             {isSuccess: true, shareId: @share._id}
+            else
+            {isTagged: true, shareId: @share._id}
+            end
           else
             {isSuccess: false, errorMsg: "分析收藏链接出错啦！"}
           end
@@ -83,7 +87,11 @@ class ItemsController < ApplicationController
           if save_item(@item, @share, Share::TYPE_SHARE)
             render json: @result
           else
+            if params[:pic].nil?
             render json: {isSuccess: false, errorMsg: "收藏商品出错啦！"}
+            else
+            render json: {isTagged: false, errorMsg: "收藏商品出错啦！"}
+            end
           end
         else
           render json: @result
