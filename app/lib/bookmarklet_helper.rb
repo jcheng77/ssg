@@ -48,19 +48,12 @@ module BookmarkletHelper
         #process_unknown_sites unless succeed?
         #get_category_from_etao_for_non_amazon_item
         else 
-          process_unknown_sites
+          process_unknown_sites(pic)
         end
         determine_category
       rescue => ex
         Rails.logger.error ex
       end
-    end
-
-    def process_unkown_sites(pic)
-        res = Faraday.get @url
-        html = res.body.ensure_encoding('UTF-8', :external_encoding => 'GB2312', :invalid_characters => :drop)
-        @imgs << pic
-        @title = get_title(html)
     end
 
     def collecter
@@ -215,10 +208,14 @@ module BookmarkletHelper
       end
       end
 
-    def process_unknown_sites
+    def process_unknown_sites(pic = nil)
         res = Faraday.get @url
         html = res.body.ensure_encoding('UTF-8' , :invalid_characters => :drop)
+        if pic
+          @imgs << pic
+        else
         @imgs = get_all_imgs(html)
+        end
         @title = get_title(html)
     end
 
@@ -260,8 +257,10 @@ module BookmarkletHelper
     end
 
     def determine_category
+      unless @category.nil?
          cate = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category.strip) || arr.join.match(@category.strip) || partial_match_predefined_category_dictionary(arr,@category) }.first
          @category = ( CAT_MAP.select { |k,v| cate == k }.values.first || @category )
+      end
          CATEGORIES.include?(@category) ? @category : '创意礼品'
     end
 
