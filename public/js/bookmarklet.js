@@ -6,7 +6,10 @@ BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
 BM.otherData = {};
 BM.rootUrl = 'http://127.0.0.1:3000';
-BM.tagImgUrl = 'http://127.0.0.1:3000/shares/50b2569c421aa9113500013f/shared_by_me';
+BM.userUrl = 'http://127.0.0.1:3000/shares/';
+BM.tagUrl = 'http://127.0.0.1:3000/collect.jsonp?callback=BLM.BM.collect';
+
+BM.tagDom = null;
 
 BM.imageArray = new Array();
 BM.imageCount = 0;
@@ -26,22 +29,20 @@ BM.getImageLocation = function (a) {
 };
 
 BM.tagProduct = function (c) {
-// var d = "http://www.nuji.com/WebTag/Bookmarklet/?userId=" + encodeURIComponent(nujiUserId) + "&imageURL=" + encodeURIComponent(this.imageArray[c].src) + "&hostName=" + encodeURIComponent(location.hostname) + "&pageURL=" + encodeURIComponent(location.href) + "&pageTitle=" + encodeURIComponent(document.title) + "&referrerURL=" + encodeURIComponent(document.referrer); 
-var d = '';
+var d = BM.tagUrl + "&url=" + encodeURIComponent(location.href) + "&pic=" + encodeURIComponent(this.imageArray[c].src);
 var b = document.createElement("script");
  b.setAttribute("type", "text/javascript");
   b.setAttribute("method", "post"); 
   b.setAttribute("src", d); 
     document.getElementsByTagName("head")[0].appendChild(b);
-   document.getElementById("webtag_instruction_" + c).innerHTML = "\u6536\u85cf\u6210\u529f\uff01<br/><br/><a style='color:#FFFFFF;font-size:10pt;' href='http://boluo.me' >\u53bb\u770b\u770b</a>"; 
-   document.getElementById("webtag_instruction_" + c).style.display = "block"; 
+
+    BM.tagDom = document.getElementById("webtag_instruction_" + c);
    for (var a = 0; a < BM.imageCount; a++) { if (a != c) { 
     document.getElementById("webtag_highlight_" + a).style.display = "none"
      } 
   }
   setTimeout(function () { BM.stopWebtaglet() }, 3000);
 }; 
-
 
 BM.startWebtaglet = function () { 
   if (!document.getElementById("blm_webtaglet")) { 
@@ -494,15 +495,36 @@ BM.hidePopup = function(){
 BM.collect = function(result){
   var BM = BLM.BM;
 
-  if(result.isSuccess){
-    BM.showPopupResult(1, {shareId: result.shareId});
-  }else{
-    if(result.isLogin ===  false){
-      BM.showPopupResult(3);
+  if(result.hasOwnProperty('isSuccess')){
+    if(result.isSuccess){
+      BM.showPopupResult(1, {shareId: result.shareId});
     }else{
-      BM.showPopupResult(2);
+      if(result.isLogin ===  false){
+        BM.showPopupResult(3);
+      }else{
+        BM.showPopupResult(2);
+      }
+    }
+  }else if(result.hasOwnProperty('isTagged') && result.isTagged){
+    if(!!BM.tagDom){
+      BM.tagDom.innerHTML = "\u6536\u85cf\u6210\u529f\uff01<br/><br/><a target='_blank' style='color:#FFFFFF;font-size:10pt;' href='"+BM.userUrl+result.shareId+"/shared_by_me' >\u53bb\u770b\u770b</a>"; 
+      BM.tagDom.style.display = "block"; 
+      BM.tagDom = null;
+      setTimeout(function () { BM.stopWebtaglet() }, 3000);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 BM.loadScript = function(scriptUrl){
