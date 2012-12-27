@@ -245,7 +245,7 @@ class ItemsController < ApplicationController
 
       @share.create_comment_by_sharer(share_comment)
       @item.update_attribute(:root_share_id, @share._id) if is_item_new
-      unless share.nil?
+      unless @share.nil?
         @share.delay.add_tag(params[:wisth_type]) if @share.share_type == Share::TYPE_WISH
       @share.delay.sync_to_weibo(params[:share_to])
       end
