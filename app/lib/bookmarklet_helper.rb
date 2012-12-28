@@ -209,14 +209,9 @@ module BookmarkletHelper
       end
 
     def process_unknown_sites(pic = nil)
-        res = Faraday.get @url
-        html = res.body.ensure_encoding('UTF-8' , :invalid_characters => :drop)
-        if pic
-          @imgs << pic
-        else
-        @imgs = get_all_imgs(html)
-        end
-        @title = get_title(html)
+        html_source = Faraday.get(@url).body.ensure_encoding('UTF-8', :invalid_characters => :drop)
+        @imgs << pic
+        @title = get_title(html_source)
     end
 
     def get_trade_snapshot_item
@@ -326,8 +321,7 @@ module BookmarkletHelper
     end
 
     def get_title(item_page_source)
-      title = item_page_source.slice(/<title>.*>/).force_encoding('UTF-8')
-      title.slice(/>.*</).slice(1..-2)
+      title = item_page_source.slice(/<title>[^>]*>/).force_encoding('UTF-8').slice(/>.*</).slice(1..-2)
     end
 
     def search_item_on_etao(*args)

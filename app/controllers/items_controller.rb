@@ -83,7 +83,7 @@ class ItemsController < ApplicationController
       format.html { render :layout => 'empty' } # collect.html.erb
       format.js # collect.js.erb
       format.json do
-        if @result[:isSuccess]
+        if @result[:isSuccess] || @result[:isTagged]
           if save_item(@item, @share, Share::TYPE_SHARE)
             render json: @result
           else
