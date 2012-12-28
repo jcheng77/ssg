@@ -84,7 +84,7 @@ class ItemsController < ApplicationController
       format.js # collect.js.erb
       format.json do
         if @result[:isSuccess]
-          if save_item(@item, @share, Share::TYPE_SHARE)
+          if save_item(@item, @share, Share::TYPE_WISH)
             render json: @result
           else
             if params[:pic].nil?
@@ -226,8 +226,6 @@ class ItemsController < ApplicationController
             Share::TYPE_WISH
           elsif params[:add_to_bought]
             Share::TYPE_BAG
-          else
-            Share::TYPE_SHARE
           end
         else
           type
