@@ -24,7 +24,7 @@ class Share
   field :anonymous, type: Boolean # false: named; true: anounymous
   field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
-  field :share_type, type: String, default: TYPE_SHARE
+  field :share_type, type: String, default: TYPE_WISH
   field :last_inform_price, type: Float
   field :subscribed, type: Boolean
 
@@ -134,5 +134,9 @@ class Share
 
   def no_price?
     price == 0 || price.nil?
+  end
+
+  def alter_type(newtype)
+   self.share_type = newtype if [TYPE_BAG,TYPE_SHARE,TYPE_WISH].include?(newtype)
   end
 end
