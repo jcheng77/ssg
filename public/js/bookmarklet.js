@@ -29,7 +29,7 @@ BM.getImageLocation = function (a) {
 };
 
 BM.tagProduct = function (c) {
-var d = BM.tagUrl + "&url=" + encodeURIComponent(location.href) + "&pic=" + encodeURIComponent(this.imageArray[c].src);
+var d = BM.tagUrl +"&m=" + Math.random() + "&url=" + encodeURIComponent(location.href) + "&pic=" + encodeURIComponent(this.imageArray[c].src);
 var b = document.createElement("script");
  b.setAttribute("type", "text/javascript");
   b.setAttribute("method", "post"); 
@@ -41,7 +41,6 @@ var b = document.createElement("script");
     document.getElementById("webtag_highlight_" + a).style.display = "none"
      } 
   }
-  setTimeout(function () { BM.stopWebtaglet() }, 3000);
 }; 
 
 BM.startWebtaglet = function () { 
@@ -343,7 +342,6 @@ BM.createPopup = function(){
 
   blmSubmit.onclick = function(){
     BM.clear();
-
     BM.otherData.comment = blmComment.value;
     BM.submitComment();
   }
@@ -505,26 +503,21 @@ BM.collect = function(result){
         BM.showPopupResult(2);
       }
     }
-  }else if(result.hasOwnProperty('isTagged') && result.isTagged){
-    if(!!BM.tagDom){
+  }else if(result.hasOwnProperty('isTagged')){
+    if(result.isTagged && !!BM.tagDom){
       BM.tagDom.innerHTML = "\u6536\u85cf\u6210\u529f\uff01<br/><br/><a target='_blank' style='color:#FFFFFF;font-size:10pt;' href='"+BM.userUrl+result.shareId+"/shared_by_me' >\u53bb\u770b\u770b</a>"; 
       BM.tagDom.style.display = "block"; 
       BM.tagDom = null;
-      setTimeout(function () { BM.stopWebtaglet() }, 3000);
     }
+    if(!result.isTagged && !!BM.tagDom){
+        if(result.errorMsg){
+            BM.tagDom.innerHTML = result.errorMsg; 
+        }else{
+            BM.tagDom.innerHTML = "\u6536\u85cf\u51fa\u9519"; 
+        }
+    }
+    setTimeout(function () { BM.stopWebtaglet() }, 3000);
   }
-
-
-
-
-
-
-
-
-
-
-
-
 };
 
 BM.loadScript = function(scriptUrl){
