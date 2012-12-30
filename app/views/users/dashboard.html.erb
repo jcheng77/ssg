@@ -14,11 +14,6 @@
     <div class="span11 offset1 wishCountBar navbar">
         <ul class="nav">
             <li>
-                <%= link_to my_shares_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_shares') ? 'active' : '' do %>
-                    我的收藏 <%= @user.shares.by_type(Share::TYPE_SHARE).count %>
-                <% end %>
-            </li>
-            <li>
                 <%= link_to my_wishes_user_path(@user), :class => current_page?(:controller => 'users', :action => 'my_wishes') ? 'active' : '' do %>
                     我的新愿望 <%= @user.shares.by_type(Share::TYPE_WISH).count %>
                 <% end %>
