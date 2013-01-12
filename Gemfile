@@ -53,7 +53,7 @@ gem 'will_paginate_mongoid'
 gem 'nokogiri'
 gem 'amazon-ecs'
 
-gem 'rtesseract'
+#gem 'rtesseract'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'ensure-encoding', '0.1'

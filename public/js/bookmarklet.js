@@ -9,8 +9,6 @@ BM.rootUrl = 'http://127.0.0.1:3000';
 BM.userUrl = 'http://127.0.0.1:3000/shares/';
 BM.tagUrl = 'http://127.0.0.1:3000/collect.jsonp?callback=BLM.BM.collect';
 
-BM.tagDom = null;
-
 BM.imageArray = new Array();
 BM.imageCount = 0;
 
@@ -29,19 +27,22 @@ BM.getImageLocation = function (a) {
 };
 
 BM.tagProduct = function (c) {
-var d = BM.tagUrl +"&m=" + Math.random() + "&url=" + encodeURIComponent(location.href) + "&pic=" + encodeURIComponent(this.imageArray[c].src);
+// var d = "http://www.nuji.com/WebTag/Bookmarklet/?userId=" + encodeURIComponent(nujiUserId) + "&imageURL=" + encodeURIComponent(this.imageArray[c].src) + "&hostName=" + encodeURIComponent(location.hostname) + "&pageURL=" + encodeURIComponent(location.href) + "&pageTitle=" + encodeURIComponent(document.title) + "&referrerURL=" + encodeURIComponent(document.referrer); 
+var d = '';
 var b = document.createElement("script");
  b.setAttribute("type", "text/javascript");
   b.setAttribute("method", "post"); 
   b.setAttribute("src", d); 
     document.getElementsByTagName("head")[0].appendChild(b);
-
-    BM.tagDom = document.getElementById("webtag_instruction_" + c);
+   document.getElementById("webtag_instruction_" + c).innerHTML = "\u6536\u85cf\u6210\u529f\uff01<br/><br/><a style='color:#FFFFFF;font-size:10pt;' href='http://boluo.me' >\u53bb\u770b\u770b</a>"; 
+   document.getElementById("webtag_instruction_" + c).style.display = "block"; 
    for (var a = 0; a < BM.imageCount; a++) { if (a != c) { 
     document.getElementById("webtag_highlight_" + a).style.display = "none"
      } 
   }
+  setTimeout(function () { BM.stopWebtaglet() }, 3000);
 }; 
+
 
 BM.startWebtaglet = function () { 
   if (!document.getElementById("blm_webtaglet")) { 
@@ -87,6 +88,7 @@ for (var a = 0; a < BM.imageCount; a++) {
     window.isWebtagletRunning = false 
   }, 1000) 
 };
+
 
 
 BM.init = function(){
