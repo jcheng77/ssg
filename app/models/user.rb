@@ -70,9 +70,18 @@ class User
     self.shares.where(:share_type => type, :item_id => item._id).exists?
   end
 
+  def has_any_shares?
+    self.shares.size > 0 
+  end
+
   def followed_all(page, per_page = 8)
     Share.followees_of(self).reverse.paginate(:page => page, :per_page => per_page)
   end
+
+  def has_followed_any?
+    Share.followees_of(self).size > 0
+  end
+
 
   def my_shares(page, per_page = 8)
     self.shares.recent_by_type(Share::TYPE_SHARE).paginate(:page => page, :per_page => per_page)
