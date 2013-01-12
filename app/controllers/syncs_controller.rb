@@ -80,8 +80,13 @@ class SyncsController < ApplicationController
 
         session[:current_user_id] = account.user._id
         account.update_attributes({friends: friends_ids, friends_names: friends_names , friends_profile_urls: friends_profile_urls})
+        if current_user.has_followed_any?
+        redirect_to dashboard_user_path(current_user)
+        elsif  current_user.has_any_shares?
+          redirect_to my_shares_user_path(current_user)
+        else
         redirect_to promote_shares_user_path(current_user)
-
+        end
       end
 
     else
