@@ -205,7 +205,7 @@ BM.createPopup = function(){
           '<span class="blm-bm-social">',
             '<img id="blm-bm-private" src="' + rootUrl + '/img/checkbox.jpg" />',
             '<label>\u79c1\u85cf</label>',
-            '<img id="blm-bm-share" src="' + rootUrl + '/img/checkbox_checked.png" />',
+            '<img id="blm-bm-share" src="' + rootUrl + '/img/checkbox.png" />',
             '<label>\u5206\u4eab\u5230\u5fae\u535a</label>',
           '</span>',
           '<div class="blm-bm-submit-wrapper">',
