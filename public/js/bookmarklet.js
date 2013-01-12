@@ -5,96 +5,12 @@ BLM = typeof BLM === 'undefined' ? {} : BLM;
 BM = BLM.BM = typeof BLM.BM === 'undefined' ? {} : BLM.BM;
 
 BM.otherData = {};
-BM.rootUrl = 'http://127.0.0.1:3000';
-BM.tagImgUrl = 'http://127.0.0.1:3000/shares/50b2569c421aa9113500013f/shared_by_me';
-
-BM.imageArray = new Array();
-BM.imageCount = 0;
-
-BM.getImageLocation = function (a) { 
-  var c = a.offsetLeft; 
-  var b = a.offsetTop; 
-  while (a.offsetParent) { c = c + a.offsetParent.offsetLeft;
-   b = b + a.offsetParent.offsetTop;
-    if (a != document.getElementsByTagName("body")[0]) { 
-      a = a.offsetParent 
-    } else { 
-      break 
-    } 
-  }
-   return [c, b] 
-};
-
-BM.tagProduct = function (c) {
-// var d = "http://www.nuji.com/WebTag/Bookmarklet/?userId=" + encodeURIComponent(nujiUserId) + "&imageURL=" + encodeURIComponent(this.imageArray[c].src) + "&hostName=" + encodeURIComponent(location.hostname) + "&pageURL=" + encodeURIComponent(location.href) + "&pageTitle=" + encodeURIComponent(document.title) + "&referrerURL=" + encodeURIComponent(document.referrer); 
-var d = '';
-var b = document.createElement("script");
- b.setAttribute("type", "text/javascript");
-  b.setAttribute("method", "post"); 
-  b.setAttribute("src", d); 
-    document.getElementsByTagName("head")[0].appendChild(b);
-   document.getElementById("webtag_instruction_" + c).innerHTML = "\u6536\u85cf\u6210\u529f\uff01<br/><br/><a style='color:#FFFFFF;font-size:10pt;' href='http://boluo.me' >\u53bb\u770b\u770b</a>"; 
-   document.getElementById("webtag_instruction_" + c).style.display = "block"; 
-   for (var a = 0; a < BM.imageCount; a++) { if (a != c) { 
-    document.getElementById("webtag_highlight_" + a).style.display = "none"
-     } 
-  }
-  setTimeout(function () { BM.stopWebtaglet() }, 3000);
-}; 
-
-
-BM.startWebtaglet = function () { 
-  if (!document.getElementById("blm_webtaglet")) { 
-    var j = document.createElement("link");
-    j.setAttribute("href",BM.rootUrl + '/stylesheets/bookmarklet.css'); 
-    j.setAttribute("rel", "stylesheet"); 
-    j.setAttribute("type", "text/css"); 
-    var a = document.createElement("div");
-    a.id = "blm_webtaglet";
-    document.getElementsByTagName("head")[0].appendChild(j);
-    document.getElementsByTagName("body")[0].appendChild(a) 
-  } 
-  var c = document.getElementsByTagName("img"); 
-  for (var b = 0; b < c.length; b++) { 
-  var d = c[b]; 
-  if (d.offsetWidth >= 100 && d.offsetHeight >= 100) { 
-    BM.imageArray[BM.imageCount] = d; 
-    var i = BM.getImageLocation(d)[0];
-    var g = BM.getImageLocation(d)[1]; 
-    var f = d.offsetWidth; 
-    var e = d.offsetHeight; 
-    var h = document.createElement("div");
-    h.id = "webtag_highlight_" + BM.imageCount;
-    h.style.left = i + "px";
-    h.style.top = g + "px"; 
-    h.style.height = (e - 40) + "px"; 
-    h.style.width = (f - 40) + "px"; 
-    h.style.display = "block";
-    h.innerHTML = "<div id='webtag_instruction_" + BM.imageCount + "' style='color:#FFFFFF;margin-top:" + ((e - 100) / 2) + "px;'>\u6536\u85cf\u5230\u83e0\u841d\u871c</div>";
-    h.setAttribute("class", "blm_image"); 
-    h.setAttribute("onclick", "BM.tagProduct(" + BM.imageCount + ")"); 
-    document.getElementById("blm_webtaglet").appendChild(h); BM.imageCount++ }
-  }
-};
-
-BM.stopWebtaglet = function () { 
-var b = document.getElementById("blm_webtaglet"); 
-for (var a = 0; a < BM.imageCount; a++) { 
-  var c = document.getElementById("webtag_highlight_" + a); 
-  b.removeChild(c) } 
-  setTimeout(function () { 
-    BM.imageCount = 0; 
-    window.isWebtagletRunning = false 
-  }, 1000) 
-};
-
-
+BM.rootUrl = 'http://boluo.me'
 
 BM.init = function(){
-  var doc = document;
-  var other = doc.getElementById('blm-bm-action-other');
-  var login = doc.getElementById('blm-bm-action-login');
-  var msg = doc.getElementById('bm-popup-msg');
+  var other = document.getElementById('blm-bm-action-other');
+  var login = document.getElementById('blm-bm-action-login');
+  var msg = document.getElementById('bm-popup-msg');
 
   BM.otherData = {
     isShare: true
@@ -273,7 +189,7 @@ BM.createPopup = function(){
         '</div>',
       '</div>',
       '<div class="blm-bm-body-middle">',
-        '<div id="bm-popup-msg">\u8bf7\u7a0d\u540e\u2026\u2026</div>', 
+        '<div id="bm-popup-msg">\u6b63\u5728\u6536\u85cf\u2026\u2026</div>',
       '</div>',
       '<div class="blm-bm-body-right">',
         '<div id="blm-bm-action-login" class="hide">',
@@ -433,9 +349,11 @@ BM.showPopupResult = function(status, data){
       break;
 
     case 2: // Fail Error
-        BM.hidePopup();
-        BM.startWebtaglet();
+      popupMsg.innerHTML = '\u6536\u85cf\u5546\u54c1\u51fa\u9519\u4e86\uff01';
+      other.className = 'blm-bm-action-other hide';
+      login.className = 'hide';
       break;
+
     case 3: // Fail and Need Login
       popupMsg.innerHTML = '\u60a8\u8fd8\u672a\u767b\u5f55';
       other.className = 'blm-bm-action-other hide';
