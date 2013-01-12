@@ -2,10 +2,10 @@
     <div class="modal-header">
         <a class="close" data-dismiss="modal">&times;</a>
 
-        <h3><%= share.item.title %></h3>
+        <h3><%= share_title(share) unless share.item.nil? %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
-        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= image_tag share_image(share), :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
         <%= form_for share.build_comment, url: recommend_item_path(share.item), class: "pull-right" do |f| %>
             <%= f.hidden_field :user_id %>
             <%= f.hidden_field :_type %>
@@ -24,10 +24,10 @@
     <div class="modal-header">
         <a class="close" data-dismiss="modal">&times;</a>
 
-        <h3><%= share.item.title %></h3>
+        <h3><%= share_title(share) unless share.item.nil? %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
-        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= image_tag share_image(share), :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
         <%= form_tag add_to_wish_share_path(share), remote: true, class: "pull-right" do %>
             <div class="page-header"><h4>标签</h4></div>
             <%= select_tag :tag, options_for_select(Hash[Share::WISH_TAGS.map{|c| [c, c]}]), style: "width: 240px;" %>
@@ -46,10 +46,10 @@
     <div class="modal-header">
         <a class="close" data-dismiss="modal">&times;</a>
 
-        <h3><%= share.item.title %></h3>
+        <h3><%= share_title(share) %></h3>
     </div>
     <div class="modal-body row" style="width: 500px; margin-left: auto; margin-right: auto;">
-        <%= image_tag share.item.image, :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
+        <%= image_tag share_image(share), :width => '220', class: "pull-left", style: "margin-right: 10px;" %>
         <%= form_tag add_to_bag_share_path(share), remote: true, class: "pull-right" do |f| %>
             <%= text_area_tag 'comment', nil, rows: 6, class: "input-xlarge", style: "width: 240px;", placeholder: "我来说两句" %>
             <br>

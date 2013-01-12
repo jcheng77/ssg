@@ -6,7 +6,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: ssg
+  database: heroku_app3550586
   autocreate_indexes: true
 
 test:

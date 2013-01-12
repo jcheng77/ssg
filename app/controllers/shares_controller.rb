@@ -1,3 +1,4 @@
+# encoding: utf-8
 class SharesController < ApplicationController
   layout 'application'
 
@@ -88,6 +89,24 @@ class SharesController < ApplicationController
   # POST /shares
   # POST /shares.json
   def create
+    @share = Share.new(:image => 'http://imgsrc.baidu.com/forum/pic/item/63540160f64beaaab211c7a5.jpg?v=tbs')
+    @share.user = current_user
+    @share.parent_share_id = nil
+    @share.create_comment_by_sharer(params[:notes])
+
+
+
+    if @share.save
+      respond_to do |format|
+        format.html {redirect_to dashboard_user_path(current_user)}
+        format.json
+      end
+    else
+      respond_to do |format|
+        format.json {render :json => '保存失败'}
+      end
+    end
+
   end
 
   # GET /shares/1/update_attr

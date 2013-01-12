@@ -82,7 +82,15 @@
                 </div>
             </div>
 
+<div class="collect-panel">
+                <%= form_tag notes_path, :style => "margin: 0px;", :id => "make_note_form" do %>
+                <h4>随手记录下你的心愿商品</h4>
+                <%= text_field_tag :note, nil, :autocomplete => 'off', :class => 'input-large collect-input', placeholder: "iphone5, galaxy note" %>
+              <%= submit_tag "记录"%>
+  <% end %>
+                </div>
 
+            </div>
         </div>
         
         <div id="overlay-detail" style="display:none;"></div>

@@ -29,6 +29,7 @@ class User
   field :city, type: String
   field :address, type: String
 
+
   EMAIL_REGEXP = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
 
   # relations
@@ -44,6 +45,7 @@ class User
   accepts_nested_attributes_for :accounts
   has_many :shares
   has_many :choices
+  has_many :notes
 
   # index
   index :nick_name, unique: true , :message => "用户名已存在"
@@ -80,6 +82,18 @@ class User
 
   def my_wishes(page, per_page = 8)
     self.shares.recent_by_type(Share::TYPE_WISH).paginate(:page => page, :per_page => per_page)
+  end
+
+  def my_notes(page , per_page=8)
+    self.notes.desc(:created_at).paginate(:page => page, :per_page => per_page)
+  end
+
+  def my_wishes_notes(page, per_page = 8)
+    binding.pry
+    my_wishes = self.shares.desc(:created_at).limit(16)
+    my_notes = self.notes.desc(:created_at).limit(16)
+    my_wishes_and_notes = my_wishes + my_notes
+    my_wishes_and_notes.paginate(:page => page, :per_page => per_page)
   end
 
   def my_bags(page, per_page = 8)

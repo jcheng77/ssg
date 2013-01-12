@@ -100,7 +100,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  
 
   def search_amazon
    @items = Item.search_on_amazon(params[:url])
@@ -222,12 +221,10 @@ class ItemsController < ApplicationController
     share_comment = share.nil? ? params[:share][:comment].to_s : ""
     share_type =
         if type.nil?
-          if params[:add_to_wish]
-            Share::TYPE_WISH
-          elsif params[:add_to_bought]
+          if params[:add_to_bought]
             Share::TYPE_BAG
           else
-            Share::TYPE_SHARE
+            Share::TYPE_WISH
           end
         else
           type
@@ -271,4 +268,5 @@ class ItemsController < ApplicationController
 
     return true
   end
+
 end

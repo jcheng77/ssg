@@ -11,18 +11,15 @@ class Share
   TYPE_SHARE = 'SHA'
   TYPE_BAG = 'BAG'
   TYPE_WISH = 'WIS'
+  TYPE_NOTE = 'NOT'
 
   VISIBLE_TO_SELF = 'P'
 
   WISH_TAGS = ["生日礼物", "情人节", "光棍节", "圣诞礼物", "新年礼物","婚礼礼品", "节日礼品", "想送就送"]
 
   field :price, type: Float # price when user purchase the item
-  field :product_rating, type: Integer # 1-5
-  field :service_rating, type: Integer # 1-5
-  field :images, type: Array # string[], url of images
+  field :images, type: String
   field :visibility, type: Array # when it's private, visibility=PRIVATE; when it's a public collection, visibility=nil; it also can be a group name that user set up
-  field :anonymous, type: Boolean # false: named; true: anounymous
-  field :verified, type: Boolean # has this purchase been verified? false:no, true:yes
   field :parent_share_id, type: BSON::ObjectId, default: nil
   field :share_type, type: String, default: TYPE_SHARE
   field :last_inform_price, type: Float
@@ -108,7 +105,7 @@ class Share
   end
 
   def update_item_rating
-    item.delay.update_rating
+    item.delay.update_rating unless item.nil?
   end
 
   def dummy_comment

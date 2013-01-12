@@ -15,8 +15,6 @@ class NotificationObserver < Mongoid::Observer
       if object.is_public?
       notify_objects = object.user.followers_by_type(User.name)
       type = case object.share_type
-               when Share::TYPE_SHARE then
-                 Notification::TYPE_SHARE
                when Share::TYPE_WISH then
                  Notification::TYPE_WISH
                when Share::TYPE_BAG then

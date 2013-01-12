@@ -1,4 +1,6 @@
 Ssg::Application.routes.draw do
+  resources :notes
+
   root :to => 'home#index'
 
   resources :items do
@@ -12,6 +14,7 @@ Ssg::Application.routes.draw do
       get 'tagged'
       get 'search'
       get 'search_amazon'
+      post 'make_note'
       post 'collect'
     end
   end
@@ -62,6 +65,10 @@ Ssg::Application.routes.draw do
       post 'add_to_wish'
       post 'add_to_bag'
       get 'shared_by_me'
+    end
+
+    collection do
+      post 'make_note'
     end
   end
 

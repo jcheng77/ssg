@@ -1,0 +1,25 @@
+<% payment_service_for 'payment code', ActiveMerchant::Billing::Integrations::Alipay::ACCOUNT,
+                            :service => :alipay,
+                                                        :html => { :id => 'payment-form', :method => :get } do |service| %>
+<% service.charset "utf-8" %>
+                                                          <% service.discount -0.01 %>
+                                                            <% service.price 0.01 %>
+                                                              <% service.quantity 2 %>
+                                                                <% service.seller :email => ActiveMerchant::Billing::Integrations::Alipay::EMAIL %>
+                                                                    <% service.notify_url url_for(:only_path => false, :action => 'notify') %>
+                                                                      <% service.return_url url_for(:only_path => false, :action => 'done') %>
+                                                                        <% service.show_url url_for(:only_path => false, :action => 'show') %>
+                                                                          <% service.body 'payment body' %>
+                                                                              <% service.service ActiveMerchant::Billing::Integrations::Alipay::Helper::CREATE_PARTNER_TRADE_BY_BUYER %>
+                                                                                <% service.payment_type 1 %>
+                                                                                  <% service.subject 'paymentsubject' %>
+                                                                                    <% service.agent ActiveMerchant::Billing::Integrations::Alipay::ACCOUNT %>
+                                                                                      <% service.logistics :type => 'EXPRESS', :fee => 0.10, :payment => 'BUYER_PAY' %>
+                                                                                        <% service.receive :name => 'hzm', :address => 'aaa1808', :zip => 'xxxxxx', :phone => 'xxxxxxxxxxx', :mobile => 'xxxxxxxxxxx' %>
+                                                                                          <% service.sign %>
+                                                                                          <%binding.pry%>
+                                                                                        <% end %>
+                                                                                        <%= button_to_function "Submit", "document.getElementById('payment-form').firstChild.remove();document.getElementById('payment-form').submit()" %>
+
+
+

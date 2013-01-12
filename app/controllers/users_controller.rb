@@ -116,7 +116,8 @@ class UsersController < ApplicationController
   # GET /users/1/my_wishes
   def my_wishes
     @user = User.find(params[:id])
-    @shares = @user.my_wishes params[:page], 16
+    @shares = @user.my_wishes_notes params[:page], 16
+    #@shares = @user.my_wishes_notes params[:page], 16
 
     respond_to do |format|
       format.html { render action: :dashboard, layout: 'application' } # my_wishes.html.erb
