@@ -13,14 +13,10 @@
 2. [Tech stuff ] (https://github.com/jcheng77/ssg/wiki/Technology)
 
 
-##Task/Issue tracking page:
-1. https://trello.com/board/welcome-board/4f774a6d4d77eeed3cb08ff6
-
 ##Weekly status update / Meeting minutes
 1. 每周三
 1. 每周日
 
-https://www1.gotomeeting.com/join/440757264
 
 ## 电商与礼品卡的那点事
 1）支持佣金的商家
