@@ -46,7 +46,6 @@ module BookmarkletHelper
         search_item_on_etao unless succeed?
         #process_unknown_sites unless succeed?
         #get_category_from_etao_for_non_amazon_item
-        binding.pry
         determine_category
       rescue => ex
         Rails.logger.error ex
@@ -253,7 +252,6 @@ module BookmarkletHelper
          cate = SOURCE_CATEGORY_ARRAY.select { |arr| arr.index(@category.strip) || arr.join.match(@category.strip) || partial_match_predefined_category_dictionary(arr,@category) }.first
          #@category = ( CAT_MAP.select { |k,v| cate == k }.values.first || @category )
          @category = ( CAT_MAP.select { |k,v| cate == k }.values.first )
-         binding.pry
          CATEGORIES.include?(@category) ? @category : '创意礼品'
     end
 
